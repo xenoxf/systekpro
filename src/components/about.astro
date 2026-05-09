@@ -1,0 +1,44 @@
+---
+// abecedario
+// a b c d e f g h i j k l m n o p q r s t u v w x y z
+import Button from "./starwind/button"
+---
+
+<div class="container-about">
+    <div class="about-text">
+        <h2>¿quines somos?</h2>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
+            perspiciatis in praesentium cumque voluptatum deleniti veniam sunt
+            ad dolorem maiores harum recusandae quasi natus ducimus amet
+            tenetur, accusamus quam modi!
+        </p>
+        <Button>Hole</Button>
+    </div>
+</div>
+
+<style is:global>
+    
+    .container-about {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 40px;
+        max-width: 800px;
+        height: 100vh;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .container-about h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: hsl(var(--primary));
+    }
+
+    .container-about p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: hsl(var(--foreground));
+    }
+</style>

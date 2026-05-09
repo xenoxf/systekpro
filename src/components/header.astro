@@ -1,0 +1,97 @@
+---
+import  Button from "./starwind/button/Button.astro";
+---
+
+
+<header class="header">
+    <div class="logo-container">
+        <div class="logo"></div>
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Servicios</a></li>
+            <li><a href="#">Proyectos</a></li>
+        </ul>
+    </nav>
+    <div class="botones-header">
+      <Button>Solicitar servicio</Button>
+    </div>
+</header>
+
+<style is:global>
+
+    header {        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+        position: fixed;
+        padding: 15px 40px;
+        width: 100%;
+    }
+    
+    .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-shrink: 0;
+    }
+    
+    .logo {
+        width: 70px;
+        height: 30px;
+        background-color: hsl(var(--primary));
+        border-radius: 5px;
+    }
+    
+    .nav {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .nav ul {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+    }
+    
+    .nav ul li a {
+        text-decoration: none;
+        color: hsl(var(--foreground));
+        font-weight: 600;
+        padding: 5px;
+        transition: color 0.3s ease;
+    }
+    .nav ul li {
+        padding: 3px 6px;
+        border: 2px solid hsl(var(--border));
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    .nav ul li:hover {
+        background-color: hsl(var(--muted));
+        border-color: hsl(var(--muted));
+    }
+    
+    .botones-header {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .contato, .solicitar-servicio {
+        padding: 4px 10px;
+        background-color: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        border: none;
+        border-radius: 9px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .contato:hover, .solicitar-servicio:hover {
+        transform: translateY(-3px);
+    }
+
+</style>
