@@ -1,97 +1,81 @@
 ---
-import  Button from "./starwind/button/Button.astro";
+import HeaderButton from "./react/HeaderButton";
 ---
 
-
-<header class="header">
-    <div class="logo-container">
-        <div class="logo"></div>
-    </div>
-    <nav class="nav">
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Servicios</a></li>
-            <li><a href="#">Proyectos</a></li>
-        </ul>
-    </nav>
-    <div class="botones-header">
-      <Button>Solicitar servicio</Button>
+<header class="main-header">
+    <div class="header-container">
+        <div class="logo">Sistek Pro</div>
+        <nav class="nav-menu">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+        </nav>
+        <div class="header-actions">
+            <HeaderButton client:load />
+        </div>
     </div>
 </header>
 
-<style is:global>
+<style>
+    .main-header {
+        z-index: 100;
+        background:transparent;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid hsl(var(--border));
+        padding: 1rem 0;
+    }
 
-    header {        display: flex;
+    .header-container {
+        display: flex;
         justify-content: space-between;
         align-items: center;
-        background: transparent;
-        position: fixed;
-        padding: 15px 40px;
-        width: 100%;
-    }
-    
-    .logo-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        flex-shrink: 0;
-    }
-    
-    .logo {
-        width: 70px;
-        height: 30px;
-        background-color: hsl(var(--primary));
-        border-radius: 5px;
-    }
-    
-    .nav {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-    }
-    
-    .nav ul {
-        list-style: none;
-        display: flex;
-        gap: 30px;
-    }
-    
-    .nav ul li a {
-        text-decoration: none;
-        color: hsl(var(--foreground));
-        font-weight: 600;
-        padding: 5px;
-        transition: color 0.3s ease;
-    }
-    .nav ul li {
-        padding: 3px 6px;
-        border: 2px solid hsl(var(--border));
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
-    .nav ul li:hover {
-        background-color: hsl(var(--muted));
-        border-color: hsl(var(--muted));
-    }
-    
-    .botones-header {
-        display: flex;
-        gap: 15px;
-    }
-    
-    .contato, .solicitar-servicio {
-        padding: 4px 10px;
-        background-color: hsl(var(--primary));
-        color: hsl(var(--primary-foreground));
-        border: none;
-        border-radius: 9px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-    
-    .contato:hover, .solicitar-servicio:hover {
-        transform: translateY(-3px);
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
     }
 
+    .logo {
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: hsl(var(--foreground));
+    }
+
+    .nav-menu {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .nav-menu a {
+        text-decoration: none;
+        color: hsl(var(--muted-foreground));
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color var(--transition-fast);
+    }
+
+    .nav-menu a:hover {
+        color: hsl(var(--foreground));
+    }
+
+    /* El botón dentro de HeaderButton debe tener esta clase */
+    :global(.btn-primary) {
+        background-color: hsl(var(--foreground));
+        color: hsl(var(--background));
+        padding: 0.5rem 1.25rem;
+        border-radius: var(--radius);
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: transform var(--transition-fast);
+    }
+
+    :global(.btn-primary:hover) {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+    }
 </style>

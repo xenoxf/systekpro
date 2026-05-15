@@ -1,33 +1,43 @@
 ---
 import "@/styles/starwind.css";
+import Toaster from "@/components/starwind/toast/Toaster.astro";
 ---
 
 <!doctype html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Sistek Pro</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+        <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+                <link rel="icon" href="/favicon.ico" />
+                <meta name="generator" content={Astro.generator} />
+                <title>Sistek Pro</title>
+        </head>
+        <body>
+                <slot />
+                <Toaster position="top-right" />
+        </body>
 </html>
 
 <style is:global>
-	
-	html,
-	body {
+	* {
 		margin: 0;
 		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html,
+	body {
 		width: 100%;
-		height: auto;
-		overflow-x: hidden;
 		font-family: system-ui, -apple-system, sans-serif;
 		background-color: hsl(var(--background));
 		color: hsl(var(--foreground));
+		line-height: 1.5;
 	}
+
+    .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+    }
 </style>
