@@ -13,6 +13,7 @@
   position: absolute;
   inset: 0;
   background: hsl(var(--background));
+  z-index: -1;
 }
 
 .servicios-grid {
@@ -40,6 +41,7 @@
   background: hsl(var(--card) / 0.5);
   box-shadow: 0 4px 24px -4px hsl(var(--primary) / 0.06), 0 1px 4px -1px hsl(var(--primary) / 0.04);
   transition: all 0.3s ease;
+  color: hsl(var(--foreground));
 }
 
 .service-card:hover {
@@ -72,6 +74,7 @@
 .service-card:hover .service-card-icon.primary {
   background: hsl(var(--primary) / 0.2);
   box-shadow: 0 0 24px hsl(var(--primary) / 0.15);
+  color: hsl(var(--foreground));
 }
 
 .service-card:hover .service-card-icon.accent {
@@ -85,21 +88,22 @@
 }
 
 .service-card-icon.primary svg {
-  color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 
 .service-card-icon.accent svg {
-  color: hsl(var(--accent));
+  color: hsl(var(--foreground));
 }
 
 .service-card-title {
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: hsl(var(--foreground));
 }
 
 .service-card-desc {
   font-size: 0.875rem;
-  color: hsl(var(--muted-foreground));
+  color: hsl(var(--foreground));
   line-height: 1.625;
 }

@@ -11,7 +11,6 @@
   position: absolute;
   inset: 0;
   opacity: 0.4;
-  background-size: 60px 60px;
   border: 2px solid beige;
 }
 
@@ -160,7 +159,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.875rem;
-  color: white;
+  color: hsl(var(--foreground));
 }
 
 .hero-feature svg {
@@ -168,7 +167,6 @@
   height: 1.25rem;
 }
 
-/*
 .hero-feature .text-primary {
   color: hsl(var(--primary));
 }
@@ -179,7 +177,7 @@
 
 .hero-feature .text-success {
   color: hsl(var(--success));
-}*/
+}
 
 .hero-visual {
   display: none;
@@ -249,5 +247,4 @@
   left: 0;
   right: 0;
   height: 8rem;
-  background: linear-gradient(to top, hsl(var(--background)), transparent);
 }
