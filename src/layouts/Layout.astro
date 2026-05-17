@@ -10,6 +10,61 @@ import "@/styles/faq.css";
 import "@/styles/cta.css";
 import "@/styles/contact.css";
 import "@/styles/footer.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title = "Sistek - Infraestructura TI & Redes en Cali",
+  description = "Sistek - Mantenimiento de computadores, instalación de redes empresariales, cableado estructurado y soporte técnico en Cali, Colombia.",
+  image = "/og-image.jpg",
+  canonical = Astro.url.href
+} = Astro.props;
+
+const siteUrl = "https://sistek.com.co";
+const fullImage = image.startsWith("http") ? image : `${siteUrl}${image}`;
+const fullCanonical = canonical.startsWith("http") ? canonical : `${siteUrl}${canonical}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Sistek",
+  "image": fullImage,
+  "description": description,
+  "url": siteUrl,
+  "telephone": "+571234513541",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Calle 41, Cra 31 #00",
+    "addressLocality": "Cali",
+    "addressRegion": "Valle del Cauca",
+    "addressCountry": "CO"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "3.4516",
+    "longitude": "-76.5320"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "08:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "09:00",
+      "closes": "13:00"
+    }
+  ],
+  "priceRange": "$$"
+};
 ---
 
 <!doctype html>
@@ -20,17 +75,51 @@ import "@/styles/footer.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content="Sistek - Mantenimiento de computadores, instalación de redes empresariales, cableado estructurado y soporte técnico en Cali, Colombia." />
-    <meta name="keywords" content="mantenimiento computadores, instalación redes, cableado estructurado, soporte TI, sistek, Cali, Colombia" />
+    
+    <!-- SEO Core -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="mantenimiento computadores, instalación redes, cableado estructurado, soporte TI, sistek, Cali, Colombia, redes empresariales, wifi empresarial" />
     <meta name="author" content="Sistek" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href={fullCanonical} />
+    
+    <!-- Google Verification -->
+    <meta name="google-site-verification" content="u21MloJB0oNbsrAsWjk7dL7AOIEGC6-c_2DBKKULVBo" />
+    
+    <!-- Theme -->
     <meta name="theme-color" id="theme-color" content="#0B1121" />
-    <meta property="og:title" content="Sistek - Infraestructura TI & Redes Empresariales en Cali" />
-    <meta property="og:description" content="Mantenimiento de equipos, instalación de redes y cableado estructurado en Cali, Colombia." />
+    <meta name="msapplication-TileColor" content="#0B1121" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={fullCanonical} />
+    <meta property="og:image" content={fullImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Sistek" />
+    <meta property="og:locale" content="es_CO" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullImage} />
+    
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <title>Sistek - Infraestructura TI & Redes en Cali</title>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    
     <script>
       (function() {
         var theme = localStorage.getItem('theme');
