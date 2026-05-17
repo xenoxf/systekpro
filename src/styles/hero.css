@@ -116,11 +116,15 @@
   align-items: center;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .hero-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 3rem;
   }
+}
+
+@media (min-width: 1024px) {
+  .hero-grid { gap: 4rem; }
 }
 
 .hero-text {
@@ -292,7 +296,7 @@
   display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .hero-visual {
     display: flex;
     align-items: center;

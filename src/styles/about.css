@@ -19,13 +19,15 @@
   align-items: center;
 }
 
-@media (min-width: 768px) { .about-grid { gap: 3rem; } }
-
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .about-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 3rem;
   }
+}
+
+@media (min-width: 1024px) {
+  .about-grid { gap: 4rem; }
 }
 
 .about-content {
