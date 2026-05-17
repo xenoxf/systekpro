@@ -1,0 +1,72 @@
+---
+import { IconArrowRight, IconWifi, IconHeadset, IconNetwork } from '@tabler/icons-react';
+---
+
+<section id="inicio">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-gradient"></div>
+  <div class="hero-blob hero-blob-1 animate-float"></div>
+  <div class="hero-blob hero-blob-2 animate-float"></div>
+  <div class="hero-blob hero-blob-3 animate-float"></div>
+
+  <div class="hero-content container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="hero-badge-dot animate-pulse"></span>
+          Soporte técnico profesional en Cali
+        </div>
+
+        <h1 class="hero-title">
+          Tu socio en<br />
+          <span class="gradient-text">infraestructura TI</span>
+        </h1>
+
+        <p class="hero-desc">
+          Mantenimiento de equipos, instalación de redes y cableado estructurado en Cali, Colombia. Soluciones tecnológicas profesionales para tu empresa o institución educativa.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contacto" class="btn-primary glow">
+            Solicitar cotización
+            <IconArrowRight />
+          </a>
+          <a href="#servicios" class="btn-secondary">
+            Ver servicios
+          </a>
+        </div>
+
+        <div class="hero-features">
+          <div class="hero-feature">
+            <IconWifi className="text-primary" />
+            <span>Redes empresariales</span>
+          </div>
+          <div class="hero-feature">
+            <IconHeadset className="text-accent" />
+            <span>Soporte técnico</span>
+          </div>
+          <div class="hero-feature">
+            <IconNetwork className="text-success" />
+            <span>Cableado estructurado</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-visual-inner">
+          <div class="hero-visual-box">
+            <div class="hero-dot-grid">
+              {[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35].map(i => (
+                <div class="hero-dot-cell">
+                  <div class="hero-dot" style={`animation-delay: ${i * 0.1}s`}></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-fade-bottom"></div>
+</section>

@@ -1,0 +1,63 @@
+#faq {
+  position: relative; padding: 5rem 0;
+}
+@media (min-width: 1024px) { #faq { padding: 7rem 0; } }
+.faq-container {
+  max-width: 48rem; margin: 0 auto; padding: 0 1.5rem;
+}
+
+.faq-section-badge {
+  display: inline-block; padding: 0.375rem 1rem; border-radius: 9999px;
+  border: 1px solid hsl(var(--primary) / 0.2);
+  background: hsl(var(--primary) / 0.05);
+  color: hsl(var(--primary));
+  font-size: 0.875rem; font-weight: 500; margin-bottom: 1rem;
+}
+.faq-section-title {
+  font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.025em;
+}
+@media (min-width: 640px) { .faq-section-title { font-size: 2.25rem; } }
+@media (min-width: 1024px) { .faq-section-title { font-size: 3rem; } }
+.faq-section-desc { font-size: 1.125rem; color: hsl(var(--muted-foreground)); }
+
+.faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.faq-item {
+  border-radius: var(--radius-xl);
+  border: 1px solid hsl(var(--border) / 0.5);
+  background: hsl(var(--card) / 0.4);
+  box-shadow: 0 2px 12px -2px hsl(var(--primary) / 0.04);
+  transition: all 0.2s; cursor: pointer;
+}
+.faq-item:hover { background: hsl(var(--card) / 0.6); border-color: hsl(var(--border) / 0.7); }
+.faq-item.open { border-color: hsl(var(--primary) / 0.4); background: hsl(var(--card) / 0.75); box-shadow: 0 4px 20px -4px hsl(var(--primary) / 0.08); }
+
+.faq-question {
+  display: flex; align-items: center; justify-content: space-between; padding: 1.25rem;
+}
+.faq-question-text {
+  font-size: 0.875rem; font-weight: 500; padding-right: 1rem;
+}
+@media (min-width: 640px) { .faq-question-text { font-size: 1rem; } }
+
+.faq-icon {
+  width: 1.25rem; height: 1.25rem; flex-shrink: 0;
+  color: hsl(var(--muted-foreground));
+  transition: all 0.2s;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(180deg);
+  color: hsl(var(--primary));
+}
+
+.faq-answer {
+  overflow: hidden; transition: all 0.2s;
+  max-height: 0; opacity: 0;
+}
+.faq-item.open .faq-answer {
+  max-height: 24rem; opacity: 1;
+}
+.faq-answer-text {
+  padding: 0 1.25rem 1.25rem;
+  font-size: 0.875rem; color: hsl(var(--muted-foreground)); line-height: 1.625;
+}

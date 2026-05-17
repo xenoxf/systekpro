@@ -1,0 +1,69 @@
+#proceso {
+  position: relative; padding: 5rem 0;
+}
+@media (min-width: 1024px) { #proceso { padding: 7rem 0; } }
+
+.process-line {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .process-line {
+    display: block; position: absolute;
+    top: 6rem; left: calc(16.667% + 1.5rem); right: calc(16.667% + 1.5rem);
+    height: 0.125rem;
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)));
+    opacity: 0.4;
+  }
+}
+
+.process-grid {
+  display: grid; gap: 2rem;
+}
+@media (min-width: 640px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .process-grid { grid-template-columns: repeat(5, 1fr); gap: 1.5rem; } }
+
+.process-step { position: relative; text-align: center; }
+.process-step-icon {
+  width: 4rem; height: 4rem; margin: 0 auto 1rem;
+  border-radius: var(--radius-2xl);
+  border: 1px solid;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px hsl(var(--primary) / 0.06);
+}
+.process-step-icon.primary {
+  background: hsl(var(--primary) / 0.12); border-color: hsl(var(--primary) / 0.25);
+}
+.process-step-icon.accent {
+  background: hsl(var(--accent) / 0.12); border-color: hsl(var(--accent) / 0.25);
+}
+.process-step:hover .process-step-icon.primary {
+  background: hsl(var(--primary) / 0.2); border-color: hsl(var(--primary) / 0.4);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 8px 24px hsl(var(--primary) / 0.15);
+}
+.process-step:hover .process-step-icon.accent {
+  background: hsl(var(--accent) / 0.2); border-color: hsl(var(--accent) / 0.4);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 8px 24px hsl(var(--accent) / 0.15);
+}
+.process-step-icon svg { width: 1.75rem; height: 1.75rem; }
+.process-step-icon.primary svg { color: hsl(var(--primary)); }
+.process-step-icon.accent svg { color: hsl(var(--accent)); }
+
+.process-step-number {
+  position: absolute; top: -0.5rem; left: 50%; transform: translateX(-50%);
+  width: 2rem; height: 2rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.875rem; font-weight: 700;
+}
+.process-step-number.primary {
+  background: hsl(var(--primary) / 0.15); border: 1px solid hsl(var(--primary) / 0.3);
+  color: hsl(var(--primary));
+}
+.process-step-number.accent {
+  background: hsl(var(--accent) / 0.15); border: 1px solid hsl(var(--accent) / 0.3);
+  color: hsl(var(--accent));
+}
+.process-step-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+.process-step-desc { font-size: 0.875rem; color: hsl(var(--muted-foreground)); }

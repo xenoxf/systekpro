@@ -1,43 +1,48 @@
 ---
-import "@/styles/starwind.css";
-import Toaster from "@/components/starwind/toast/Toaster.astro";
+import "@/styles/base.css";
+import "@/styles/navbar.css";
+import "@/styles/hero.css";
+import "@/styles/about.css";
+import "@/styles/services.css";
+import "@/styles/process.css";
+import "@/styles/benefits.css";
+import "@/styles/faq.css";
+import "@/styles/cta.css";
+import "@/styles/contact.css";
+import "@/styles/footer.css";
 ---
 
 <!doctype html>
 <html lang="es">
-        <head>
-                <meta charset="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-                <link rel="icon" href="/favicon.ico" />
-                <meta name="generator" content={Astro.generator} />
-                <title>Sistek Pro</title>
-        </head>
-        <body>
-                <slot />
-                <Toaster position="top-right" />
-        </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content="Sistek - Mantenimiento de computadores, instalación de redes empresariales, cableado estructurado y soporte técnico en Cali, Colombia." />
+    <meta name="keywords" content="mantenimiento computadores, instalación redes, cableado estructurado, soporte TI, sistek, Cali, Colombia" />
+    <meta name="author" content="Sistek" />
+    <meta name="theme-color" id="theme-color" content="#0B1121" />
+    <meta property="og:title" content="Sistek - Infraestructura TI & Redes Empresariales en Cali" />
+    <meta property="og:description" content="Mantenimiento de equipos, instalación de redes y cableado estructurado en Cali, Colombia." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <title>Sistek - Infraestructura TI & Redes en Cali</title>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme');
+        var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        if (theme === 'light' || (!theme && prefersLight)) {
+          document.documentElement.classList.add('light');
+          document.getElementById('theme-color').content = '#FFFFFF';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
-
-<style is:global>
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-
-	html,
-	body {
-		width: 100%;
-		font-family: system-ui, -apple-system, sans-serif;
-		background-color: hsl(var(--background));
-		color: hsl(var(--foreground));
-		line-height: 1.5;
-	}
-
-    .main-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 var(--spacing-md);
-    }
-</style>

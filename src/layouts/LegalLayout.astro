@@ -1,0 +1,196 @@
+---
+import "@/styles/base.css";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{Astro.props.title || 'Sistek'}</title>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme');
+        var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        if (theme === 'light' || (!theme && prefersLight)) {
+          document.documentElement.classList.add('light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #ffffff;
+    --bg-card: #f8fafc;
+    --text: #0f172a;
+    --text-secondary: #475569;
+    --border: #e2e8f0;
+    --primary: #2563eb;
+    --accent: #0891b2;
+    --muted: #f1f5f9;
+  }
+
+  html:not(.light) {
+    --bg: #0b1121;
+    --bg-card: #111b2e;
+    --text: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border: #1e293b;
+    --primary: #3b82f6;
+    --accent: #06b6d4;
+    --muted: #1e293b;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      --bg: #0b1121;
+      --bg-card: #111b2e;
+      --text: #f8fafc;
+      --text-secondary: #94a3b8;
+      --border: #1e293b;
+      --primary: #3b82f6;
+      --accent: #06b6d4;
+      --muted: #1e293b;
+    }
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+
+  .legal-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .legal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .legal-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  .legal-logo-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .legal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-date {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+  }
+
+  .legal-section {
+    margin-bottom: 2rem;
+  }
+
+  .legal-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--primary);
+  }
+
+  .legal-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .legal-section p {
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .legal-section ul {
+    margin: 0.5rem 0 1rem 1.5rem;
+    color: var(--text-secondary);
+  }
+
+  .legal-section li {
+    margin-bottom: 0.375rem;
+  }
+
+  .legal-section strong {
+    color: var(--text);
+  }
+
+  .legal-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    margin-top: 2rem;
+  }
+
+  .legal-back:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+</style>

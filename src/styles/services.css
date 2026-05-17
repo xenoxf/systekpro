@@ -1,0 +1,105 @@
+#servicios {
+  position: relative;
+  padding: 5rem 0;
+}
+
+@media (min-width: 1024px) {
+  #servicios {
+    padding: 7rem 0;
+  }
+}
+
+.servicios-bg {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--background));
+}
+
+.servicios-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .servicios-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .servicios-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.service-card {
+  display: block;
+  padding: 1.5rem;
+  border-radius: var(--radius-2xl);
+  border: 1px solid hsl(var(--border) / 0.55);
+  background: hsl(var(--card) / 0.5);
+  box-shadow: 0 4px 24px -4px hsl(var(--primary) / 0.06), 0 1px 4px -1px hsl(var(--primary) / 0.04);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  background: hsl(var(--card) / 0.75);
+  border-color: hsl(var(--primary) / 0.45);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 8px 32px -4px hsl(var(--primary) / 0.15), 0 2px 8px -2px hsl(var(--primary) / 0.1);
+}
+
+.service-card-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: all 0.3s;
+  box-shadow: 0 0 16px hsl(var(--primary) / 0.06);
+}
+
+.service-card-icon.primary {
+  background: hsl(var(--primary) / 0.12);
+}
+
+.service-card-icon.accent {
+  background: hsl(var(--accent) / 0.12);
+}
+
+.service-card:hover .service-card-icon.primary {
+  background: hsl(var(--primary) / 0.2);
+  box-shadow: 0 0 24px hsl(var(--primary) / 0.15);
+}
+
+.service-card:hover .service-card-icon.accent {
+  background: hsl(var(--accent) / 0.2);
+  box-shadow: 0 0 24px hsl(var(--accent) / 0.15);
+}
+
+.service-card-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.service-card-icon.primary svg {
+  color: hsl(var(--primary));
+}
+
+.service-card-icon.accent svg {
+  color: hsl(var(--accent));
+}
+
+.service-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.service-card-desc {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.625;
+}

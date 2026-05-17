@@ -1,0 +1,74 @@
+---
+import { IconMapPin, IconUsers, IconHeadset, IconDeviceLaptop } from '@tabler/icons-react';
+---
+
+<section id="about">
+  <div class="about-bg"></div>
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-content">
+        <span class="section-badge">Quiénes somos</span>
+        <h2 class="about-title">
+          Profesionales en soluciones TI desde <span class="gradient-text">Cali, Colombia</span>
+        </h2>
+        <p class="about-text">
+          En <strong>Sistek</strong> somos una empresa caleña dedicada a la instalación de redes, mantenimiento de equipos de cómputo y cableado estructurado. Ofrecemos soluciones tecnológicas profesionales con calidad, compromiso y atención personalizada.
+        </p>
+        <p class="about-text">
+          Trabajamos para que empresas, instituciones educativas y negocios en Cali y sus alrededores cuenten con la infraestructura tecnológica que necesitan para operar sin inconvenientes. Nos apasiona la tecnología y nos comprometemos con cada proyecto como si fuera el nuestro.
+        </p>
+        <div class="about-grid-2x2">
+          <div class="about-feature">
+            <IconMapPin class="about-feature-icon primary" />
+            <div>
+              <div class="about-feature-title">Cali, Colombia</div>
+              <div class="about-feature-desc">Servicio presencial en Cali y área metropolitana</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <IconUsers class="about-feature-icon accent" />
+            <div>
+              <div class="about-feature-title">Atención personalizada</div>
+              <div class="about-feature-desc">Cada cliente recibe un trato único y dedicado</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <IconHeadset class="about-feature-icon primary" />
+            <div>
+              <div class="about-feature-title">Soporte técnico</div>
+              <div class="about-feature-desc">Acompañamiento continuo en cada solución</div>
+            </div>
+          </div>
+          <div class="about-feature">
+            <IconDeviceLaptop class="about-feature-icon accent" />
+            <div>
+              <div class="about-feature-title">Equipo profesional</div>
+              <div class="about-feature-desc">Técnicos capacitados y en constante actualización</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-visual">
+        <div class="about-visual-box">
+          <div class="about-visual-grid">
+            {[1,2,3,4,5,6,7,8,9,10,11,12].map(i => (
+              <div class="about-visual-cell">
+                <IconDeviceLaptop />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="about-floating-card">
+          <div class="about-floating-icon">
+            <IconMapPin />
+          </div>
+          <div>
+            <div class="about-floating-title">Ubicados en Cali</div>
+            <div class="about-floating-sub">Valle del Cauca, Colombia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
