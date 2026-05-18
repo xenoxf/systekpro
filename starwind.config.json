@@ -1,0 +1,16 @@
+{
+  "$schema": "https://starwind.dev/config-schema.json",
+  "tailwind": {
+    "css": "src/styles/starwind.css",
+    "baseColor": "stone",
+    "cssVariables": true
+  },
+  "componentDir": "src/components",
+  "utilsDir": "src/lib/utils",
+  "components": [
+    {
+      "name": "toast",
+      "version": "1.0.1"
+    }
+  ]
+}
