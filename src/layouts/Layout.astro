@@ -125,7 +125,10 @@ const jsonLd = {
         var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
         if (theme === 'light' || (!theme && prefersLight)) {
           document.documentElement.classList.add('light');
-          document.getElementById('theme-color').content = '#FFFFFF';
+          var themeColorElement = document.getElementById('theme-color') as HTMLMetaElement;
+          if (themeColorElement) {
+            themeColorElement.content = '#FFFFFF';
+          }
         }
       })();
     </script>

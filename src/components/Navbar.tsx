@@ -90,16 +90,20 @@ export default function Navbar() {
             </a>
           </div>
 
-          <button
-            className="mobile-menu-btn"
-            onClick={toggleMenu}
-            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? <IconX className="mobile-menu-btn-icon" /> : <IconMenu2 className="mobile-menu-btn-icon" />}
-          </button>
+          <div className="mobile-menu-btns">
+            <ThemeToggle />
+            <button
+              className="mobile-menu-btn"
+              onClick={toggleMenu}
+              aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? <IconX className="mobile-menu-btn-icon" /> : <IconMenu2 className="mobile-menu-btn-icon" />}
+            </button>
+          </div>
         </div>
       </div>
+
 
       <div
         className={`mobile-menu-overlay${menuOpen ? ' active' : ''}`}
@@ -109,7 +113,9 @@ export default function Navbar() {
       <nav
         className={`mobile-menu${menuOpen ? ' active' : ''}`}
         aria-label="Navegación móvil"
+        onClick={(e) => e.stopPropagation()}
       >
+
         <div className="mobile-menu-inner">
           {navLinks.map(link => (
             <a key={link.href} href={link.href} onClick={handleLinkClick}>
