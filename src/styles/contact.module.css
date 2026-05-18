@@ -1,16 +1,16 @@
-#contacto {
+.contacto {
   position: relative;
   padding: 3rem 0;
 }
 
 @media (min-width: 768px) {
-  #contacto {
+  .contacto {
     padding: 4rem 0;
   }
 }
 
 @media (min-width: 1024px) {
-  #contacto {
+  .contacto {
     padding: 6rem 0;
   }
 }
