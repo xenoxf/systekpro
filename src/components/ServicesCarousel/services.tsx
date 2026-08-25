@@ -1,39 +1,137 @@
+import { useEffect, useState } from "react";
+import type { ComponentType } from "react";
 import { services } from "@/data/services";
-import { IconArrowBigRight, IconArrowLeft, IconArrowRight, IconChevronsDownLeft } from "@tabler/icons-react";
-import { useState } from "react"
-import type { Service } from "@/data/services";
+import {
+  IconArrowLeft,
+  IconArrowRight,
+  IconDeviceLaptop,
+  IconNetwork,
+  IconRouter,
+  IconWifi,
+  IconHeadset,
+  IconCpu,
+} from "@tabler/icons-react";
 
-// |
+const AUTOPLAY_DELAY = 6000;
+
+const icons: Record<string, ComponentType<{ className?: string }>> = {
+  IconDeviceLaptop,
+  IconNetwork,
+  IconRouter,
+  IconWifi,
+  IconHeadset,
+  IconCpu,
+};
+
+const pad = (n: number) => String(n).padStart(2, "0");
+
 export default function ServicesJ() {
-  const [count, setCount] = useState<number>(1);
-  const handleNext = () => {
-    setCount(count + 1);
-    if (services.length + 1 > count) setCount(1);
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const total = services.length;
+  const service = services[index];
+  const Icon = icons[service.icon] ?? IconNetwork;
 
-  }
-  const handlePrevius = () => {
-    setCount(count - 1);
-    if (count < 1) setCount(services.length + 1)
-  }
+  const goTo = (i: number) => setIndex(((i % total) + total) % total);
+  const next = () => goTo(index + 1);
+  const prev = () => goTo(index - 1);
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = window.setInterval(() => {
+      setIndex((i) => (i + 1) % total);
+    }, AUTOPLAY_DELAY);
+    return () => window.clearInterval(timer);
+  }, [paused, total]);
 
   return (
-    <div>
-      <div className="container-service">
-        <div className="carrusel">
-          <button onClick={handlePrevius}>
-            <IconArrowLeft />
-          </button>
-          {services.filter((service) => service.id == count).map((servi) => (
-            <div className="service-card">
-              <h2>{servi.title}</h2>
-              <p>{servi.description}</p>
-            </div>
-          ))}
-          <button onClick={handleNext}><IconArrowRight /> </button>
+    <section className="services-carousel" aria-label="Servicios destacados">
+      <div className="scc-header">
+        <span className="scc-badge">Nuestros servicios</span>
+        <h2 className="scc-title">
+          Soluciones que <span className="gradient-text">marcan la diferencia</span>
+        </h2>
+        <p className="scc-desc">
+          Conoce cada una de las áreas en las que ayudamos a tu empresa a crecer con tecnología
+          confiable, segura y de alto rendimiento.
+        </p>
+      </div>
 
+      <div className="scc-track">
+        <button
+          type="button"
+          className="scc-arrow"
+          onClick={prev}
+          aria-label="Servicio anterior"
+        >
+          <IconArrowLeft />
+        </button>
+
+        <article
+          key={service.id}
+          className="scc-card"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          aria-roledescription="slide"
+          aria-label={`${index + 1} de ${total}: ${service.title}`}
+        >
+          <div
+            className="scc-media"
+            style={{ backgroundImage: `url(${service.image})` }}
+          >
+            <div
+              className="scc-media-grad"
+              style={{ background: service.gradient }}
+            ></div>
+            <div
+              className="scc-icon"
+              style={{ background: service.gradient }}
+              aria-hidden="true"
+            >
+              <Icon />
+            </div>
+          </div>
+
+          <div className="scc-body">
+            <span className="scc-eyebrow">
+              <span className="scc-number">{pad(service.id)}</span> Servicio destacado
+            </span>
+            <h3 className="scc-title">{service.title}</h3>
+            <p className="scc-desc">{service.description}</p>
+            <a href={service.ctaLink} className="scc-cta">
+              {service.ctaText}
+              <IconArrowRight />
+            </a>
+          </div>
+        </article>
+
+        <button
+          type="button"
+          className="scc-arrow"
+          onClick={next}
+          aria-label="Siguiente servicio"
+        >
+          <IconArrowRight />
+        </button>
+      </div>
+
+      <div className="scc-controls">
+        <span className="scc-counter">
+          <strong>{pad(index + 1)}</strong> / {pad(total)}
+        </span>
+        <div className="scc-dots" role="tablist" aria-label="Seleccionar servicio">
+          {services.map((s, i) => (
+            <button
+              key={s.id}
+              type="button"
+              className={`scc-dot${i === index ? " is-active" : ""}`}
+              onClick={() => goTo(i)}
+              aria-label={`Ir al servicio ${i + 1}: ${s.title}`}
+              aria-current={i === index}
+            />
+          ))}
         </div>
       </div>
-    </div>
-  )
+    </section>
+  );
 }
-

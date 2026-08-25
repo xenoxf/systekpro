@@ -1,26 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { IconSun, IconMoon } from '@tabler/icons-react';
 
+const THEME_EVENT = 'theme-change';
+
+function readStoredTheme(): boolean {
+  try {
+    return localStorage.getItem('theme') !== 'dark';
+  } catch {
+    return true;
+  }
+}
+
+function applyTheme(isLight: boolean) {
+  document.documentElement.classList.toggle('dark', !isLight);
+  try {
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  } catch {
+    /* noop */
+  }
+}
+
 export default function ThemeToggle() {
-  const [isLight, setIsLight] = useState(false);
+  const [isLight, setIsLight] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme');
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    setIsLight(stored === 'light' || (!stored && prefersLight));
+    const initial = readStoredTheme();
+    setIsLight(initial);
+    applyTheme(initial);
+
+    const sync = (e: Event) => {
+      setIsLight((e as CustomEvent<boolean>).detail);
+    };
+    window.addEventListener(THEME_EVENT, sync);
+    return () => window.removeEventListener(THEME_EVENT, sync);
   }, []);
 
   const toggle = () => {
     const next = !isLight;
-    document.documentElement.classList.toggle('light', next);
-    localStorage.setItem('theme', next ? 'light' : 'dark');
     setIsLight(next);
+    applyTheme(next);
+    window.dispatchEvent(new CustomEvent(THEME_EVENT, { detail: next }));
   };
 
   return (
     <button
       onClick={toggle}
-      aria-label={isLight ? 'Modo oscuro' : 'Modo claro'}
+      aria-label={isLight ? 'Activar modo oscuro' : 'Activar modo claro'}
       style={{
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
         width: '2.25rem', height: '2.25rem', borderRadius: '0.5rem',

@@ -216,31 +216,15 @@ const jsonLdBreadcrumbs = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebSite)} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdBreadcrumbs)} />
 
-    <!-- Analytics: Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
 
-    <script>
-      (function() {
-        var theme = localStorage.getItem('theme');
-        var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-        if (theme === 'light' || (!theme && prefersLight)) {
-          document.documentElement.classList.add('light');
-          var themeColorElement = document.getElementById('theme-color');
-          if (themeColorElement) {
-            themeColorElement.content = '#FFFFFF';
-          }
-        }
-      })();
-    </script>
   </head>
   <body>
     <slot />
     <Toaster position="bottom-right" duration={3000} />
+    <script
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/sienna-accessibility/dist/sienna-accessibility.umd.js"
+    async>
+  </script>
   </body>
 </html>

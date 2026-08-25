@@ -1,32 +1,166 @@
 ---
-
+import { IconArrowRight, IconCheck, IconHeadset, IconNetwork, IconDeviceLaptop } from '@tabler/icons-react';
 ---
 
-<div class="hero-j">
-  <h2 class="hero-desc">Mantenimiento de equipos, instalación de redes y cableado estructurado en Cali, Colombia. Soluciones tecnológicas profesionales para tu empresa o institución educativa.
-</h2>
+<section id="inicio" class="hero-j">
+    <img class="hero-j-bg" src="/wallpapers/claudel-rheault-ZVbv1akA-l4-unsplash.jpg" alt="logo">
+
+  <div class="hero-j-content container" >
+
+    <h1 class="hero-j-title">
+      <span class="gradient-text">infraestructura tecnológica</span>
+    </h1>
+
+    <p class="hero-j-desc">
+      Mantenimiento de equipos, instalación de redes y cableado estructurado en Cali, Colombia.
+      Soluciones tecnológicas profesionales para tu empresa o institución educativa.
+    </p>
 
 
-</div>
+  </div>
+
+  <div class="hero-j-fade"></div>
+</section>
 
 <style is:global>
   .hero-j {
-    height: 100vh;
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-image: url("pexels-connorscottmcmanus-13258030.jpg");
-    background-size:cover;
-    box-shadow: 0px 9px 78px whitesmoke;
+    overflow: hidden;
   }
-.hero-desc {
-  font-size: 1.3rem;
-  color: white;
-  max-width: 36rem;
-  line-height: 1.625;
-}
-  .hero-j-h2 {
-    color: hsl(var(--foreground));
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  .hero-j-bg {
+    position: absolute;
+    width: 100%;
+    inset: 0;
+   /* background-image: url("/pexels-connorscottmcmanus-13258030.jpg");*/
+    background-size: cover;
+    background-position: center;
+    animation: hero-zoom 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes hero-zoom {
+    from { transform: scale(1.02); }
+    to { transform: scale(1.1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-j-bg {
+      animation: none;
+    }
+  }
+
+  .hero-j-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60% 80% at 20% 20%, hsl(210 60% 30% / 0.38), transparent 60%),
+      linear-gradient(120deg, hsl(214 70% 12% / 0.82), hsl(213 64% 18% / 0.6));
+  }
+
+  .hero-j-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    border-radius: 30px;
+  }
+
+  .hero-j-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid hsl(0 0% 100% / 0.28);
+    background: hsl(0 0% 100% / 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    width: fit-content;
+  }
+
+  .hero-j-badge-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: hsl(160 84% 48%);
+    box-shadow: 0 0 10px hsl(160 84% 48% / 0.8);
+    animation: hero-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes hero-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero-j-title {
+    font-size: clamp(2.25rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: hsl(0 0% 100%);
+    text-wrap: balance;
+  }
+
+  .hero-j-desc {
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    color: hsl(0 0% 100% / 0.9);
+    max-width: 42rem;
+    line-height: 1.65;
+  }
+
+  .hero-j-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .hero-j-actions .btn-secondary {
+    border-color: hsl(0 0% 100% / 0.25);
+  }
+
+  .hero-j-features {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .hero-j-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: hsl(0 0% 100% / 0.9);
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .hero-j-features svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    color: hsl(160 84% 55%);
+    flex-shrink: 0;
+  }
+
+  .hero-j-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 8rem;
+    background: linear-gradient(to bottom, transparent, hsl(var(--background)));
+    z-index: 2;
+    pointer-events: none;
   }
 </style>
