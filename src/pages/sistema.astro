@@ -1,17 +1,20 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+import "@/styles/sistema.css"
+import SistemaApp from "@/components/sistema/SistemaApp"
 ---
 
-<Layout title="Sistema" description="Sistema de administración">
-  <div id="sistema"></div>
+<Layout title="Sistema | Sistek" description="Panel de administración de fichas técnicas y usuarios.">
+  <main id="main" tabindex="-1">
+    <h1 class="sr-only">Sistema</h1>
+    <div id="sistema">
+      <SistemaApp client:only="react" />
+    </div>
+  </main>
 </Layout>
 
 <script>
-  const stored = localStorage.getItem("sistek.session")
-  if (!stored) {
+  if (!localStorage.getItem("sistek.session")) {
     window.location.replace("/auth")
-  } else {
-    const { user } = JSON.parse(stored)
-    document.getElementById("sistema").textContent = `Hola ${user.role}`
   }
 </script>
