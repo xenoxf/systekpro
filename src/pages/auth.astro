@@ -4,7 +4,9 @@ import Auth from "@/components/auth.tsx"
 ---
 
 <Layout title="Ir al sistema" description="Pagina de administracion (solo personal autorizado)" >
-  <Auth client:visible />
+  <main id="main" tabindex="-1">
+    <Auth client:visible />
+  </main>
 </Layout>
 
 <style is:global>

@@ -1,3 +1,5 @@
+import { api } from "./api"
+
 export type AuthRole = "admin" | "mantenimiento"
 
 export interface AuthUser {
@@ -11,53 +13,22 @@ export interface AuthResponse {
   user: AuthUser
 }
 
-const API_URL: string = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3000"
-const SESSION_KEY = import.meta.env.API_KEY;
-
-async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const response = await fetch(`${API_URL}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-    ...options,
-  })
-
-  if (!response.ok) {
-    const body = await response.json().catch(() => null) as
-      | { message?: string | string[] }
-      | null
-    const message = Array.isArray(body?.message)
-      ? body!.message.join(", ")
-      : body?.message
-    throw new Error(message ?? "Error en la solicitud")
-  }
-
-  return response.json() as Promise<T>
-}
+export const SESSION_KEY = "sistek.session"
 
 export const authService = {
-  async login(name: string, password: string): Promise<AuthResponse> {
-    return request<AuthResponse>("/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ name, password }),
-    })
-  },
-
-  async register(name: string, password: string): Promise<AuthResponse> {
-    return request<AuthResponse>("/auth/register", {
-      method: "POST",
-      body: JSON.stringify({ name, password }),
-    })
+  login(name: string, password: string): Promise<AuthResponse> {
+    return api.post<AuthResponse>("/auth/login", { name, password }, false)
   },
 }
 
 export function getSession(): AuthResponse | null {
+  if (typeof window === "undefined") return null
   const raw = localStorage.getItem(SESSION_KEY)
   if (!raw) return null
   try {
     return JSON.parse(raw) as AuthResponse
   } catch {
+    localStorage.removeItem(SESSION_KEY)
     return null
   }
 }

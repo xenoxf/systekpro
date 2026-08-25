@@ -1,5 +1,6 @@
 import React, { type FormEvent, useState } from "react"
 import { authService, setSession } from "@/services/auth"
+import { isApiError } from "@/services/api"
 import { IconArrowLeft } from "@tabler/icons-react"
 
 export default function Auth() {
@@ -17,7 +18,9 @@ export default function Auth() {
       setSession(response)
       window.location.href = "/sistema"
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error al iniciar sesión")
+      if (isApiError(err) && err.statusCode === 401) setError("Credenciales inválidas")
+      else if (isApiError(err)) setError(err.message)
+      else setError("Error al iniciar sesión")
     } finally {
       setLoading(false)
     }
@@ -25,22 +28,47 @@ export default function Auth() {
 
   return (
     <div className="container-auth">
-      <a href="/" title="volver" className="back" ><IconArrowLeft size={36} /> </a>
+      <a href="/" className="back" aria-label="Volver al inicio">
+        <IconArrowLeft size={36} aria-hidden="true" />
+      </a>
       <div className="auth">
-        <h4>Iniciar sesion</h4>
+        <h1>Iniciar sesión</h1>
         <div className="container-form">
-          <form onSubmit={handleSubmit} className="form" >
+          <form onSubmit={handleSubmit} className="form">
             <div>
-              <label><input className="input-name" type="text" alt="Escribe tu nombre de usuario" placeholder="nombre de usuario" value={name} onChange={(e) => setName(e.target.value)} />
-              </label>
-              <label><input className="input-name" type="password" alt="Escribe tu nombre de usuario" placeholder="contraseña..." value={password} onChange={(e) => setPassword(e.target.value)} />
-              </label>
+              <label htmlFor="username" className="sr-only">Nombre de usuario</label>
+              <input
+                id="username"
+                className="input-name"
+                type="text"
+                placeholder="nombre de usuario"
+                autoComplete="username"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+
+              <label htmlFor="password" className="sr-only">Contraseña</label>
+              <input
+                id="password"
+                className="input-name"
+                type="password"
+                placeholder="contraseña..."
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
-            {error && <p className="auth-error">{error}</p>}
-            <button type="submit" disabled={loading}>{loading ? "Ingresando..." : "Iniciar sesion"}</button>
+            {error && (
+              <p className="auth-error" role="alert">
+                {error}
+              </p>
+            )}
+            <button type="submit" disabled={loading}>
+              {loading ? "Ingresando..." : "Iniciar sesión"}
+            </button>
           </form>
         </div>
-        <a href="/">No tengo una cuenta</a>
       </div>
-    </div>)
+    </div>
+  )
 }
