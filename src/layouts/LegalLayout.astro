@@ -39,7 +39,12 @@ const siteUrl = "https://sistek.com.co";
     </script>
   </head>
   <body>
-    <slot />
+    <nav aria-label="Accesibilidad" class="skip-nav">
+      <a href="#main" class="skip-link">Saltar al contenido principal</a>
+    </nav>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
   </body>
 </html>
 

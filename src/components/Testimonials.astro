@@ -10,10 +10,10 @@ import { IconStar } from '@tabler/icons-react';
       <p class="section-desc">Empresas e instituciones en Cali confían en Sistek para sus necesidades tecnológicas.</p>
     </div>
 
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <div class="testimonial-stars">
-          {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" />))}
+    <ul class="testimonials-grid">
+      <li class="testimonial-card">
+        <div class="testimonial-stars" role="img" aria-label="Valoración: 5 de 5 estrellas">
+          {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" aria-hidden="true" />))}
         </div>
         <blockquote class="testimonial-text">
           "Sistek instaló toda la red de nuestra oficina en 3 días. El cableado quedó impecable y la configuración de los switches funciona perfectamente. Muy profesionales."
@@ -25,11 +25,11 @@ import { IconStar } from '@tabler/icons-react';
             <div class="testimonial-role">Gerente, Logística del Valle</div>
           </div>
         </div>
-      </div>
+      </li>
 
-      <div class="testimonial-card">
-        <div class="testimonial-stars">
-          {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" />))}
+      <li class="testimonial-card">
+        <div class="testimonial-stars" role="img" aria-label="Valoración: 5 de 5 estrellas">
+          {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" aria-hidden="true" />))}
         </div>
         <blockquote class="testimonial-text">
           "Teníamos problemas de WiFi en todo el segundo piso. Sistek hizo el estudio de cobertura, instaló access points y ahora tenemos señal perfecta en toda la institución."
@@ -41,11 +41,11 @@ import { IconStar } from '@tabler/icons-react';
             <div class="testimonial-role">Rectora, Colegio San Fernando</div>
           </div>
         </div>
-      </div>
+      </li>
 
-      <div class="testimonial-card">
-        <div class="testimonial-stars">
-          {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" />))}
+      <li class="testimonial-card">
+        <div class="testimonial-stars" role="img" aria-label="Valoración: 5 de 5 estrellas">
+          {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" aria-hidden="true" />))}
         </div>
         <blockquote class="testimonial-text">
           "El mantenimiento preventivo que nos hacen cada mes ha reducido las fallas de nuestros equipos en un 80%. Excelente servicio y muy buena atención."
@@ -57,8 +57,8 @@ import { IconStar } from '@tabler/icons-react';
             <div class="testimonial-role">Director de Tecnología, Clínica del Norte</div>
           </div>
         </div>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -69,8 +69,12 @@ import { IconStar } from '@tabler/icons-react';
     display: grid;
     gap: 1.5rem;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
   .testimonial-card {
+    margin: 0;
     padding: 1.5rem;
     border-radius: var(--radius-2xl);
     border: 1px solid hsl(var(--border) / 0.5);

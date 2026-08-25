@@ -2,15 +2,17 @@
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 ---
 
-<a
-  href="https://wa.me/571234513541?text=Hola%20Sistek%2C%20necesito%20información%20sobre%20sus%20servicios"
-  class="whatsapp-float"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Contactar por WhatsApp"
->
-  <IconBrandWhatsapp size={28} />
-</a>
+<nav aria-label="Contacto rápido" class="whatsapp-float-nav">
+  <a
+    href="https://wa.me/571234513541?text=Hola%20Sistek%2C%20necesito%20información%20sobre%20sus%20servicios"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactar por WhatsApp"
+  >
+    <IconBrandWhatsapp size={28} aria-hidden="true" />
+  </a>
+</nav>
 
 <style>
   .whatsapp-float {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { IconMenu2, IconX } from '@tabler/icons-react';
 import ThemeToggle from './ThemeToggle';
 
@@ -13,6 +13,9 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
 
   const openMenu = () => {
     setMenuOpen(true);
@@ -56,8 +59,19 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (menuOpen) {
+      wasOpen.current = true;
+      const firstLink = menuRef.current?.querySelector<HTMLAnchorElement>('a');
+      firstLink?.focus();
+    } else if (wasOpen.current) {
+      wasOpen.current = false;
+      toggleRef.current?.focus();
+    }
+  }, [menuOpen]);
+
   return (
-    <header id="navbar" className={scrolled ? 'glass-strong' : ''} role="banner">
+    <header id="navbar" className={scrolled ? 'glass-strong' : ''}>
       <div className="nav-container">
         <div className="nav-inner">
           <a href="/" className="nav-logo" aria-label="Sistek Pro - Inicio">
@@ -75,11 +89,12 @@ export default function Navbar() {
 
           <div className="nav-actions">
             <ThemeToggle />
-            <a href="tel:+571234513541" className="nav-phone" aria-label="Llamar a Sistek">
+            <a href="tel:+571234513541" className="nav-phone" aria-label="Llamar a Sistek al +57 123 4513541">
               <span className="nav-phone-inner">
                 <svg className="nav-phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
+                <span className="sr-only">Teléfono:</span>
                 <span>+57 123 4513541</span>
               </span>
             </a>
@@ -91,13 +106,14 @@ export default function Navbar() {
           <div className="mobile-menu-btns">
             <ThemeToggle />
             <button
+              ref={toggleRef}
               className="mobile-menu-btn"
               onClick={toggleMenu}
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
             >
-              {menuOpen ? <IconX className="mobile-menu-btn-icon" /> : <IconMenu2 className="mobile-menu-btn-icon" />}
+              {menuOpen ? <IconX className="mobile-menu-btn-icon" aria-hidden="true" /> : <IconMenu2 className="mobile-menu-btn-icon" aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -111,6 +127,7 @@ export default function Navbar() {
 
       <nav
         id="mobile-menu"
+        ref={menuRef}
         className={`mobile-menu${menuOpen ? ' active' : ''}`}
         aria-label="Navegación móvil"
         onClick={(e) => e.stopPropagation()}

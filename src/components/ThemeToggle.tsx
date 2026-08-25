@@ -56,7 +56,7 @@ export default function ThemeToggle() {
       onMouseEnter={e => e.currentTarget.style.background = 'hsl(var(--muted))'}
       onMouseLeave={e => e.currentTarget.style.background = 'none'}
     >
-      {isLight ? <IconMoon size={18} /> : <IconSun size={18} />}
+      {isLight ? <IconMoon size={18} aria-hidden="true" /> : <IconSun size={18} aria-hidden="true" />}
     </button>
   );
 }

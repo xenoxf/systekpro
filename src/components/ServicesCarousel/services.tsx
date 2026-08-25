@@ -45,7 +45,7 @@ export default function ServicesJ() {
   }, [paused, total]);
 
   return (
-    <section className="services-carousel" aria-label="Servicios destacados">
+    <section id="servicios" className="services-carousel" aria-label="Servicios destacados">
       <div className="scc-header">
         <span className="scc-badge">Nuestros servicios</span>
         <h2 className="scc-title">
@@ -58,14 +58,14 @@ export default function ServicesJ() {
       </div>
 
       <div className="scc-track">
-        <button
-          type="button"
-          className="scc-arrow"
-          onClick={prev}
-          aria-label="Servicio anterior"
-        >
-          <IconArrowLeft />
-        </button>
+          <button
+            type="button"
+            className="scc-arrow"
+            onClick={prev}
+            aria-label="Servicio anterior"
+          >
+            <IconArrowLeft aria-hidden="true" />
+          </button>
 
         <article
           key={service.id}
@@ -105,33 +105,33 @@ export default function ServicesJ() {
           </div>
         </article>
 
-        <button
-          type="button"
-          className="scc-arrow"
-          onClick={next}
-          aria-label="Siguiente servicio"
-        >
-          <IconArrowRight />
-        </button>
+          <button
+            type="button"
+            className="scc-arrow"
+            onClick={next}
+            aria-label="Siguiente servicio"
+          >
+            <IconArrowRight aria-hidden="true" />
+          </button>
       </div>
 
-      <div className="scc-controls">
-        <span className="scc-counter">
-          <strong>{pad(index + 1)}</strong> / {pad(total)}
-        </span>
-        <div className="scc-dots" role="tablist" aria-label="Seleccionar servicio">
-          {services.map((s, i) => (
-            <button
-              key={s.id}
-              type="button"
-              className={`scc-dot${i === index ? " is-active" : ""}`}
-              onClick={() => goTo(i)}
-              aria-label={`Ir al servicio ${i + 1}: ${s.title}`}
-              aria-current={i === index}
-            />
-          ))}
+        <div className="scc-controls">
+          <span className="scc-counter" aria-hidden="true">
+            <strong>{pad(index + 1)}</strong> / {pad(total)}
+          </span>
+          <div className="scc-dots" role="group" aria-label="Seleccionar servicio">
+            {services.map((s, i) => (
+              <button
+                key={s.id}
+                type="button"
+                className={`scc-dot${i === index ? " is-active" : ""}`}
+                onClick={() => goTo(i)}
+                aria-label={`Ir al servicio ${i + 1}: ${s.title}`}
+                aria-current={i === index ? "true" : undefined}
+              />
+            ))}
+          </div>
         </div>
-      </div>
     </section>
   );
 }

@@ -27,7 +27,7 @@ const jsonLd = {
 
 <Layout title={`${post.title} | Blog Sistek`} description={post.description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  <main>
+  <main id="main" tabindex="-1">
     <article class="blog-article">
       <div class="container">
         <nav aria-label="Breadcrumb" class="breadcrumb">

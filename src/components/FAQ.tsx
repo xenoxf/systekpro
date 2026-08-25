@@ -69,7 +69,7 @@ export default function FAQ() {
             >
               <summary className="faq-question">
                 <span className="faq-question-text">{faq.q}</span>
-                <IconChevronDown className="faq-icon" />
+                <IconChevronDown className="faq-icon" aria-hidden="true" />
               </summary>
               <div className="faq-answer">
                 <p className="faq-answer-text">{faq.a}</p>

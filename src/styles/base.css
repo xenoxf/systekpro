@@ -36,7 +36,7 @@
   --card-foreground: 208 58% 16%;
 
   /* Botón principal */
-  --primary: 192 82% 48%;
+  --primary: 240, 100%, 50%;
   --primary-foreground: 0 0% 100%;
 
   /* Elementos secundarios */
@@ -554,4 +554,37 @@ textarea {
 
 .animate-slide-down {
   animation: slideDown 0.3s ease-out;
+}
+
+/* Visually hidden but available to assistive technology */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link: hidden until focused */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -4rem;
+  z-index: 2000;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-md, 0.75rem);
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
 }

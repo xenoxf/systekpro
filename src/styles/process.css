@@ -26,13 +26,16 @@
 .process-grid {
   display: grid;
   gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 @media (min-width: 480px) { .process-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; } }
 @media (min-width: 768px) { .process-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1024px) { .process-grid { grid-template-columns: repeat(5, 1fr); gap: 1.5rem; } }
 
-.process-step { position: relative; text-align: center; }
+.process-step { position: relative; text-align: center; margin: 0; }
 
 .process-step-icon {
   width: 3rem;

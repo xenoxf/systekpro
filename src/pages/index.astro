@@ -17,17 +17,16 @@ import ServicesJ from "@/components/ServicesCarousel/services";
 
 <Layout>
     <Navbar client:visible />
-    <Heroj />
-    <div class="body-visible">
-      
+    <main id="main" tabindex="-1">
+      <Heroj />
       <ServicesJ client:load />
-        <Process />
-        <Benefits />
-        <FAQ client:visible />
-        <CTA />
-        <Contact client:visible />
-        <Footer />
-        <WhatsAppFloat />
-    </div>
+      <Process />
+      <Benefits />
+      <FAQ client:visible />
+      <CTA />
+      <Contact client:visible />
+    </main>
+    <Footer />
+    <WhatsAppFloat />
 </Layout>
 

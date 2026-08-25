@@ -4,9 +4,10 @@ import {
   IconMapPin,
   IconClock,
   IconSend
-} from '@tabler/icons-react'
+} from "@tabler/icons-react"
 
 import styles from '../styles/contact.module.css'
+import { useState, type FormEvent } from "react"
 
 type FormData = {
   nombre: string
@@ -16,48 +17,79 @@ type FormData = {
   message: string
 }
 
+type Errors = Partial<Record<keyof FormData, string>>
+
 function Contact() {
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const [errors, setErrors] = useState<Errors>({})
+  const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null)
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
     const formData = new FormData(form)
     const data = Object.fromEntries(formData) as FormData
 
-    if (!data.nombre || !data.email || !data.numero || !data.servicio || !data.message) {
-      alert('Por favor completa todos los campos')
-      return
+    const newErrors: Errors = {}
+
+    if (!data.nombre) {
+      newErrors.nombre = "El nombre es obligatorio."
+    } else if (data.nombre.length < 3) {
+      newErrors.nombre = "El nombre debe tener al menos 3 caracteres."
     }
 
-    if (data.nombre.length < 3) {
-      alert('El nombre debe tener al menos 3 caracteres')
-      return
+    if (!data.email) {
+      newErrors.email = "El correo electrónico es obligatorio."
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      newErrors.email = "Ingresa un correo electrónico válido."
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      alert('Ingresa un correo electrónico válido')
-      return
+    if (!data.numero) {
+      newErrors.numero = "El teléfono es obligatorio."
+    } else if (data.numero.length < 7) {
+      newErrors.numero = "Ingresa un número de teléfono válido."
     }
 
-    if (data.numero.length < 7) {
-      alert('Ingresa un número de teléfono válido')
-      return
+    if (!data.servicio) {
+      newErrors.servicio = "Selecciona un servicio de interés."
     }
 
-    if (data.message.length < 10) {
-      alert('El mensaje es demasiado corto')
+    if (!data.message) {
+      newErrors.message = "El mensaje es obligatorio."
+    } else if (data.message.length < 10) {
+      newErrors.message = "El mensaje es demasiado corto (mínimo 10 caracteres)."
+    }
+
+    setErrors(newErrors)
+
+    if (Object.keys(newErrors).length > 0) {
+      setStatus({
+        type: "error",
+        message: "Por favor corrige los errores indicados en el formulario antes de enviar.",
+      })
+      const firstInvalid = Object.keys(newErrors)[0]
+      form.querySelector<HTMLElement>(`#${firstInvalid}`)?.focus()
       return
     }
 
     try {
-      const response = { ok: true };
+      const response = { ok: true }
       if (response.ok) {
-        alert('¡Mensaje enviado con éxito! Te contactaremos pronto.')
+        setStatus({
+          type: "success",
+          message: "¡Mensaje enviado con éxito! Te contactaremos pronto.",
+        })
         form.reset()
       } else {
-        alert('No se pudo enviar el mensaje. Intenta de nuevo o contáctanos por WhatsApp.')
+        setStatus({
+          type: "error",
+          message: "No se pudo enviar el mensaje. Intenta de nuevo o contáctanos por WhatsApp.",
+        })
       }
-    } catch (error) {
-      alert('Error de conexión. Intenta de nuevo o contáctanos por WhatsApp.')
+    } catch {
+      setStatus({
+        type: "error",
+        message: "Error de conexión. Intenta de nuevo o contáctanos por WhatsApp.",
+      })
     }
   }
 
@@ -74,12 +106,23 @@ function Contact() {
           </p>
         </div>
 
+        {status && (
+          <p
+            className={`${styles.formmStatus} ${styles[status.type]}`}
+            role="status"
+            aria-live="polite"
+          >
+            {status.message}
+          </p>
+        )}
+
         <div className={styles.contactGrid}>
           <form
             className={styles.contactFormm}
             action="https://formspree.io/f/xpqngavp"
-            method='POST'
+            method="POST"
             noValidate
+            onSubmit={handleSubmit}
           >
             <div className={styles.formmRow}>
               <div className={styles.formmGroup}>
@@ -88,12 +131,17 @@ function Contact() {
                   type="text"
                   id="nombre"
                   name="nombre"
-                  className={styles.formmInput}
+                  className={`${styles.formmInput} ${errors.nombre ? styles.formmInputError : ""}`}
                   placeholder="Tu nombre"
                   autoComplete="name"
                   required
                   minLength={3}
+                  aria-invalid={errors.nombre ? true : undefined}
+                  aria-describedby={errors.nombre ? "nombre-error" : undefined}
                 />
+                {errors.nombre && (
+                  <p id="nombre-error" className={styles.formmErrorMsg} role="alert">{errors.nombre}</p>
+                )}
               </div>
 
               <div className={styles.formmGroup}>
@@ -102,11 +150,16 @@ function Contact() {
                   type="email"
                   id="email"
                   name="email"
-                  className={styles.formmInput}
+                  className={`${styles.formmInput} ${errors.email ? styles.formmInputError : ""}`}
                   placeholder="tu@correo.com"
                   autoComplete="email"
                   required
+                  aria-invalid={errors.email ? true : undefined}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                 />
+                {errors.email && (
+                  <p id="email-error" className={styles.formmErrorMsg} role="alert">{errors.email}</p>
+                )}
               </div>
             </div>
 
@@ -116,17 +169,29 @@ function Contact() {
                 type="tel"
                 id="numero"
                 name="numero"
-                className={styles.formmInput}
+                className={`${styles.formmInput} ${errors.numero ? styles.formmInputError : ""}`}
                 placeholder="+57 300 123 4567"
                 autoComplete="tel"
                 required
                 minLength={7}
+                aria-invalid={errors.numero ? true : undefined}
+                aria-describedby={errors.numero ? "numero-error" : undefined}
               />
+              {errors.numero && (
+                <p id="numero-error" className={styles.formmErrorMsg} role="alert">{errors.numero}</p>
+              )}
             </div>
 
             <div className={styles.formmGroup}>
               <label htmlFor="servicio" className={styles.formmLabel}>Servicio de interés</label>
-              <select id="servicio" name="servicio" className={styles.formmSelect} required>
+              <select
+                id="servicio"
+                name="servicio"
+                className={`${styles.formmSelect} ${errors.servicio ? styles.formmSelectError : ""}`}
+                required
+                aria-invalid={errors.servicio ? true : undefined}
+                aria-describedby={errors.servicio ? "servicio-error" : undefined}
+              >
                 <option value="">Selecciona un servicio</option>
                 <option value="mantenimiento">Mantenimiento de equipos</option>
                 <option value="redes">Instalación de redes</option>
@@ -136,6 +201,9 @@ function Contact() {
                 <option value="wifi">Redes inalámbricas</option>
                 <option value="otro">Otro</option>
               </select>
+              {errors.servicio && (
+                <p id="servicio-error" className={styles.formmErrorMsg} role="alert">{errors.servicio}</p>
+              )}
             </div>
 
             <div className={styles.formmGroup}>
@@ -144,16 +212,21 @@ function Contact() {
                 id="message"
                 name="message"
                 rows={4}
-                className={styles.formmTextarea}
+                className={`${styles.formmTextarea} ${errors.message ? styles.formmTextareaError : ""}`}
                 placeholder="Cuéntanos sobre tu proyecto..."
                 required
                 minLength={10}
+                aria-invalid={errors.message ? true : undefined}
+                aria-describedby={errors.message ? "message-error" : undefined}
               />
+              {errors.message && (
+                <p id="message-error" className={styles.formmErrorMsg} role="alert">{errors.message}</p>
+              )}
             </div>
 
             <button type="submit" className={styles.formmBtn}>
               Enviar mensaje
-              <IconSend />
+              <IconSend aria-hidden="true" />
             </button>
           </form>
 
@@ -161,7 +234,7 @@ function Contact() {
             <div className={styles.contactInfoList}>
               <div className={styles.contactInfoItem}>
                 <div className={`${styles.contactInfoIcon} ${styles.primary}`}>
-                  <IconPhone />
+                  <IconPhone aria-hidden="true" />
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Teléfono</h3>
@@ -171,7 +244,7 @@ function Contact() {
 
               <div className={styles.contactInfoItem}>
                 <div className={`${styles.contactInfoIcon} ${styles.accent}`}>
-                  <IconMail />
+                  <IconMail aria-hidden="true" />
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Correo electrónico</h3>
@@ -181,7 +254,7 @@ function Contact() {
 
               <div className={styles.contactInfoItem}>
                 <div className={`${styles.contactInfoIcon} ${styles.primary}`}>
-                  <IconMapPin />
+                  <IconMapPin aria-hidden="true" />
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Ubicación</h3>
@@ -191,7 +264,7 @@ function Contact() {
 
               <div className={styles.contactInfoItem}>
                 <div className={`${styles.contactInfoIcon} ${styles.accent}`}>
-                  <IconClock />
+                  <IconClock aria-hidden="true" />
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Horario</h3>
