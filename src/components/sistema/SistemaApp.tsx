@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { IconFileText, IconUsers, IconLogout, IconShieldCheck } from "@tabler/icons-react"
+import { IconFileText, IconUsers, IconLogout } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
 import { canAccessSection, type PanelSection } from "@/services/permissions"
 import FichasSection from "./FichasSection"
@@ -78,9 +78,7 @@ export default function SistemaApp() {
       <header className="sys-header">
         <div className="sys-header-inner">
           <div className="sys-brand">
-            <span className="sys-brand-logo" aria-hidden="true">
-              <IconShieldCheck size={22} />
-            </span>
+            <img src="/new_logo_completo.png" alt="Sistek Pro" className="sys-brand-logo" width="44" height="20" />
             <div>
               <strong>Sistek · Panel</strong>
               <span>Sistema de gestión</span>

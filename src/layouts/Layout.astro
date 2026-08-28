@@ -42,8 +42,8 @@ const jsonLdLocalBusiness = {
   "@type": "LocalBusiness",
   "name": "Sistek",
   "alternateName": "Sistek Pro",
-  "image": `${siteUrl}/logo.png`,
-  "logo": `${siteUrl}/logo.png`,
+  "image": `${siteUrl}/new_logo_completo.png`,
+  "logo": `${siteUrl}/new_logo_completo.png`,
   "description": description,
   "url": siteUrl,
   "telephone": "+57-123-4513541",
@@ -104,7 +104,7 @@ const jsonLdOrganization = {
   "@type": "Organization",
   "name": "Sistek",
   "url": siteUrl,
-  "logo": `${siteUrl}/logo.png`,
+  "logo": `${siteUrl}/new_logo_completo.png`,
   "description": "Empresa de infraestructura tecnológica, redes empresariales y soporte técnico en Cali, Colombia.",
   "address": {
     "@type": "PostalAddress",
@@ -216,6 +216,17 @@ const jsonLdBreadcrumbs = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebSite)} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdBreadcrumbs)} />
 
+    <!-- Accesibilidad: aplicar preferencias guardadas antes del render -->
+    <script is:inline>
+      try {
+        var s = JSON.parse(localStorage.getItem('sistek.a11y') || '{}');
+        var c = document.documentElement.classList;
+        if (s.scale) c.add('a11y-scale-' + s.scale);
+        ['contrast', 'grayscale', 'links', 'legible', 'motionOff'].forEach(function (k) {
+          if (s[k]) c.add('a11y-' + k);
+        });
+      } catch (e) {}
+    </script>
 
   </head>
   <body>
@@ -224,10 +235,8 @@ const jsonLdBreadcrumbs = {
     </nav>
     <slot />
     <Toaster position="bottom-right" duration={3000} />
-    <script
-    is:inline
-    src="https://cdn.jsdelivr.net/npm/sienna-accessibility/dist/sienna-accessibility.umd.js"
-    async>
-  </script>
+    <script>
+      import "@/scripts/accessibility";
+    </script>
   </body>
 </html>

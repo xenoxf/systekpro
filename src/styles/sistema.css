@@ -33,13 +33,9 @@
 }
 
 .sys-brand-logo {
-  display: grid;
-  place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-lg);
-  background: hsl(var(--primary) / 0.12);
-  color: hsl(var(--primary));
+  height: 2.25rem;
+  width: auto;
+  object-fit: contain;
 }
 
 .sys-brand strong {
