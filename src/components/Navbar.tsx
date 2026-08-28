@@ -75,7 +75,8 @@ export default function Navbar() {
       <div className="nav-container">
         <div className="nav-inner">
           <a href="/" className="nav-logo" aria-label="Sistek Pro - Inicio">
-            <img src="/new_logo_completo.png" alt="Sistek Pro" className="nav-logo-img" width="150" height="69" />
+            <img src="/logo_icono.png" alt="Sistek logo" className="nav-logo-icon" width="40" height="40" />
+            <img src="/logo_name.png" alt="Sistek" className="nav-logo-name" width="100" height="32" />
           </a>
 
           <nav className="nav-links" aria-label="Navegación principal">

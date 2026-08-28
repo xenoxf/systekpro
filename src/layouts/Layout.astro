@@ -42,8 +42,8 @@ const jsonLdLocalBusiness = {
   "@type": "LocalBusiness",
   "name": "Sistek",
   "alternateName": "Sistek Pro",
-  "image": `${siteUrl}/new_logo_completo.png`,
-  "logo": `${siteUrl}/new_logo_completo.png`,
+  "image": `${siteUrl}/logo.png`,
+  "logo": `${siteUrl}/logo.png`,
   "description": description,
   "url": siteUrl,
   "telephone": "+57-123-4513541",
@@ -104,7 +104,7 @@ const jsonLdOrganization = {
   "@type": "Organization",
   "name": "Sistek",
   "url": siteUrl,
-  "logo": `${siteUrl}/new_logo_completo.png`,
+  "logo": `${siteUrl}/logo.png`,
   "description": "Empresa de infraestructura tecnológica, redes empresariales y soporte técnico en Cali, Colombia.",
   "address": {
     "@type": "PostalAddress",
@@ -216,17 +216,6 @@ const jsonLdBreadcrumbs = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdWebSite)} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdBreadcrumbs)} />
 
-    <!-- Accesibilidad: aplicar preferencias guardadas antes del render -->
-    <script is:inline>
-      try {
-        var s = JSON.parse(localStorage.getItem('sistek.a11y') || '{}');
-        var c = document.documentElement.classList;
-        if (s.scale) c.add('a11y-scale-' + s.scale);
-        ['contrast', 'grayscale', 'links', 'legible', 'motionOff'].forEach(function (k) {
-          if (s[k]) c.add('a11y-' + k);
-        });
-      } catch (e) {}
-    </script>
 
   </head>
   <body>
@@ -235,8 +224,84 @@ const jsonLdBreadcrumbs = {
     </nav>
     <slot />
     <Toaster position="bottom-right" duration={3000} />
-    <script>
-      import "@/scripts/accessibility";
-    </script>
+    <script
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/sienna-accessibility/dist/sienna-accessibility.umd.js"
+    async>
+  </script>
+  <script is:inline>
+    (function () {
+      const KEY_STOP = "stop-animations";
+      const STORE = "asw-user-settings";
+
+      const css = `
+        .a11y-stop-anim *, .a11y-stop-anim {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+        .asw-btn[data-key="hide-images"],
+        .asw-btn[data-key="image-tooltips"] {
+          display: none !important;
+        }
+      `;
+
+      function ensureStyle() {
+        let s = document.getElementById("a11y-custom-style");
+        if (!s) {
+          s = document.createElement("style");
+          s.id = "a11y-custom-style";
+          s.textContent = css;
+          document.head.appendChild(s);
+        }
+        return s;
+      }
+
+      function getStates() {
+        try {
+          return JSON.parse(localStorage.getItem(STORE) || "{}").states || {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function applyStop(on) {
+        document.documentElement.classList.toggle("a11y-stop-anim", on);
+        if (on) {
+          document.querySelectorAll("video[autoplay]").forEach(function (v) {
+            try { v.pause(); v.removeAttribute("autoplay"); } catch (e) {}
+          });
+        }
+      }
+
+      function syncFromButton(btn) {
+        if (!btn) return;
+        if (btn.dataset.key !== KEY_STOP) return;
+        applyStop(btn.classList.contains("asw-selected"));
+      }
+
+      function applyAll() {
+        applyStop(!!getStates()[KEY_STOP]);
+      }
+
+      function watch() {
+        document.addEventListener("click", function (e) {
+          const btn = e.target.closest && e.target.closest(".asw-btn, .asw-profile-btn");
+          if (btn && btn.dataset.key === KEY_STOP) {
+            setTimeout(function () { syncFromButton(btn); }, 0);
+          }
+        }, true);
+      }
+
+      ensureStyle();
+      watch();
+      applyAll();
+      window.addEventListener("load", function () {
+        applyAll();
+        const st = getStates();
+        if (st[KEY_STOP]) applyStop(true);
+      });
+    })();
+  </script>
   </body>
 </html>

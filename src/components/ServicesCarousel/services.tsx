@@ -28,6 +28,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 export default function ServicesJ() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [a11yStop, setA11yStop] = useState(false);
   const total = services.length;
   const service = services[index];
   const Icon = icons[service.icon] ?? IconNetwork;
@@ -37,15 +38,33 @@ export default function ServicesJ() {
   const prev = () => goTo(index - 1);
 
   useEffect(() => {
-    if (paused) return;
+    const read = () => {
+      const root = document.documentElement;
+      setA11yStop(root.classList.contains("a11y-stop-anim"));
+    };
+    read();
+    const observer = new MutationObserver(read);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (paused || a11yStop) return;
     const timer = window.setInterval(() => {
       setIndex((i) => (i + 1) % total);
     }, AUTOPLAY_DELAY);
     return () => window.clearInterval(timer);
-  }, [paused, total]);
+  }, [paused, a11yStop, total]);
 
   return (
-    <section id="servicios" className="services-carousel" aria-label="Servicios destacados">
+    <section
+      id="servicios"
+      className="services-carousel"
+      aria-label="Servicios destacados"
+    >
       <div className="scc-header">
         <span className="scc-badge">Nuestros servicios</span>
         <h2 className="scc-title">

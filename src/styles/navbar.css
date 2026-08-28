@@ -30,7 +30,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4.75rem;
+  height: 3.5rem;
 }
 
 .nav-logo {
@@ -40,8 +40,15 @@
   min-width: 0;
 }
 
-.nav-logo-img {
-  height: 4rem;
+.nav-logo-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.nav-logo-name {
+  height: 6rem;
   width: auto;
   flex-shrink: 0;
   object-fit: contain;

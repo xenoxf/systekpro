@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { IconFileText, IconUsers, IconLogout } from "@tabler/icons-react"
+import { IconFileText, IconUsers, IconLogout, IconShieldCheck } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
 import { canAccessSection, type PanelSection } from "@/services/permissions"
 import FichasSection from "./FichasSection"
@@ -73,75 +73,82 @@ export default function SistemaApp() {
     )
   }
 
+  const sectionTitle = view === "fichas" ? "Fichas técnicas" : "Usuarios"
+
   return (
     <div className="sys-shell">
-      <header className="sys-header">
-        <div className="sys-header-inner">
-          <div className="sys-brand">
-            <img src="/new_logo_completo.png" alt="Sistek Pro" className="sys-brand-logo" width="44" height="20" />
-            <div>
-              <strong>Sistek · Panel</strong>
-              <span>Sistema de gestión</span>
-            </div>
+      <aside className="sys-sidebar" aria-label="Panel de navegación">
+        <div className="sys-brand">
+          <span className="sys-brand-logo" aria-hidden="true">
+            <IconShieldCheck size={22} />
+          </span>
+          <div>
+            <strong>Sistek · Panel</strong>
+            <span>Sistema de gestión</span>
           </div>
-
-          {user && (
-            <div className="sys-user">
-              <div className="sys-user-info">
-                <strong>{user.name}</strong>
-                <span className={`sys-badge ${user.role === "admin" ? "sys-badge--primary" : ""}`}>{user.role}</span>
-              </div>
-              <button type="button" className="sys-btn sys-btn--ghost" onClick={handleLogout}>
-                <IconLogout size={16} />
-                Salir
-              </button>
-            </div>
-          )}
         </div>
-      </header>
 
-      <main className="sys-main">
-        {user && (
-          <>
-            <nav className="sys-tabs" role="tablist" aria-label="Secciones del panel">
-              <button
-                type="button"
-                id="tab-fichas"
-                role="tab"
-                aria-selected={view === "fichas"}
-                aria-controls="panel-seccion"
-                className={`sys-tab ${view === "fichas" ? "sys-tab--active" : ""}`}
-                onClick={() => selectView("fichas")}
-              >
-                <IconFileText size={16} aria-hidden="true" />
-                Fichas técnicas
-              </button>
-              {canAccessSection(user, "usuarios") && (
-                <button
-                  type="button"
-                  id="tab-usuarios"
-                  role="tab"
-                  aria-selected={view === "usuarios"}
-                  aria-controls="panel-seccion"
-                  className={`sys-tab ${view === "usuarios" ? "sys-tab--active" : ""}`}
-                  onClick={() => selectView("usuarios")}
-                >
-                  <IconUsers size={16} aria-hidden="true" />
-                  Usuarios
-                </button>
-              )}
-            </nav>
-
-            <div
-              id="panel-seccion"
-              role="tabpanel"
-              aria-labelledby={view === "fichas" ? "tab-fichas" : "tab-usuarios"}
+        <nav className="sys-nav" role="tablist" aria-label="Secciones del panel">
+          <button
+            type="button"
+            id="tab-fichas"
+            role="tab"
+            aria-selected={view === "fichas"}
+            aria-controls="panel-seccion"
+            className={`sys-nav-item ${view === "fichas" ? "sys-nav-item--active" : ""}`}
+            onClick={() => selectView("fichas")}
+          >
+            <IconFileText size={18} aria-hidden="true" />
+            <span>Fichas técnicas</span>
+          </button>
+          {canAccessSection(user, "usuarios") && (
+            <button
+              type="button"
+              id="tab-usuarios"
+              role="tab"
+              aria-selected={view === "usuarios"}
+              aria-controls="panel-seccion"
+              className={`sys-nav-item ${view === "usuarios" ? "sys-nav-item--active" : ""}`}
+              onClick={() => selectView("usuarios")}
             >
-              {view === "fichas" || !canAccessSection(user, "usuarios") ? <FichasSection /> : <UsersSection />}
+              <IconUsers size={18} aria-hidden="true" />
+              <span>Usuarios</span>
+            </button>
+          )}
+        </nav>
+
+        <div className="sys-sidebar-footer">
+          <div className="sys-user">
+            <div className="sys-user-info">
+              <strong>{user.name}</strong>
+              <span className={`sys-badge ${user.role === "admin" ? "sys-badge--primary" : ""}`}>{user.role}</span>
             </div>
-          </>
-        )}
-      </main>
+            <button type="button" className="sys-btn sys-btn--ghost" onClick={handleLogout}>
+              <IconLogout size={16} />
+              Salir
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <div className="sys-content">
+        <header className="sys-topbar">
+          <div>
+            <p className="sys-topbar-eyebrow">Sección actual</p>
+            <h1 className="sys-topbar-title">{sectionTitle}</h1>
+          </div>
+        </header>
+
+        <main className="sys-main">
+          <div
+            id="panel-seccion"
+            role="tabpanel"
+            aria-labelledby={view === "fichas" ? "tab-fichas" : "tab-usuarios"}
+          >
+            {view === "fichas" || !canAccessSection(user, "usuarios") ? <FichasSection /> : <UsersSection />}
+          </div>
+        </main>
+      </div>
     </div>
   )
 }

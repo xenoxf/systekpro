@@ -37,16 +37,6 @@ const siteUrl = "https://sistek.com.co";
         }
       })();
     </script>
-    <script is:inline>
-      try {
-        var s = JSON.parse(localStorage.getItem('sistek.a11y') || '{}');
-        var c = document.documentElement.classList;
-        if (s.scale) c.add('a11y-scale-' + s.scale);
-        ['contrast', 'grayscale', 'links', 'legible', 'motionOff'].forEach(function (k) {
-          if (s[k]) c.add('a11y-' + k);
-        });
-      } catch (e) {}
-    </script>
   </head>
   <body>
     <nav aria-label="Accesibilidad" class="skip-nav">
@@ -55,9 +45,6 @@ const siteUrl = "https://sistek.com.co";
     <main id="main" tabindex="-1">
       <slot />
     </main>
-    <script>
-      import "@/scripts/accessibility";
-    </script>
   </body>
 </html>
 
