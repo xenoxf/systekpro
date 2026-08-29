@@ -418,7 +418,6 @@ export default function OrdenesSection() {
           </table>
         </div>
       )}
-
       <Drawer open={ticket !== null} title="Ticket de seguimiento" onClose={() => setTicket(null)} size="lg">
         {ticketLoading ? (
           <Spinner label="Cargando seguimiento..." />

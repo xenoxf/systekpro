@@ -154,7 +154,6 @@ export default function SistemaApp() {
           <div className="sys-user">
             <div className="sys-user-info">
               <strong>{user.name}</strong>
-              <span className={`sys-badge ${user.role === "admin" ? "sys-badge--primary" : ""}`}>{user.role}</span>
             </div>
             <button type="button" className="sys-btn sys-btn--ghost" onClick={handleLogout}>
               <IconLogout size={16} />

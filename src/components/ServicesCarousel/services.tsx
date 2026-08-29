@@ -67,14 +67,7 @@ export default function ServicesJ() {
       aria-label="Servicios destacados"
     >
       <div className="scc-header">
-        <span className="scc-badge">Nuestros servicios</span>
-        <h2 className="scc-title">
-          Soluciones que <span className="gradient-text">marcan la diferencia</span>
-        </h2>
-        <p className="scc-desc">
-          Conoce cada una de las áreas en las que ayudamos a tu empresa a crecer con tecnología
-          confiable, segura y de alto rendimiento.
-        </p>
+        <span className="scc-title">Nuestros servicios</span>
       </div>
 
       <div className="scc-track">
