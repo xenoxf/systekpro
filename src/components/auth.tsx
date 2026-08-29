@@ -1,6 +1,7 @@
 import React, { type FormEvent, useState } from "react"
 import { authService, setSession } from "@/services/auth"
 import { isApiError } from "@/services/api"
+import { toast } from "@/components/starwind/toast"
 import "@/styles/auth/Auth.css"
 import {
   IconArrowLeft,
@@ -16,55 +17,39 @@ export default function Auth() {
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setError(null)
+
+    const username = name.trim()
+    const pass = password
+
+    if (!username) {
+      toast.error("Ingresa tu nombre de usuario")
+      return
+    }
+    if (!pass) {
+      toast.error("Ingresa tu contraseña")
+      return
+    }
+
     setLoading(true)
     try {
-      const response = await authService.login(name, password)
+      const response = await authService.login(username, pass)
       setSession(response)
+      toast.success("Sesión iniciada correctamente")
       window.location.href = "/sistema"
     } catch (err) {
-      if (isApiError(err) && err.statusCode === 401) setError("Credenciales inválidas")
-      else if (isApiError(err)) setError(err.message)
-      else setError("Error al iniciar sesión")
+      if (isApiError(err) && err.statusCode === 401) toast.error("Credenciales inválidas")
+      else if (isApiError(err)) toast.error(err.message)
+      else toast.error("Error al iniciar sesión")
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="auth-split">
-      <aside className="auth-aside">
-        <div className="auth-aside-brand">
-          <IconShieldCheck size={22} aria-hidden="true" />
-          <span>Sistek</span> Pro
-        </div>
-        <div>
-          <h1 className="auth-aside-title">Panel de gestión técnica</h1>
-          <p className="auth-aside-sub">
-            Administra fichas técnicas, órdenes de servicio y usuarios del sistema Sistek en un solo lugar.
-          </p>
-          <ul className="auth-aside-features">
-            <li>
-              <IconFileText size={18} aria-hidden="true" />
-              Fichas técnicas de equipos
-            </li>
-            <li>
-              <IconTool size={18} aria-hidden="true" />
-              Órdenes de mantenimiento y código QR
-            </li>
-            <li>
-              <IconUsers size={18} aria-hidden="true" />
-              Gestión de usuarios y roles
-            </li>
-          </ul>
-        </div>
-        <p className="auth-aside-foot">Sistek · Cali, Colombia</p>
-      </aside>
 
       <main className="auth-main">
         <a href="/" className="auth-back" aria-label="Volver al inicio">
@@ -72,11 +57,10 @@ export default function Auth() {
         </a>
         <div className="auth-card">
           <div className="auth-brand">
-            <span className="auth-logo gradient-text">Sistek</span>
             <h2>Iniciar sesión</h2>
             <p className="auth-subtitle">Accede al panel de administración</p>
           </div>
-          <form onSubmit={handleSubmit} className="form">
+          <form onSubmit={handleSubmit} className="form" noValidate>
             <div className="container-inputs">
               <label htmlFor="username" className="sr-only">Nombre de usuario</label>
               <input
@@ -111,17 +95,11 @@ export default function Auth() {
                 </button>
               </div>
             </div>
-            {error && (
-              <p className="auth-error" role="alert">
-                {error}
-              </p>
-            )}
             <button type="submit" disabled={loading} className="btn-primary auth-submit">
               {loading ? "Ingresando..." : "Iniciar sesión"}
             </button>
           </form>
         </div>
       </main>
-    </div>
   )
 }

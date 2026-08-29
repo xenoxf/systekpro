@@ -53,27 +53,58 @@ const { class: className, variant = "default", ...rest } = Astro.props;
 
 <style is:global>
   .starwind-toast {
-    background-color: var(--popover, #1e293b);
-    color: var(--popover-foreground, #f8fafc);
-    border-color: var(--border, #334155);
+    background-color: hsl(var(--popover));
+    color: hsl(var(--popover-foreground));
+    border: 1px solid hsl(var(--border));
+    border-left: 4px solid hsl(var(--border));
+  }
+  .starwind-toast[data-variant="default"] {
+    border-left-color: hsl(var(--primary));
   }
   .starwind-toast[data-variant="success"] {
-    border-color: var(--success, #22c55e);
+    border-left-color: hsl(var(--success));
   }
   .starwind-toast[data-variant="error"] {
-    border-color: var(--error, #ef4444);
+    border-left-color: hsl(var(--error));
   }
   .starwind-toast[data-variant="warning"] {
-    border-color: var(--warning, #f59e0b);
+    border-left-color: hsl(var(--warning));
   }
   .starwind-toast[data-variant="info"] {
-    border-color: var(--info, #3b82f6);
+    border-left-color: hsl(var(--info));
   }
+
+  /* Icon badge */
+  .starwind-toast-title {
+    gap: 0.55rem;
+  }
+  .starwind-toast-title svg {
+    padding: 5px;
+    border-radius: 999px;
+    background: hsl(var(--muted) / 0.6);
+    flex-shrink: 0;
+  }
+  .starwind-toast[data-variant="success"] .starwind-toast-title svg {
+    background: hsl(var(--success) / 0.14);
+  }
+  .starwind-toast[data-variant="error"] .starwind-toast-title svg {
+    background: hsl(var(--error) / 0.14);
+  }
+  .starwind-toast[data-variant="warning"] .starwind-toast-title svg {
+    background: hsl(var(--warning) / 0.14);
+  }
+  .starwind-toast[data-variant="info"] .starwind-toast-title svg {
+    background: hsl(var(--info) / 0.14);
+  }
+  .starwind-toast[data-variant="default"] .starwind-toast-title svg {
+    background: hsl(var(--primary) / 0.14);
+  }
+
   .starwind-toast-close {
-    color: var(--muted-foreground, #94a3b8);
+    color: hsl(var(--muted-foreground));
   }
   .starwind-toast-close:hover {
-    color: var(--foreground, #f8fafc);
+    color: hsl(var(--foreground));
   }
   .starwind-toast-content {
     opacity: 1;
