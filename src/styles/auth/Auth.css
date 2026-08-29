@@ -1,18 +1,5 @@
-/* Self-contained token layer for the auth page (auth.css loads only here,
-   so it does not affect the marketing/landing site). Base.css lacks
-   --shadow-* and uses legacy comma syntax for --primary that breaks alpha(). */
-:root {
-  --primary: 240 100% 50%;
-  --surface: 210 38% 96%;
-  --surface-foreground: 222 30% 11%;
-  --success-foreground: 0 0% 100%;
-  --warning-foreground: 0 0% 100%;
-  --error-foreground: 0 0% 100%;
-  --shadow-xs: 0 1px 2px hsl(var(--foreground) / 0.05);
-  --shadow-sm: 0 1px 3px hsl(var(--foreground) / 0.06), 0 1px 2px hsl(var(--foreground) / 0.04);
-  --shadow-md: 0 4px 12px -2px hsl(var(--foreground) / 0.08), 0 2px 6px -2px hsl(var(--foreground) / 0.05);
-  --shadow-lg: 0 16px 40px -12px hsl(var(--foreground) / 0.14), 0 4px 12px -4px hsl(var(--foreground) / 0.06);
-}
+/* Tokens (surface, shadows, foregrounds) se definen en base.css.
+   Este archivo solo contiene los estilos del formulario de autenticación. */
 
 .container-auth {
   display: flex;

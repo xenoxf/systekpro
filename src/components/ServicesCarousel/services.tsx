@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ComponentType } from "react";
 import { services } from "@/data/services";
+import "@/styles/services/ServicesCarousel.css";
 import {
   IconArrowLeft,
   IconArrowRight,

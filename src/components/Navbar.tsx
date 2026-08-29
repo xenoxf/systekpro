@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IconMenu2, IconX } from '@tabler/icons-react';
 import ThemeToggle from './ThemeToggle';
+import '@/styles/landingPage/Navbar.css';
 
 const navLinks = [
   { href: '#servicios', label: 'Servicios' },

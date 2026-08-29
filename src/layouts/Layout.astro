@@ -1,16 +1,6 @@
 ---
 import "@/styles/starwind.css";
 import "@/styles/base.css";
-import "@/styles/navbar.css";
-import "@/styles/hero.css";
-import "@/styles/about.css";
-import "@/styles/services.css";
-import "@/styles/process.css";
-import "@/styles/benefits.css";
-import "@/styles/faq.css";
-import "@/styles/cta.css";
-import "@/styles/auth.css";
-import "@/styles/footer.css";
 import Toaster from '../components/starwind/toast/Toaster.astro'
 
 interface Props {
@@ -23,7 +13,7 @@ interface Props {
 
 const {
   title = "Sistek Pro - Infraestructura tecnológica, Redes y Soporte Técnico en Cali",
-  description = "Sistek Pro: empresa líder en mantenimiento de computadores, instalación de redes empresariales, cableado estructurado y soporte técnico en Cali, Colombia. Cotización gratuita.",
+  description = "Sistek Pro: empresa de mantenimiento de computadores, instalación de redes empresariales, cableado estructurado y soporte técnico en Cali, Colombia. Cotización gratuita.",
   image = "/og-image.svg",
   canonical = Astro.url.href,
   accessibility = true
@@ -66,15 +56,9 @@ const jsonLdLocalBusiness = {
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "08:00",
-      "closes": "18:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "09:00",
-      "closes": "13:00"
+      "dayOfWeek": ["Tuesday"],
+      "opens": "13:00",
+      "closes": "17:00"
     }
   ],
   "priceRange": "$$",
@@ -158,9 +142,9 @@ const jsonLdBreadcrumbs = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
-    <link rel="icon" type="image/svg+xml" href="/logo_icono.svg" />
-    <link rel="icon" type="image/x-icon" href="/logo_icono.ico" />
-    <link rel="apple-touch-icon" href="/logo_icono.png" />
+    <link rel="icon" type="image/svg+xml" href="/icono.svg" />
+    <link rel="icon" type="image/x-icon" href="/icono.ico" />
+    <link rel="apple-touch-icon" href="/icono.png" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- SEO Core -->

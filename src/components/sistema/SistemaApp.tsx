@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
+import "@/styles/sistema/index.css"
 import { IconFileText, IconUsers, IconTool, IconLogout, IconShieldCheck, IconMenu2 } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
 import { canAccessSection, type PanelSection } from "@/services/permissions"

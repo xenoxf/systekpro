@@ -1,6 +1,7 @@
 import React, { type FormEvent, useState } from "react"
 import { authService, setSession } from "@/services/auth"
 import { isApiError } from "@/services/api"
+import "@/styles/auth/Auth.css"
 import {
   IconArrowLeft,
   IconEye,
@@ -76,7 +77,7 @@ export default function Auth() {
             <p className="auth-subtitle">Accede al panel de administración</p>
           </div>
           <form onSubmit={handleSubmit} className="form">
-            <div>
+            <div className="container-inputs">
               <label htmlFor="username" className="sr-only">Nombre de usuario</label>
               <input
                 id="username"

@@ -1,0 +1,64 @@
+/* Loading / empty / states */
+.sys-loading,
+.sys-empty {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 2.5rem 1rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.9375rem;
+}
+
+.sys-empty {
+  flex-direction: column;
+  text-align: center;
+  gap: 0.375rem;
+}
+
+.sys-empty-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: hsl(var(--foreground));
+}
+
+.sys-empty-desc {
+  font-size: 0.875rem;
+  max-width: 28rem;
+}
+
+.sys-empty-icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-lg);
+  background: hsl(var(--surface));
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.25rem;
+}
+
+.sys-empty-action {
+  margin-top: 0.5rem;
+}
+
+.sys-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  border: 2px solid hsl(var(--border));
+  border-top-color: hsl(var(--primary));
+  animation: sys-spin 0.8s linear infinite;
+}
+
+@keyframes sys-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sys-empty-inline {
+  font-size: 0.85rem;
+  color: hsl(var(--muted-foreground));
+  margin: 0.25rem 0;
+}
+

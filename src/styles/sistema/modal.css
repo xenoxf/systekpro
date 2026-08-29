@@ -1,0 +1,56 @@
+/* Modal */
+.sys-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: hsl(222 30% 11% / 0.42);
+}
+
+.sys-modal {
+  width: 100%;
+  max-width: 30rem;
+  max-height: min(85vh, 60rem);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.sys-modal--lg {
+  max-width: 46rem;
+}
+
+.sys-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.sys-modal-head h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.sys-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.sys-confirm-message {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+  color: hsl(var(--foreground) / 0.85);
+}
+

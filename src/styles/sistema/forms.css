@@ -1,0 +1,100 @@
+/* Forms */
+.sys-form fieldset {
+  border: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.sys-form legend {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.875rem;
+}
+
+.sys-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.875rem;
+}
+
+.sys-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.sys-field--full {
+  grid-column: 1 / -1;
+}
+
+.sys-field > span {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+}
+
+.sys-input,
+.sys-select,
+.sys-textarea {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius-md);
+  border: 1px solid hsl(var(--input));
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sys-select {
+  cursor: pointer;
+}
+
+.sys-input::placeholder,
+.sys-textarea::placeholder {
+  color: hsl(var(--muted-foreground) / 0.7);
+}
+
+.sys-input:focus,
+.sys-select:focus,
+.sys-textarea:focus {
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 3px hsl(var(--ring) / 0.14);
+}
+
+.sys-textarea {
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.sys-check-row {
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  margin-block: 0.875rem;
+}
+
+.sys-error {
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius-md);
+  border: 1px solid hsl(var(--error) / 0.35);
+  background: hsl(var(--error) / 0.08);
+  color: hsl(var(--error));
+  font-size: 0.85rem;
+  white-space: pre-line;
+}
+
+.sys-error--list {
+  font-family: inherit;
+  margin: 0;
+}
+
+.sys-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
+}
+

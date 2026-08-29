@@ -1,4 +1,5 @@
 import { IconChevronDown } from '@tabler/icons-react';
+import '@/styles/landingPage/FAQ.css';
 
 const faqs = [
   {

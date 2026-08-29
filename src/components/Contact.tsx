@@ -6,7 +6,7 @@ import {
   IconSend
 } from "@tabler/icons-react"
 
-import styles from '../styles/contact.module.css'
+import styles from '@/styles/landingPage/Contact.module.css'
 import { useState, type FormEvent } from "react"
 
 type FormData = {
@@ -268,8 +268,7 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Horario</h3>
-                  <p className={styles.contactInfoValue}>Lun - Vie: 8:00 - 18:00</p>
-                  <p className={styles.contactInfoValue}>Sáb: 9:00 - 13:00</p>
+                  <p className={styles.contactInfoValue}>Martes: 13:00 - 17:00</p>
                 </div>
               </div>
             </div>

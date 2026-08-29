@@ -1,0 +1,140 @@
+/* Responsive: collapse sidebar on tablet/mobile */
+@media (max-width: 64rem) {
+  .sys-shell {
+    flex-direction: column;
+  }
+
+  .sys-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    height: auto;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 1rem;
+    border-right: none;
+    border-bottom: 1px solid hsl(var(--border));
+    overflow-x: auto;
+  }
+
+  .sys-nav {
+    flex-direction: row;
+    flex: 1;
+    gap: 0.25rem;
+  }
+
+  .sys-nav-item {
+    width: auto;
+    flex-shrink: 0;
+    min-height: 40px;
+  }
+
+  .sys-nav-item--active::before {
+    left: 50%;
+    top: auto;
+    bottom: -0.625rem;
+    transform: translateX(-50%);
+    width: 1.25rem;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .sys-sidebar-footer {
+    flex-direction: row;
+    align-items: center;
+    border-top: none;
+    padding: 0;
+  }
+
+  .sys-brand span {
+    display: none;
+  }
+
+  .sys-user-info strong {
+    max-width: 6rem;
+  }
+
+  .sys-main {
+    padding: 1.25rem 1rem 3rem;
+  }
+
+  /* Stacked table rows (card-like) */
+  .sys-table thead {
+    display: none;
+  }
+
+  .sys-table,
+  .sys-table tbody,
+  .sys-table tr,
+  .sys-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .sys-table tr {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .sys-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0.25rem;
+    border-bottom: 1px solid hsl(var(--border) / 0.5);
+    text-align: right;
+  }
+
+  .sys-table td[data-label] {
+    text-align: right;
+  }
+
+  .sys-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .sys-cell-main,
+  .sys-cell-sub {
+    text-align: right;
+  }
+
+  .sys-table td[data-label="Acciones"]::before {
+    content: "";
+  }
+
+  .sys-table td[data-label="Acciones"] {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 40rem) {
+  .sys-topbar {
+    padding: 0.875rem 1rem;
+  }
+
+  .sys-main {
+    padding: 1rem 0.875rem 2.5rem;
+  }
+
+  .sys-section-toolbar {
+    align-items: stretch;
+  }
+
+  .sys-search {
+    max-width: none;
+  }
+}
+
+/* ============================================================
+   Structural additions — drawers, master/detail, list, nav
+   ============================================================ */
+

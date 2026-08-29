@@ -1,0 +1,65 @@
+/* Detail / garantía */
+.sys-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+.sys-detail-grid > div {
+  min-width: 0;
+}
+
+.sys-detail-full {
+  grid-column: 1 / -1;
+}
+
+.sys-detail-grid dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.25rem;
+}
+
+.sys-detail-grid dd {
+  font-size: 0.9rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.sys-garantia {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  margin-bottom: 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid hsl(var(--success) / 0.3);
+  background: hsl(var(--success) / 0.08);
+}
+
+.sys-garantia strong {
+  display: block;
+  font-size: 0.9rem;
+  color: hsl(var(--success));
+}
+
+.sys-garantia span {
+  font-size: 0.8125rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.sys-garantia--ok strong {
+  color: hsl(var(--success));
+}
+
+.sys-garantia--off {
+  border-color: hsl(var(--warning) / 0.3);
+  background: hsl(var(--warning) / 0.08);
+}
+
+.sys-garantia--off strong {
+  color: hsl(var(--warning));
+}
+

@@ -36,7 +36,7 @@
   --card-foreground: 208 58% 16%;
 
   /* Botón principal */
-  --primary: 240, 100%, 50%;
+  --primary: 240 100% 50%;
   --primary-foreground: 0 0% 100%;
 
   /* Elementos secundarios */
@@ -72,6 +72,34 @@
   --radius-lg: calc(var(--radius) + 0.25rem);
   --radius-xl: calc(var(--radius) + 0.5rem);
   --radius-2xl: calc(var(--radius) + 0.75rem);
+
+  /* Superficies y sombras compartidas (usadas por auth, sistema y librerías) */
+  --surface: 210 38% 96%;
+  --surface-foreground: 222 30% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 208 58% 16%;
+  --primary-accent: 240 100% 50%;
+  --secondary-accent: 208 58% 16%;
+  --info: 199 89% 48%;
+  --info-foreground: 0 0% 100%;
+  --outline: 215 20% 65%;
+  --success-foreground: 0 0% 100%;
+  --warning-foreground: 0 0% 100%;
+  --error-foreground: 0 0% 100%;
+  --shadow-xs: 0 1px 2px hsl(var(--foreground) / 0.05);
+  --shadow-sm: 0 1px 3px hsl(var(--foreground) / 0.06), 0 1px 2px hsl(var(--foreground) / 0.04);
+  --shadow-md: 0 4px 12px -2px hsl(var(--foreground) / 0.08), 0 2px 6px -2px hsl(var(--foreground) / 0.05);
+  --shadow-lg: 0 16px 40px -12px hsl(var(--foreground) / 0.14), 0 4px 12px -4px hsl(var(--foreground) / 0.06);
+
+  /* Sidebar (starwind) */
+  --sidebar-background: 0 0% 100%;
+  --sidebar-foreground: 208 58% 16%;
+  --sidebar-primary: 240 100% 50%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 202 55% 91%;
+  --sidebar-accent-foreground: 208 58% 16%;
+  --sidebar-border: 201 40% 82%;
+  --sidebar-outline: 215 20% 65%;
 }
 
 html.dark {
@@ -120,6 +148,34 @@ html.dark {
   --radius-lg: calc(var(--radius) + 0.25rem);
   --radius-xl: calc(var(--radius) + 0.5rem);
   --radius-2xl: calc(var(--radius) + 0.75rem);
+
+  /* Superficies y sombras compartidas */
+  --surface: 203 34% 18%;
+  --surface-foreground: 205 30% 95%;
+  --popover: 205 40% 15%;
+  --popover-foreground: 205 30% 95%;
+  --primary-accent: 188 85% 50%;
+  --secondary-accent: 205 30% 92%;
+  --info: 199 89% 55%;
+  --info-foreground: 205 40% 10%;
+  --outline: 204 20% 60%;
+  --success-foreground: 205 40% 10%;
+  --warning-foreground: 205 40% 10%;
+  --error-foreground: 205 40% 10%;
+  --shadow-xs: 0 1px 2px hsl(var(--foreground) / 0.05);
+  --shadow-sm: 0 1px 3px hsl(var(--foreground) / 0.06), 0 1px 2px hsl(var(--foreground) / 0.04);
+  --shadow-md: 0 4px 12px -2px hsl(var(--foreground) / 0.08), 0 2px 6px -2px hsl(var(--foreground) / 0.05);
+  --shadow-lg: 0 16px 40px -12px hsl(var(--foreground) / 0.14), 0 4px 12px -4px hsl(var(--foreground) / 0.06);
+
+  /* Sidebar (starwind) */
+  --sidebar-background: 205 40% 15%;
+  --sidebar-foreground: 205 30% 95%;
+  --sidebar-primary: 188 85% 50%;
+  --sidebar-primary-foreground: 205 40% 10%;
+  --sidebar-accent: 203 32% 22%;
+  --sidebar-accent-foreground: 205 30% 92%;
+  --sidebar-border: 204 28% 26%;
+  --sidebar-outline: 204 20% 60%;
 }
 
 * {

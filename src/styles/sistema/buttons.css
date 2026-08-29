@@ -1,0 +1,86 @@
+/* Buttons */
+.sys-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 40px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+.sys-btn:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.sys-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.sys-btn--primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.sys-btn--primary:hover:not(:disabled) {
+  background: hsl(var(--primary) / 0.92);
+}
+
+.sys-btn--ghost {
+  background: transparent;
+  border-color: hsl(var(--border));
+  color: hsl(var(--foreground));
+}
+
+.sys-btn--ghost:hover:not(:disabled) {
+  background: hsl(var(--surface));
+  border-color: hsl(var(--border));
+}
+
+.sys-btn--danger {
+  background: hsl(var(--error));
+  color: hsl(var(--error-foreground, 0% 100%));
+}
+
+.sys-btn--danger:hover:not(:disabled) {
+  background: hsl(var(--error) / 0.9);
+}
+
+.sys-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.sys-icon-btn:hover {
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary) / 0.4);
+  background: hsl(var(--primary) / 0.06);
+}
+
+.sys-icon-btn:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.sys-icon-btn--danger:hover {
+  color: hsl(var(--error));
+  border-color: hsl(var(--error) / 0.4);
+  background: hsl(var(--error) / 0.06);
+}
+
