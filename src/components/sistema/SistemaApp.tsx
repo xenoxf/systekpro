@@ -1,21 +1,26 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { IconFileText, IconUsers, IconLogout, IconShieldCheck } from "@tabler/icons-react"
+import { IconFileText, IconUsers, IconTool, IconLogout, IconShieldCheck, IconMenu2 } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
 import { canAccessSection, type PanelSection } from "@/services/permissions"
 import FichasSection from "./FichasSection"
+import OrdenesSection from "./OrdenesSection"
 import UsersSection from "./UsersSection"
 
 const USERS_HASH = "#usuarios"
+const ORDENES_HASH = "#ordenes"
 
 function viewFromHash(): PanelSection {
   if (typeof window === "undefined") return "fichas"
-  return window.location.hash === USERS_HASH ? "usuarios" : "fichas"
+  if (window.location.hash === USERS_HASH) return "usuarios"
+  if (window.location.hash === ORDENES_HASH) return "ordenes"
+  return "fichas"
 }
 
 export default function SistemaApp() {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [view, setView] = useState<PanelSection>("fichas")
   const [checking, setChecking] = useState(true)
+  const [navOpen, setNavOpen] = useState(false)
 
   useEffect(() => {
     const session = getSession()
@@ -45,6 +50,7 @@ export default function SistemaApp() {
 
   const selectView = useCallback(
     (next: PanelSection) => {
+      setNavOpen(false)
       if (!canAccessSection(user, next)) {
         history.replaceState(null, "", window.location.pathname)
         setView("fichas")
@@ -52,6 +58,8 @@ export default function SistemaApp() {
       }
       if (next === "usuarios") {
         window.location.hash = USERS_HASH.slice(1)
+      } else if (next === "ordenes") {
+        window.location.hash = ORDENES_HASH.slice(1)
       } else {
         history.replaceState(null, "", window.location.pathname)
         setView("fichas")
@@ -73,11 +81,22 @@ export default function SistemaApp() {
     )
   }
 
-  const sectionTitle = view === "fichas" ? "Fichas técnicas" : "Usuarios"
+  const sectionTitle =
+    view === "fichas"
+      ? "Fichas técnicas"
+      : view === "ordenes"
+        ? "Órdenes de servicio"
+        : "Usuarios"
 
   return (
     <div className="sys-shell">
-      <aside className="sys-sidebar" aria-label="Panel de navegación">
+      <div
+        className={`sys-sidebar-overlay ${navOpen ? "is-open" : ""}`}
+        onClick={() => setNavOpen(false)}
+        aria-hidden="true"
+      />
+
+      <aside className={`sys-sidebar ${navOpen ? "is-open" : ""}`} aria-label="Panel de navegación">
         <div className="sys-brand">
           <span className="sys-brand-logo" aria-hidden="true">
             <IconShieldCheck size={22} />
@@ -115,6 +134,19 @@ export default function SistemaApp() {
               <span>Usuarios</span>
             </button>
           )}
+
+          <button
+            type="button"
+            id="tab-ordenes"
+            role="tab"
+            aria-selected={view === "ordenes"}
+            aria-controls="panel-seccion"
+            className={`sys-nav-item ${view === "ordenes" ? "sys-nav-item--active" : ""}`}
+            onClick={() => selectView("ordenes")}
+          >
+            <IconTool size={18} aria-hidden="true" />
+            <span>Órdenes</span>
+          </button>
         </nav>
 
         <div className="sys-sidebar-footer">
@@ -133,9 +165,19 @@ export default function SistemaApp() {
 
       <div className="sys-content">
         <header className="sys-topbar">
-          <div>
-            <p className="sys-topbar-eyebrow">Sección actual</p>
-            <h1 className="sys-topbar-title">{sectionTitle}</h1>
+          <div className="sys-topbar-inner">
+            <button
+              type="button"
+              className="sys-menu-btn"
+              onClick={() => setNavOpen(true)}
+              aria-label="Abrir navegación"
+            >
+              <IconMenu2 size={20} aria-hidden="true" />
+            </button>
+            <div>
+              <p className="sys-topbar-eyebrow">Sección actual</p>
+              <h1 className="sys-topbar-title">{sectionTitle}</h1>
+            </div>
           </div>
         </header>
 
@@ -145,7 +187,13 @@ export default function SistemaApp() {
             role="tabpanel"
             aria-labelledby={view === "fichas" ? "tab-fichas" : "tab-usuarios"}
           >
-            {view === "fichas" || !canAccessSection(user, "usuarios") ? <FichasSection /> : <UsersSection />}
+            {view === "ordenes" ? (
+              <OrdenesSection />
+            ) : view === "fichas" || !canAccessSection(user, "usuarios") ? (
+              <FichasSection />
+            ) : (
+              <UsersSection />
+            )}
           </div>
         </main>
       </div>

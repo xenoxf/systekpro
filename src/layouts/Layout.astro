@@ -18,13 +18,15 @@ interface Props {
   description?: string;
   image?: string;
   canonical?: string;
+  accessibility?: boolean;
 }
 
 const {
   title = "Sistek Pro - Infraestructura tecnológica, Redes y Soporte Técnico en Cali",
   description = "Sistek Pro: empresa líder en mantenimiento de computadores, instalación de redes empresariales, cableado estructurado y soporte técnico en Cali, Colombia. Cotización gratuita.",
   image = "/og-image.svg",
-  canonical = Astro.url.href
+  canonical = Astro.url.href,
+  accessibility = true
 } = Astro.props;
 
 const siteUrl = "https://sistekpro.vercel.app";
@@ -224,12 +226,15 @@ const jsonLdBreadcrumbs = {
     </nav>
     <slot />
     <Toaster position="bottom-right" duration={3000} />
-    <script
-    is:inline
-    src="https://cdn.jsdelivr.net/npm/sienna-accessibility/dist/sienna-accessibility.umd.js"
-    async>
-  </script>
-  <script is:inline>
+    {accessibility && (
+      <script
+        is:inline
+        src="https://cdn.jsdelivr.net/npm/sienna-accessibility/dist/sienna-accessibility.umd.js"
+        async
+      />
+    )}
+    {accessibility && (
+      <script is:inline>
     (function () {
       const KEY_STOP = "stop-animations";
       const STORE = "asw-user-settings";
@@ -303,5 +308,6 @@ const jsonLdBreadcrumbs = {
       });
     })();
   </script>
+    )}
   </body>
 </html>

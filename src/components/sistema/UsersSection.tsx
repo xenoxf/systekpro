@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { IconEye, IconPencil, IconTrash } from "@tabler/icons-react"
+import { IconEye, IconPencil, IconTrash, IconUsers } from "@tabler/icons-react"
 import { usersService, isValidUuid, type Usuario, type UpdateUsuarioDto } from "@/services/users"
 import { isApiError } from "@/services/api"
 import { toast } from "@/components/starwind/toast"
-import { Modal, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
+import { Drawer, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
 
 interface FormState {
   name: string
@@ -124,7 +124,7 @@ export default function UsersSection() {
       {loading ? (
         <Spinner label="Cargando usuarios..." />
       ) : users.length === 0 ? (
-        <EmptyState title="No hay usuarios registrados" />
+        <EmptyState title="No hay usuarios registrados" icon={<IconUsers size={20} />} />
       ) : (
         <div className="sys-table-wrap">
           <table className="sys-table">
@@ -184,7 +184,7 @@ export default function UsersSection() {
         </div>
       )}
 
-      <Modal open={detail !== null} title="Detalle de usuario" onClose={() => setDetail(null)}>
+      <Drawer open={detail !== null} title="Detalle de usuario" onClose={() => setDetail(null)}>
         {detailLoading || !detail ? (
           <Spinner label="Cargando usuario..." />
         ) : (
@@ -203,10 +203,24 @@ export default function UsersSection() {
             <div className="sys-detail-full"><dt>ID</dt><dd><code>{detail.id}</code></dd></div>
           </dl>
         )}
-      </Modal>
+      </Drawer>
 
-      <Modal open={formOpen} title={editing ? `Editar usuario · ${editing.name}` : "Editar usuario"} onClose={() => setFormOpen(false)}>
-        <form className="sys-form" onSubmit={handleSubmit}>
+      <Drawer
+        open={formOpen}
+        title={editing ? `Editar usuario · ${editing.name}` : "Editar usuario"}
+        onClose={() => setFormOpen(false)}
+        footer={
+          <>
+            <button type="button" className="sys-btn sys-btn--ghost" onClick={() => setFormOpen(false)} disabled={submitting}>
+              Cancelar
+            </button>
+            <button type="submit" form="usuario-form" className="sys-btn sys-btn--primary" disabled={submitting}>
+              {submitting ? "Guardando..." : "Guardar cambios"}
+            </button>
+          </>
+        }
+      >
+        <form id="usuario-form" className="sys-form" onSubmit={handleSubmit}>
           <label className="sys-field">
             <span>Nombre de usuario *</span>
             <input
@@ -242,17 +256,8 @@ export default function UsersSection() {
           </label>
 
           {formError && <pre className="sys-error sys-error--list">{formError}</pre>}
-
-          <div className="sys-form-actions">
-            <button type="button" className="sys-btn sys-btn--ghost" onClick={() => setFormOpen(false)} disabled={submitting}>
-              Cancelar
-            </button>
-            <button type="submit" className="sys-btn sys-btn--primary" disabled={submitting}>
-              {submitting ? "Guardando..." : "Guardar cambios"}
-            </button>
-          </div>
         </form>
-      </Modal>
+      </Drawer>
 
       <ConfirmDialog
         open={deleting !== null}

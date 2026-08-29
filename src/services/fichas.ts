@@ -13,15 +13,15 @@ export const TIPOS_EQUIPO: { value: TipoEquipo; label: string }[] = [
 export interface FichaTecnica {
   id: string
   nombreCliente: string
-  telefonoCliente: string
+  telefonoCliente?: string | null
   direccionCliente?: string | null
   correoCliente?: string | null
-  servicio: string
-  tipoEquipo: TipoEquipo
-  nombreResponsable: string
-  marcaEquipo: string
-  modeloEquipo: string
-  serialEquipo: string
+  servicio?: string | null
+  tipoEquipo?: TipoEquipo | null
+  nombreResponsable?: string | null
+  marcaEquipo?: string | null
+  modeloEquipo?: string | null
+  serialEquipo?: string | null
   referencia?: string | null
   tiempoGarantiaMeses?: number | null
   fechaAdquisicion?: string | null

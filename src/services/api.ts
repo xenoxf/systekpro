@@ -81,8 +81,8 @@ async function request<T>(path: string, options: RequestOptions = {}, auth = tru
 }
 
 export const api = {
-  get<T>(path: string): Promise<T> {
-    return request<T>(path, { method: "GET" })
+  get<T>(path: string, auth = true): Promise<T> {
+    return request<T>(path, { method: "GET" }, auth)
   },
   post<T>(path: string, body?: unknown, auth = true): Promise<T> {
     return request<T>(path, { method: "POST", body }, auth)

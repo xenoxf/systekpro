@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react"
 import {
   IconSearch,
-  IconEye,
   IconPencil,
   IconTrash,
   IconShieldCheck,
   IconPlus,
+  IconFileText,
+  IconX,
 } from "@tabler/icons-react"
 import {
   fichasService,
@@ -17,11 +18,13 @@ import {
 } from "@/services/fichas"
 import { isApiError } from "@/services/api"
 import { toast } from "@/components/starwind/toast"
-import { Modal, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
+import { ConfirmDialog, EmptyState, Spinner, formatDate, FormPanel } from "./ui"
 import FichaForm from "./FichaForm"
 
-function tipoEquipoLabel(value: string): string {
-  return TIPOS_EQUIPO.find((t) => t.value === value)?.label ?? value
+type FichaModo = "list" | "detail" | "create" | "edit"
+
+function tipoEquipoLabel(value?: string | null): string {
+  return (value && TIPOS_EQUIPO.find((t) => t.value === value)?.label) || "—"
 }
 
 export default function FichasSection() {
@@ -32,11 +35,11 @@ export default function FichasSection() {
   const [hasFilters, setHasFilters] = useState(false)
   const firstLoad = useRef(true)
 
-  const [detail, setDetail] = useState<FichaTecnica | null>(null)
+  const [modo, setModo] = useState<FichaModo>("list")
+  const [selected, setSelected] = useState<FichaTecnica | null>(null)
   const [garantia, setGarantia] = useState<GarantiaResponse | null>(null)
   const [garantiaLoading, setGarantiaLoading] = useState(false)
 
-  const [formOpen, setFormOpen] = useState(false)
   const [editing, setEditing] = useState<FichaTecnica | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
@@ -71,7 +74,8 @@ export default function FichasSection() {
   }, [serial, tipoEquipo])
 
   async function openDetail(ficha: FichaTecnica) {
-    setDetail(ficha)
+    setSelected(ficha)
+    setModo("detail")
     setGarantia(null)
     setGarantiaLoading(true)
     try {
@@ -85,12 +89,28 @@ export default function FichasSection() {
 
   function openCreate() {
     setEditing(null)
-    setFormOpen(true)
+    setModo("create")
   }
 
   function openEdit(ficha: FichaTecnica) {
     setEditing(ficha)
-    setFormOpen(true)
+    setSelected(null)
+    setModo("edit")
+  }
+
+  function volverALista() {
+    setModo("list")
+    setSelected(null)
+    setEditing(null)
+  }
+
+  function initials(name: string): string {
+    return name
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((p) => p[0]?.toUpperCase() ?? "")
+      .join("")
   }
 
   async function handleSubmit(dto: CreateFichaDto) {
@@ -103,7 +123,7 @@ export default function FichasSection() {
         await fichasService.create(dto)
         toast.success("Ficha técnica creada")
       }
-      setFormOpen(false)
+      setModo("list")
       setEditing(null)
       await loadFichas()
     } catch (err) {
@@ -120,6 +140,8 @@ export default function FichasSection() {
       await fichasService.remove(deleting.id)
       toast.success("Ficha técnica eliminada")
       setDeleting(null)
+      if (selected?.id === deleting.id) setSelected(null)
+      volverALista()
       await loadFichas()
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
@@ -128,9 +150,165 @@ export default function FichasSection() {
     }
   }
 
+  if (modo === "create" || modo === "edit") {
+    return (
+      <div className="sys-section">
+        <FormPanel
+          title={modo === "edit" ? "Editar ficha técnica" : "Nueva ficha técnica"}
+          subtitle="Solo el nombre del cliente es obligatorio. Los demás campos son opcionales."
+          onClose={volverALista}
+        >
+          <FichaForm
+            key={editing?.id ?? "new"}
+            ficha={editing}
+            submitting={submitting}
+            onSubmit={handleSubmit}
+            onCancel={volverALista}
+          />
+        </FormPanel>
+
+        <ConfirmDialog
+          open={deleting !== null}
+          title="Eliminar ficha técnica"
+          message={`¿Seguro que deseas eliminar la ficha de "${deleting?.nombreCliente ?? ""}"? Esta acción no se puede deshacer.`}
+          loading={deleteLoading}
+          onCancel={() => setDeleting(null)}
+          onConfirm={handleDelete}
+        />
+      </div>
+    )
+  }
+
+  if (modo === "detail" && selected) {
+    return (
+      <div className="sys-section">
+        <section className="sys-panel" aria-label="Detalle de la ficha técnica">
+          <header className="sys-panel-head">
+            <div className="sys-panel-heading">
+              <p className="sys-topbar-eyebrow">Ficha técnica</p>
+              <h2 className="sys-panel-title">{selected.nombreCliente}</h2>
+            </div>
+            <div className="sys-detail-actions">
+              <button
+                type="button"
+                className="sys-icon-btn"
+                title="Editar"
+                aria-label={`Editar la ficha de ${selected.nombreCliente}`}
+                onClick={() => openEdit(selected)}
+              >
+                <IconPencil size={17} aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className="sys-icon-btn sys-icon-btn--danger"
+                title="Eliminar"
+                aria-label={`Eliminar la ficha de ${selected.nombreCliente}`}
+                onClick={() => setDeleting(selected)}
+              >
+                <IconTrash size={17} aria-hidden="true" />
+              </button>
+              <button type="button" className="sys-btn sys-btn--ghost" onClick={volverALista}>
+                <IconX size={16} aria-hidden="true" />
+                Salir
+              </button>
+            </div>
+          </header>
+          <div className="sys-panel-body">
+            {garantiaLoading ? (
+              <Spinner label="Consultando garantía..." />
+            ) : (
+              <>
+                {garantia && (
+                  <div className={`sys-garantia ${garantia.enGarantia ? "sys-garantia--ok" : "sys-garantia--off"}`}>
+                    <IconShieldCheck size={20} />
+                    <div>
+                      <strong>
+                        {garantia.tieneGarantia
+                          ? garantia.enGarantia
+                            ? "En garantía"
+                            : "Garantía vencida"
+                          : "Sin garantía registrada"}
+                      </strong>
+                      <span>
+                        {garantia.venceEl && ` Vence el ${formatDate(garantia.venceEl)}`}
+                        {garantia.diasRestantes != null &&
+                          ` (${garantia.diasRestantes >= 0 ? `${garantia.diasRestantes} días restantes` : `${Math.abs(garantia.diasRestantes)} días de retraso`})`}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                <div className="sys-detail-group">
+                  <h3>Cliente y servicio</h3>
+                  <dl className="sys-detail-grid">
+                    <div><dt>Cliente</dt><dd>{selected.nombreCliente}</dd></div>
+                    <div><dt>Teléfono</dt><dd>{selected.telefonoCliente || "—"}</dd></div>
+                    <div><dt>Dirección</dt><dd>{selected.direccionCliente || "—"}</dd></div>
+                    <div><dt>Correo</dt><dd>{selected.correoCliente || "—"}</dd></div>
+                    <div><dt>Servicio</dt><dd>{selected.servicio || "—"}</dd></div>
+                    <div><dt>Responsable</dt><dd>{selected.nombreResponsable || "—"}</dd></div>
+                  </dl>
+                </div>
+
+                <div className="sys-detail-group">
+                  <h3>Equipo</h3>
+                  <dl className="sys-detail-grid">
+                    <div><dt>Tipo</dt><dd>{tipoEquipoLabel(selected.tipoEquipo)}</dd></div>
+                    <div><dt>Marca / Modelo</dt><dd>{[selected.marcaEquipo, selected.modeloEquipo].filter(Boolean).join(" ") || "—"}</dd></div>
+                    <div><dt>Serial</dt><dd><code>{selected.serialEquipo || "—"}</code></dd></div>
+                    <div><dt>Referencia</dt><dd>{selected.referencia || "—"}</dd></div>
+                    <div><dt>Adquisición</dt><dd>{formatDate(selected.fechaAdquisicion)}</dd></div>
+                    <div><dt>Garantía</dt><dd>{selected.tiempoGarantiaMeses ? `${selected.tiempoGarantiaMeses} meses` : "—"}</dd></div>
+                  </dl>
+                </div>
+
+                <div className="sys-detail-group">
+                  <h3>Especificaciones</h3>
+                  <dl className="sys-detail-grid">
+                    {(selected.procesadorMarca || selected.procesadorModelo) && (
+                      <div><dt>Procesador</dt><dd>{[selected.procesadorMarca, selected.procesadorModelo].filter(Boolean).join(" ")}</dd></div>
+                    )}
+                    {selected.nucleosCpu != null && <div><dt>Núcleos</dt><dd>{selected.nucleosCpu}</dd></div>}
+                    {selected.velocidadProcesador && <div><dt>Velocidad CPU</dt><dd>{selected.velocidadProcesador}</dd></div>}
+                    {selected.memoriaRamGb != null && <div><dt>RAM</dt><dd>{selected.memoriaRamGb} GB</dd></div>}
+                    {selected.tecnologiaDisco1 && (
+                      <div><dt>Disco 1</dt><dd>{selected.tecnologiaDisco1}{selected.capacidadDisco1Gb ? ` · ${selected.capacidadDisco1Gb} GB` : ""}</dd></div>
+                    )}
+                    {selected.tecnologiaDisco2 && (
+                      <div><dt>Disco 2</dt><dd>{selected.tecnologiaDisco2}{selected.capacidadDisco2Gb ? ` · ${selected.capacidadDisco2Gb} GB` : ""}</dd></div>
+                    )}
+                    {selected.tarjetaVideoIntegrada && <div><dt>Video integrado</dt><dd>Sí</dd></div>}
+                    {selected.tarjetaVideoIndependiente && <div><dt>Video independiente</dt><dd>Sí</dd></div>}
+                    {selected.marcaMouse && <div><dt>Mouse</dt><dd>{selected.marcaMouse}</dd></div>}
+                  </dl>
+                </div>
+
+                {selected.observaciones && (
+                  <div className="sys-detail-group">
+                    <h3>Observaciones</h3>
+                    <p className="sys-detail-text">{selected.observaciones}</p>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </section>
+
+        <ConfirmDialog
+          open={deleting !== null}
+          title="Eliminar ficha técnica"
+          message={`¿Seguro que deseas eliminar la ficha de "${deleting?.nombreCliente ?? ""}"? Esta acción no se puede deshacer.`}
+          loading={deleteLoading}
+          onCancel={() => setDeleting(null)}
+          onConfirm={handleDelete}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className="sys-section">
-      <div className="sys-section-toolbar">
+      <div className="sys-md-toolbar sys-cards-toolbar">
         <div className="sys-search">
           <IconSearch size={16} aria-hidden="true" />
           <input
@@ -163,7 +341,7 @@ export default function FichasSection() {
           }}
           disabled={!hasFilters}
         >
-          Limpiar filtros
+          Limpiar
         </button>
         <button type="button" className="sys-btn sys-btn--primary" onClick={openCreate}>
           <IconPlus size={16} />
@@ -172,145 +350,51 @@ export default function FichasSection() {
       </div>
 
       {loading ? (
-        <Spinner label="Cargando fichas..." />
+        <div className="sys-li-empty">
+          <Spinner label="Cargando fichas..." />
+        </div>
       ) : fichas.length === 0 ? (
         <EmptyState
           title={hasFilters ? "Sin resultados" : "Aún no hay fichas técnicas"}
           description={
             hasFilters ? "Intenta con otro serial o tipo de equipo." : "Crea la primera ficha para comenzar."
           }
+          icon={<IconFileText size={20} />}
+          action={
+            <button type="button" className="sys-btn sys-btn--primary" onClick={openCreate}>
+              <IconPlus size={16} />
+              Nueva ficha
+            </button>
+          }
         />
       ) : (
-        <div className="sys-table-wrap">
-          <table className="sys-table">
-            <thead>
-              <tr>
-                <th scope="col">Cliente</th>
-                <th scope="col">Equipo</th>
-                <th scope="col">Serial</th>
-                <th scope="col">Servicio</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {fichas.map((ficha) => (
-                <tr key={ficha.id}>
-                  <td data-label="Cliente">{ficha.nombreCliente}</td>
-                  <td data-label="Equipo">
-                    <span className="sys-cell-main">{ficha.marcaEquipo} {ficha.modeloEquipo}</span>
-                    <span className="sys-cell-sub">{tipoEquipoLabel(ficha.tipoEquipo)}</span>
-                  </td>
-                  <td data-label="Serial"><code>{ficha.serialEquipo}</code></td>
-                  <td data-label="Servicio">{ficha.servicio}</td>
-                  <td data-label="Fecha">{formatDate(ficha.fechaRealizacion ?? ficha.createdAt)}</td>
-                  <td data-label="Acciones">
-                    <div className="sys-row-actions">
-                      <button
-                        type="button"
-                        className="sys-icon-btn"
-                        title="Ver detalle"
-                        aria-label={`Ver detalle de la ficha de ${ficha.nombreCliente}`}
-                        onClick={() => openDetail(ficha)}
-                      >
-                        <IconEye size={17} aria-hidden="true" />
-                      </button>
-                      <button
-                        type="button"
-                        className="sys-icon-btn"
-                        title="Editar"
-                        aria-label={`Editar la ficha de ${ficha.nombreCliente}`}
-                        onClick={() => openEdit(ficha)}
-                      >
-                        <IconPencil size={17} aria-hidden="true" />
-                      </button>
-                      <button
-                        type="button"
-                        className="sys-icon-btn sys-icon-btn--danger"
-                        title="Eliminar"
-                        aria-label={`Eliminar la ficha de ${ficha.nombreCliente}`}
-                        onClick={() => setDeleting(ficha)}
-                      >
-                        <IconTrash size={17} aria-hidden="true" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="sys-cards-grid">
+          {fichas.map((ficha) => (
+            <button
+              key={ficha.id}
+              type="button"
+              className="sys-card"
+              onClick={() => openDetail(ficha)}
+              aria-label={`Ver la ficha de ${ficha.nombreCliente}`}
+            >
+              <span className="sys-card-avatar" aria-hidden="true">
+                {initials(ficha.nombreCliente)}
+              </span>
+              <span className="sys-card-body">
+                <span className="sys-card-title">{ficha.nombreCliente}</span>
+                <span className="sys-card-sub">
+                  {[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ") || "Equipo sin especificar"}
+                </span>
+                <span className="sys-card-meta">
+                  <code>{ficha.serialEquipo || "Sin serial"}</code>
+                  <span>{tipoEquipoLabel(ficha.tipoEquipo)}</span>
+                </span>
+              </span>
+              <span className="sys-card-date">{formatDate(ficha.fechaRealizacion ?? ficha.createdAt)}</span>
+            </button>
+          ))}
         </div>
       )}
-
-      <Modal open={detail !== null} title="Detalle de ficha técnica" onClose={() => setDetail(null)} size="lg">
-        {detail && (
-          <>
-            {garantiaLoading ? (
-              <Spinner label="Consultando garantía..." />
-            ) : garantia ? (
-              <div className={`sys-garantia ${garantia.enGarantia ? "sys-garantia--ok" : "sys-garantia--off"}`}>
-                <IconShieldCheck size={20} />
-                <div>
-                  <strong>{garantia.tieneGarantia ? (garantia.enGarantia ? "En garantía" : "Garantía vencida") : "Sin garantía registrada"}</strong>
-                  <span>
-                    {garantia.venceEl && ` Vence el ${formatDate(garantia.venceEl)}`}
-                    {garantia.diasRestantes != null &&
-                      ` (${garantia.diasRestantes >= 0 ? `${garantia.diasRestantes} días restantes` : `${Math.abs(garantia.diasRestantes)} días de retraso`})`}
-                  </span>
-                </div>
-              </div>
-            ) : null}
-
-            <dl className="sys-detail-grid">
-              <div><dt>Cliente</dt><dd>{detail.nombreCliente}</dd></div>
-              <div><dt>Teléfono</dt><dd>{detail.telefonoCliente}</dd></div>
-              <div><dt>Dirección</dt><dd>{detail.direccionCliente || "—"}</dd></div>
-              <div><dt>Correo</dt><dd>{detail.correoCliente || "—"}</dd></div>
-              <div><dt>Servicio</dt><dd>{detail.servicio}</dd></div>
-              <div><dt>Tipo de equipo</dt><dd>{tipoEquipoLabel(detail.tipoEquipo)}</dd></div>
-              <div><dt>Responsable</dt><dd>{detail.nombreResponsable}</dd></div>
-              <div><dt>Marca / Modelo</dt><dd>{detail.marcaEquipo} {detail.modeloEquipo}</dd></div>
-              <div><dt>Serial</dt><dd><code>{detail.serialEquipo}</code></dd></div>
-              <div><dt>Referencia</dt><dd>{detail.referencia || "—"}</dd></div>
-              <div><dt>Adquisición</dt><dd>{formatDate(detail.fechaAdquisicion)}</dd></div>
-              <div><dt>Garantía</dt><dd>{detail.tiempoGarantiaMeses ? `${detail.tiempoGarantiaMeses} meses` : "—"}</dd></div>
-              {(detail.procesadorMarca || detail.procesadorModelo) && (
-                <div><dt>Procesador</dt><dd>{[detail.procesadorMarca, detail.procesadorModelo].filter(Boolean).join(" ")}</dd></div>
-              )}
-              {detail.nucleosCpu != null && <div><dt>Núcleos</dt><dd>{detail.nucleosCpu}</dd></div>}
-              {detail.velocidadProcesador && <div><dt>Velocidad CPU</dt><dd>{detail.velocidadProcesador}</dd></div>}
-              {detail.memoriaRamGb != null && <div><dt>RAM</dt><dd>{detail.memoriaRamGb} GB</dd></div>}
-              {detail.tecnologiaDisco1 && (
-                <div><dt>Disco 1</dt><dd>{detail.tecnologiaDisco1}{detail.capacidadDisco1Gb ? ` · ${detail.capacidadDisco1Gb} GB` : ""}</dd></div>
-              )}
-              {detail.tecnologiaDisco2 && (
-                <div><dt>Disco 2</dt><dd>{detail.tecnologiaDisco2}{detail.capacidadDisco2Gb ? ` · ${detail.capacidadDisco2Gb} GB` : ""}</dd></div>
-              )}
-              {detail.tarjetaVideoIntegrada && <div><dt>Video integrado</dt><dd>Sí</dd></div>}
-              {detail.tarjetaVideoIndependiente && <div><dt>Video independiente</dt><dd>Sí</dd></div>}
-              {detail.marcaMouse && <div><dt>Mouse</dt><dd>{detail.marcaMouse}</dd></div>}
-              {detail.observaciones && (
-                <div className="sys-detail-full"><dt>Observaciones</dt><dd>{detail.observaciones}</dd></div>
-              )}
-            </dl>
-          </>
-        )}
-      </Modal>
-
-      <Modal
-        open={formOpen}
-        title={editing ? "Editar ficha técnica" : "Nueva ficha técnica"}
-        onClose={() => { setFormOpen(false); setEditing(null) }}
-        size="lg"
-      >
-        <FichaForm
-          key={editing?.id ?? "new"}
-          ficha={editing}
-          submitting={submitting}
-          onSubmit={handleSubmit}
-          onCancel={() => { setFormOpen(false); setEditing(null) }}
-        />
-      </Modal>
 
       <ConfirmDialog
         open={deleting !== null}

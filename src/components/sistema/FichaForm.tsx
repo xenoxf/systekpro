@@ -114,8 +114,8 @@ export default function FichaForm({ ficha, submitting, onSubmit, onCancel }: Pro
             />
           </label>
           <label className="sys-field">
-            <span>Teléfono *</span>
-            <input className="sys-input" type="tel" {...register("telefonoCliente", { required: true })} />
+            <span>Teléfono</span>
+            <input className="sys-input" type="tel" {...register("telefonoCliente")} />
           </label>
           <label className="sys-field">
             <span>Dirección</span>
@@ -126,8 +126,8 @@ export default function FichaForm({ ficha, submitting, onSubmit, onCancel }: Pro
             <input className="sys-input" type="email" {...register("correoCliente")} />
           </label>
           <label className="sys-field sys-field--full">
-            <span>Servicio *</span>
-            <input className="sys-input" {...register("servicio", { required: true })} />
+            <span>Servicio</span>
+            <input className="sys-input" {...register("servicio")} />
           </label>
           <label className="sys-field">
             <span>Fecha de realización</span>
@@ -140,11 +140,9 @@ export default function FichaForm({ ficha, submitting, onSubmit, onCancel }: Pro
         <legend>Equipo</legend>
         <div className="sys-form-grid">
           <label className="sys-field">
-            <span>Tipo de equipo *</span>
-            <select className="sys-select" required {...register("tipoEquipo", { required: true })}>
-              <option value="" disabled>
-                Seleccione...
-              </option>
+            <span>Tipo de equipo</span>
+            <select className="sys-select" {...register("tipoEquipo")}>
+              <option value="">Seleccione... (opcional)</option>
               {TIPOS_EQUIPO.map((t) => (
                 <option key={t.value} value={t.value}>
                   {t.label}
@@ -153,20 +151,20 @@ export default function FichaForm({ ficha, submitting, onSubmit, onCancel }: Pro
             </select>
           </label>
           <label className="sys-field">
-            <span>Responsable *</span>
-            <input className="sys-input" {...register("nombreResponsable", { required: true })} />
+            <span>Responsable</span>
+            <input className="sys-input" {...register("nombreResponsable")} />
           </label>
           <label className="sys-field">
-            <span>Marca *</span>
-            <input className="sys-input" {...register("marcaEquipo", { required: true })} />
+            <span>Marca</span>
+            <input className="sys-input" {...register("marcaEquipo")} />
           </label>
           <label className="sys-field">
-            <span>Modelo *</span>
-            <input className="sys-input" {...register("modeloEquipo", { required: true })} />
+            <span>Modelo</span>
+            <input className="sys-input" {...register("modeloEquipo")} />
           </label>
           <label className="sys-field">
-            <span>Serial *</span>
-            <input className="sys-input" {...register("serialEquipo", { required: true })} />
+            <span>Serial</span>
+            <input className="sys-input" {...register("serialEquipo")} />
           </label>
           <label className="sys-field">
             <span>Referencia</span>
