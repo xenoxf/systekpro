@@ -153,7 +153,7 @@ export default function SistemaApp() {
         <div className="sys-sidebar-footer">
           <div className="sys-user">
             <div className="sys-user-info">
-              <strong>{user.name}</strong>
+              <strong>{user?.name}</strong>
             </div>
             <button type="button" className="sys-btn sys-btn--ghost" onClick={handleLogout}>
               <IconLogout size={16} />
