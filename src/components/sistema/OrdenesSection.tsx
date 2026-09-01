@@ -19,7 +19,7 @@ function estadoClase(estado: OrdenEstado): string {
   const map: Record<OrdenEstado, string> = {
     recibido: "sys-badge--primary",
     diagnostico: "sys-badge--primary",
-    reparacion: "sys-badge--warn",
+    esperando_autorizacion: "sys-badge--warn",
     esperando_repuestos: "sys-badge--warn",
     terminado: "sys-badge--ok",
     entregado: "sys-badge--ok",
