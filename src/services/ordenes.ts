@@ -3,20 +3,20 @@ import { api } from "./api"
 export type OrdenEstado =
   | "recibido"
   | "diagnostico"
-  | "reparacion"
-  | "esperando_repuestos"
-  | "terminado"
+  | "pendiente_de_autorizacion"
+  | "en_mantenimiento"
+  | "en_pruebas"
+  | "listo"
   | "entregado"
-  | "cancelado"
 
 export const ORDEN_ESTADOS: { value: OrdenEstado; label: string }[] = [
   { value: "recibido", label: "Recibido" },
   { value: "diagnostico", label: "Diagnóstico" },
-  { value: "reparacion", label: "Reparación" },
-  { value: "esperando_repuestos", label: "Esperando repuestos" },
-  { value: "terminado", label: "Terminado" },
+  { value: "pendiente_de_autorizacion", label: "Pendiente de autorizacion" },
+  { value: "en_mantenimiento", label: "En mantenimiento" },
+  { value: "en_pruebas", label: "En pruebas" },
+  { value: "listo", label: "Listo" },
   { value: "entregado", label: "Entregado" },
-  { value: "cancelado", label: "Cancelado" },
 ]
 
 export function estadoLabel(estado: OrdenEstado): string {
