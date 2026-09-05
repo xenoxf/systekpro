@@ -28,7 +28,7 @@
 }*/
 :root {
   /* Fondo */
-  --background: 205 60% 94%;
+  --background: 0, 0%, 100%;
   --foreground: 208 58% 16%;
 
   /* Tarjetas */
