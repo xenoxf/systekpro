@@ -55,7 +55,6 @@ export default function FAQ() {
       <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
       <div className="faq-container">
         <div className="section-header">
-          <span className="section-badge">FAQ</span>
           <h2 id="faq-heading" className="section-title">
             Preguntas <span className="gradient-text">frecuentes</span>
           </h2>

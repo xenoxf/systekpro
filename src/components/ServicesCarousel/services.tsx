@@ -106,9 +106,6 @@ export default function ServicesJ() {
           </div>
 
           <div className="scc-body">
-            <span className="scc-eyebrow">
-              <span className="scc-number">{pad(service.id)}</span> Servicio destacado
-            </span>
             <h3 className="scc-title">{service.title}</h3>
             <p className="scc-desc">{service.description}</p>
             <a href={service.ctaLink} className="scc-cta">
