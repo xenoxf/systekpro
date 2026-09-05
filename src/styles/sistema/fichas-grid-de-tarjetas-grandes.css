@@ -118,12 +118,11 @@
   white-space: nowrap;
 }
 
-/* Utility: show table on desktop, cards on mobile */
+/* Siempre tabla, nunca grid/cards */
 .sys-fichas-table {
-  display: none;
+  display: block;
 }
 
-
 .sys-fichas-list {
-  display: block;
+  display: none;
 }
