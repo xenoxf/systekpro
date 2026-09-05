@@ -42,7 +42,10 @@ export default function TicketMantenimiento({
       <div className="ticket-sheet">
         <header className="ticket-head">
           <div>
-            <img src="/logo.png" alt="Sistek logo"  width="120" height="120" />
+            <a href="/" aria-label="Sistek - Inicio">
+              <img src="/logo.png" alt="Sistek logo" className="logo-light"  style={{maxHeight:'3.5rem', width:'auto', objectFit:'contain'}} />
+              <img src="/logo_white.png" alt="Sistek logo" className="logo-dark"  style={{maxHeight:'3.5rem', width:'auto', objectFit:'contain'}} />
+            </a>
             <span className="ticket-brand-sub">Seguimiento de mantenimiento</span>
           </div>
           <span className={`ticket-estado ${estadoClase(seguimiento.estado)}`}>
