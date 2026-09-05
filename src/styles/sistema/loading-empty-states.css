@@ -1,49 +1,62 @@
-/* Loading / empty / states */
+/* Loading / empty / states — Material */
 .sys-loading,
 .sys-empty {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  padding: 2.5rem 1rem;
+  padding: 2rem 1rem;
   color: hsl(var(--muted-foreground));
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
+}
+
+.sys-loading {
+  justify-content: center;
+  padding: 2.5rem 1rem;
 }
 
 .sys-empty {
   flex-direction: column;
   text-align: center;
   gap: 0.375rem;
+  padding: 2.5rem 1.25rem;
+  border: 1px dashed hsl(var(--border));
+  border-radius: var(--radius-lg);
+  background: hsl(var(--card));
 }
 
 .sys-empty-title {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   color: hsl(var(--foreground));
+  letter-spacing: -0.01em;
 }
 
 .sys-empty-desc {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
   max-width: 28rem;
+  color: hsl(var(--muted-foreground));
 }
 
 .sys-empty-icon {
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: var(--radius-lg);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
   background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border) / 0.6);
   color: hsl(var(--muted-foreground));
   margin-bottom: 0.25rem;
 }
 
 .sys-empty-action {
-  margin-top: 0.5rem;
+  margin-top: 0.625rem;
 }
 
 .sys-spinner {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.125rem;
+  height: 1.125rem;
   border-radius: 50%;
   border: 2px solid hsl(var(--border));
   border-top-color: hsl(var(--primary));
@@ -57,7 +70,7 @@
 }
 
 .sys-empty-inline {
-  font-size: 0.85rem;
+  font-size: 0.8125rem;
   color: hsl(var(--muted-foreground));
   margin: 0.25rem 0;
 }

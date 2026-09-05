@@ -380,21 +380,21 @@ export default function OrdenesSection() {
                     <div className="sys-row-actions">
                       <button
                         type="button"
-                        className="sys-icon-btn"
+                        className="sys-icon-btn sys-icon-btn--outlined"
                         title="Ver ticket / QR"
                         aria-label={`Ver ticket de la orden ${orden.codigo}`}
                         onClick={() => verTicket(orden.codigo)}
                       >
-                        <IconQrcode size={17} aria-hidden="true" />
+                        <IconQrcode size={16} aria-hidden="true" />
                       </button>
                       <button
                         type="button"
-                        className="sys-icon-btn"
+                        className="sys-icon-btn sys-icon-btn--outlined"
                         title="Asociar fichas"
                         aria-label={`Asociar fichas a la orden ${orden.codigo}`}
                         onClick={() => abrirAsociar(orden)}
                       >
-                        <IconLink size={17} aria-hidden="true" />
+                        <IconLink size={16} aria-hidden="true" />
                       </button>
                       <select
                         className="sys-select sys-select--sm"

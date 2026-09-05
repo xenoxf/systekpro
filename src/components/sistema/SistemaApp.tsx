@@ -100,7 +100,7 @@ export default function SistemaApp() {
       <aside className={`sys-sidebar ${navOpen ? "is-open" : ""}`} aria-label="Panel de navegación">
         <div className="sys-brand">
           <span className="sys-brand-logo" aria-hidden="true">
-            <IconShieldCheck size={22} />
+            <IconShieldCheck size={18} />
           </span>
           <div>
             <strong>Sistek · Panel</strong>
@@ -109,6 +109,7 @@ export default function SistemaApp() {
         </div>
 
         <nav className="sys-nav" role="tablist" aria-label="Secciones del panel">
+          <p className="sys-nav-label" aria-hidden="true">Gestión</p>
           <button
             type="button"
             id="tab-fichas"
@@ -120,6 +121,18 @@ export default function SistemaApp() {
           >
             <IconFileText size={18} aria-hidden="true" />
             <span>Fichas técnicas</span>
+          </button>
+          <button
+            type="button"
+            id="tab-ordenes"
+            role="tab"
+            aria-selected={view === "ordenes"}
+            aria-controls="panel-seccion"
+            className={`sys-nav-item ${view === "ordenes" ? "sys-nav-item--active" : ""}`}
+            onClick={() => selectView("ordenes")}
+          >
+            <IconTool size={18} aria-hidden="true" />
+            <span>Órdenes</span>
           </button>
           {canAccessSection(user, "usuarios") && (
             <button
@@ -135,28 +148,33 @@ export default function SistemaApp() {
               <span>Usuarios</span>
             </button>
           )}
-
-          <button
-            type="button"
-            id="tab-ordenes"
-            role="tab"
-            aria-selected={view === "ordenes"}
-            aria-controls="panel-seccion"
-            className={`sys-nav-item ${view === "ordenes" ? "sys-nav-item--active" : ""}`}
-            onClick={() => selectView("ordenes")}
-          >
-            <IconTool size={18} aria-hidden="true" />
-            <span>Órdenes</span>
-          </button>
         </nav>
 
         <div className="sys-sidebar-footer">
           <div className="sys-user">
-            <div className="sys-user-info">
+            <div className="sys-user-info" title={user?.name}>
+              <span
+                aria-hidden="true"
+                style={{
+                  width: "1.75rem",
+                  height: "1.75rem",
+                  borderRadius: "999px",
+                  display: "grid",
+                  placeItems: "center",
+                  background: "hsl(var(--primary) / 0.12)",
+                  color: "hsl(var(--primary))",
+                  fontSize: "0.6875rem",
+                  fontWeight: 700,
+                  flexShrink: 0,
+                  border: "1px solid hsl(var(--primary) / 0.15)",
+                }}
+              >
+                {user?.name?.slice(0, 2).toUpperCase() ?? "US"}
+              </span>
               <strong>{user?.name}</strong>
             </div>
-            <button type="button" className="sys-btn sys-btn--ghost" onClick={handleLogout}>
-              <IconLogout size={16} />
+            <button type="button" className="sys-btn sys-btn--ghost" onClick={handleLogout} style={{ minHeight: "32px", padding: "0 0.625rem", fontSize: "0.75rem", borderRadius: "999px" }}>
+              <IconLogout size={14} aria-hidden="true" />
               Salir
             </button>
           </div>
@@ -174,10 +192,13 @@ export default function SistemaApp() {
             >
               <IconMenu2 size={20} aria-hidden="true" />
             </button>
-            <div>
-              <p className="sys-topbar-eyebrow">Sección actual</p>
+            <div style={{ minWidth: 0 }}>
+              <p className="sys-topbar-eyebrow">Sistek Pro · Panel</p>
               <h1 className="sys-topbar-title">{sectionTitle}</h1>
             </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
+            <span className="sys-badge" style={{ fontSize: "0.6875rem" }}>{user?.name}</span>
           </div>
         </header>
 

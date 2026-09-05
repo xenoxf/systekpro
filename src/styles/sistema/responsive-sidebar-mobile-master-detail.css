@@ -1,4 +1,4 @@
-/* Responsive sidebar + mobile master/detail */
+/* Responsive sidebar + mobile master/detail — Material navigation drawer modal */
 .sys-menu-btn {
   display: none;
 }
@@ -13,8 +13,10 @@
     left: 0;
     top: 0;
     z-index: 70;
+    height: 100vh;
+    height: 100dvh;
     transform: translateX(-100%);
-    transition: transform 0.25s ease;
+    transition: transform 0.22s cubic-bezier(0.2, 0, 0, 1);
     box-shadow: var(--shadow-lg);
   }
 
@@ -26,10 +28,11 @@
     position: fixed;
     inset: 0;
     z-index: 69;
-    background: hsl(var(--foreground) / 0.35);
+    background: hsl(var(--foreground) / 0.32);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s ease;
+    backdrop-filter: blur(1px);
   }
 
   .sys-sidebar-overlay.is-open {
@@ -43,15 +46,21 @@
     justify-content: center;
     width: 2.25rem;
     height: 2.25rem;
-    border-radius: var(--radius-md);
-    border: 1px solid hsl(var(--border));
-    background: hsl(var(--card));
-    color: hsl(var(--muted-foreground));
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: hsl(var(--foreground));
     cursor: pointer;
+    transition: background 0.15s ease;
   }
 
   .sys-menu-btn:hover {
-    background: hsl(var(--surface));
+    background: hsl(var(--foreground) / 0.08);
+  }
+
+  .sys-menu-btn:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 
   .sys-md {
@@ -79,6 +88,82 @@
 
   .sys-md-close {
     display: inline-flex;
+  }
+}
+
+/* Table stacking only on small phones — preserve table usability on tablets */
+@media (max-width: 640px) {
+  .sys-table-wrap {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .sys-table,
+  .sys-table thead {
+    display: none;
+  }
+
+  .sys-table tbody,
+  .sys-table tr,
+  .sys-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .sys-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sys-table tr {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-md);
+    padding: 0.625rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sys-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid hsl(var(--border) / 0.5);
+    text-align: right;
+    font-size: 0.8125rem;
+  }
+
+  .sys-table td:last-child {
+    border-bottom: none;
+  }
+
+  .sys-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .sys-table td[data-label="Acciones"]::before {
+    content: "";
+  }
+
+  .sys-table td[data-label="Acciones"] {
+    justify-content: flex-end;
+  }
+
+  .sys-cell-main,
+  .sys-cell-sub {
+    text-align: right;
   }
 }
 
