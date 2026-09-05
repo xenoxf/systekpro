@@ -486,7 +486,7 @@ export default function FichasSection() {
                       }}
                       aria-label={`Ver la ficha de ${ficha.nombreCliente}, ${tipoEquipoLabel(ficha.tipoEquipo)}, serial ${ficha.serialEquipo || "sin serial"}`}
                     >
-                      <td>
+                      <td data-label="Cliente">
                         <div className="sys-cell-with-avatar">
                           <span className="sys-cell-avatar" aria-hidden="true">{initials(ficha.nombreCliente)}</span>
                           <span className="sys-cell-stack">
@@ -495,7 +495,7 @@ export default function FichasSection() {
                           </span>
                         </div>
                       </td>
-                      <td>
+                      <td data-label="Equipo">
                         <span className="sys-cell-stack">
                           <span className="sys-cell-main" style={{ fontSize: "0.8125rem" }} title={[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ")}>
                             {[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ") || "—"}
@@ -503,9 +503,9 @@ export default function FichasSection() {
                           <span className="sys-cell-sub">{ficha.servicio || "Sin servicio"}</span>
                         </span>
                       </td>
-                      <td><code title={ficha.serialEquipo || ""}>{ficha.serialEquipo || "—"}</code></td>
-                      <td><span className="sys-badge">{tipoEquipoLabel(ficha.tipoEquipo)}</span></td>
-                      <td style={{ color: "hsl(var(--muted-foreground))", fontSize: "0.75rem" }}>{formatDate(ficha.fechaRealizacion ?? ficha.createdAt)}</td>
+                      <td data-label="Serial"><code title={ficha.serialEquipo || ""}>{ficha.serialEquipo || "—"}</code></td>
+                      <td data-label="Tipo"><span className="sys-badge">{tipoEquipoLabel(ficha.tipoEquipo)}</span></td>
+                      <td data-label="Registro" style={{ color: "hsl(var(--muted-foreground))", fontSize: "0.75rem" }}>{formatDate(ficha.fechaRealizacion ?? ficha.createdAt)}</td>
                     </tr>
                   ))}
                 </tbody>

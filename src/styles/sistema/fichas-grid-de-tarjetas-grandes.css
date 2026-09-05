@@ -94,6 +94,7 @@
   font-size: 0.6875rem;
   color: hsl(var(--muted-foreground));
   min-width: 0;
+  flex-wrap: wrap;
 }
 
 .sys-card-meta code {
@@ -117,31 +118,12 @@
   white-space: nowrap;
 }
 
-/* Desktop: hide card list when table is available — show table instead */
-@media (min-width: 768px) {
-  .sys-cards-grid--fichas {
-    display: none;
-  }
-}
-
 /* Utility: show table on desktop, cards on mobile */
 .sys-fichas-table {
   display: none;
 }
 
-@media (min-width: 768px) {
-  .sys-fichas-table {
-    display: block;
-  }
-}
 
 .sys-fichas-list {
   display: block;
 }
-
-@media (min-width: 768px) {
-  .sys-fichas-list {
-    display: none;
-  }
-}
-

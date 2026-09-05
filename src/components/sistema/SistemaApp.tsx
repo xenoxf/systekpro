@@ -181,6 +181,20 @@ export default function SistemaApp() {
       </aside>
 
       <div className="sys-content">
+        <header className="sys-topbar">
+          <div className="sys-topbar-inner">
+            <button
+              type="button"
+              className="sys-menu-btn"
+              onClick={() => setNavOpen(true)}
+              aria-label="Abrir menú"
+              aria-expanded={navOpen}
+              aria-controls="sys-sidebar"
+            >
+              <IconMenu2 size={20} aria-hidden="true" />
+            </button>
+          </div>
+        </header>
 
         <main className="sys-main">
           <div
