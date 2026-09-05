@@ -513,34 +513,6 @@ export default function FichasSection() {
             </div>
           </div>
 
-          {/* Mobile: dense list — not giant cards */}
-          <div className="sys-fichas-list" role="list" aria-label="Listado de fichas técnicas (mobile)">
-            {fichas.map((ficha) => (
-              <button
-                key={ficha.id}
-                type="button"
-                className="sys-card"
-                onClick={() => openDetail(ficha)}
-                aria-label={`Ver la ficha de ${ficha.nombreCliente}, ${tipoEquipoLabel(ficha.tipoEquipo)}, serial ${ficha.serialEquipo || "sin serial"}`}
-                role="listitem"
-              >
-                <span className="sys-card-avatar" aria-hidden="true">
-                  {initials(ficha.nombreCliente)}
-                </span>
-                <span className="sys-card-body">
-                  <span className="sys-card-title">{ficha.nombreCliente}</span>
-                  <span className="sys-card-sub">
-                    {[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ") || "Equipo sin especificar"}
-                  </span>
-                  <span className="sys-card-meta">
-                    <code>{ficha.serialEquipo || "Sin serial"}</code>
-                    <span>{tipoEquipoLabel(ficha.tipoEquipo)}</span>
-                  </span>
-                </span>
-                <span className="sys-card-date">{formatDate(ficha.fechaRealizacion ?? ficha.createdAt)}</span>
-              </button>
-            ))}
-          </div>
         </>
       )}
 
