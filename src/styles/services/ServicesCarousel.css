@@ -322,3 +322,28 @@
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
+
+/* Responsive: avoid overflow on small phones */
+@media (max-width: 640px) {
+  .scc-track {
+    gap: 0.25rem;
+    padding: 0 0.5rem;
+  }
+  .scc-arrow {
+    width: 2rem;
+    height: 2rem;
+  }
+  .scc-arrow svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  .scc-card {
+    max-width: 92vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .scc-arrow {
+    display: none;
+  }
+}
