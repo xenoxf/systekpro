@@ -39,54 +39,37 @@ function initials(name: string): string {
 
 function FichasSkeleton() {
   return (
-    <div className="sys-cards-grid" aria-hidden="true">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div
-          key={i}
-          className="sys-card"
-          style={{ opacity: 0.85, pointerEvents: "none" }}
-        >
-          <span className="sys-card-avatar" style={{ background: "hsl(var(--muted))", color: "transparent" }}>
-            —
-          </span>
-          <span className="sys-card-body">
-            <span
-              className="sys-card-title"
-              style={{
-                background: "hsl(var(--muted))",
-                borderRadius: "var(--radius-sm)",
-                height: "1rem",
-                width: "70%",
-                display: "inline-block",
-                color: "transparent",
-              }}
-            >
-              —
-            </span>
-            <span
-              className="sys-card-sub"
-              style={{
-                background: "hsl(var(--muted) / 0.7)",
-                borderRadius: "var(--radius-sm)",
-                height: "0.85rem",
-                width: "55%",
-                display: "inline-block",
-                color: "transparent",
-                marginTop: "0.2rem",
-              }}
-            >
-              —
-            </span>
-            <span className="sys-card-meta" style={{ marginTop: "0.15rem" }}>
-              <code style={{ background: "hsl(var(--muted))", color: "transparent", minWidth: "5rem" }}>—</code>
-              <span style={{ background: "hsl(var(--muted) / 0.6)", borderRadius: "var(--radius-sm)", width: "4rem", height: "0.7rem", display: "inline-block" }} />
-            </span>
-          </span>
-          <span className="sys-card-date" style={{ background: "hsl(var(--muted) / 0.5)", borderRadius: "var(--radius-sm)", width: "3.5rem", height: "0.7rem", display: "inline-block", color: "transparent" }}>
-            —
-          </span>
-        </div>
-      ))}
+    <div className="sys-table-wrap" aria-hidden="true">
+      <table className="sys-table sys-table--dense">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Equipo</th>
+            <th>Serial</th>
+            <th>Tipo</th>
+            <th>Registro</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: 6 }).map((_, i) => (
+            <tr key={i}>
+              <td>
+                <div className="sys-cell-with-avatar" style={{ opacity: 0.6 }}>
+                  <span className="sys-cell-avatar" style={{ background: "hsl(var(--muted))", color: "transparent", borderColor: "transparent" }}>—</span>
+                  <span style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                    <span style={{ width: "7rem", height: "0.75rem", background: "hsl(var(--muted))", borderRadius: "var(--radius-sm)", display: "block" }} />
+                    <span style={{ width: "5rem", height: "0.6rem", background: "hsl(var(--muted) / 0.6)", borderRadius: "var(--radius-sm)", display: "block" }} />
+                  </span>
+                </div>
+              </td>
+              <td><span style={{ width: "6rem", height: "0.75rem", background: "hsl(var(--muted) / 0.7)", borderRadius: "var(--radius-sm)", display: "inline-block" }} /></td>
+              <td><span style={{ width: "5rem", height: "0.7rem", background: "hsl(var(--muted) / 0.5)", borderRadius: "var(--radius-sm)", display: "inline-block" }} /></td>
+              <td><span style={{ width: "4rem", height: "0.7rem", background: "hsl(var(--muted) / 0.6)", borderRadius: "999px", display: "inline-block" }} /></td>
+              <td><span style={{ width: "4.5rem", height: "0.7rem", background: "hsl(var(--muted) / 0.5)", borderRadius: "var(--radius-sm)", display: "inline-block" }} /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
@@ -260,7 +243,7 @@ export default function FichasSection() {
             <div className="sys-detail-actions">
               <button
                 type="button"
-                className="sys-icon-btn"
+                className="sys-icon-btn sys-icon-btn--outlined"
                 title="Editar"
                 aria-label={`Editar la ficha de ${selected.nombreCliente}`}
                 onClick={() => openEdit(selected)}
@@ -276,9 +259,10 @@ export default function FichasSection() {
               >
                 <IconTrash size={17} aria-hidden="true" />
               </button>
-              <button type="button" className="sys-btn sys-btn--ghost" onClick={volverALista}>
-                <IconX size={16} aria-hidden="true" />
-                Salir
+              <span style={{ width: "1px", height: "1.5rem", background: "hsl(var(--border))", margin: "0 0.25rem" }} aria-hidden="true" />
+              <button type="button" className="sys-btn sys-btn--ghost" onClick={volverALista} style={{ minHeight: "32px", padding: "0 0.875rem", fontSize: "0.8125rem" }}>
+                <IconX size={14} aria-hidden="true" />
+                Cerrar
               </button>
             </div>
           </header>
@@ -377,15 +361,16 @@ export default function FichasSection() {
 
   return (
     <div className="sys-section">
-      {/* Header con contexto + acción principal */}
-      <div className="sys-section-toolbar">
+      {/* Header — Material: eyebrow + title + trailing primary */}
+      <div className="sys-section-toolbar" style={{ alignItems: "flex-end" }}>
         <div className="sys-panel-heading" style={{ minWidth: 0 }}>
           <p className="sys-topbar-eyebrow">Inventario</p>
-          <h2 className="sys-panel-title" style={{ marginTop: "0.15rem" }}>Fichas técnicas</h2>
-          {!loading && fichas.length > 0 && (
-            <p className="sys-panel-sub" aria-live="polite">
-              {fichas.length} {fichas.length === 1 ? "equipo registrado" : "equipos registrados"}
-              {hasFilters && " · filtrado"}
+          <h2 className="sys-panel-title" style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Fichas técnicas</h2>
+          {!loading && (
+            <p className="sys-panel-sub" aria-live="polite" style={{ fontSize: "0.8125rem" }}>
+              {fichas.length === 0
+                ? hasFilters ? "Sin resultados para los filtros" : "Sin equipos aún"
+                : `${fichas.length} ${fichas.length === 1 ? "equipo" : "equipos"}${hasFilters ? " · filtrado" : ""}`}
             </p>
           )}
         </div>
@@ -395,53 +380,50 @@ export default function FichasSection() {
         </button>
       </div>
 
-      {/* Toolbar de filtros: busca + tipo | limpiar */}
-      <div className="sys-section-toolbar sys-cards-toolbar" style={{ justifyContent: "flex-start", alignItems: "center" }}>
-        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "center", flex: 1, minWidth: 0 }}>
-          <div className="sys-search" style={{ flex: "1 1 14rem", maxWidth: "22rem" }}>
-            <IconSearch size={16} aria-hidden="true" />
-            <input
-              type="search"
-              aria-label="Filtrar fichas por serial del equipo"
-              placeholder="Filtrar por serial..."
-              value={serial}
-              onChange={(e) => setSerial(e.target.value)}
-              autoComplete="off"
-              spellCheck={false}
-            />
-            {serial && (
-              <button
-                type="button"
-                onClick={() => setSerial("")}
-                aria-label="Limpiar búsqueda por serial"
-                className="sys-icon-btn"
-                style={{ width: "1.75rem", height: "1.75rem", border: "none", background: "transparent" }}
-              >
-                <IconX size={14} aria-hidden="true" />
-              </button>
-            )}
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <IconAdjustmentsHorizontal size={16} aria-hidden="true" style={{ color: "hsl(var(--muted-foreground))", flexShrink: 0 }} />
-            <select
-              className="sys-select"
-              aria-label="Filtrar fichas por tipo de equipo"
-              value={tipoEquipo}
-              onChange={(e) => setTipoEquipo(e.target.value as TipoEquipo | "")}
-              style={{ minWidth: "10rem" }}
+      {/* Filter bar — Material search + filter */}
+      <div className="sys-filter-bar" role="search" aria-label="Filtros de fichas técnicas">
+        <div className="sys-search" style={{ flex: "1 1 14rem", maxWidth: "22rem" }}>
+          <IconSearch size={16} aria-hidden="true" />
+          <input
+            type="search"
+            aria-label="Filtrar fichas por serial del equipo"
+            placeholder="Buscar por serial…"
+            value={serial}
+            onChange={(e) => setSerial(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {serial && (
+            <button
+              type="button"
+              onClick={() => setSerial("")}
+              aria-label="Limpiar búsqueda por serial"
+              className="sys-icon-btn"
+              style={{ width: "1.75rem", height: "1.75rem" }}
             >
-              <option value="">Todos los tipos</option>
-              {TIPOS_EQUIPO.map((t) => (
-                <option key={t.value} value={t.value}>
-                  {t.label}
-                </option>
-              ))}
-            </select>
-          </div>
+              <IconX size={14} aria-hidden="true" />
+            </button>
+          )}
         </div>
-
-        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexShrink: 0 }}>
+        <span className="sys-filter-divider" aria-hidden="true" />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <IconAdjustmentsHorizontal size={16} aria-hidden="true" style={{ color: "hsl(var(--muted-foreground))", flexShrink: 0 }} />
+          <select
+            className="sys-select"
+            aria-label="Filtrar fichas por tipo de equipo"
+            value={tipoEquipo}
+            onChange={(e) => setTipoEquipo(e.target.value as TipoEquipo | "")}
+            style={{ minWidth: "10.5rem", height: "40px", borderRadius: "999px", padding: "0 0.75rem" }}
+          >
+            <option value="">Todos los tipos</option>
+            {TIPOS_EQUIPO.map((t) => (
+              <option key={t.value} value={t.value}>
+                {t.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div style={{ marginLeft: "auto", display: "flex", gap: "0.5rem", alignItems: "center" }}>
           <button
             type="button"
             className="sys-btn sys-btn--ghost"
@@ -454,27 +436,8 @@ export default function FichasSection() {
           >
             Limpiar
           </button>
-          {/* En desktop el botón principal ya está en el header; en mobile lo duplicamos aquí para alcance rápido si la lista es larga */}
-          <button
-            type="button"
-            className="sys-btn sys-btn--primary"
-            onClick={openCreate}
-            style={{ display: "none" }}
-            aria-hidden="true"
-            tabIndex={-1}
-          >
-            <IconPlus size={16} />
-            Nueva ficha
-          </button>
         </div>
       </div>
-
-      {/* Hint de resultados accesible */}
-      {!loading && hasFilters && fichas.length > 0 && (
-        <p className="sys-section-hint" aria-live="polite" style={{ marginTop: "-0.5rem" }}>
-          Mostrando {fichas.length} resultado{fichas.length !== 1 ? "s" : ""} para los filtros aplicados.
-        </p>
-      )}
 
       {loading ? (
         <FichasSkeleton />
@@ -495,33 +458,91 @@ export default function FichasSection() {
           }
         />
       ) : (
-        <div className="sys-cards-grid" role="list" aria-label="Listado de fichas técnicas">
-          {fichas.map((ficha) => (
-            <button
-              key={ficha.id}
-              type="button"
-              className="sys-card"
-              onClick={() => openDetail(ficha)}
-              aria-label={`Ver la ficha de ${ficha.nombreCliente}, ${tipoEquipoLabel(ficha.tipoEquipo)}, serial ${ficha.serialEquipo || "sin serial"}`}
-              role="listitem"
-            >
-              <span className="sys-card-avatar" aria-hidden="true">
-                {initials(ficha.nombreCliente)}
-              </span>
-              <span className="sys-card-body">
-                <span className="sys-card-title">{ficha.nombreCliente}</span>
-                <span className="sys-card-sub">
-                  {[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ") || "Equipo sin especificar"}
+        <>
+          {/* Desktop: Material Data Table — primary view */}
+          <div className="sys-fichas-table">
+            <div className="sys-table-wrap">
+              <table className="sys-table sys-table--dense sys-table--clickable" aria-label="Listado de fichas técnicas">
+                <thead>
+                  <tr>
+                    <th scope="col" style={{ width: "32%" }}>Cliente</th>
+                    <th scope="col" style={{ width: "26%" }}>Equipo</th>
+                    <th scope="col">Serial</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col" style={{ width: "7rem" }}>Registro</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {fichas.map((ficha) => (
+                    <tr
+                      key={ficha.id}
+                      onClick={() => openDetail(ficha)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault()
+                          openDetail(ficha)
+                        }
+                      }}
+                      aria-label={`Ver la ficha de ${ficha.nombreCliente}, ${tipoEquipoLabel(ficha.tipoEquipo)}, serial ${ficha.serialEquipo || "sin serial"}`}
+                    >
+                      <td>
+                        <div className="sys-cell-with-avatar">
+                          <span className="sys-cell-avatar" aria-hidden="true">{initials(ficha.nombreCliente)}</span>
+                          <span className="sys-cell-stack">
+                            <span className="sys-cell-main" title={ficha.nombreCliente}>{ficha.nombreCliente}</span>
+                            <span className="sys-cell-sub" title={ficha.telefonoCliente || ficha.correoCliente || ""}>{ficha.telefonoCliente || ficha.correoCliente || "—"}</span>
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="sys-cell-stack">
+                          <span className="sys-cell-main" style={{ fontSize: "0.8125rem" }} title={[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ")}>
+                            {[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ") || "—"}
+                          </span>
+                          <span className="sys-cell-sub">{ficha.servicio || "Sin servicio"}</span>
+                        </span>
+                      </td>
+                      <td><code title={ficha.serialEquipo || ""}>{ficha.serialEquipo || "—"}</code></td>
+                      <td><span className="sys-badge">{tipoEquipoLabel(ficha.tipoEquipo)}</span></td>
+                      <td style={{ color: "hsl(var(--muted-foreground))", fontSize: "0.75rem" }}>{formatDate(ficha.fechaRealizacion ?? ficha.createdAt)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Mobile: dense list — not giant cards */}
+          <div className="sys-fichas-list" role="list" aria-label="Listado de fichas técnicas (mobile)">
+            {fichas.map((ficha) => (
+              <button
+                key={ficha.id}
+                type="button"
+                className="sys-card"
+                onClick={() => openDetail(ficha)}
+                aria-label={`Ver la ficha de ${ficha.nombreCliente}, ${tipoEquipoLabel(ficha.tipoEquipo)}, serial ${ficha.serialEquipo || "sin serial"}`}
+                role="listitem"
+              >
+                <span className="sys-card-avatar" aria-hidden="true">
+                  {initials(ficha.nombreCliente)}
                 </span>
-                <span className="sys-card-meta">
-                  <code>{ficha.serialEquipo || "Sin serial"}</code>
-                  <span>{tipoEquipoLabel(ficha.tipoEquipo)}</span>
+                <span className="sys-card-body">
+                  <span className="sys-card-title">{ficha.nombreCliente}</span>
+                  <span className="sys-card-sub">
+                    {[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ") || "Equipo sin especificar"}
+                  </span>
+                  <span className="sys-card-meta">
+                    <code>{ficha.serialEquipo || "Sin serial"}</code>
+                    <span>{tipoEquipoLabel(ficha.tipoEquipo)}</span>
+                  </span>
                 </span>
-              </span>
-              <span className="sys-card-date">{formatDate(ficha.fechaRealizacion ?? ficha.createdAt)}</span>
-            </button>
-          ))}
-        </div>
+                <span className="sys-card-date">{formatDate(ficha.fechaRealizacion ?? ficha.createdAt)}</span>
+              </button>
+            ))}
+          </div>
+        </>
       )}
 
       <ConfirmDialog
