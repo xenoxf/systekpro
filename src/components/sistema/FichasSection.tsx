@@ -364,7 +364,6 @@ export default function FichasSection() {
       {/* Header — Material: eyebrow + title + trailing primary */}
       <div className="sys-section-toolbar" style={{ alignItems: "flex-end" }}>
         <div className="sys-panel-heading" style={{ minWidth: 0 }}>
-          <p className="sys-topbar-eyebrow">Inventario</p>
           <h2 className="sys-panel-title" style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Fichas técnicas</h2>
           {!loading && (
             <p className="sys-panel-sub" aria-live="polite" style={{ fontSize: "0.8125rem" }}>

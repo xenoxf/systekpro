@@ -103,7 +103,6 @@ export default function SistemaApp() {
             <IconShieldCheck size={18} />
           </span>
           <div>
-            <strong>Sistek · Panel</strong>
             <span>Sistema de gestión</span>
           </div>
         </div>
@@ -182,25 +181,6 @@ export default function SistemaApp() {
       </aside>
 
       <div className="sys-content">
-        <header className="sys-topbar">
-          <div className="sys-topbar-inner">
-            <button
-              type="button"
-              className="sys-menu-btn"
-              onClick={() => setNavOpen(true)}
-              aria-label="Abrir navegación"
-            >
-              <IconMenu2 size={20} aria-hidden="true" />
-            </button>
-            <div style={{ minWidth: 0 }}>
-              <p className="sys-topbar-eyebrow">Sistek Pro · Panel</p>
-              <h1 className="sys-topbar-title">{sectionTitle}</h1>
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
-            <span className="sys-badge" style={{ fontSize: "0.6875rem" }}>{user?.name}</span>
-          </div>
-        </header>
 
         <main className="sys-main">
           <div

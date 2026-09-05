@@ -42,7 +42,7 @@ export default function TicketMantenimiento({
       <div className="ticket-sheet">
         <header className="ticket-head">
           <div>
-            <strong className="ticket-brand">Sistek Pro</strong>
+            <img src="/logo.png" alt="Sistek logo"  width="120" height="120" />
             <span className="ticket-brand-sub">Seguimiento de mantenimiento</span>
           </div>
           <span className={`ticket-estado ${estadoClase(seguimiento.estado)}`}>
