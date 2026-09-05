@@ -240,22 +240,27 @@ textarea {
 }
 
 .container {
-  max-width: 1280px;
+  max-width: min(1280px, 95vw);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 clamp(0.75rem, 2vw, 1rem);
 }
 
 @media (min-width: 640px) {
   .container {
-    padding: 0 1.5rem;
+    padding: 0 clamp(1rem, 3vw, 1.5rem);
   }
 }
 
 @media (min-width: 1024px) {
   .container {
-    padding: 0 2rem;
+    padding: 0 clamp(1.5rem, 4vw, 2rem);
   }
 }
+
+.logo-light { display: block; }
+.logo-dark { display: none; }
+.dark .logo-light { display: none; }
+.dark .logo-dark { display: block; }
 
 .text-center {
   text-align: center;

@@ -75,8 +75,9 @@ export default function Navbar() {
     <header id="navbar" className={scrolled ? 'glass-strong' : ''}>
       <div className="nav-container">
         <div className="nav-inner">
-          <a href="/" className="nav-logo" aria-label="Sistek Pro - Inicio">
-            <img src="/logo.png" alt="Sistek logo"  width="120" height="120" />
+          <a href="/" className="" aria-label="Sistek Pro - Inicio">
+            <img src="/logo.png" alt="Sistek logo" className="logo-light" style={{maxHeight:'3.2rem', width:'auto', maxWidth:'160px', objectFit:'contain'}} />
+            <img src="/logo_white.png" alt="Sistek logo" className="logo-dark" style={{maxHeight:'3.2rem', width:'auto', maxWidth:'160px', objectFit:'contain'}} />
           </a>
 
           <nav className="nav-links" aria-label="Navegación principal">
