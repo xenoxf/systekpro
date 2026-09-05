@@ -1,12 +1,11 @@
-/* Form panel (en sesión, no modal) */
+/* Form panel / Detail panel — Material elevated surface */
 .sys-panel {
   display: flex;
   flex-direction: column;
   background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
 }
 
 .sys-panel-head {
@@ -14,8 +13,12 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.25rem 1.5rem;
+  padding: 1rem 1.25rem;
   border-bottom: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .sys-panel-heading {
@@ -24,28 +27,33 @@
 
 .sys-panel-title {
   margin: 0.15rem 0 0;
-  font-size: 1.125rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
   color: hsl(var(--foreground));
 }
 
 .sys-panel-sub {
-  margin: 0.25rem 0 0;
-  font-size: 0.875rem;
+  margin: 0.2rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
   color: hsl(var(--muted-foreground));
 }
 
 .sys-panel-body {
-  padding: 1.5rem;
+  padding: 1.25rem;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .sys-panel-foot {
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
-  padding: 1rem 1.5rem;
+  padding: 0.875rem 1.25rem;
   border-top: 1px solid hsl(var(--border));
   background: hsl(var(--surface));
 }

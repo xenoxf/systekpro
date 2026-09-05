@@ -150,21 +150,21 @@ export default function UsersSection() {
                     <div className="sys-row-actions">
                       <button
                         type="button"
-                        className="sys-icon-btn"
+                        className="sys-icon-btn sys-icon-btn--outlined"
                         title="Ver detalle"
                         aria-label={`Ver detalle del usuario ${user.name}`}
                         onClick={() => openDetail(user)}
                       >
-                        <IconEye size={17} aria-hidden="true" />
+                        <IconEye size={16} aria-hidden="true" />
                       </button>
                       <button
                         type="button"
-                        className="sys-icon-btn"
+                        className="sys-icon-btn sys-icon-btn--outlined"
                         title="Editar"
                         aria-label={`Editar al usuario ${user.name}`}
                         onClick={() => openEdit(user)}
                       >
-                        <IconPencil size={17} aria-hidden="true" />
+                        <IconPencil size={16} aria-hidden="true" />
                       </button>
                       <button
                         type="button"
@@ -173,7 +173,7 @@ export default function UsersSection() {
                         aria-label={`Eliminar al usuario ${user.name}`}
                         onClick={() => setDeleting(user)}
                       >
-                        <IconTrash size={17} aria-hidden="true" />
+                        <IconTrash size={16} aria-hidden="true" />
                       </button>
                     </div>
                   </td>
