@@ -97,7 +97,6 @@ function Contact() {
     <section id="contacto" className={styles.contacto}>
       <div className={styles.container}>
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionBadge}>Contacto</span>
           <h2 className={styles.sectionTitle}>
             Hablemos de tu<span className={styles.gradientText}> proyecto</span>
           </h2>
