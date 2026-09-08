@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { IconBuilding, IconPencil, IconTrash, IconPlus, IconEye } from "@tabler/icons-react"
 import { departamentosService, type Departamento, type CreateDepartamentoDto } from "@/services/departamentos"
 import { isApiError } from "@/services/api"
+import { getSession } from "@/services/auth"
+import { canDelete } from "@/services/permissions"
 import { toast } from "@/components/starwind/toast"
 import { Drawer, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
 import styles from "@/styles/SistemaUI.module.css"
@@ -12,6 +14,8 @@ interface FormState {
 }
 
 export default function DepartamentosSection() {
+  const [currentUser] = useState(() => getSession()?.user ?? null)
+  const allowDelete = canDelete(currentUser)
   const [items, setItems] = useState<Departamento[]>([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
@@ -214,15 +218,17 @@ export default function DepartamentosSection() {
                         >
                           <IconPencil size={16} aria-hidden="true" />
                         </button>
-                        <button
-                          type="button"
-                          className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`}
-                          title="Eliminar"
-                          aria-label={`Eliminar ${dep.nombre_departamento}`}
-                          onClick={() => setDeleting(dep)}
-                        >
-                          <IconTrash size={16} aria-hidden="true" />
-                        </button>
+                        {allowDelete && (
+                          <button
+                            type="button"
+                            className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`}
+                            title="Eliminar (solo admin)"
+                            aria-label={`Eliminar ${dep.nombre_departamento}`}
+                            onClick={() => setDeleting(dep)}
+                          >
+                            <IconTrash size={16} aria-hidden="true" />
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

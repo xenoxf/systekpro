@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { IconUsersGroup, IconPencil, IconTrash, IconPlus, IconEye, IconMail, IconPhone } from "@tabler/icons-react"
 import { clientesService, type Cliente, type CreateClienteDto } from "@/services/clientes"
 import { isApiError } from "@/services/api"
+import { getSession } from "@/services/auth"
+import { canDelete } from "@/services/permissions"
 import { toast } from "@/components/starwind/toast"
 import { Drawer, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
 import styles from "@/styles/SistemaUI.module.css"
@@ -16,6 +18,8 @@ interface FormState {
 }
 
 export default function ClientesSection() {
+  const [currentUser] = useState(() => getSession()?.user ?? null)
+  const allowDelete = canDelete(currentUser)
   const [items, setItems] = useState<Cliente[]>([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
@@ -232,9 +236,11 @@ export default function ClientesSection() {
                         <button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`} title="Editar" onClick={() => openEdit(c)} aria-label={`Editar ${c.nombre_cliente}`}>
                           <IconPencil size={16} aria-hidden="true" />
                         </button>
-                        <button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`} title="Eliminar" onClick={() => setDeleting(c)} aria-label={`Eliminar ${c.nombre_cliente}`}>
-                          <IconTrash size={16} aria-hidden="true" />
-                        </button>
+                        {allowDelete && (
+                          <button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`} title="Eliminar (solo admin)" onClick={() => setDeleting(c)} aria-label={`Eliminar ${c.nombre_cliente}`}>
+                            <IconTrash size={16} aria-hidden="true" />
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>
