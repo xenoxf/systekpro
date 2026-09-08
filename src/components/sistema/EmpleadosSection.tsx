@@ -3,6 +3,8 @@ import { IconBriefcase, IconPencil, IconTrash, IconPlus, IconEye } from "@tabler
 import { empleadosService, type Empleado, type CreateEmpleadoDto } from "@/services/empleados"
 import { departamentosService, type Departamento } from "@/services/departamentos"
 import { isApiError } from "@/services/api"
+import { getSession } from "@/services/auth"
+import { canDelete } from "@/services/permissions"
 import { toast } from "@/components/starwind/toast"
 import { Drawer, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
 import styles from "@/styles/SistemaUI.module.css"
@@ -16,6 +18,8 @@ interface FormState {
 }
 
 export default function EmpleadosSection() {
+  const [currentUser] = useState(() => getSession()?.user ?? null)
+  const allowDelete = canDelete(currentUser)
   const [items, setItems] = useState<Empleado[]>([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
@@ -268,7 +272,7 @@ export default function EmpleadosSection() {
                         <div className={styles['sys-row-actions']}>
                           <button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`} title="Ver" onClick={() => openDetail(emp)}><IconEye size={16} aria-hidden="true" /></button>
                           <button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`} title="Editar" onClick={() => openEdit(emp)}><IconPencil size={16} aria-hidden="true" /></button>
-                          <button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`} title="Eliminar" onClick={() => setDeleting(emp)}><IconTrash size={16} aria-hidden="true" /></button>
+                          {allowDelete && (<button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`} title="Eliminar (solo admin)" onClick={() => setDeleting(emp)}><IconTrash size={16} aria-hidden="true" /></button>)}
                         </div>
                       </td>
                     </tr>

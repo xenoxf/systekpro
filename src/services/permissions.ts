@@ -26,3 +26,13 @@ export function canAccessSection(
   // fichas, ordenes, clientes -> cualquier autenticado
   return true
 }
+
+// Solo admin puede eliminar (backend: DELETE @Roles(admin)) y gestionar usuarios.
+// Gerente: ver + crear + editar fichas, ordenes, departamentos, empleados, clientes.
+export function canDelete(user: AuthUser | null | undefined): boolean {
+  return isAdmin(user)
+}
+
+export function canManageUsers(user: AuthUser | null | undefined): boolean {
+  return isAdmin(user)
+}

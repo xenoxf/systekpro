@@ -18,6 +18,8 @@ import {
   type TipoEquipo,
 } from "@/services/fichas"
 import { isApiError } from "@/services/api"
+import { getSession } from "@/services/auth"
+import { canDelete } from "@/services/permissions"
 import { toast } from "@/components/starwind/toast"
 import { ConfirmDialog, EmptyState, Spinner, formatDate, FormPanel } from "./ui"
 import FichaForm from "./FichaForm"
@@ -76,6 +78,8 @@ function FichasSkeleton() {
 }
 
 export default function FichasSection() {
+  const [currentUser] = useState(() => getSession()?.user ?? null)
+  const allowDelete = canDelete(currentUser)
   const [fichas, setFichas] = useState<FichaTecnica[]>([])
   const [loading, setLoading] = useState(true)
   const [serial, setSerial] = useState("")
@@ -253,15 +257,17 @@ export default function FichasSection() {
               >
                 <IconPencil size={17} aria-hidden="true" />
               </button>
-              <button
-                type="button"
-                className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`}
-                title="Eliminar"
-                aria-label={`Eliminar la ficha de ${selected.nombreCliente}`}
-                onClick={() => setDeleting(selected)}
-              >
-                <IconTrash size={17} aria-hidden="true" />
-              </button>
+              {allowDelete && (
+                <button
+                  type="button"
+                  className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`}
+                  title="Eliminar (solo admin)"
+                  aria-label={`Eliminar la ficha de ${selected.nombreCliente}`}
+                  onClick={() => setDeleting(selected)}
+                >
+                  <IconTrash size={17} aria-hidden="true" />
+                </button>
+              )}
               <span style={{ width: "1px", height: "1.5rem", background: "hsl(var(--border))", margin: "0 0.25rem" }} aria-hidden="true" />
               <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={volverALista} style={{ minHeight: "32px", padding: "0 0.875rem", fontSize: "0.8125rem" }}>
                 <IconX size={14} aria-hidden="true" />

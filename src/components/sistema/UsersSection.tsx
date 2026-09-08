@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { IconEye, IconPencil, IconTrash, IconUsers } from "@tabler/icons-react"
-import { usersService, isValidUuid, type Usuario, type UpdateUsuarioDto } from "@/services/users"
+import { IconEye, IconPencil, IconPlus, IconTrash, IconUsers } from "@tabler/icons-react"
+import { usersService, isValidUuid, type Usuario, type UpdateUsuarioDto, type CreateUsuarioDto } from "@/services/users"
+import { departamentosService, type Departamento } from "@/services/departamentos"
 import { isApiError } from "@/services/api"
 import { toast } from "@/components/starwind/toast"
 import { Drawer, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
@@ -10,23 +11,37 @@ interface FormState {
   name: string
   password: string
   role: Usuario["role"]
+  departamentoId: string
+}
+
+const EMPTY_FORM: FormState = { name: "", password: "", role: "mantenimiento", departamentoId: "" }
+
+function departamentoLabel(user: Usuario): string {
+  return user.departamento?.nombre_departamento ?? "—"
+}
+
+function departamentoIdOf(user: Usuario): string {
+  return user.departamentoId ?? user.departamento?.id_departamento ?? ""
 }
 
 export default function UsersSection() {
   const [users, setUsers] = useState<Usuario[]>([])
   const [loading, setLoading] = useState(true)
+  const [departamentos, setDepartamentos] = useState<Departamento[]>([])
 
   const [detail, setDetail] = useState<Usuario | null>(null)
   const [detailLoading, setDetailLoading] = useState(false)
 
   const [formOpen, setFormOpen] = useState(false)
   const [editing, setEditing] = useState<Usuario | null>(null)
-  const [form, setForm] = useState<FormState>({ name: "", password: "", role: "mantenimiento" })
+  const [form, setForm] = useState<FormState>(EMPTY_FORM)
   const [formError, setFormError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
   const [deleting, setDeleting] = useState<Usuario | null>(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
+
+  const isCreating = editing === null && formOpen
 
   async function loadUsers() {
     setLoading(true)
@@ -41,8 +56,17 @@ export default function UsersSection() {
     }
   }
 
+  async function loadDepartamentos() {
+    try {
+      setDepartamentos(await departamentosService.listAll())
+    } catch {
+      setDepartamentos([])
+    }
+  }
+
   useEffect(() => {
     loadUsers()
+    loadDepartamentos()
   }, [])
 
   async function openDetail(user: Usuario) {
@@ -62,38 +86,75 @@ export default function UsersSection() {
     }
   }
 
+  function openCreate() {
+    setEditing(null)
+    setForm({ ...EMPTY_FORM })
+    setFormError(null)
+    if (departamentos.length === 0) loadDepartamentos()
+    setFormOpen(true)
+  }
+
   function openEdit(user: Usuario) {
     setEditing(user)
-    setForm({ name: user.name, password: "", role: user.role })
+    setForm({ name: user.name, password: "", role: user.role, departamentoId: departamentoIdOf(user) })
     setFormError(null)
+    if (departamentos.length === 0) loadDepartamentos()
     setFormOpen(true)
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!editing) return
     setFormError(null)
 
-    const dto: UpdateUsuarioDto = {}
-    if (form.name !== editing.name) dto.name = form.name
-    if (form.password) dto.password = form.password
-    if (form.role !== editing.role) dto.role = form.role
-
-    if (Object.keys(dto).length === 0) {
-      setFormOpen(false)
+    const name = form.name.trim()
+    if (name.length < 3 || name.length > 50) {
+      setFormError("El nombre debe tener entre 3 y 50 caracteres.")
       return
     }
 
+    // Crear: contraseña obligatoria. Editar: opcional (solo si se quiere cambiar).
+    if (isCreating || form.password) {
+      if (!form.password || form.password.length < 5 || form.password.length > 50) {
+        setFormError("La contraseña debe tener entre 5 y 50 caracteres.")
+        return
+      }
+    }
+
+    const departamentoId = form.departamentoId || null
+
     setSubmitting(true)
     try {
-      await usersService.update(editing.id, dto)
-      toast.success("Usuario actualizado correctamente")
+      if (editing) {
+        const dto: UpdateUsuarioDto = {}
+        if (name !== editing.name) dto.name = name
+        if (form.password) dto.password = form.password
+        if (form.role !== editing.role) dto.role = form.role
+        const prevDep = departamentoIdOf(editing)
+        if ((departamentoId ?? "") !== prevDep) dto.departamentoId = departamentoId
+
+        if (Object.keys(dto).length === 0) {
+          setFormOpen(false)
+          return
+        }
+        await usersService.update(editing.id, dto)
+        toast.success("Usuario actualizado correctamente")
+      } else {
+        const dto: CreateUsuarioDto = {
+          name,
+          password: form.password,
+          role: form.role,
+          departamentoId,
+        }
+        await usersService.create(dto)
+        toast.success(`Usuario "${name}" creado correctamente`)
+      }
       setFormOpen(false)
       await loadUsers()
     } catch (err) {
       if (isApiError(err)) {
         if (err.statusCode === 409) setFormError("Ya existe un usuario con ese nombre.")
         else if (err.statusCode === 400) setFormError(err.messages.join("\n"))
+        else if (err.statusCode === 403) setFormError("No tienes permisos para esta acción (solo admin).")
         else toast.error(err.message)
       }
     } finally {
@@ -118,16 +179,40 @@ export default function UsersSection() {
 
   return (
     <div className={styles['sys-section']}>
-      <div className={styles['sys-section-toolbar']}>
-        <p className={styles['sys-section-hint']}>
-          Gestión de usuarios del sistema. Los usuarios se crean internamente por el backend.
-        </p>
+      <div className={styles['sys-section-toolbar']} style={{ alignItems: "flex-end" }}>
+        <div style={{ minWidth: 0 }}>
+          <h2 style={{ margin: 0, fontSize: "1.25rem" }}>Usuarios</h2>
+          <p className={styles['sys-section-hint']}>
+            Solo el admin gestiona usuarios: crea la cuenta, define su contraseña, rol y departamento.
+          </p>
+        </div>
+        <button
+          type="button"
+          className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`}
+          onClick={openCreate}
+        >
+          <IconPlus size={16} aria-hidden="true" />
+          Nuevo usuario
+        </button>
       </div>
 
       {loading ? (
         <Spinner label="Cargando usuarios..." />
       ) : !Array.isArray(users) || users.length === 0 ? (
-        <EmptyState title="No hay usuarios registrados" icon={<IconUsers size={20} />} />
+        <EmptyState
+          title="No hay usuarios registrados"
+          icon={<IconUsers size={20} />}
+          action={
+            <button
+              type="button"
+              className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`}
+              onClick={openCreate}
+            >
+              <IconPlus size={16} aria-hidden="true" />
+              Crear primer usuario
+            </button>
+          }
+        />
       ) : (
         <div className={styles['sys-table-wrap']}>
           <table className={styles['sys-table']}>
@@ -135,6 +220,7 @@ export default function UsersSection() {
               <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Rol</th>
+                <th scope="col">Departamento</th>
                 <th scope="col">Creado</th>
                 <th scope="col">Acciones</th>
               </tr>
@@ -148,6 +234,7 @@ export default function UsersSection() {
                       {user.role}
                     </span>
                   </td>
+                  <td data-label="Departamento">{departamentoLabel(user)}</td>
                   <td data-label="Creado">{formatDate(user.createdAt)}</td>
                   <td data-label="Acciones">
                     <div className={styles['sys-row-actions']}>
@@ -201,6 +288,7 @@ export default function UsersSection() {
                 </span>
               </dd>
             </div>
+            <div><dt>Departamento</dt><dd>{departamentoLabel(detail)}</dd></div>
             <div><dt>Creado</dt><dd>{formatDate(detail.createdAt)}</dd></div>
             <div><dt>Actualizado</dt><dd>{formatDate(detail.updatedAt)}</dd></div>
             <div className={styles['sys-detail-full']}><dt>ID</dt><dd><code>{detail.id}</code></dd></div>
@@ -210,7 +298,7 @@ export default function UsersSection() {
 
       <Drawer
         open={formOpen}
-        title={editing ? `Editar usuario · ${editing.name}` : "Editar usuario"}
+        title={editing ? `Editar usuario · ${editing.name}` : "Nuevo usuario"}
         onClose={() => setFormOpen(false)}
         footer={
           <>
@@ -218,7 +306,7 @@ export default function UsersSection() {
               Cancelar
             </button>
             <button type="submit" form="usuario-form" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} disabled={submitting}>
-              {submitting ? "Guardando..." : "Guardar cambios"}
+              {submitting ? "Guardando..." : editing ? "Guardar cambios" : "Crear usuario"}
             </button>
           </>
         }
@@ -232,17 +320,21 @@ export default function UsersSection() {
               minLength={3}
               maxLength={50}
               required
+              placeholder="Ej: jperez"
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
             />
           </label>
           <label className={styles['sys-field']}>
-            <span>Nueva contraseña (opcional)</span>
+            <span>{editing ? "Nueva contraseña (opcional)" : "Contraseña *"} </span>
             <input
               className={styles['sys-input']}
               type="password"
               value={form.password}
               autoComplete="new-password"
-              placeholder="Mínimo 5 caracteres, 1 mayúscula, 1 número y 1 símbolo"
+              required={!editing}
+              minLength={5}
+              maxLength={50}
+              placeholder={editing ? "Déjala vacía para no cambiarla" : "Mínimo 5 caracteres"}
               onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
             />
           </label>
@@ -257,6 +349,26 @@ export default function UsersSection() {
               <option value="gerente">Gerente</option>
               <option value="admin">Admin</option>
             </select>
+          </label>
+          <label className={styles['sys-field']}>
+            <span>Departamento {form.role === "admin" ? "(opcional)" : ""}</span>
+            <select
+              className={styles['sys-select']}
+              value={form.departamentoId}
+              onChange={(e) => setForm((f) => ({ ...f, departamentoId: e.target.value }))}
+            >
+              <option value="">Sin departamento</option>
+              {departamentos.map((d) => (
+                <option key={d.id_departamento ?? d.id} value={d.id_departamento ?? d.id}>
+                  {d.nombre_departamento}
+                </option>
+              ))}
+            </select>
+            {departamentos.length === 0 && (
+              <small style={{ fontSize: "0.75rem", opacity: 0.7 }}>
+                No hay departamentos cargados. Puedes crearlo en la sección Departamentos.
+              </small>
+            )}
           </label>
 
           {formError && <pre className={`${styles['sys-error']} ${styles['sys-error--list']}`}>{formError}</pre>}
