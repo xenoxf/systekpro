@@ -1,5 +1,5 @@
 import { IconChevronDown } from '@tabler/icons-react';
-import '@/styles/landingPage/FAQ.css';
+import styles from "@/styles/FAQ.module.css";
 
 const faqs = [
   {
@@ -53,7 +53,7 @@ export default function FAQ() {
   return (
     <section id="faq" aria-labelledby="faq-heading">
       <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
-      <div className="faq-container">
+      <div className={styles['faq-container']}>
         <div className="section-header">
           <h2 id="faq-heading" className="section-title">
             Preguntas <span className="gradient-text">frecuentes</span>
@@ -61,18 +61,18 @@ export default function FAQ() {
           <p className="section-desc">Resolvemos tus dudas sobre nuestros servicios de infraestructura tecnológica en Cali.</p>
         </div>
 
-        <div className="faq-list">
+        <div className={styles['faq-list']}>
           {faqs.map((faq, i) => (
             <details
               key={i}
-              className="faq-item"
+              className={styles['faq-item']}
             >
-              <summary className="faq-question">
-                <span className="faq-question-text">{faq.q}</span>
-                <IconChevronDown className="faq-icon" aria-hidden="true" />
+              <summary className={styles['faq-question']}>
+                <span className={styles['faq-question-text']}>{faq.q}</span>
+                <IconChevronDown className={styles['faq-icon']} aria-hidden="true" />
               </summary>
-              <div className="faq-answer">
-                <p className="faq-answer-text">{faq.a}</p>
+              <div className={styles['faq-answer']}>
+                <p className={styles['faq-answer-text']}>{faq.a}</p>
               </div>
             </details>
           ))}

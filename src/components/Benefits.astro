@@ -1,6 +1,6 @@
 ---
 import { IconUsers, IconClock, IconCoin, IconTools, IconMapPin, IconShieldCheck } from '@tabler/icons-react';
-import '@/styles/landingPage/Benefits.css';
+import styles from "@/styles/Benefits.module.css";
 ---
 
 <section id="beneficios">
@@ -10,41 +10,41 @@ import '@/styles/landingPage/Benefits.css';
       <p class="section-desc">Nos comprometemos con cada proyecto para ofrecerte un servicio profesional, transparente y de calidad.</p>
     </div>
 
-    <ul class="beneficios-grid">
-      <li class="benefit-card">
-        <div class="benefit-card-icon accent" aria-hidden="true"><IconUsers /></div>
-        <h3 class="benefit-card-title">Atención personalizada</h3>
-        <p class="benefit-card-desc">Te atendemos de forma directa y cercana. Cada proyecto recibe el tiempo y la dedicación que merece, sin tratos genéricos.</p>
+    <ul class={styles['beneficios-grid']}>
+      <li class={styles['benefit-card']}>
+        <div class={`${styles['benefit-card-icon']} ${styles.accent}`} aria-hidden="true"><IconUsers /></div>
+        <h3 class={styles['benefit-card-title']}>Atención personalizada</h3>
+        <p class={styles['benefit-card-desc']}>Te atendemos de forma directa y cercana. Cada proyecto recibe el tiempo y la dedicación que merece, sin tratos genéricos.</p>
       </li>
 
-      <li class="benefit-card">
-        <div class="benefit-card-icon primary" aria-hidden="true"><IconClock /></div>
-        <h3 class="benefit-card-title">Respuesta ágil</h3>
-        <p class="benefit-card-desc">Sabemos que el tiempo es valioso. Coordinamos contigo para brindarte soluciones rápidas sin sacrificar la calidad del servicio.</p>
+      <li class={styles['benefit-card']}>
+        <div class={`${styles['benefit-card-icon']} ${styles.primary}`} aria-hidden="true"><IconClock /></div>
+        <h3 class={styles['benefit-card-title']}>Respuesta ágil</h3>
+        <p class={styles['benefit-card-desc']}>Sabemos que el tiempo es valioso. Coordinamos contigo para brindarte soluciones rápidas sin sacrificar la calidad del servicio.</p>
       </li>
 
-      <li class="benefit-card">
-        <div class="benefit-card-icon accent" aria-hidden="true"><IconCoin /></div>
-        <h3 class="benefit-card-title">Presupuesto sin compromiso</h3>
-        <p class="benefit-card-desc">Te presentamos una cotización clara y detallada antes de empezar. Sin costos ocultos ni sorpresas.</p>
+      <li class={styles['benefit-card']}>
+        <div class={`${styles['benefit-card-icon']} ${styles.accent}`} aria-hidden="true"><IconCoin /></div>
+        <h3 class={styles['benefit-card-title']}>Presupuesto sin compromiso</h3>
+        <p class={styles['benefit-card-desc']}>Te presentamos una cotización clara y detallada antes de empezar. Sin costos ocultos ni sorpresas.</p>
       </li>
 
-      <li class="benefit-card">
-        <div class="benefit-card-icon primary" aria-hidden="true"><IconTools /></div>
-        <h3 class="benefit-card-title">Equipo capacitado</h3>
-        <p class="benefit-card-desc">Contamos con personal técnico preparado y en constante actualización para brindarte soluciones efectivas y modernas.</p>
+      <li class={styles['benefit-card']}>
+        <div class={`${styles['benefit-card-icon']} ${styles.primary}`} aria-hidden="true"><IconTools /></div>
+        <h3 class={styles['benefit-card-title']}>Equipo capacitado</h3>
+        <p class={styles['benefit-card-desc']}>Contamos con personal técnico preparado y en constante actualización para brindarte soluciones efectivas y modernas.</p>
       </li>
 
-      <li class="benefit-card">
-        <div class="benefit-card-icon accent" aria-hidden="true"><IconMapPin /></div>
-        <h3 class="benefit-card-title">Cobertura local</h3>
-        <p class="benefit-card-desc">Estamos ubicados en Cali y atendemos presencialmente en toda la ciudad y área metropolitana.</p>
+      <li class={styles['benefit-card']}>
+        <div class={`${styles['benefit-card-icon']} ${styles.accent}`} aria-hidden="true"><IconMapPin /></div>
+        <h3 class={styles['benefit-card-title']}>Cobertura local</h3>
+        <p class={styles['benefit-card-desc']}>Estamos ubicados en Cali y atendemos presencialmente en toda la ciudad y área metropolitana.</p>
       </li>
 
-      <li class="benefit-card">
-        <div class="benefit-card-icon primary" aria-hidden="true"><IconShieldCheck /></div>
-        <h3 class="benefit-card-title">Trabajo garantizado</h3>
-        <p class="benefit-card-desc">Respadamos cada instalación y reparación que realizamos. Si algo no queda bien, lo arreglamos sin costo adicional.</p>
+      <li class={styles['benefit-card']}>
+        <div class={`${styles['benefit-card-icon']} ${styles.primary}`} aria-hidden="true"><IconShieldCheck /></div>
+        <h3 class={styles['benefit-card-title']}>Trabajo garantizado</h3>
+        <p class={styles['benefit-card-desc']}>Respadamos cada instalación y reparación que realizamos. Si algo no queda bien, lo arreglamos sin costo adicional.</p>
       </li>
     </ul>
   </div>

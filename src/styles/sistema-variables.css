@@ -1,0 +1,142 @@
+/*
+ * SISTEMA — Neumorfismo 2.0 White/Black
+ * Variables CSS exclusivas para /sistema.
+ * No afecta la landing page.
+ */
+
+:root {
+  /* ─── Superficie base ─── */
+  --sys-bg: #f0f0f3;
+  --sys-surface: #e8e8ec;
+  --sys-surface-raised: #f5f5f8;
+  --sys-surface-sunken: #dcdee2;
+
+  /* ─── Texto ─── */
+  --sys-text: #1a1a1a;
+  --sys-text-secondary: #6b6b76;
+  --sys-text-tertiary: #9a9aa6;
+
+  /* ─── Bordes ─── */
+  --sys-border: #d8d8dd;
+  --sys-border-subtle: #e4e4e8;
+
+  /* ─── Neumorfismo — sombras ─── */
+  --sys-shadow-light: rgba(255, 255, 255, 0.8);
+  --sys-shadow-dark: rgba(163, 163, 180, 0.35);
+  --sys-shadow-sm: 2px 2px 5px var(--sys-shadow-dark),
+    -2px -2px 5px var(--sys-shadow-light);
+  --sys-shadow-md: 4px 4px 10px var(--sys-shadow-dark),
+    -4px -4px 10px var(--sys-shadow-light);
+  --sys-shadow-lg: 8px 8px 20px var(--sys-shadow-dark),
+    -8px -8px 20px var(--sys-shadow-light);
+  --sys-shadow-inset: inset 2px 2px 5px var(--sys-shadow-dark),
+    inset -2px -2px 5px var(--sys-shadow-light);
+  --sys-shadow-inset-sm: inset 1px 1px 3px var(--sys-shadow-dark),
+    inset -1px -1px 3px var(--sys-shadow-light);
+
+  /* ─── Botón primario (negro) ─── */
+  --sys-btn-primary-bg: #1a1a1a;
+  --sys-btn-primary-text: #ffffff;
+  --sys-btn-primary-hover: #2d2d2d;
+  --sys-btn-primary-shadow: 3px 3px 8px var(--sys-shadow-dark),
+    -3px -3px 8px var(--sys-shadow-light);
+
+  /* ─── Botón secundario (neumórfico) ─── */
+  --sys-btn-secondary-bg: var(--sys-surface);
+  --sys-btn-secondary-text: var(--sys-text);
+  --sys-btn-secondary-hover: var(--sys-surface-raised);
+
+  /* ─── Botón peligro ─── */
+  --sys-btn-danger-bg: #dc3545;
+  --sys-btn-danger-text: #ffffff;
+  --sys-btn-danger-hover: #c82333;
+
+  /* ─── Estados semánticos ─── */
+  --sys-success: #28a745;
+  --sys-success-bg: #e8f5e9;
+  --sys-success-text: #1b5e20;
+  --sys-warning: #f59e0b;
+  --sys-warning-bg: #fef3c7;
+  --sys-warning-text: #92400e;
+  --sys-error: #dc3545;
+  --sys-error-bg: #fde8ea;
+  --sys-error-text: #991b1b;
+  --sys-info: #3b82f6;
+  --sys-info-bg: #e0edff;
+  --sys-info-text: #1e40af;
+
+  /* ─── Sidebar ─── */
+  --sys-sidebar-bg: #e8e8ec;
+  --sys-sidebar-width: 260px;
+
+  /* ─── Inputs ─── */
+  --sys-input-bg: #f5f5f8;
+  --sys-input-border: #d8d8dd;
+  --sys-input-focus: #1a1a1a;
+
+  /* ─── Badges ─── */
+  --sys-badge-bg: #e8e8ec;
+  --sys-badge-text: #6b6b76;
+
+  /* ─── Transiciones ─── */
+  --sys-transition-fast: 120ms ease;
+  --sys-transition-normal: 200ms ease;
+  --sys-transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ─── Radios ─── */
+  --sys-radius-sm: 8px;
+  --sys-radius-md: 12px;
+  --sys-radius-lg: 16px;
+  --sys-radius-xl: 20px;
+  --sys-radius-full: 9999px;
+}
+
+/* ─── Dark mode (si se necesita) ─── */
+html.dark {
+  --sys-bg: #1a1a1e;
+  --sys-surface: #222226;
+  --sys-surface-raised: #2a2a2e;
+  --sys-surface-sunken: #141416;
+
+  --sys-text: #e8e8ec;
+  --sys-text-secondary: #9a9aa6;
+  --sys-text-tertiary: #6b6b76;
+
+  --sys-border: #333338;
+  --sys-border-subtle: #2a2a2e;
+
+  --sys-shadow-light: rgba(50, 50, 56, 0.5);
+  --sys-shadow-dark: rgba(0, 0, 0, 0.45);
+  --sys-shadow-sm: 2px 2px 5px var(--sys-shadow-dark),
+    -2px -2px 5px var(--sys-shadow-light);
+  --sys-shadow-md: 4px 4px 10px var(--sys-shadow-dark),
+    -4px -4px 10px var(--sys-shadow-light);
+  --sys-shadow-lg: 8px 8px 20px var(--sys-shadow-dark),
+    -8px -8px 20px var(--sys-shadow-light);
+  --sys-shadow-inset: inset 2px 2px 5px var(--sys-shadow-dark),
+    inset -2px -2px 5px var(--sys-shadow-light);
+  --sys-shadow-inset-sm: inset 1px 1px 3px var(--sys-shadow-dark),
+    inset -1px -1px 3px var(--sys-shadow-light);
+
+  --sys-btn-primary-bg: #e8e8ec;
+  --sys-btn-primary-text: #1a1a1a;
+  --sys-btn-primary-hover: #d8d8dd;
+
+  --sys-btn-secondary-bg: var(--sys-surface);
+  --sys-btn-secondary-text: var(--sys-text);
+
+  --sys-success-bg: #0f2e1a;
+  --sys-success-text: #6ee7a0;
+  --sys-warning-bg: #2e1f0a;
+  --sys-warning-text: #fbbf24;
+  --sys-error-bg: #2e0f12;
+  --sys-error-text: #fca5a5;
+  --sys-info-bg: #0f1e2e;
+  --sys-info-text: #93c5fd;
+
+  --sys-sidebar-bg: #222226;
+  --sys-input-bg: #2a2a2e;
+  --sys-input-border: #333338;
+  --sys-badge-bg: #2a2a2e;
+  --sys-badge-text: #9a9aa6;
+}

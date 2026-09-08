@@ -2,7 +2,7 @@ import React, { type FormEvent, useState } from "react"
 import { authService, setSession } from "@/services/auth"
 import { isApiError } from "@/services/api"
 import { toast } from "@/components/starwind/toast"
-import "@/styles/auth/Auth.css"
+import styles from "@/styles/Auth.module.css"
 import {
   IconArrowLeft,
   IconEye,
@@ -51,21 +51,21 @@ export default function Auth() {
 
   return (
 
-      <main className="auth-main">
-        <a href="/" className="auth-back" aria-label="Volver al inicio">
+      <main className={styles['auth-main']}>
+        <a href="/" className={styles['auth-back']} aria-label="Volver al inicio">
           <IconArrowLeft size={20} aria-hidden="true" />
         </a>
-        <div className="auth-card">
-          <div className="auth-brand">
+        <div className={styles['auth-card']}>
+          <div className={styles['auth-brand']}>
             <h2>Iniciar sesión</h2>
-            <p className="auth-subtitle">Accede al panel de administración</p>
+            <p className={styles['auth-subtitle']}>Accede al panel de administración</p>
           </div>
-          <form onSubmit={handleSubmit} className="form" noValidate>
-            <div className="container-inputs">
+          <form onSubmit={handleSubmit} className={styles.form} noValidate>
+            <div className={styles['container-inputs']}>
               <label htmlFor="username" className="sr-only">Nombre de usuario</label>
               <input
                 id="username"
-                className="input-name"
+                className={styles['input-name']}
                 type="text"
                 placeholder="nombre de usuario"
                 autoComplete="username"
@@ -74,10 +74,10 @@ export default function Auth() {
               />
 
               <label htmlFor="password" className="sr-only">Contraseña</label>
-              <div className="input-password">
+              <div className={styles['input-password']}>
                 <input
                   id="password"
-                  className="input-name"
+                  className={styles['input-name']}
                   type={showPassword ? "text" : "password"}
                   placeholder="contraseña..."
                   autoComplete="current-password"
@@ -86,7 +86,7 @@ export default function Auth() {
                 />
                 <button
                   type="button"
-                  className="toggle-password"
+                  className={styles['toggle-password']}
                   onClick={() => setShowPassword(v => !v)}
                   aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                   aria-pressed={showPassword}
@@ -95,7 +95,7 @@ export default function Auth() {
                 </button>
               </div>
             </div>
-            <button type="submit" disabled={loading} className="btn-primary auth-submit">
+            <button type="submit" disabled={loading} className={`btn-primary ${styles['auth-submit']}`}>
               {loading ? "Ingresando..." : "Iniciar sesión"}
             </button>
           </form>

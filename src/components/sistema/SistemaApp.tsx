@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import "@/styles/sistema/index.css"
+import styles from "@/styles/SistemaApp.module.css"
 import { IconFileText, IconUsers, IconTool, IconLogout, IconShieldCheck, IconMenu2 } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
 import { canAccessSection, type PanelSection } from "@/services/permissions"
@@ -76,8 +76,8 @@ export default function SistemaApp() {
 
   if (!user && checking) {
     return (
-      <div className="sys-container">
-        <p className="sys-loading sys-loading--page">Verificando sesión...</p>
+      <div className={styles['sys-container']}>
+        <p className={`${styles['sys-loading']} ${styles['sys-loading--page']}`}>Verificando sesión...</p>
       </div>
     )
   }
@@ -90,16 +90,16 @@ export default function SistemaApp() {
         : "Usuarios"
 
   return (
-    <div className="sys-shell">
+    <div className={styles['sys-shell']}>
       <div
-        className={`sys-sidebar-overlay ${navOpen ? "is-open" : ""}`}
+        className={`${styles['sys-sidebar-overlay']} ${navOpen ? styles['is-open'] : ""}`}
         onClick={() => setNavOpen(false)}
         aria-hidden="true"
       />
 
-      <aside className={`sys-sidebar ${navOpen ? "is-open" : ""}`} aria-label="Panel de navegación">
-        <div className="sys-brand">
-          <span className="sys-brand-logo" aria-hidden="true">
+      <aside className={`${styles['sys-sidebar']} ${navOpen ? styles['is-open'] : ""}`} aria-label="Panel de navegación">
+        <div className={styles['sys-brand']}>
+          <span className={styles['sys-brand-logo']} aria-hidden="true">
             <IconShieldCheck size={18} />
           </span>
           <div>
@@ -107,15 +107,15 @@ export default function SistemaApp() {
           </div>
         </div>
 
-        <nav className="sys-nav" role="tablist" aria-label="Secciones del panel">
-          <p className="sys-nav-label" aria-hidden="true">Gestión</p>
+        <nav className={styles['sys-nav']} role="tablist" aria-label="Secciones del panel">
+          <p className={styles['sys-nav-label']} aria-hidden="true">Gestión</p>
           <button
             type="button"
             id="tab-fichas"
             role="tab"
             aria-selected={view === "fichas"}
             aria-controls="panel-seccion"
-            className={`sys-nav-item ${view === "fichas" ? "sys-nav-item--active" : ""}`}
+            className={`${styles['sys-nav-item']} ${view === "fichas" ? styles['sys-nav-item--active'] : ""}`}
             onClick={() => selectView("fichas")}
           >
             <IconFileText size={18} aria-hidden="true" />
@@ -127,7 +127,7 @@ export default function SistemaApp() {
             role="tab"
             aria-selected={view === "ordenes"}
             aria-controls="panel-seccion"
-            className={`sys-nav-item ${view === "ordenes" ? "sys-nav-item--active" : ""}`}
+            className={`${styles['sys-nav-item']} ${view === "ordenes" ? styles['sys-nav-item--active'] : ""}`}
             onClick={() => selectView("ordenes")}
           >
             <IconTool size={18} aria-hidden="true" />
@@ -140,7 +140,7 @@ export default function SistemaApp() {
               role="tab"
               aria-selected={view === "usuarios"}
               aria-controls="panel-seccion"
-              className={`sys-nav-item ${view === "usuarios" ? "sys-nav-item--active" : ""}`}
+              className={`${styles['sys-nav-item']} ${view === "usuarios" ? styles['sys-nav-item--active'] : ""}`}
               onClick={() => selectView("usuarios")}
             >
               <IconUsers size={18} aria-hidden="true" />
@@ -149,9 +149,9 @@ export default function SistemaApp() {
           )}
         </nav>
 
-        <div className="sys-sidebar-footer">
-          <div className="sys-user">
-            <div className="sys-user-info" title={user?.name}>
+        <div className={styles['sys-sidebar-footer']}>
+          <div className={styles['sys-user']}>
+            <div className={styles['sys-user-info']} title={user?.name}>
               <span
                 aria-hidden="true"
                 style={{
@@ -172,7 +172,7 @@ export default function SistemaApp() {
               </span>
               <strong>{user?.name}</strong>
             </div>
-            <button type="button" className="sys-btn sys-btn--ghost" onClick={handleLogout} style={{ minHeight: "32px", padding: "0 0.625rem", fontSize: "0.75rem", borderRadius: "999px" }}>
+            <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={handleLogout} style={{ minHeight: "32px", padding: "0 0.625rem", fontSize: "0.75rem", borderRadius: "999px" }}>
               <IconLogout size={14} aria-hidden="true" />
               Salir
             </button>
@@ -180,12 +180,12 @@ export default function SistemaApp() {
         </div>
       </aside>
 
-      <div className="sys-content">
-        <header className="sys-topbar">
-          <div className="sys-topbar-inner">
+      <div className={styles['sys-content']}>
+        <header className={styles['sys-topbar']}>
+          <div className={styles['sys-topbar-inner']}>
             <button
               type="button"
-              className="sys-menu-btn"
+              className={styles['sys-menu-btn']}
               onClick={() => setNavOpen(true)}
               aria-label="Abrir menú"
               aria-expanded={navOpen}
@@ -196,7 +196,7 @@ export default function SistemaApp() {
           </div>
         </header>
 
-        <main className="sys-main">
+        <main className={styles['sys-main']}>
           <div
             id="panel-seccion"
             role="tabpanel"

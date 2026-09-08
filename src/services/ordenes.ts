@@ -8,15 +8,17 @@ export type OrdenEstado =
   | "en_pruebas"
   | "listo"
   | "entregado"
+  | "cancelado"
 
 export const ORDEN_ESTADOS: { value: OrdenEstado; label: string }[] = [
   { value: "recibido", label: "Recibido" },
   { value: "diagnostico", label: "Diagnóstico" },
-  { value: "pendiente_de_autorizacion", label: "Pendiente de autorizacion" },
+  { value: "pendiente_de_autorizacion", label: "Pendiente de autorización" },
   { value: "en_mantenimiento", label: "En mantenimiento" },
   { value: "en_pruebas", label: "En pruebas" },
   { value: "listo", label: "Listo" },
   { value: "entregado", label: "Entregado" },
+  { value: "cancelado", label: "Cancelado" },
 ]
 
 export function estadoLabel(estado: OrdenEstado): string {

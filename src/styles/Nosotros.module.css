@@ -1,0 +1,26 @@
+.about-hero {
+  padding: 8rem 0 4rem;
+  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%);
+}
+.breadcrumb ol {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+.breadcrumb li:not(:last-child)::after { content: '/'; margin-left: 0.5rem; }
+.breadcrumb a { color: hsl(var(--primary)); }
+.about-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.about-hero-desc {
+  font-size: 1.25rem;
+  color: hsl(var(--muted-foreground));
+  max-width: 600px;
+  line-height: 1.6;
+}

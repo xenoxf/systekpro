@@ -1,11 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import SeguimientoView from "@/components/seguimiento/SeguimientoView";
-import "@/styles/seguimiento/Seguimiento.css";
+import styles from "@/styles/Seguimiento.module.css";
 ---
 
 <Layout title="Seguimiento de mantenimiento | Sistek Pro" accessibility={false}>
-  <main id="main" tabindex="-1" class="seg-page">
+  <main id="main" tabindex="-1" class={styles['seg-page']}>
     <SeguimientoView client:load />
   </main>
 </Layout>

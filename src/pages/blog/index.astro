@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import styles from '@/styles/Blog.module.css';
 
 const posts = [
   {
@@ -18,32 +19,32 @@ const posts = [
   description="Artículos sobre infraestructura tecnológica, redes empresariales, mantenimiento de equipos y tecnología en Cali, Colombia."
 >
   <main id="main" tabindex="-1">
-    <section class="blog-hero">
+    <section class={styles['blog-hero']}>
       <div class="container">
-        <nav aria-label="Breadcrumb" class="breadcrumb">
+        <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
           <ol>
             <li><a href="/">Inicio</a></li>
             <li aria-current="page">Blog</li>
           </ol>
         </nav>
         <h1>Blog de Tecnología</h1>
-        <p class="blog-hero-desc">Guías, consejos y noticias sobre infraestructura tecnológica, redes empresariales y soporte técnico en Cali.</p>
+        <p class={styles['blog-hero-desc']}>Guías, consejos y noticias sobre infraestructura tecnológica, redes empresariales y soporte técnico en Cali.</p>
       </div>
     </section>
 
-    <section class="blog-list">
+    <section class={styles['blog-list']}>
       <div class="container">
-        <div class="blog-grid">
+        <div class={styles['blog-grid']}>
           {posts.map(post => (
-            <a href={`/blog/${post.slug}`} class="blog-card">
-              <div class="blog-card-meta">
-                <span class="blog-card-category">{post.category}</span>
-                <span class="blog-card-date">{new Date(post.date).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                <span class="blog-card-read">{post.readTime}</span>
+            <a href={`/blog/${post.slug}`} class={styles['blog-card']}>
+              <div class={styles['blog-card-meta']}>
+                <span class={styles['blog-card-category']}>{post.category}</span>
+                <span class={styles['blog-card-date']}>{new Date(post.date).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                <span class={styles['blog-card-read']}>{post.readTime}</span>
               </div>
-              <h2 class="blog-card-title">{post.title}</h2>
-              <p class="blog-card-desc">{post.description}</p>
-              <span class="blog-card-link">Leer más →</span>
+              <h2 class={styles['blog-card-title']}>{post.title}</h2>
+              <p class={styles['blog-card-desc']}>{post.description}</p>
+              <span class={styles['blog-card-link']}>Leer más →</span>
             </a>
           ))}
         </div>
@@ -52,20 +53,4 @@ const posts = [
   </main>
 </Layout>
 
-<style>
-  .blog-hero { padding: 8rem 0 4rem; background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%); }
-  .breadcrumb ol { display: flex; gap: 0.5rem; list-style: none; padding: 0; margin-bottom: 2rem; font-size: 0.875rem; color: hsl(var(--muted-foreground)); }
-  .breadcrumb li:not(:last-child)::after { content: '/'; margin-left: 0.5rem; }
-  .breadcrumb a { color: hsl(var(--primary)); }
-  .blog-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem; }
-  .blog-hero-desc { font-size: 1.25rem; color: hsl(var(--muted-foreground)); max-width: 600px; line-height: 1.6; }
-  .blog-list { padding: 4rem 0; }
-  .blog-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
-  .blog-card { display: block; padding: 2rem; border-radius: var(--radius-2xl); border: 1px solid hsl(var(--border) / 0.5); background: hsl(var(--card) / 0.5); transition: all 0.3s; }
-  .blog-card:hover { border-color: hsl(var(--primary) / 0.4); transform: translateY(-4px); box-shadow: 0 8px 32px -4px hsl(var(--primary) / 0.12); }
-  .blog-card-meta { display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.8125rem; color: hsl(var(--muted-foreground)); }
-  .blog-card-category { color: hsl(var(--primary)); font-weight: 600; }
-  .blog-card-title { font-size: 1.375rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.3; }
-  .blog-card-desc { color: hsl(var(--muted-foreground)); line-height: 1.6; margin-bottom: 1rem; }
-  .blog-card-link { color: hsl(var(--primary)); font-weight: 600; }
-</style>
+

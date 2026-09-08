@@ -6,7 +6,7 @@ import {
   IconSend
 } from "@tabler/icons-react"
 
-import styles from '@/styles/landingPage/Contact.module.css'
+import styles from '@/styles/Contact.module.css'
 import { useState, type FormEvent } from "react"
 
 type FormData = {

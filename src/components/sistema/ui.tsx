@@ -1,10 +1,11 @@
 import React, { useEffect, useId } from "react"
 import { IconX } from "@tabler/icons-react"
+import styles from "@/styles/SistemaUI.module.css"
 
 export function Spinner({ label }: { label?: string }) {
   return (
-    <div className="sys-loading">
-      <span className="sys-spinner" />
+    <div className={styles['sys-loading']}>
+      <span className={styles['sys-spinner']} />
       {label && <span>{label}</span>}
     </div>
   )
@@ -22,15 +23,15 @@ export function EmptyState({
   action?: React.ReactNode
 }) {
   return (
-    <div className="sys-empty">
+    <div className={styles['sys-empty']}>
       {icon && (
-        <div className="sys-empty-icon" aria-hidden="true">
+        <div className={styles['sys-empty-icon']} aria-hidden="true">
           {icon}
         </div>
       )}
-      <p className="sys-empty-title">{title}</p>
-      {description && <p className="sys-empty-desc">{description}</p>}
-      {action && <div className="sys-empty-action">{action}</div>}
+      <p className={styles['sys-empty-title']}>{title}</p>
+      {description && <p className={styles['sys-empty-desc']}>{description}</p>}
+      {action && <div className={styles['sys-empty-action']}>{action}</div>}
     </div>
   )
 }
@@ -47,21 +48,21 @@ export function Modal({ open, title, onClose, children, size = "md" }: ModalProp
   const titleId = useId()
   if (!open) return null
   return (
-    <div className="sys-modal-overlay" onMouseDown={onClose}>
+    <div className={styles['sys-modal-overlay']} onMouseDown={onClose}>
       <div
-        className={`sys-modal ${size === "lg" ? "sys-modal--lg" : ""}`}
+        className={`${styles['sys-modal']} ${size === "lg" ? styles['sys-modal--lg'] : ""}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         onMouseDown={(e) => e.stopPropagation()}
       >
-        <div className="sys-modal-head">
+        <div className={styles['sys-modal-head']}>
           <h3 id={titleId}>{title}</h3>
-          <button type="button" className="sys-icon-btn" onClick={onClose} aria-label="Cerrar">
+          <button type="button" className={styles['sys-icon-btn']} onClick={onClose} aria-label="Cerrar">
             <IconX size={18} />
           </button>
         </div>
-        <div className="sys-modal-body">{children}</div>
+        <div className={styles['sys-modal-body']}>{children}</div>
       </div>
     </div>
   )
@@ -96,24 +97,24 @@ export function Drawer({ open, title, onClose, children, footer, size = "md" }: 
   return (
     <>
       <div
-        className={`sys-drawer-overlay ${open ? "is-open" : ""}`}
+        className={`${styles['sys-drawer-overlay']} ${open ? styles['is-open'] : ""}`}
         onClick={onClose}
         aria-hidden="true"
       />
       <aside
-        className={`sys-drawer ${open ? "is-open" : ""} sys-drawer--${size}`}
+        className={`${styles['sys-drawer']} ${open ? styles['is-open'] : ""} ${styles['sys-drawer']}--${size}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
       >
-        <header className="sys-drawer-head">
+        <header className={styles['sys-drawer-head']}>
           <h2 id={titleId}>{title}</h2>
-          <button type="button" className="sys-icon-btn" onClick={onClose} aria-label="Cerrar">
+          <button type="button" className={styles['sys-icon-btn']} onClick={onClose} aria-label="Cerrar">
             <IconX size={18} />
           </button>
         </header>
-        <div className="sys-drawer-body">{children}</div>
-        {footer && <footer className="sys-drawer-foot">{footer}</footer>}
+        <div className={styles['sys-drawer-body']}>{children}</div>
+        {footer && <footer className={styles['sys-drawer-foot']}>{footer}</footer>}
       </aside>
     </>
   )
@@ -133,20 +134,20 @@ interface FormPanelProps {
  */
 export function FormPanel({ title, subtitle, onClose, children, footer }: FormPanelProps) {
   return (
-    <section className="sys-panel" aria-label={title}>
-      <header className="sys-panel-head">
-        <div className="sys-panel-heading">
-          <p className="sys-topbar-eyebrow">Formulario</p>
-          <h2 className="sys-panel-title">{title}</h2>
-          {subtitle && <p className="sys-panel-sub">{subtitle}</p>}
+    <section className={styles['sys-panel']} aria-label={title}>
+      <header className={styles['sys-panel-head']}>
+        <div className={styles['sys-panel-heading']}>
+          <p className={styles['sys-topbar-eyebrow']}>Formulario</p>
+          <h2 className={styles['sys-panel-title']}>{title}</h2>
+          {subtitle && <p className={styles['sys-panel-sub']}>{subtitle}</p>}
         </div>
-        <button type="button" className="sys-btn sys-btn--ghost" onClick={onClose}>
+        <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={onClose}>
           <IconX size={16} aria-hidden="true" />
           Salir
         </button>
       </header>
-      <div className="sys-panel-body">{children}</div>
-      {footer && <footer className="sys-panel-foot">{footer}</footer>}
+      <div className={styles['sys-panel-body']}>{children}</div>
+      {footer && <footer className={styles['sys-panel-foot']}>{footer}</footer>}
     </section>
   )
 }
@@ -172,12 +173,12 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <Modal open={open} title={title} onClose={onCancel}>
-      <p className="sys-confirm-message">{message}</p>
-      <div className="sys-form-actions">
-        <button type="button" className="sys-btn sys-btn--ghost" onClick={onCancel} disabled={loading}>
+      <p className={styles['sys-confirm-message']}>{message}</p>
+      <div className={styles['sys-form-actions']}>
+        <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={onCancel} disabled={loading}>
           Cancelar
         </button>
-        <button type="button" className="sys-btn sys-btn--danger" onClick={onConfirm} disabled={loading}>
+        <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--danger']}`} onClick={onConfirm} disabled={loading}>
           {loading ? "Procesando..." : confirmLabel}
         </button>
       </div>

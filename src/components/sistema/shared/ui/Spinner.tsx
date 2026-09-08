@@ -1,4 +1,5 @@
 import React from "react"
+import styles from "@/styles/SistemaUI.module.css"
 
 export interface SpinnerProps {
   label?: string
@@ -6,8 +7,8 @@ export interface SpinnerProps {
 
 export function Spinner({ label }: SpinnerProps) {
   return (
-    <div className="sys-loading">
-      <span className="sys-spinner" aria-hidden="true" />
+    <div className={styles['sys-loading']}>
+      <span className={styles['sys-spinner']} aria-hidden="true" />
       {label && <span>{label}</span>}
     </div>
   )

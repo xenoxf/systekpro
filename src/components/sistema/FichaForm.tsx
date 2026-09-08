@@ -1,6 +1,7 @@
 import React from "react"
 import { useForm } from "react-hook-form"
 import { TIPOS_EQUIPO, type FichaTecnica, type CreateFichaDto } from "@/services/fichas"
+import styles from "@/styles/FichaForm.module.css"
 
 interface Props {
   ficha?: FichaTecnica | null
@@ -100,48 +101,48 @@ export default function FichaForm({ ficha, submitting, onSubmit, onCancel }: Pro
   })
 
   return (
-    <form className="sys-form" onSubmit={handleSubmit((values) => onSubmit(buildDto(values)))}>
+    <form className={styles['sys-form']} onSubmit={handleSubmit((values) => onSubmit(buildDto(values)))}>
       <fieldset>
         <legend>Cliente y servicio</legend>
-        <div className="sys-form-grid">
-          <label className="sys-field">
+        <div className={styles['sys-form-grid']}>
+          <label className={styles['sys-field']}>
             <span>Nombre del cliente *</span>
             <input
-              className="sys-input"
+              className={styles['sys-input']}
               aria-invalid={formState.errors.nombreCliente ? true : undefined}
               aria-describedby={formState.errors.nombreCliente ? "error-nombre-cliente" : undefined}
               {...register("nombreCliente", { required: true })}
             />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Teléfono</span>
-            <input className="sys-input" type="tel" {...register("telefonoCliente")} />
+            <input className={styles['sys-input']} type="tel" {...register("telefonoCliente")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Dirección</span>
-            <input className="sys-input" {...register("direccionCliente")} />
+            <input className={styles['sys-input']} {...register("direccionCliente")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Correo</span>
-            <input className="sys-input" type="email" {...register("correoCliente")} />
+            <input className={styles['sys-input']} type="email" {...register("correoCliente")} />
           </label>
-          <label className="sys-field sys-field--full">
+          <label className={`${styles['sys-field']} ${styles['sys-field--full']}`}>
             <span>Servicio</span>
-            <input className="sys-input" {...register("servicio")} />
+            <input className={styles['sys-input']} {...register("servicio")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Fecha de realización</span>
-            <input className="sys-input" type="date" {...register("fechaRealizacion")} />
+            <input className={styles['sys-input']} type="date" {...register("fechaRealizacion")} />
           </label>
         </div>
       </fieldset>
 
       <fieldset>
         <legend>Equipo</legend>
-        <div className="sys-form-grid">
-          <label className="sys-field">
+        <div className={styles['sys-form-grid']}>
+          <label className={styles['sys-field']}>
             <span>Tipo de equipo</span>
-            <select className="sys-select" {...register("tipoEquipo")}>
+            <select className={styles['sys-select']} {...register("tipoEquipo")}>
               <option value="">Seleccione... (opcional)</option>
               {TIPOS_EQUIPO.map((t) => (
                 <option key={t.value} value={t.value}>
@@ -150,161 +151,161 @@ export default function FichaForm({ ficha, submitting, onSubmit, onCancel }: Pro
               ))}
             </select>
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Responsable</span>
-            <input className="sys-input" {...register("nombreResponsable")} />
+            <input className={styles['sys-input']} {...register("nombreResponsable")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Marca</span>
-            <input className="sys-input" {...register("marcaEquipo")} />
+            <input className={styles['sys-input']} {...register("marcaEquipo")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Modelo</span>
-            <input className="sys-input" {...register("modeloEquipo")} />
+            <input className={styles['sys-input']} {...register("modeloEquipo")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Serial</span>
-            <input className="sys-input" {...register("serialEquipo")} />
+            <input className={styles['sys-input']} {...register("serialEquipo")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Referencia</span>
-            <input className="sys-input" {...register("referencia")} />
+            <input className={styles['sys-input']} {...register("referencia")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Fecha de adquisición</span>
-            <input className="sys-input" type="date" {...register("fechaAdquisicion")} />
+            <input className={styles['sys-input']} type="date" {...register("fechaAdquisicion")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Garantía (meses)</span>
-            <input className="sys-input" type="number" min={0} {...register("tiempoGarantiaMeses")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("tiempoGarantiaMeses")} />
           </label>
         </div>
       </fieldset>
 
       <fieldset>
         <legend>Pantalla y procesador</legend>
-        <div className="sys-form-grid">
-          <label className="sys-field">
+        <div className={styles['sys-form-grid']}>
+          <label className={styles['sys-field']}>
             <span>Tipo de monitor</span>
-            <input className="sys-input" {...register("tipoMonitor")} />
+            <input className={styles['sys-input']} {...register("tipoMonitor")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Pantalla (pulgadas)</span>
-            <input className="sys-input" type="number" step="any" min={0} {...register("tamanoPantallaPulgadas")} />
+            <input className={styles['sys-input']} type="number" step="any" min={0} {...register("tamanoPantallaPulgadas")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Marca procesador</span>
-            <input className="sys-input" {...register("procesadorMarca")} />
+            <input className={styles['sys-input']} {...register("procesadorMarca")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Modelo procesador</span>
-            <input className="sys-input" {...register("procesadorModelo")} />
+            <input className={styles['sys-input']} {...register("procesadorModelo")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Bits</span>
-            <input className="sys-input" placeholder="64" {...register("procesadorBits")} />
+            <input className={styles['sys-input']} placeholder="64" {...register("procesadorBits")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Núcleos CPU</span>
-            <input className="sys-input" type="number" min={0} {...register("nucleosCpu")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("nucleosCpu")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Velocidad</span>
-            <input className="sys-input" placeholder="2.4 GHz" {...register("velocidadProcesador")} />
+            <input className={styles['sys-input']} placeholder="2.4 GHz" {...register("velocidadProcesador")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>RAM (GB)</span>
-            <input className="sys-input" type="number" min={0} {...register("memoriaRamGb")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("memoriaRamGb")} />
           </label>
         </div>
       </fieldset>
 
       <fieldset>
         <legend>Almacenamiento, video y puertos</legend>
-        <div className="sys-form-grid">
-          <label className="sys-field">
+        <div className={styles['sys-form-grid']}>
+          <label className={styles['sys-field']}>
             <span>Cantidad de discos</span>
-            <input className="sys-input" type="number" min={0} {...register("cantidadDiscosDuros")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("cantidadDiscosDuros")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Tecnología disco 1</span>
-            <input className="sys-input" placeholder="SSD NVMe" {...register("tecnologiaDisco1")} />
+            <input className={styles['sys-input']} placeholder="SSD NVMe" {...register("tecnologiaDisco1")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Capacidad disco 1 (GB)</span>
-            <input className="sys-input" type="number" min={0} {...register("capacidadDisco1Gb")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("capacidadDisco1Gb")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Tecnología disco 2</span>
-            <input className="sys-input" placeholder="HDD" {...register("tecnologiaDisco2")} />
+            <input className={styles['sys-input']} placeholder="HDD" {...register("tecnologiaDisco2")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Capacidad disco 2 (GB)</span>
-            <input className="sys-input" type="number" min={0} {...register("capacidadDisco2Gb")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("capacidadDisco2Gb")} />
           </label>
         </div>
-        <div className="sys-check-row sys-form-grid">
-          <label className="sys-check">
+        <div className={`${styles['sys-check-row']} ${styles['sys-form-grid']}`}>
+          <label className={styles['sys-check']}>
             <input type="checkbox" {...register("lectorDvdCd")} />
             <span>Lector DVD/CD</span>
           </label>
-          <label className="sys-check">
+          <label className={styles['sys-check']}>
             <input type="checkbox" {...register("tarjetaVideoIntegrada")} />
             <span>Video integrado</span>
           </label>
-          <label className="sys-check">
+          <label className={styles['sys-check']}>
             <input type="checkbox" {...register("tarjetaVideoIndependiente")} />
             <span>Video independiente</span>
           </label>
         </div>
-        <div className="sys-form-grid">
-          <label className="sys-field">
+        <div className={styles['sys-form-grid']}>
+          <label className={styles['sys-field']}>
             <span>Conectores VGA</span>
-            <input className="sys-input" type="number" min={0} {...register("conectoresVga")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("conectoresVga")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Puertos HDMI</span>
-            <input className="sys-input" type="number" min={0} {...register("puertosHdmi")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("puertosHdmi")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Puertos USB</span>
-            <input className="sys-input" type="number" min={0} {...register("puertosUsb")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("puertosUsb")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Puertos PCI</span>
-            <input className="sys-input" type="number" min={0} {...register("puertosPci")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("puertosPci")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Puertos PCI Express</span>
-            <input className="sys-input" type="number" min={0} {...register("puertosPciExpress")} />
+            <input className={styles['sys-input']} type="number" min={0} {...register("puertosPciExpress")} />
           </label>
         </div>
       </fieldset>
 
       <fieldset>
         <legend>Red y periféricos</legend>
-        <div className="sys-check-row sys-form-grid">
-          <label className="sys-check">
+        <div className={`${styles['sys-check-row']} ${styles['sys-form-grid']}`}>
+          <label className={styles['sys-check']}>
             <input type="checkbox" {...register("tarjetaEthernet")} />
             <span>Tarjeta Ethernet</span>
           </label>
-          <label className="sys-check">
+          <label className={styles['sys-check']}>
             <input type="checkbox" {...register("tarjetaRedInalambrica")} />
             <span>Red inalámbrica</span>
           </label>
         </div>
-        <div className="sys-form-grid">
-          <label className="sys-field">
+        <div className={styles['sys-form-grid']}>
+          <label className={styles['sys-field']}>
             <span>Marca mouse</span>
-            <input className="sys-input" {...register("marcaMouse")} />
+            <input className={styles['sys-input']} {...register("marcaMouse")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Serial mouse</span>
-            <input className="sys-input" {...register("serialMouse")} />
+            <input className={styles['sys-input']} {...register("serialMouse")} />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Conector mouse</span>
-            <input className="sys-input" placeholder="USB inalámbrico" {...register("tipoConectorMouse")} />
+            <input className={styles['sys-input']} placeholder="USB inalámbrico" {...register("tipoConectorMouse")} />
           </label>
         </div>
       </fieldset>
@@ -312,7 +313,7 @@ export default function FichaForm({ ficha, submitting, onSubmit, onCancel }: Pro
       <fieldset>
         <legend>Observaciones</legend>
         <textarea
-          className="sys-textarea"
+          className={styles['sys-textarea']}
           rows={3}
           placeholder="Notas adicionales del equipo..."
           {...register("observaciones")}
@@ -320,16 +321,16 @@ export default function FichaForm({ ficha, submitting, onSubmit, onCancel }: Pro
       </fieldset>
 
       {formState.errors.nombreCliente && (
-        <p className="sys-error" id="error-nombre-cliente" role="alert">
+        <p className={styles['sys-error']} id="error-nombre-cliente" role="alert">
           El nombre del cliente es obligatorio
         </p>
       )}
 
-      <div className="sys-form-actions">
-        <button type="button" className="sys-btn sys-btn--ghost" onClick={onCancel} disabled={submitting}>
+      <div className={styles['sys-form-actions']}>
+        <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={onCancel} disabled={submitting}>
           Cancelar
         </button>
-        <button type="submit" className="sys-btn sys-btn--primary" disabled={submitting || !formState.isDirty}>
+        <button type="submit" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} disabled={submitting || !formState.isDirty}>
           {submitting ? "Guardando..." : ficha ? "Guardar cambios" : "Crear ficha"}
         </button>
       </div>

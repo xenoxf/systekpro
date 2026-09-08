@@ -4,6 +4,7 @@ import { usersService, isValidUuid, type Usuario, type UpdateUsuarioDto } from "
 import { isApiError } from "@/services/api"
 import { toast } from "@/components/starwind/toast"
 import { Drawer, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
+import styles from "@/styles/UsersSection.module.css"
 
 interface FormState {
   name: string
@@ -114,9 +115,9 @@ export default function UsersSection() {
   }
 
   return (
-    <div className="sys-section">
-      <div className="sys-section-toolbar">
-        <p className="sys-section-hint">
+    <div className={styles['sys-section']}>
+      <div className={styles['sys-section-toolbar']}>
+        <p className={styles['sys-section-hint']}>
           Gestión de usuarios del sistema. Los usuarios se crean internamente por el backend.
         </p>
       </div>
@@ -126,8 +127,8 @@ export default function UsersSection() {
       ) : users.length === 0 ? (
         <EmptyState title="No hay usuarios registrados" icon={<IconUsers size={20} />} />
       ) : (
-        <div className="sys-table-wrap">
-          <table className="sys-table">
+        <div className={styles['sys-table-wrap']}>
+          <table className={styles['sys-table']}>
             <thead>
               <tr>
                 <th scope="col">Nombre</th>
@@ -141,16 +142,16 @@ export default function UsersSection() {
                 <tr key={user.id}>
                   <td data-label="Nombre">{user.name}</td>
                   <td data-label="Rol">
-                    <span className={`sys-badge ${user.role === "admin" ? "sys-badge--primary" : ""}`}>
+                    <span className={`${styles['sys-badge']} ${user.role === "admin" ? styles['sys-badge--primary'] : ""}`}>
                       {user.role}
                     </span>
                   </td>
                   <td data-label="Creado">{formatDate(user.createdAt)}</td>
                   <td data-label="Acciones">
-                    <div className="sys-row-actions">
+                    <div className={styles['sys-row-actions']}>
                       <button
                         type="button"
-                        className="sys-icon-btn sys-icon-btn--outlined"
+                        className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`}
                         title="Ver detalle"
                         aria-label={`Ver detalle del usuario ${user.name}`}
                         onClick={() => openDetail(user)}
@@ -159,7 +160,7 @@ export default function UsersSection() {
                       </button>
                       <button
                         type="button"
-                        className="sys-icon-btn sys-icon-btn--outlined"
+                        className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`}
                         title="Editar"
                         aria-label={`Editar al usuario ${user.name}`}
                         onClick={() => openEdit(user)}
@@ -168,7 +169,7 @@ export default function UsersSection() {
                       </button>
                       <button
                         type="button"
-                        className="sys-icon-btn sys-icon-btn--danger"
+                        className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`}
                         title="Eliminar"
                         aria-label={`Eliminar al usuario ${user.name}`}
                         onClick={() => setDeleting(user)}
@@ -188,19 +189,19 @@ export default function UsersSection() {
         {detailLoading || !detail ? (
           <Spinner label="Cargando usuario..." />
         ) : (
-          <dl className="sys-detail-grid">
+          <dl className={styles['sys-detail-grid']}>
             <div><dt>Nombre</dt><dd>{detail.name}</dd></div>
             <div>
               <dt>Rol</dt>
               <dd>
-                <span className={`sys-badge ${detail.role === "admin" ? "sys-badge--primary" : ""}`}>
+                <span className={`${styles['sys-badge']} ${detail.role === "admin" ? styles['sys-badge--primary'] : ""}`}>
                   {detail.role}
                 </span>
               </dd>
             </div>
             <div><dt>Creado</dt><dd>{formatDate(detail.createdAt)}</dd></div>
             <div><dt>Actualizado</dt><dd>{formatDate(detail.updatedAt)}</dd></div>
-            <div className="sys-detail-full"><dt>ID</dt><dd><code>{detail.id}</code></dd></div>
+            <div className={styles['sys-detail-full']}><dt>ID</dt><dd><code>{detail.id}</code></dd></div>
           </dl>
         )}
       </Drawer>
@@ -211,20 +212,20 @@ export default function UsersSection() {
         onClose={() => setFormOpen(false)}
         footer={
           <>
-            <button type="button" className="sys-btn sys-btn--ghost" onClick={() => setFormOpen(false)} disabled={submitting}>
+            <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={() => setFormOpen(false)} disabled={submitting}>
               Cancelar
             </button>
-            <button type="submit" form="usuario-form" className="sys-btn sys-btn--primary" disabled={submitting}>
+            <button type="submit" form="usuario-form" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} disabled={submitting}>
               {submitting ? "Guardando..." : "Guardar cambios"}
             </button>
           </>
         }
       >
-        <form id="usuario-form" className="sys-form" onSubmit={handleSubmit}>
-          <label className="sys-field">
+        <form id="usuario-form" className={styles['sys-form']} onSubmit={handleSubmit}>
+          <label className={styles['sys-field']}>
             <span>Nombre de usuario *</span>
             <input
-              className="sys-input"
+              className={styles['sys-input']}
               value={form.name}
               minLength={3}
               maxLength={50}
@@ -232,10 +233,10 @@ export default function UsersSection() {
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
             />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Nueva contraseña (opcional)</span>
             <input
-              className="sys-input"
+              className={styles['sys-input']}
               type="password"
               value={form.password}
               autoComplete="new-password"
@@ -243,10 +244,10 @@ export default function UsersSection() {
               onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
             />
           </label>
-          <label className="sys-field">
+          <label className={styles['sys-field']}>
             <span>Rol *</span>
             <select
-              className="sys-select"
+              className={styles['sys-select']}
               value={form.role}
               onChange={(e) => setForm((f) => ({ ...f, role: e.target.value as FormState["role"] }))}
             >
@@ -255,7 +256,7 @@ export default function UsersSection() {
             </select>
           </label>
 
-          {formError && <pre className="sys-error sys-error--list">{formError}</pre>}
+          {formError && <pre className={`${styles['sys-error']} ${styles['sys-error--list']}`}>{formError}</pre>}
         </form>
       </Drawer>
 

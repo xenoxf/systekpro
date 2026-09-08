@@ -1,11 +1,12 @@
 ---
 import { IconBrandWhatsapp } from '@tabler/icons-react';
+import styles from "@/styles/WhatsAppFloat.module.css";
 ---
 
-<nav aria-label="Contacto rápido" class="whatsapp-float-nav">
+<nav aria-label="Contacto rápido" class={styles['whatsapp-float-nav']}>
   <a
     href="https://wa.me/571234513541?text=Hola%20Sistek%2C%20necesito%20información%20sobre%20sus%20servicios"
-    class="whatsapp-float"
+    class={styles['whatsapp-float']}
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Contactar por WhatsApp"
@@ -13,35 +14,3 @@ import { IconBrandWhatsapp } from '@tabler/icons-react';
     <IconBrandWhatsapp size={28} aria-hidden="true" />
   </a>
 </nav>
-
-<style>
-  .whatsapp-float {
-    position: fixed;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    z-index: 1000;
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
-    background: #25D366;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
-    transition: all 0.3s;
-  }
-  .whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
-  }
-  .whatsapp-float svg {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-  @media (max-width: 768px) {
-    .whatsapp-float {
-      bottom: 5rem;
-    }
-  }
-</style>

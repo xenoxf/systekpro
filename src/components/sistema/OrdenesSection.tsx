@@ -12,6 +12,7 @@ import { isApiError } from "@/services/api"
 import { toast } from "@/components/starwind/toast"
 import { Drawer, Spinner, EmptyState, formatDate, FormPanel } from "./ui"
 import TicketMantenimiento from "./TicketMantenimiento"
+import styles from "@/styles/OrdenesSection.module.css"
 
 type OrdenPanel = "none" | "crear" | "asociar"
 
@@ -19,9 +20,10 @@ function estadoClase(estado: OrdenEstado): string {
   const map: Record<OrdenEstado, string> = {
     recibido: "sys-badge--primary",
     diagnostico: "sys-badge--primary",
-    esperando_autorizacion: "sys-badge--warn",
-    esperando_repuestos: "sys-badge--warn",
-    terminado: "sys-badge--ok",
+    pendiente_de_autorizacion: "sys-badge--warn",
+    en_mantenimiento: "sys-badge--warn",
+    en_pruebas: "sys-badge--warn",
+    listo: "sys-badge--ok",
     entregado: "sys-badge--ok",
     cancelado: "sys-badge--off",
   }
@@ -38,12 +40,12 @@ function FichasChecklist({
   onToggle: (id: string, checked: boolean) => void
 }) {
   if (fichas.length === 0) {
-    return <p className="sys-empty-inline">No hay fichas técnicas disponibles.</p>
+    return <p className={styles['sys-empty-inline']}>No hay fichas técnicas disponibles.</p>
   }
   return (
-    <div className="sys-checklist">
+    <div className={styles['sys-checklist']}>
       {fichas.map((f) => (
-        <label key={f.id} className="sys-check">
+        <label key={f.id} className={styles['sys-check']}>
           <input
             type="checkbox"
             checked={seleccionadas.includes(f.id)}
@@ -207,7 +209,7 @@ export default function OrdenesSection() {
 
   if (panel === "crear") {
     return (
-      <div className="sys-section">
+      <div className={styles['sys-section']}>
         <FormPanel
           title="Nueva orden de servicio"
           subtitle="Agrupa uno o varios equipos en un solo código de seguimiento."
@@ -216,7 +218,7 @@ export default function OrdenesSection() {
             <>
               <button
                 type="button"
-                className="sys-btn sys-btn--ghost"
+                className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`}
                 onClick={cerrarPanel}
                 disabled={guardando}
               >
@@ -224,7 +226,7 @@ export default function OrdenesSection() {
               </button>
               <button
                 type="button"
-                className="sys-btn sys-btn--primary"
+                className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`}
                 onClick={handleCrear}
                 disabled={guardando}
               >
@@ -233,27 +235,27 @@ export default function OrdenesSection() {
             </>
           }
         >
-          <div className="sys-form-grid">
-            <div className="sys-field sys-field--full">
+          <div className={styles['sys-form-grid']}>
+            <div className={`${styles['sys-field']} ${styles['sys-field--full']}`}>
               <span>Fallas reportadas *</span>
               <textarea
-                className="sys-textarea"
+                className={styles['sys-textarea']}
                 rows={3}
                 value={falla}
                 onChange={(e) => setFalla(e.target.value)}
                 placeholder="Describe la falla reportada por el cliente..."
               />
             </div>
-            <div className="sys-field">
+            <div className={styles['sys-field']}>
               <span>Fecha de entrega estimada</span>
               <input
-                className="sys-input"
+                className={styles['sys-input']}
                 type="date"
                 value={fechaEstimada}
                 onChange={(e) => setFechaEstimada(e.target.value)}
               />
             </div>
-            <div className="sys-field sys-field--full">
+            <div className={`${styles['sys-field']} ${styles['sys-field--full']}`}>
               <span>Fichas técnicas a incluir *</span>
               <FichasChecklist
                 fichas={fichasDisponibles}
@@ -270,7 +272,7 @@ export default function OrdenesSection() {
           ) : ticket ? (
             <TicketMantenimiento seguimiento={ticket} />
           ) : (
-            <p className="sys-empty-inline">No se pudo cargar el seguimiento.</p>
+            <p className={styles['sys-empty-inline']}>No se pudo cargar el seguimiento.</p>
           )}
         </Drawer>
       </div>
@@ -279,7 +281,7 @@ export default function OrdenesSection() {
 
   if (panel === "asociar") {
     return (
-      <div className="sys-section">
+      <div className={styles['sys-section']}>
         <FormPanel
           title={`Asociar fichas a ${asociarA?.codigo ?? ""}`}
           subtitle="Selecciona las fichas a agregar (no se duplican las ya asociadas)."
@@ -288,7 +290,7 @@ export default function OrdenesSection() {
             <>
               <button
                 type="button"
-                className="sys-btn sys-btn--ghost"
+                className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`}
                 onClick={cerrarPanel}
                 disabled={asociando}
               >
@@ -296,7 +298,7 @@ export default function OrdenesSection() {
               </button>
               <button
                 type="button"
-                className="sys-btn sys-btn--primary"
+                className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`}
                 onClick={handleAsociar}
                 disabled={asociando}
               >
@@ -305,7 +307,7 @@ export default function OrdenesSection() {
             </>
           }
         >
-          <div className="sys-field sys-field--full">
+          <div className={`${styles['sys-field']} ${styles['sys-field--full']}`}>
             <span>Selecciona las fichas a agregar (no se duplican las ya asociadas)</span>
             <FichasChecklist
               fichas={fichasSeleccionables}
@@ -321,7 +323,7 @@ export default function OrdenesSection() {
           ) : ticket ? (
             <TicketMantenimiento seguimiento={ticket} />
           ) : (
-            <p className="sys-empty-inline">No se pudo cargar el seguimiento.</p>
+            <p className={styles['sys-empty-inline']}>No se pudo cargar el seguimiento.</p>
           )}
         </Drawer>
       </div>
@@ -329,13 +331,13 @@ export default function OrdenesSection() {
   }
 
   return (
-    <div className="sys-section">
-      <div className="sys-section-toolbar">
-        <div className="sys-search-hint">
+    <div className={styles['sys-section']}>
+      <div className={styles['sys-section-toolbar']}>
+        <div className={styles['sys-search-hint']}>
           <IconTool size={16} aria-hidden="true" />
           <span>Las órdenes agrupan varios equipos en un solo código QR de seguimiento.</span>
         </div>
-        <button type="button" className="sys-btn sys-btn--primary" onClick={abrirCrear}>
+        <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={abrirCrear}>
           <IconPlus size={16} />
           Nueva orden
         </button>
@@ -350,8 +352,8 @@ export default function OrdenesSection() {
           icon={<IconTool size={20} />}
         />
       ) : (
-        <div className="sys-table-wrap">
-          <table className="sys-table">
+        <div className={styles['sys-table-wrap']}>
+          <table className={styles['sys-table']}>
             <thead>
               <tr>
                 <th scope="col">Código</th>
@@ -371,16 +373,16 @@ export default function OrdenesSection() {
                     {orden.fichasTecnicas?.length ?? 0} equipo(s)
                   </td>
                   <td data-label="Estado">
-                    <span className={`sys-badge ${estadoClase(orden.estado)}`}>
+                    <span className={`${styles['sys-badge']} ${estadoClase(orden.estado)}`}>
                       {estadoLabel(orden.estado)}
                     </span>
                   </td>
                   <td data-label="Ingreso">{formatDate(orden.fechaIngreso)}</td>
                   <td data-label="Acciones">
-                    <div className="sys-row-actions">
+                    <div className={styles['sys-row-actions']}>
                       <button
                         type="button"
-                        className="sys-icon-btn sys-icon-btn--outlined"
+                        className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`}
                         title="Ver ticket / QR"
                         aria-label={`Ver ticket de la orden ${orden.codigo}`}
                         onClick={() => verTicket(orden.codigo)}
@@ -389,7 +391,7 @@ export default function OrdenesSection() {
                       </button>
                       <button
                         type="button"
-                        className="sys-icon-btn sys-icon-btn--outlined"
+                        className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`}
                         title="Asociar fichas"
                         aria-label={`Asociar fichas a la orden ${orden.codigo}`}
                         onClick={() => abrirAsociar(orden)}
@@ -397,16 +399,17 @@ export default function OrdenesSection() {
                         <IconLink size={16} aria-hidden="true" />
                       </button>
                       <select
-                        className="sys-select sys-select--sm"
+                        className={`${styles['sys-select']} ${styles['sys-select--sm']}`}
                         aria-label={`Cambiar estado de la orden ${orden.codigo}`}
                         value={orden.estado}
                         onChange={(e) => cambiarEstado(orden, e.target.value as OrdenEstado)}
                       >
                         <option value="recibido">Recibido</option>
                         <option value="diagnostico">Diagnóstico</option>
-                        <option value="reparacion">Reparación</option>
-                        <option value="esperando_repuestos">Esperando repuestos</option>
-                        <option value="terminado">Terminado</option>
+                        <option value="pendiente_de_autorizacion">Pendiente de autorización</option>
+                        <option value="en_mantenimiento">En mantenimiento</option>
+                        <option value="en_pruebas">En pruebas</option>
+                        <option value="listo">Listo</option>
                         <option value="entregado">Entregado</option>
                         <option value="cancelado">Cancelado</option>
                       </select>
@@ -424,7 +427,7 @@ export default function OrdenesSection() {
         ) : ticket ? (
           <TicketMantenimiento seguimiento={ticket} />
         ) : (
-          <p className="sys-empty-inline">No se pudo cargar el seguimiento.</p>
+          <p className={styles['sys-empty-inline']}>No se pudo cargar el seguimiento.</p>
         )}
       </Drawer>
     </div>
