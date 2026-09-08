@@ -367,7 +367,8 @@
 }
 @media (max-width: 640px) {
   .sys-table-wrap { border: none; background: transparent; box-shadow: none; overflow: visible; }
-  .sys-table, .sys-table thead { display: none; }
+  .sys-table { display: block; width: 100%; min-width: 0; border: 0; background: transparent; }
+  .sys-table thead { display: none; }
   .sys-table tbody, .sys-table tr, .sys-table td { display: block; width: 100%; }
   .sys-table tbody { display: flex; flex-direction: column; gap: 0.5rem; }
   .sys-table tr { background: var(--sys-surface); border: 1px solid var(--sys-border-subtle); border-radius: var(--sys-radius-md); padding: 0.75rem; display: flex; flex-direction: column; gap: 0.375rem; box-shadow: var(--sys-shadow-sm); }
