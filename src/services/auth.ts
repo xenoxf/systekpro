@@ -1,11 +1,13 @@
 import { api } from "./api"
 
-export type AuthRole = "admin" | "mantenimiento"
+export type AuthRole = "admin" | "gerente" | "mantenimiento"
 
 export interface AuthUser {
   id: string
   name: string
   role: AuthRole
+  departamentoId?: string | null
+  departamentoNombre?: string | null
 }
 
 export interface AuthResponse {

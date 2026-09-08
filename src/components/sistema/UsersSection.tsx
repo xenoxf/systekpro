@@ -252,6 +252,7 @@ export default function UsersSection() {
               onChange={(e) => setForm((f) => ({ ...f, role: e.target.value as FormState["role"] }))}
             >
               <option value="mantenimiento">Mantenimiento</option>
+              <option value="gerente">Gerente</option>
               <option value="admin">Admin</option>
             </select>
           </label>
