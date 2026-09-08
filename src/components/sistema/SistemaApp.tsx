@@ -82,6 +82,12 @@ export default function SistemaApp() {
     )
   }
 
+  if (!user && !checking) {
+    clearSession()
+    window.location.replace("/auth")
+    return
+  }
+
   const sectionTitle =
     view === "fichas"
       ? "Fichas técnicas"
