@@ -17,9 +17,21 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f
 
 export const isValidUuid = (value: string): boolean => UUID_RE.test(value)
 
+function unwrapArrayUsers<T>(value: unknown): T[] {
+  if (Array.isArray(value)) return value as T[]
+  if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>
+    if (Array.isArray(obj.data)) return obj.data as T[]
+    if (Array.isArray(obj.items)) return obj.items as T[]
+    if (Array.isArray(obj.users)) return obj.users as T[]
+  }
+  return []
+}
+
 export const usersService = {
-  list(): Promise<Usuario[]> {
-    return api.get<Usuario[]>("/users")
+  async list(): Promise<Usuario[]> {
+    const res = await api.get<Usuario[] | { data: Usuario[] } | { items: Usuario[] }>("/users")
+    return unwrapArrayUsers<Usuario>(res)
   },
 
   get(id: string): Promise<Usuario> {

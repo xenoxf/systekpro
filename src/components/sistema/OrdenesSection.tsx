@@ -39,12 +39,13 @@ function FichasChecklist({
   seleccionadas: string[]
   onToggle: (id: string, checked: boolean) => void
 }) {
-  if (fichas.length === 0) {
+  const safeFichas = Array.isArray(fichas) ? fichas : []
+  if (safeFichas.length === 0) {
     return <p className={styles['sys-empty-inline']}>No hay fichas técnicas disponibles.</p>
   }
   return (
     <div className={styles['sys-checklist']}>
-      {fichas.map((f) => (
+      {safeFichas.map((f) => (
         <label key={f.id} className={styles['sys-check']}>
           <input
             type="checkbox"
@@ -87,9 +88,11 @@ export default function OrdenesSection() {
   async function loadOrdenes() {
     setLoading(true)
     try {
-      setOrdenes(await ordenesService.list())
+      const data = await ordenesService.list()
+      setOrdenes(Array.isArray(data) ? data : [])
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
+      setOrdenes([])
     } finally {
       setLoading(false)
     }
@@ -102,7 +105,7 @@ export default function OrdenesSection() {
   function cargarFichas() {
     fichasService
       .list()
-      .then(setFichasDisponibles)
+      .then((data) => setFichasDisponibles(Array.isArray(data) ? data : []))
       .catch(() => setFichasDisponibles([]))
   }
 
@@ -203,8 +206,11 @@ export default function OrdenesSection() {
   }
 
   const fichasSeleccionables = useMemo(() => {
-    const asociadas = new Set(asociarA?.fichasTecnicas?.map((f) => f.id) ?? [])
-    return fichasDisponibles.filter((f) => !asociadas.has(f.id))
+    const asociadas = new Set(
+      Array.isArray(asociarA?.fichasTecnicas) ? asociarA.fichasTecnicas.map((f) => f.id) : []
+    )
+    const safeFichas = Array.isArray(fichasDisponibles) ? fichasDisponibles : []
+    return safeFichas.filter((f) => !asociadas.has(f.id))
   }, [fichasDisponibles, asociarA])
 
   if (panel === "crear") {
@@ -345,7 +351,7 @@ export default function OrdenesSection() {
 
       {loading ? (
         <Spinner label="Cargando órdenes..." />
-      ) : ordenes.length === 0 ? (
+      ) : !Array.isArray(ordenes) || ordenes.length === 0 ? (
         <EmptyState
           title="Aún no hay órdenes de servicio"
           description="Crea la primera orden y asocia las fichas técnicas de los equipos recibidos."
@@ -364,7 +370,7 @@ export default function OrdenesSection() {
               </tr>
             </thead>
             <tbody>
-              {ordenes.map((orden) => (
+              {(Array.isArray(ordenes) ? ordenes : []).map((orden) => (
                 <tr key={orden.id}>
                   <td data-label="Código">
                     <code>{orden.codigo}</code>

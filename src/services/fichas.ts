@@ -72,13 +72,26 @@ export interface FichasFilter {
   tipoEquipo?: TipoEquipo
 }
 
+function unwrapArray<T>(value: unknown): T[] {
+  if (Array.isArray(value)) return value as T[]
+  if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>
+    if (Array.isArray(obj.data)) return obj.data as T[]
+    if (Array.isArray(obj.items)) return obj.items as T[]
+    if (Array.isArray(obj.result)) return obj.result as T[]
+    if (Array.isArray(obj.fichas)) return obj.fichas as T[]
+  }
+  return []
+}
+
 export const fichasService = {
-  list(filters?: FichasFilter): Promise<FichaTecnica[]> {
+  async list(filters?: FichasFilter): Promise<FichaTecnica[]> {
     const params = new URLSearchParams()
     if (filters?.serial) params.set("serial", filters.serial)
     if (filters?.tipoEquipo) params.set("tipoEquipo", filters.tipoEquipo)
     const qs = params.toString()
-    return api.get<FichaTecnica[]>(`/ficha-tecnica${qs ? `?${qs}` : ""}`)
+    const res = await api.get<FichaTecnica[] | { data: FichaTecnica[] } | { items: FichaTecnica[] }>(`/ficha-tecnica${qs ? `?${qs}` : ""}`)
+    return unwrapArray<FichaTecnica>(res)
   },
 
   get(id: string): Promise<FichaTecnica> {

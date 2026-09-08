@@ -115,7 +115,7 @@ export default function SeguimientoView() {
 
           <section className={styles['seg-section']}>
             <h2>Cliente(s)</h2>
-            <p>{data.clientes.join(", ") || "—"}</p>
+            <p>{(Array.isArray(data.clientes) ? data.clientes : []).join(", ") || "—"}</p>
           </section>
 
           <section className={styles['seg-section']}>
@@ -129,7 +129,7 @@ export default function SeguimientoView() {
                 </tr>
               </thead>
               <tbody>
-                {data.equipos.map((eq, i) => (
+                {(Array.isArray(data.equipos) ? data.equipos : []).map((eq, i) => (
                   <tr key={`${eq.serial}-${i}`}>
                     <td>{eq.tipo}</td>
                     <td>
@@ -146,11 +146,11 @@ export default function SeguimientoView() {
 
           <section className={styles['seg-section']}>
             <h2>Historial</h2>
-            {data.eventos.length === 0 ? (
+            {(Array.isArray(data.eventos) ? data.eventos : []).length === 0 ? (
               <p className={styles['seg-muted']}>Sin eventos registrados todavía.</p>
             ) : (
               <ol className={styles['seg-timeline']}>
-                {data.eventos.map((ev, i) => (
+                {(Array.isArray(data.eventos) ? data.eventos : []).map((ev, i) => (
                   <li key={i}>
                     <div className={styles['seg-ev-titulo']}>{ev.titulo}</div>
                     {ev.descripcion && <div className={styles['seg-ev-desc']}>{ev.descripcion}</div>}
