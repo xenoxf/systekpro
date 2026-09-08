@@ -98,9 +98,11 @@ export default function FichasSection() {
   async function loadFichas(filters?: { serial?: string; tipoEquipo?: TipoEquipo }) {
     setLoading(true)
     try {
-      setFichas(await fichasService.list(filters))
+      const data = await fichasService.list(filters)
+      setFichas(Array.isArray(data) ? data : [])
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
+      setFichas([])
     } finally {
       setLoading(false)
     }
@@ -366,7 +368,7 @@ export default function FichasSection() {
       <div className={styles['sys-section-toolbar']} style={{ alignItems: "flex-end" }}>
         <div className={styles['sys-panel-heading']} style={{ minWidth: 0 }}>
           <h2 className={styles['sys-panel-title']} style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Fichas técnicas</h2>
-          {!loading && (
+          {!loading && Array.isArray(fichas) && (
             <p className={styles['sys-panel-sub']} aria-live="polite" style={{ fontSize: "0.8125rem" }}>
               {fichas.length === 0
                 ? hasFilters ? "Sin resultados para los filtros" : "Sin equipos aún"
@@ -441,7 +443,7 @@ export default function FichasSection() {
 
       {loading ? (
         <FichasSkeleton />
-      ) : fichas.length === 0 ? (
+      ) : !Array.isArray(fichas) || fichas.length === 0 ? (
         <EmptyState
           title={hasFilters ? "Sin resultados" : "Aún no hay fichas técnicas"}
           description={
@@ -473,7 +475,7 @@ export default function FichasSection() {
                   </tr>
                 </thead>
                 <tbody>
-                  {fichas.map((ficha) => (
+                  {(Array.isArray(fichas) ? fichas : []).map((ficha) => (
                     <tr
                       key={ficha.id}
                       onClick={() => openDetail(ficha)}

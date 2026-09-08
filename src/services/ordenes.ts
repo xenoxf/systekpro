@@ -88,10 +88,23 @@ export interface CambiarEstadoDto {
   comentario?: string
 }
 
+function unwrapArrayOrdenes<T>(value: unknown): T[] {
+  if (Array.isArray(value)) return value as T[]
+  if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>
+    if (Array.isArray(obj.data)) return obj.data as T[]
+    if (Array.isArray(obj.items)) return obj.items as T[]
+    if (Array.isArray(obj.result)) return obj.result as T[]
+    if (Array.isArray(obj.ordenes)) return obj.ordenes as T[]
+  }
+  return []
+}
+
 export const ordenesService = {
-  list(estado?: OrdenEstado): Promise<OrdenServicio[]> {
+  async list(estado?: OrdenEstado): Promise<OrdenServicio[]> {
     const qs = estado ? `?estado=${estado}` : ""
-    return api.get<OrdenServicio[]>(`/ordenes${qs}`)
+    const res = await api.get<OrdenServicio[] | { data: OrdenServicio[] } | { items: OrdenServicio[] }>(`/ordenes${qs}`)
+    return unwrapArrayOrdenes<OrdenServicio>(res)
   },
 
   get(id: string): Promise<OrdenServicio> {

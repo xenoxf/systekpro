@@ -57,7 +57,7 @@ export default function TicketMantenimiento({
 
         <div className={styles['ticket-block']}>
           <span className={styles['ticket-label']}>Cliente(s)</span>
-          <p className={styles['ticket-clientes']}>{seguimiento.clientes.join(", ") || "—"}</p>
+          <p className={styles['ticket-clientes']}>{(Array.isArray(seguimiento.clientes) ? seguimiento.clientes : []).join(", ") || "—"}</p>
         </div>
 
         <div className={styles['ticket-block']}>
@@ -71,7 +71,7 @@ export default function TicketMantenimiento({
               </tr>
             </thead>
             <tbody>
-              {seguimiento.equipos.map((eq, i) => (
+              {(Array.isArray(seguimiento.equipos) ? seguimiento.equipos : []).map((eq, i) => (
                 <tr key={`${eq.serial}-${i}`}>
                   <td>{eq.tipo}</td>
                   <td>

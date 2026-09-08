@@ -31,9 +31,11 @@ export default function UsersSection() {
   async function loadUsers() {
     setLoading(true)
     try {
-      setUsers(await usersService.list())
+      const data = await usersService.list()
+      setUsers(Array.isArray(data) ? data : [])
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
+      setUsers([])
     } finally {
       setLoading(false)
     }
@@ -124,7 +126,7 @@ export default function UsersSection() {
 
       {loading ? (
         <Spinner label="Cargando usuarios..." />
-      ) : users.length === 0 ? (
+      ) : !Array.isArray(users) || users.length === 0 ? (
         <EmptyState title="No hay usuarios registrados" icon={<IconUsers size={20} />} />
       ) : (
         <div className={styles['sys-table-wrap']}>
@@ -138,7 +140,7 @@ export default function UsersSection() {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {(Array.isArray(users) ? users : []).map((user) => (
                 <tr key={user.id}>
                   <td data-label="Nombre">{user.name}</td>
                   <td data-label="Rol">

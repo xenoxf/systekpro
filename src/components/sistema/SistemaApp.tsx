@@ -1,11 +1,55 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState, lazy, Suspense } from "react"
 import styles from "@/styles/SistemaApp.module.css"
 import { IconFileText, IconUsers, IconTool, IconLogout, IconShieldCheck, IconMenu2 } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
 import { canAccessSection, type PanelSection } from "@/services/permissions"
-import FichasSection from "./FichasSection"
-import OrdenesSection from "./OrdenesSection"
-import UsersSection from "./UsersSection"
+
+// Lazy-load pesado: evita que /sistema cargue Fichas+Órdenes+Usuarios a la vez.
+// Cada sección se code-split en chunk separado y solo se descarga al navegar.
+const FichasSection = lazy(() => import("./FichasSection"))
+const OrdenesSection = lazy(() => import("./OrdenesSection"))
+const UsersSection = lazy(() => import("./UsersSection"))
+
+function SectionFallback() {
+  return (
+    <div className={styles['sys-loading']} style={{ padding: "2rem", justifyContent: "center" }}>
+      <span className={styles['sys-spinner']} aria-hidden="true" style={{ width: "1.25rem", height: "1.25rem", borderWidth: "2px" }} />
+      <span>Cargando sección...</span>
+    </div>
+  )
+}
+
+class SectionErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; msg?: string }> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
+  static getDerivedStateFromError(err: unknown) {
+    return { hasError: true, msg: err instanceof Error ? err.message : String(err) }
+  }
+  componentDidCatch(error: unknown) {
+    console.error("[SistemaApp] Section error:", error)
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className={styles['sys-panel']} style={{ padding: "1.25rem" }}>
+          <p style={{ fontWeight: 600, marginBottom: "0.5rem" }}>No se pudo cargar esta sección</p>
+          <p style={{ color: "hsl(var(--muted-foreground))", fontSize: "0.875rem", marginBottom: "0.75rem" }}>
+            Ocurrió un error al renderizar. Intenta recargar la página.
+          </p>
+          {this.state.msg && <code style={{ fontSize: "0.75rem", wordBreak: "break-all" }}>{this.state.msg}</code>}
+          <div style={{ marginTop: "0.75rem" }}>
+            <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={() => window.location.reload()}>
+              Recargar
+            </button>
+          </div>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
 
 const USERS_HASH = "#usuarios"
 const ORDENES_HASH = "#ordenes"
@@ -206,15 +250,19 @@ export default function SistemaApp() {
           <div
             id="panel-seccion"
             role="tabpanel"
-            aria-labelledby={view === "fichas" ? "tab-fichas" : "tab-usuarios"}
+            aria-labelledby={view === "fichas" ? "tab-fichas" : view === "ordenes" ? "tab-ordenes" : "tab-usuarios"}
           >
-            {view === "ordenes" ? (
-              <OrdenesSection />
-            ) : view === "fichas" || !canAccessSection(user, "usuarios") ? (
-              <FichasSection />
-            ) : (
-              <UsersSection />
-            )}
+            <SectionErrorBoundary>
+              <Suspense fallback={<SectionFallback />}>
+                {view === "ordenes" ? (
+                  <OrdenesSection />
+                ) : view === "fichas" || !canAccessSection(user, "usuarios") ? (
+                  <FichasSection />
+                ) : (
+                  <UsersSection />
+                )}
+              </Suspense>
+            </SectionErrorBoundary>
           </div>
         </main>
       </div>
