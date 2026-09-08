@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react"
 import { ordenesService, estadoLabel, type SeguimientoPublico, type OrdenEstado } from "@/services/ordenes"
 import { isApiError } from "@/services/api"
 import { Spinner } from "@/components/sistema/ui"
+import styles from "@/styles/Seguimiento.module.css"
 
 function estadoClase(estado: OrdenEstado): string {
   const map: Record<OrdenEstado, string> = {
-    recibido: "seg-estado--info",
-    diagnostico: "seg-estado--info",
-    reparacion: "seg-estado--warn",
-    esperando_repuestos: "seg-estado--warn",
-    terminado: "seg-estado--ok",
-    entregado: "seg-estado--ok",
-    cancelado: "seg-estado--off",
+    recibido: styles['seg-estado--info'],
+    diagnostico: styles['seg-estado--info'],
+    reparacion: styles['seg-estado--warn'],
+    esperando_repuestos: styles['seg-estado--warn'],
+    terminado: styles['seg-estado--ok'],
+    entregado: styles['seg-estado--ok'],
+    cancelado: styles['seg-estado--off'],
   }
-  return map[estado] ?? "seg-estado--info"
+  return map[estado] ?? styles['seg-estado--info']
 }
 
 export default function SeguimientoView() {
@@ -45,39 +46,39 @@ export default function SeguimientoView() {
   }
 
   return (
-    <div className="seg-container">
-      <header className="seg-head">
-        <span className="seg-brand">SISTEK</span>
+    <div className={styles['seg-container']}>
+      <header className={styles['seg-head']}>
+        <span className={styles['seg-brand']}>SISTEK</span>
         <h1>Seguimiento de mantenimiento</h1>
-        <p className="seg-sub">
+        <p className={styles['seg-sub']}>
           Consulta el estado de tus equipos en tiempo real con el código de tu orden.
         </p>
       </header>
 
       {codigo && (
-        <p className="seg-codigo">
+        <p className={styles['seg-codigo']}>
           Orden <code>{codigo}</code>
         </p>
       )}
 
       {loading && <Spinner label="Cargando seguimiento..." />}
 
-      {!loading && error && <div className="seg-error">{error}</div>}
+      {!loading && error && <div className={styles['seg-error']}>{error}</div>}
 
       {!loading && !error && !data && !codigo && (
-        <div className="seg-error">No se encontró un código de seguimiento en el enlace.</div>
+        <div className={styles['seg-error']}>No se encontró un código de seguimiento en el enlace.</div>
       )}
 
       {!loading && data && (
-        <div className="seg-card">
+        <div className={styles['seg-card']}>
           {data.estado === "cancelado" ? (
-            <div className="seg-status">
-              <span className={`seg-estado ${estadoClase(data.estado)}`}>
+            <div className={styles['seg-status']}>
+              <span className={`${styles['seg-estado']} ${estadoClase(data.estado)}`}>
                 {estadoLabel(data.estado)}
               </span>
             </div>
           ) : (
-            <ol className="seg-stepper">
+            <ol className={styles['seg-stepper']}>
               {(["recibido", "diagnostico", "reparacion", "terminado", "entregado"] as const).map(
                 (step, i) => {
                   const order = ["recibido", "diagnostico", "reparacion", "terminado", "entregado"]
@@ -89,10 +90,10 @@ export default function SeguimientoView() {
                   return (
                     <li
                       key={step}
-                      className={`seg-step ${done ? "is-done" : ""} ${active ? "is-current" : ""}`}
+                      className={`${styles['seg-step']} ${done ? styles['is-done'] : ""} ${active ? styles['is-current'] : ""}`}
                     >
-                      <span className="seg-step-dot">{done ? "✓" : i + 1}</span>
-                      <span className="seg-step-label">{estadoLabel(step)}</span>
+                      <span className={styles['seg-step-dot']}>{done ? "✓" : i + 1}</span>
+                      <span className={styles['seg-step-label']}>{estadoLabel(step)}</span>
                     </li>
                   )
                 },
@@ -100,7 +101,7 @@ export default function SeguimientoView() {
             </ol>
           )}
 
-          <div className="seg-fechas">
+          <div className={styles['seg-fechas']}>
             <span>Ingreso: {new Date(data.fechaIngreso).toLocaleDateString("es-CO")}</span>
             {data.fechaEntregaEstimada && (
               <span>
@@ -112,14 +113,14 @@ export default function SeguimientoView() {
             )}
           </div>
 
-          <section className="seg-section">
+          <section className={styles['seg-section']}>
             <h2>Cliente(s)</h2>
             <p>{data.clientes.join(", ") || "—"}</p>
           </section>
 
-          <section className="seg-section">
+          <section className={styles['seg-section']}>
             <h2>Equipos</h2>
-            <table className="seg-table">
+            <table className={styles['seg-table']}>
               <thead>
                 <tr>
                   <th>Tipo</th>
@@ -143,17 +144,17 @@ export default function SeguimientoView() {
             </table>
           </section>
 
-          <section className="seg-section">
+          <section className={styles['seg-section']}>
             <h2>Historial</h2>
             {data.eventos.length === 0 ? (
-              <p className="seg-muted">Sin eventos registrados todavía.</p>
+              <p className={styles['seg-muted']}>Sin eventos registrados todavía.</p>
             ) : (
-              <ol className="seg-timeline">
+              <ol className={styles['seg-timeline']}>
                 {data.eventos.map((ev, i) => (
                   <li key={i}>
-                    <div className="seg-ev-titulo">{ev.titulo}</div>
-                    {ev.descripcion && <div className="seg-ev-desc">{ev.descripcion}</div>}
-                    <time className="seg-ev-fecha">
+                    <div className={styles['seg-ev-titulo']}>{ev.titulo}</div>
+                    {ev.descripcion && <div className={styles['seg-ev-desc']}>{ev.descripcion}</div>}
+                    <time className={styles['seg-ev-fecha']}>
                       {new Date(ev.fecha).toLocaleString("es-CO")}
                     </time>
                   </li>

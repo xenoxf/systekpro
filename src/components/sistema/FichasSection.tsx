@@ -21,6 +21,7 @@ import { isApiError } from "@/services/api"
 import { toast } from "@/components/starwind/toast"
 import { ConfirmDialog, EmptyState, Spinner, formatDate, FormPanel } from "./ui"
 import FichaForm from "./FichaForm"
+import styles from "@/styles/FichasSection.module.css"
 
 type FichaModo = "list" | "detail" | "create" | "edit"
 
@@ -39,8 +40,8 @@ function initials(name: string): string {
 
 function FichasSkeleton() {
   return (
-    <div className="sys-table-wrap" aria-hidden="true">
-      <table className="sys-table sys-table--dense">
+    <div className={styles['sys-table-wrap']} aria-hidden="true">
+      <table className={`${styles['sys-table']} ${styles['sys-table--dense']}`}>
         <thead>
           <tr>
             <th>Cliente</th>
@@ -54,8 +55,8 @@ function FichasSkeleton() {
           {Array.from({ length: 6 }).map((_, i) => (
             <tr key={i}>
               <td>
-                <div className="sys-cell-with-avatar" style={{ opacity: 0.6 }}>
-                  <span className="sys-cell-avatar" style={{ background: "hsl(var(--muted))", color: "transparent", borderColor: "transparent" }}>—</span>
+                <div className={styles['sys-cell-with-avatar']} style={{ opacity: 0.6 }}>
+                  <span className={styles['sys-cell-avatar']} style={{ background: "hsl(var(--muted))", color: "transparent", borderColor: "transparent" }}>—</span>
                   <span style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
                     <span style={{ width: "7rem", height: "0.75rem", background: "hsl(var(--muted))", borderRadius: "var(--radius-sm)", display: "block" }} />
                     <span style={{ width: "5rem", height: "0.6rem", background: "hsl(var(--muted) / 0.6)", borderRadius: "var(--radius-sm)", display: "block" }} />
@@ -187,7 +188,7 @@ export default function FichasSection() {
 
   if (modo === "create" || modo === "edit") {
     return (
-      <div className="sys-section">
+      <div className={styles['sys-section']}>
         <FormPanel
           title={modo === "edit" ? "Editar ficha técnica" : "Nueva ficha técnica"}
           subtitle="Solo el nombre del cliente es obligatorio. Los demás campos son opcionales."
@@ -216,13 +217,13 @@ export default function FichasSection() {
 
   if (modo === "detail" && selected) {
     return (
-      <div className="sys-section">
-        <section className="sys-panel" aria-label="Detalle de la ficha técnica">
-          <header className="sys-panel-head">
-            <div className="sys-panel-heading">
-              <p className="sys-topbar-eyebrow">Ficha técnica</p>
-              <h2 className="sys-panel-title">{selected.nombreCliente}</h2>
-              <p className="sys-panel-sub" style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
+      <div className={styles['sys-section']}>
+        <section className={styles['sys-panel']} aria-label="Detalle de la ficha técnica">
+          <header className={styles['sys-panel-head']}>
+            <div className={styles['sys-panel-heading']}>
+              <p className={styles['sys-topbar-eyebrow']}>Ficha técnica</p>
+              <h2 className={styles['sys-panel-title']}>{selected.nombreCliente}</h2>
+              <p className={styles['sys-panel-sub']} style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
                 <span>{tipoEquipoLabel(selected.tipoEquipo)}</span>
                 {selected.serialEquipo && (
                   <>
@@ -240,10 +241,10 @@ export default function FichasSection() {
                 )}
               </p>
             </div>
-            <div className="sys-detail-actions">
+            <div className={styles['sys-detail-actions']}>
               <button
                 type="button"
-                className="sys-icon-btn sys-icon-btn--outlined"
+                className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`}
                 title="Editar"
                 aria-label={`Editar la ficha de ${selected.nombreCliente}`}
                 onClick={() => openEdit(selected)}
@@ -252,7 +253,7 @@ export default function FichasSection() {
               </button>
               <button
                 type="button"
-                className="sys-icon-btn sys-icon-btn--danger"
+                className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`}
                 title="Eliminar"
                 aria-label={`Eliminar la ficha de ${selected.nombreCliente}`}
                 onClick={() => setDeleting(selected)}
@@ -260,19 +261,19 @@ export default function FichasSection() {
                 <IconTrash size={17} aria-hidden="true" />
               </button>
               <span style={{ width: "1px", height: "1.5rem", background: "hsl(var(--border))", margin: "0 0.25rem" }} aria-hidden="true" />
-              <button type="button" className="sys-btn sys-btn--ghost" onClick={volverALista} style={{ minHeight: "32px", padding: "0 0.875rem", fontSize: "0.8125rem" }}>
+              <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={volverALista} style={{ minHeight: "32px", padding: "0 0.875rem", fontSize: "0.8125rem" }}>
                 <IconX size={14} aria-hidden="true" />
                 Cerrar
               </button>
             </div>
           </header>
-          <div className="sys-panel-body">
+          <div className={styles['sys-panel-body']}>
             {garantiaLoading ? (
               <Spinner label="Consultando garantía..." />
             ) : (
               <>
                 {garantia && (
-                  <div className={`sys-garantia ${garantia.enGarantia ? "sys-garantia--ok" : "sys-garantia--off"}`}>
+                  <div className={`${styles['sys-garantia']} ${garantia.enGarantia ? styles['sys-garantia--ok'] : styles['sys-garantia--off']}`}>
                     <IconShieldCheck size={20} aria-hidden="true" />
                     <div>
                       <strong>
@@ -291,9 +292,9 @@ export default function FichasSection() {
                   </div>
                 )}
 
-                <div className="sys-detail-group">
+                <div className={styles['sys-detail-group']}>
                   <h3>Cliente y servicio</h3>
-                  <dl className="sys-detail-grid">
+                  <dl className={styles['sys-detail-grid']}>
                     <div><dt>Cliente</dt><dd>{selected.nombreCliente}</dd></div>
                     <div><dt>Teléfono</dt><dd>{selected.telefonoCliente || "—"}</dd></div>
                     <div><dt>Dirección</dt><dd>{selected.direccionCliente || "—"}</dd></div>
@@ -303,9 +304,9 @@ export default function FichasSection() {
                   </dl>
                 </div>
 
-                <div className="sys-detail-group">
+                <div className={styles['sys-detail-group']}>
                   <h3>Equipo</h3>
-                  <dl className="sys-detail-grid">
+                  <dl className={styles['sys-detail-grid']}>
                     <div><dt>Tipo</dt><dd>{tipoEquipoLabel(selected.tipoEquipo)}</dd></div>
                     <div><dt>Marca / Modelo</dt><dd>{[selected.marcaEquipo, selected.modeloEquipo].filter(Boolean).join(" ") || "—"}</dd></div>
                     <div><dt>Serial</dt><dd><code>{selected.serialEquipo || "—"}</code></dd></div>
@@ -315,9 +316,9 @@ export default function FichasSection() {
                   </dl>
                 </div>
 
-                <div className="sys-detail-group">
+                <div className={styles['sys-detail-group']}>
                   <h3>Especificaciones</h3>
-                  <dl className="sys-detail-grid">
+                  <dl className={styles['sys-detail-grid']}>
                     {(selected.procesadorMarca || selected.procesadorModelo) && (
                       <div><dt>Procesador</dt><dd>{[selected.procesadorMarca, selected.procesadorModelo].filter(Boolean).join(" ")}</dd></div>
                     )}
@@ -337,9 +338,9 @@ export default function FichasSection() {
                 </div>
 
                 {selected.observaciones && (
-                  <div className="sys-detail-group">
+                  <div className={styles['sys-detail-group']}>
                     <h3>Observaciones</h3>
-                    <p className="sys-detail-text">{selected.observaciones}</p>
+                    <p className={styles['sys-detail-text']}>{selected.observaciones}</p>
                   </div>
                 )}
               </>
@@ -360,28 +361,28 @@ export default function FichasSection() {
   }
 
   return (
-    <div className="sys-section">
+    <div className={styles['sys-section']}>
       {/* Header — Material: eyebrow + title + trailing primary */}
-      <div className="sys-section-toolbar" style={{ alignItems: "flex-end" }}>
-        <div className="sys-panel-heading" style={{ minWidth: 0 }}>
-          <h2 className="sys-panel-title" style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Fichas técnicas</h2>
+      <div className={styles['sys-section-toolbar']} style={{ alignItems: "flex-end" }}>
+        <div className={styles['sys-panel-heading']} style={{ minWidth: 0 }}>
+          <h2 className={styles['sys-panel-title']} style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Fichas técnicas</h2>
           {!loading && (
-            <p className="sys-panel-sub" aria-live="polite" style={{ fontSize: "0.8125rem" }}>
+            <p className={styles['sys-panel-sub']} aria-live="polite" style={{ fontSize: "0.8125rem" }}>
               {fichas.length === 0
                 ? hasFilters ? "Sin resultados para los filtros" : "Sin equipos aún"
                 : `${fichas.length} ${fichas.length === 1 ? "equipo" : "equipos"}${hasFilters ? " · filtrado" : ""}`}
             </p>
           )}
         </div>
-        <button type="button" className="sys-btn sys-btn--primary" onClick={openCreate}>
+        <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={openCreate}>
           <IconPlus size={16} aria-hidden="true" />
           Nueva ficha
         </button>
       </div>
 
       {/* Filter bar — Material search + filter */}
-      <div className="sys-filter-bar" role="search" aria-label="Filtros de fichas técnicas">
-        <div className="sys-search" style={{ flex: "1 1 14rem", maxWidth: "22rem" }}>
+      <div className={styles['sys-filter-bar']} role="search" aria-label="Filtros de fichas técnicas">
+        <div className={styles['sys-search']} style={{ flex: "1 1 14rem", maxWidth: "22rem" }}>
           <IconSearch size={16} aria-hidden="true" />
           <input
             type="search"
@@ -397,18 +398,18 @@ export default function FichasSection() {
               type="button"
               onClick={() => setSerial("")}
               aria-label="Limpiar búsqueda por serial"
-              className="sys-icon-btn"
+              className={styles['sys-icon-btn']}
               style={{ width: "1.75rem", height: "1.75rem" }}
             >
               <IconX size={14} aria-hidden="true" />
             </button>
           )}
         </div>
-        <span className="sys-filter-divider" aria-hidden="true" />
+        <span className={styles['sys-filter-divider']} aria-hidden="true" />
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <IconAdjustmentsHorizontal size={16} aria-hidden="true" style={{ color: "hsl(var(--muted-foreground))", flexShrink: 0 }} />
           <select
-            className="sys-select"
+            className={styles['sys-select']}
             aria-label="Filtrar fichas por tipo de equipo"
             value={tipoEquipo}
             onChange={(e) => setTipoEquipo(e.target.value as TipoEquipo | "")}
@@ -425,7 +426,7 @@ export default function FichasSection() {
         <div style={{ marginLeft: "auto", display: "flex", gap: "0.5rem", alignItems: "center" }}>
           <button
             type="button"
-            className="sys-btn sys-btn--ghost"
+            className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`}
             onClick={() => {
               setSerial("")
               setTipoEquipo("")
@@ -450,7 +451,7 @@ export default function FichasSection() {
           }
           icon={<IconFileText size={22} aria-hidden="true" />}
           action={
-            <button type="button" className="sys-btn sys-btn--primary" onClick={openCreate}>
+            <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={openCreate}>
               <IconPlus size={16} aria-hidden="true" />
               {hasFilters ? "Limpiar filtros y crear" : "Nueva ficha"}
             </button>
@@ -459,9 +460,9 @@ export default function FichasSection() {
       ) : (
         <>
           {/* Desktop: Material Data Table — primary view */}
-          <div className="sys-fichas-table">
-            <div className="sys-table-wrap">
-              <table className="sys-table sys-table--dense sys-table--clickable" aria-label="Listado de fichas técnicas">
+          <div className={styles['sys-fichas-table']}>
+            <div className={styles['sys-table-wrap']}>
+              <table className={`${styles['sys-table']} ${styles['sys-table--dense']} ${styles['sys-table--clickable']}`} aria-label="Listado de fichas técnicas">
                 <thead>
                   <tr>
                     <th scope="col" style={{ width: "32%" }}>Cliente</th>
@@ -487,24 +488,24 @@ export default function FichasSection() {
                       aria-label={`Ver la ficha de ${ficha.nombreCliente}, ${tipoEquipoLabel(ficha.tipoEquipo)}, serial ${ficha.serialEquipo || "sin serial"}`}
                     >
                       <td data-label="Cliente">
-                        <div className="sys-cell-with-avatar">
-                          <span className="sys-cell-avatar" aria-hidden="true">{initials(ficha.nombreCliente)}</span>
-                          <span className="sys-cell-stack">
-                            <span className="sys-cell-main" title={ficha.nombreCliente}>{ficha.nombreCliente}</span>
-                            <span className="sys-cell-sub" title={ficha.telefonoCliente || ficha.correoCliente || ""}>{ficha.telefonoCliente || ficha.correoCliente || "—"}</span>
+                        <div className={styles['sys-cell-with-avatar']}>
+                          <span className={styles['sys-cell-avatar']} aria-hidden="true">{initials(ficha.nombreCliente)}</span>
+                          <span className={styles['sys-cell-stack']}>
+                            <span className={styles['sys-cell-main']} title={ficha.nombreCliente}>{ficha.nombreCliente}</span>
+                            <span className={styles['sys-cell-sub']} title={ficha.telefonoCliente || ficha.correoCliente || ""}>{ficha.telefonoCliente || ficha.correoCliente || "—"}</span>
                           </span>
                         </div>
                       </td>
                       <td data-label="Equipo">
-                        <span className="sys-cell-stack">
-                          <span className="sys-cell-main" style={{ fontSize: "0.8125rem" }} title={[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ")}>
+                        <span className={styles['sys-cell-stack']}>
+                          <span className={styles['sys-cell-main']} style={{ fontSize: "0.8125rem" }} title={[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ")}>
                             {[ficha.marcaEquipo, ficha.modeloEquipo].filter(Boolean).join(" ") || "—"}
                           </span>
-                          <span className="sys-cell-sub">{ficha.servicio || "Sin servicio"}</span>
+                          <span className={styles['sys-cell-sub']}>{ficha.servicio || "Sin servicio"}</span>
                         </span>
                       </td>
                       <td data-label="Serial"><code title={ficha.serialEquipo || ""}>{ficha.serialEquipo || "—"}</code></td>
-                      <td data-label="Tipo"><span className="sys-badge">{tipoEquipoLabel(ficha.tipoEquipo)}</span></td>
+                      <td data-label="Tipo"><span className={styles['sys-badge']}>{tipoEquipoLabel(ficha.tipoEquipo)}</span></td>
                       <td data-label="Registro" style={{ color: "hsl(var(--muted-foreground))", fontSize: "0.75rem" }}>{formatDate(ficha.fechaRealizacion ?? ficha.createdAt)}</td>
                     </tr>
                   ))}

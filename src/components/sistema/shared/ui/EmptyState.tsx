@@ -1,4 +1,5 @@
 import React from "react"
+import styles from "@/styles/SistemaUI.module.css"
 
 export interface EmptyStateProps {
   title: string
@@ -9,15 +10,15 @@ export interface EmptyStateProps {
 
 export function EmptyState({ title, description, icon, action }: EmptyStateProps) {
   return (
-    <div className="sys-empty">
+    <div className={styles['sys-empty']}>
       {icon && (
-        <div className="sys-empty-icon" aria-hidden="true">
+        <div className={styles['sys-empty-icon']} aria-hidden="true">
           {icon}
         </div>
       )}
-      <p className="sys-empty-title">{title}</p>
-      {description && <p className="sys-empty-desc">{description}</p>}
-      {action && <div className="sys-empty-action">{action}</div>}
+      <p className={styles['sys-empty-title']}>{title}</p>
+      {description && <p className={styles['sys-empty-desc']}>{description}</p>}
+      {action && <div className={styles['sys-empty-action']}>{action}</div>}
     </div>
   )
 }

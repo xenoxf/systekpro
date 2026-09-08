@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IconMenu2, IconX } from '@tabler/icons-react';
 import ThemeToggle from './ThemeToggle';
-import '@/styles/landingPage/Navbar.css';
+import styles from "@/styles/Navbar.module.css";
 
 const navLinks = [
   { href: '#servicios', label: 'Servicios' },
@@ -72,15 +72,15 @@ export default function Navbar() {
   }, [menuOpen]);
 
   return (
-    <header id="navbar" className={scrolled ? 'glass-strong' : ''}>
-      <div className="nav-container">
-        <div className="nav-inner">
+    <header id="navbar" className={`${scrolled ? 'glass-strong' : ''} ${scrolled ? styles.scrolled || '' : ''}`}>
+      <div className={styles['nav-container']}>
+        <div className={styles['nav-inner']}>
           <a href="/" className="" aria-label="Sistek Pro - Inicio">
-            <img src="/logo.png" alt="Sistek logo" className="logo-light" style={{maxHeight:'3.2rem', width:'auto', maxWidth:'160px', objectFit:'contain'}} />
-            <img src="/logo_white.png" alt="Sistek logo" className="logo-dark" style={{maxHeight:'3.2rem', width:'auto', maxWidth:'160px', objectFit:'contain'}} />
+            <img src="/logo.png" alt="Sistek logo" className={styles['logo-light']} style={{maxHeight:'3.2rem', width:'auto', maxWidth:'160px', objectFit:'contain'}} />
+            <img src="/logo_white.png" alt="Sistek logo" className={styles['logo-dark']} style={{maxHeight:'3.2rem', width:'auto', maxWidth:'160px', objectFit:'contain'}} />
           </a>
 
-          <nav className="nav-links" aria-label="Navegación principal">
+          <nav className={styles['nav-links']} aria-label="Navegación principal">
             {navLinks.map(link => (
               <a key={link.href} href={link.href}>
                 {link.label}
@@ -88,40 +88,40 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="nav-actions">
+          <div className={styles['nav-actions']}>
             <ThemeToggle />
-            <a href="tel:+571234513541" className="nav-phone" aria-label="Llamar a Sistek al +57 123 4513541">
-              <span className="nav-phone-inner">
-                <svg className="nav-phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <a href="tel:+571234513541" className={styles['nav-phone']} aria-label="Llamar a Sistek al +57 123 4513541">
+              <span className={styles['nav-phone-inner']}>
+                <svg className={styles['nav-phone-icon']} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
                 <span className="sr-only">Teléfono:</span>
                 <span>+57 123 4513541</span>
               </span>
             </a>
-            <a href="#contacto" className="nav-cta">
+            <a href="#contacto" className={styles['nav-cta']}>
               Solicitar servicio
             </a>
           </div>
 
-          <div className="mobile-menu-btns">
+          <div className={styles['mobile-menu-btns']}>
             <ThemeToggle />
             <button
               ref={toggleRef}
-              className="mobile-menu-btn"
+              className={styles['mobile-menu-btn']}
               onClick={toggleMenu}
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
             >
-              {menuOpen ? <IconX className="mobile-menu-btn-icon" aria-hidden="true" /> : <IconMenu2 className="mobile-menu-btn-icon" aria-hidden="true" />}
+              {menuOpen ? <IconX className={styles['mobile-menu-btn-icon']} aria-hidden="true" /> : <IconMenu2 className={styles['mobile-menu-btn-icon']} aria-hidden="true" />}
             </button>
           </div>
         </div>
       </div>
 
       <div
-        className={`mobile-menu-overlay${menuOpen ? ' active' : ''}`}
+        className={`${styles['mobile-menu-overlay']} ${menuOpen ? styles.active : ''}`}
         onClick={closeMenu}
         aria-hidden="true"
       />
@@ -129,17 +129,17 @@ export default function Navbar() {
       <nav
         id="mobile-menu"
         ref={menuRef}
-        className={`mobile-menu${menuOpen ? ' active' : ''}`}
+        className={`${styles['mobile-menu']} ${menuOpen ? styles.active : ''}`}
         aria-label="Navegación móvil"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="mobile-menu-inner">
+        <div className={styles['mobile-menu-inner']}>
           {navLinks.map(link => (
             <a key={link.href} href={link.href} onClick={handleLinkClick}>
               {link.label}
             </a>
           ))}
-          <a href="#contacto" className="mobile-menu-cta" onClick={handleLinkClick}>
+          <a href="#contacto" className={styles['mobile-menu-cta']} onClick={handleLinkClick}>
             Solicitar servicio
           </a>
         </div>

@@ -3,18 +3,19 @@ import { QRCodeSVG } from "qrcode.react"
 import { IconPrinter } from "@tabler/icons-react"
 import { type SeguimientoPublico, estadoLabel } from "@/services/ordenes"
 import { formatDate } from "./ui"
+import styles from "@/styles/TicketMantenimiento.module.css"
 
 function estadoClase(estado: string): string {
   const map: Record<string, string> = {
-    recibido: "ticket-estado--info",
-    diagnostico: "ticket-estado--info",
-    reparacion: "ticket-estado--warn",
-    esperando_repuestos: "ticket-estado--warn",
-    terminado: "ticket-estado--ok",
-    entregado: "ticket-estado--ok",
-    cancelado: "ticket-estado--off",
+    recibido: styles['ticket-estado--info'],
+    diagnostico: styles['ticket-estado--info'],
+    reparacion: styles['ticket-estado--warn'],
+    esperando_repuestos: styles['ticket-estado--warn'],
+    terminado: styles['ticket-estado--ok'],
+    entregado: styles['ticket-estado--ok'],
+    cancelado: styles['ticket-estado--off'],
   }
-  return map[estado] ?? "ticket-estado--info"
+  return map[estado] ?? styles['ticket-estado--info']
 }
 
 export default function TicketMantenimiento({
@@ -23,59 +24,45 @@ export default function TicketMantenimiento({
   seguimiento: SeguimientoPublico
 }) {
   return (
-    <div className="ticket-wrap">
-      <style>{`
-        @media print {
-          body * { visibility: hidden !important; }
-          .ticket-sheet, .ticket-sheet * { visibility: visible !important; }
-          .ticket-sheet {
-            position: absolute;
-            inset: 0;
-            margin: 0;
-            width: 100%;
-            box-shadow: none !important;
-          }
-          .ticket-no-print { display: none !important; }
-        }
-      `}</style>
+    <div className={styles['ticket-wrap']}>
 
-      <div className="ticket-sheet">
-        <header className="ticket-head">
+      <div className={styles['ticket-sheet']}>
+        <header className={styles['ticket-head']}>
           <div>
             <a href="/" aria-label="Sistek - Inicio">
               <img src="/logo.png" alt="Sistek logo" className="logo-light"  style={{maxHeight:'3.5rem', width:'auto', objectFit:'contain'}} />
               <img src="/logo_white.png" alt="Sistek logo" className="logo-dark"  style={{maxHeight:'3.5rem', width:'auto', objectFit:'contain'}} />
             </a>
-            <span className="ticket-brand-sub">Seguimiento de mantenimiento</span>
+            <span className={styles['ticket-brand-sub']}>Seguimiento de mantenimiento</span>
           </div>
-          <span className={`ticket-estado ${estadoClase(seguimiento.estado)}`}>
+          <span className={`${styles['ticket-estado']} ${estadoClase(seguimiento.estado)}`}>
             {estadoLabel(seguimiento.estado)}
           </span>
         </header>
 
-        <div className="ticket-meta">
+        <div className={styles['ticket-meta']}>
           <div>
-            <span className="ticket-label">Código</span>
-            <strong className="ticket-codigo">{seguimiento.codigo}</strong>
+            <span className={styles['ticket-label']}>Código</span>
+            <strong className={styles['ticket-codigo']}>{seguimiento.codigo}</strong>
           </div>
           <div>
-            <span className="ticket-label">Ingreso</span>
+            <span className={styles['ticket-label']}>Ingreso</span>
             <span>{formatDate(seguimiento.fechaIngreso)}</span>
           </div>
           <div>
-            <span className="ticket-label">Entrega estimada</span>
+            <span className={styles['ticket-label']}>Entrega estimada</span>
             <span>{formatDate(seguimiento.fechaEntregaEstimada)}</span>
           </div>
         </div>
 
-        <div className="ticket-block">
-          <span className="ticket-label">Cliente(s)</span>
-          <p className="ticket-clientes">{seguimiento.clientes.join(", ") || "—"}</p>
+        <div className={styles['ticket-block']}>
+          <span className={styles['ticket-label']}>Cliente(s)</span>
+          <p className={styles['ticket-clientes']}>{seguimiento.clientes.join(", ") || "—"}</p>
         </div>
 
-        <div className="ticket-block">
-          <span className="ticket-label">Equipos en esta orden</span>
-          <table className="ticket-equipos">
+        <div className={styles['ticket-block']}>
+          <span className={styles['ticket-label']}>Equipos en esta orden</span>
+          <table className={styles['ticket-equipos']}>
             <thead>
               <tr>
                 <th>Equipo</th>
@@ -97,7 +84,7 @@ export default function TicketMantenimiento({
           </table>
         </div>
 
-        <div className="ticket-qr">
+        <div className={styles['ticket-qr']}>
           {seguimiento.trackingUrl ? (
             <>
               <QRCodeSVG
@@ -107,21 +94,21 @@ export default function TicketMantenimiento({
                 marginSize={2}
                 aria-label={`Código QR de seguimiento para ${seguimiento.codigo}`}
               />
-              <p className="ticket-qr-help">
+              <p className={styles['ticket-qr-help']}>
                 Escanea para ver el estado de tu mantenimiento
               </p>
             </>
           ) : (
-            <p className="ticket-qr-help">Enlace de seguimiento no disponible</p>
+            <p className={styles['ticket-qr-help']}>Enlace de seguimiento no disponible</p>
           )}
           {seguimiento.trackingUrl && (
-            <p className="ticket-url">{seguimiento.trackingUrl}</p>
+            <p className={styles['ticket-url']}>{seguimiento.trackingUrl}</p>
           )}
         </div>
       </div>
 
-      <div className="ticket-no-print ticket-actions">
-        <button type="button" className="sys-btn sys-btn--primary" onClick={() => window.print()}>
+      <div className={`ticket-no-print ${styles['ticket-actions']}`}>
+        <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={() => window.print()}>
           <IconPrinter size={16} />
           Imprimir ticket
         </button>

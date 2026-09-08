@@ -1,5 +1,6 @@
 ---
 import { IconStar } from '@tabler/icons-react';
+import styles from "@/styles/Testimonials.module.css";
 ---
 
 <section id="testimonios" aria-labelledby="testimonios-title">
@@ -9,114 +10,54 @@ import { IconStar } from '@tabler/icons-react';
       <p class="section-desc">Empresas e instituciones en Cali confían en Sistek para sus necesidades tecnológicas.</p>
     </div>
 
-    <ul class="testimonials-grid">
-      <li class="testimonial-card">
-        <div class="testimonial-stars" role="img" aria-label="Valoración: 5 de 5 estrellas">
+    <ul class={styles['testimonials-grid']}>
+      <li class={styles['testimonial-card']}>
+        <div class={styles['testimonial-stars']} role="img" aria-label="Valoración: 5 de 5 estrellas">
           {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" aria-hidden="true" />))}
         </div>
-        <blockquote class="testimonial-text">
+        <blockquote class={styles['testimonial-text']}>
           "Sistek instaló toda la red de nuestra oficina en 3 días. El cableado quedó impecable y la configuración de los switches funciona perfectamente. Muy profesionales."
         </blockquote>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">CM</div>
+        <div class={styles['testimonial-author']}>
+          <div class={styles['testimonial-avatar']}>CM</div>
           <div>
-            <div class="testimonial-name">Carlos Martínez</div>
-            <div class="testimonial-role">Gerente, Logística del Valle</div>
+            <div class={styles['testimonial-name']}>Carlos Martínez</div>
+            <div class={styles['testimonial-role']}>Gerente, Logística del Valle</div>
           </div>
         </div>
       </li>
 
-      <li class="testimonial-card">
-        <div class="testimonial-stars" role="img" aria-label="Valoración: 5 de 5 estrellas">
+      <li class={styles['testimonial-card']}>
+        <div class={styles['testimonial-stars']} role="img" aria-label="Valoración: 5 de 5 estrellas">
           {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" aria-hidden="true" />))}
         </div>
-        <blockquote class="testimonial-text">
+        <blockquote class={styles['testimonial-text']}>
           "Teníamos problemas de WiFi en todo el segundo piso. Sistek hizo el estudio de cobertura, instaló access points y ahora tenemos señal perfecta en toda la institución."
         </blockquote>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">AL</div>
+        <div class={styles['testimonial-author']}>
+          <div class={styles['testimonial-avatar']}>AL</div>
           <div>
-            <div class="testimonial-name">Ana López</div>
-            <div class="testimonial-role">Rectora, Colegio San Fernando</div>
+            <div class={styles['testimonial-name']}>Ana López</div>
+            <div class={styles['testimonial-role']}>Rectora, Colegio San Fernando</div>
           </div>
         </div>
       </li>
 
-      <li class="testimonial-card">
-        <div class="testimonial-stars" role="img" aria-label="Valoración: 5 de 5 estrellas">
+      <li class={styles['testimonial-card']}>
+        <div class={styles['testimonial-stars']} role="img" aria-label="Valoración: 5 de 5 estrellas">
           {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" aria-hidden="true" />))}
         </div>
-        <blockquote class="testimonial-text">
+        <blockquote class={styles['testimonial-text']}>
           "El mantenimiento preventivo que nos hacen cada mes ha reducido las fallas de nuestros equipos en un 80%. Excelente servicio y muy buena atención."
         </blockquote>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">RP</div>
+        <div class={styles['testimonial-author']}>
+          <div class={styles['testimonial-avatar']}>RP</div>
           <div>
-            <div class="testimonial-name">Roberto Pérez</div>
-            <div class="testimonial-role">Director de Tecnología, Clínica del Norte</div>
+            <div class={styles['testimonial-name']}>Roberto Pérez</div>
+            <div class={styles['testimonial-role']}>Director de Tecnología, Clínica del Norte</div>
           </div>
         </div>
       </li>
     </ul>
   </div>
 </section>
-
-<style>
-  #testimonios { padding: 4rem 0; }
-  @media (min-width: 768px) { #testimonios { padding: 6rem 0; } }
-  .testimonials-grid {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .testimonial-card {
-    margin: 0;
-    padding: 1.5rem;
-    border-radius: var(--radius-2xl);
-    border: 1px solid hsl(var(--border) / 0.5);
-    background: hsl(var(--card) / 0.5);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .testimonial-stars {
-    display: flex;
-    gap: 0.25rem;
-    color: #FBBF24;
-  }
-  .testimonial-text {
-    font-size: 0.9375rem;
-    line-height: 1.7;
-    color: hsl(var(--foreground));
-    font-style: italic;
-  }
-  .testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: auto;
-  }
-  .testimonial-avatar {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    background: hsl(var(--primary) / 0.2);
-    color: hsl(var(--primary));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.875rem;
-  }
-  .testimonial-name {
-    font-weight: 600;
-    font-size: 0.9375rem;
-  }
-  .testimonial-role {
-    font-size: 0.8125rem;
-    color: hsl(var(--muted-foreground));
-  }
-</style>

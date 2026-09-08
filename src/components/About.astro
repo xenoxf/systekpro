@@ -1,71 +1,71 @@
 ---
 import { IconMapPin, IconUsers, IconHeadset, IconDeviceLaptop, IconAward, IconClock } from '@tabler/icons-react';
-import '@/styles/landingPage/About.css';
+import styles from "@/styles/About.module.css";
 ---
 
 <section id="about" aria-labelledby="about-heading">
-  <div class="about-bg"></div>
+  <div class={styles['about-bg']}></div>
   <div class="container">
-    <div class="about-grid">
-      <div class="about-content">
-        <h2 id="about-heading" class="about-title">
+    <div class={styles['about-grid']}>
+      <div class={styles['about-content']}>
+        <h2 id="about-heading" class={styles['about-title']}>
           Profesionales en soluciones tecnológicas desde <span class="gradient-text">Cali, Colombia</span>
         </h2>
-        <p class="about-text">
+        <p class={styles['about-text']}>
           En <strong>Sistek</strong> somos una empresa caleña especializada en instalación de redes empresariales, mantenimiento de equipos de cómputo y cableado estructurado. Con años de experiencia en el sector tecnológico, ofrecemos soluciones integrales con calidad, compromiso y atención personalizada.
         </p>
-        <p class="about-text">
+        <p class={styles['about-text']}>
           Trabajamos para que empresas, instituciones educativas y negocios en Cali y el Valle del Cauca cuenten con la infraestructura tecnológica que necesitan para operar de forma eficiente y segura. Nuestro equipo de técnicos certificados se compromete con cada proyecto como si fuera propio.
         </p>
-        <ul class="about-grid-2x2">
-          <li class="about-feature">
-            <IconMapPin className="about-feature-icon primary" aria-hidden="true" />
+        <ul class={styles['about-grid-2x2']}>
+          <li class={styles['about-feature']}>
+            <IconMapPin className={`${styles['about-feature-icon']} ${styles.primary}`} aria-hidden="true" />
             <div>
-              <div class="about-feature-title">Cali, Colombia</div>
-              <div class="about-feature-desc">Servicio presencial en Cali y área metropolitana del Valle del Cauca</div>
+              <div class={styles['about-feature-title']}>Cali, Colombia</div>
+              <div class={styles['about-feature-desc']}>Servicio presencial en Cali y área metropolitana del Valle del Cauca</div>
             </div>
           </li>
-          <li class="about-feature">
-            <IconUsers className="about-feature-icon accent" aria-hidden="true" />
+          <li class={styles['about-feature']}>
+            <IconUsers className={`${styles['about-feature-icon']} ${styles.accent}`} aria-hidden="true" />
             <div>
-              <div class="about-feature-title">Atención personalizada</div>
-              <div class="about-feature-desc">Cada cliente recibe un trato único, dedicado y profesional</div>
+              <div class={styles['about-feature-title']}>Atención personalizada</div>
+              <div class={styles['about-feature-desc']}>Cada cliente recibe un trato único, dedicado y profesional</div>
             </div>
           </li>
-          <li class="about-feature">
-            <IconHeadset className="about-feature-icon primary" aria-hidden="true" />
+          <li class={styles['about-feature']}>
+            <IconHeadset className={`${styles['about-feature-icon']} ${styles.primary}`} aria-hidden="true" />
             <div>
-              <div class="about-feature-title">Soporte continuo</div>
-              <div class="about-feature-desc">Acompañamiento técnico antes, durante y después de cada proyecto</div>
+              <div class={styles['about-feature-title']}>Soporte continuo</div>
+              <div class={styles['about-feature-desc']}>Acompañamiento técnico antes, durante y después de cada proyecto</div>
             </div>
           </li>
-          <li class="about-feature">
-            <IconDeviceLaptop className="about-feature-icon accent" aria-hidden="true" />
+          <li class={styles['about-feature']}>
+            <IconDeviceLaptop className={`${styles['about-feature-icon']} ${styles.accent}`} aria-hidden="true" />
             <div>
-              <div class="about-feature-title">Equipo certificado</div>
-              <div class="about-feature-desc">Técnicos capacitados y en constante actualización tecnológica</div>
+              <div class={styles['about-feature-title']}>Equipo certificado</div>
+              <div class={styles['about-feature-desc']}>Técnicos capacitados y en constante actualización tecnológica</div>
             </div>
           </li>
         </ul>
       </div>
 
-      <div class="about-visual">
-        <div class="about-visual-box">
-          <div class="about-visual-grid">
+      <div class={styles['about-visual']}>
+        <div class={styles['about-visual-box']}>
+          <div class={styles['about-visual-grid']}>
             {[1,2,3,4,5,6,7,8,9,10,11,12].map(i => (
-              <div class="about-visual-cell">
+              <div class={styles['about-visual-cell']}>
                 <IconDeviceLaptop aria-hidden="true" />
               </div>
             ))}
           </div>
         </div>
-        <div class="about-floating-card">
-          <div class="about-floating-icon">
+        <div class={styles['about-floating-card']}>
+          <div class={styles['about-floating-icon']}>
             <IconMapPin aria-hidden="true" />
           </div>
           <div>
-            <div class="about-floating-title">Ubicados en Cali</div>
-            <div class="about-floating-sub">Valle del Cauca, Colombia</div>
+            <div class={styles['about-floating-title']}>Ubicados en Cali</div>
+            <div class={styles['about-floating-sub']}>Valle del Cauca, Colombia</div>
           </div>
         </div>
       </div>
