@@ -17,10 +17,14 @@ export default defineConfig({
       },
     },
     server: {
+      // Proxy opcional para evitar CORS en dev si usas PUBLIC_API_URL=/api
+      // Si PUBLIC_API_URL apunta directo al backend (localhost o Codespace URL),
+      // el CORS del backend ya lo permite (ver sistekpro-backend/src/main.ts).
       proxy: {
         '/api': {
           target: 'http://localhost:3000',
           changeOrigin: true,
+          secure: false,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },

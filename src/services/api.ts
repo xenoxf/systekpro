@@ -1,5 +1,8 @@
-const API_URL: string =
+// Normaliza API_URL sin trailing slash para evitar // en fetch
+// Soporta: http://localhost:3000, https://xxx.app.github.dev, /api (proxy dev sin CORS)
+const RAW_API_URL: string =
   import.meta.env.PUBLIC_API_URL ?? "https://sistekpro-backend.onrender.com"
+const API_URL: string = RAW_API_URL.replace(/\/$/, "")
 const API_KEY: string = import.meta.env.PUBLIC_API_KEY ?? ""
 
 export const FORBIDDEN_MESSAGE = "No tienes permisos para acceder a este recurso"
