@@ -5,37 +5,48 @@
 .container {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sectionHeader {
-  margin-bottom: clamp(2rem, 4vw, 3rem);
-}
-
-.sectionBadge {
-  display: none;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
 
 .sectionTitle {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.375rem, 4vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin: 0 0 0.75rem;
   color: hsl(var(--foreground));
-}
-
-.gradientText {
-  color: hsl(var(--foreground));
+  overflow-wrap: break-word;
 }
 
 .sectionDesc {
-  font-size: clamp(0.9rem, 1vw + 0.5rem, 1rem);
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
   color: hsl(var(--muted-foreground));
   max-width: 32rem;
   margin: 0;
   line-height: 1.6;
   text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 380px) {
+  .container {
+    padding: 0 1rem;
+  }
+  .sectionTitle {
+    font-size: clamp(1.25rem, 5vw, 1.625rem);
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    padding: 0 0.875rem;
+  }
 }
 
 .contactGrid {

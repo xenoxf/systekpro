@@ -9,6 +9,7 @@ import Benefits from "../components/Benefits.astro";
 import Testimonials from "../components/Testimonials.astro";
 import FAQ from "../components/FAQ";
 import CTA from "../components/CTA.astro";
+import Identidad from "../components/Identidad.tsx";
 import Contact from "../components/Contact.tsx";
 import Footer from "@/components/Footer.astro";
 import WhatsAppFloat from "@/components/WhatsAppFloat.astro";
@@ -23,6 +24,7 @@ import ServicesJ from "@/components/ServicesCarousel/services";
       <Process />
       <Benefits />
       <FAQ client:visible />
+      <Identidad client:load />
       <Contact client:visible />
     </main>
     <Footer />
