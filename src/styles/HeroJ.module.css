@@ -15,11 +15,6 @@
   inset: 0;
   object-fit: cover;
   object-position: center;
-  animation: hero-zoom 20s ease-in-out infinite alternate;
-}
-@keyframes hero-zoom {
-  from { transform: scale(1.02); }
-  to { transform: scale(1.1); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-j-bg {
@@ -29,9 +24,7 @@
 .hero-j-overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(60% 80% at 20% 20%, hsl(210 60% 30% / 0.38), transparent 60%),
-    linear-gradient(120deg, hsl(214 70% 12% / 0.82), hsl(213 64% 18% / 0.6));
+  background: hsl(210 60% 12% / 0.75);
 }
 .hero-j-content {
   position: relative;
@@ -40,36 +33,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: clamp(1rem, 2vw, 1.5rem);
-  border-radius: 30px;
   padding: clamp(1rem, 3vw, 2rem);
   max-width: min(42rem, 90vw);
-}
-.hero-j-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 1rem;
-  border-radius: 9999px;
-  border: 1px solid hsl(0 0% 100% / 0.28);
-  background: hsl(0 0% 100% / 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: white;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  width: fit-content;
-}
-.hero-j-badge-dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: hsl(160 84% 48%);
-  box-shadow: 0 0 10px hsl(160 84% 48% / 0.8);
-  animation: hero-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-@keyframes hero-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
 }
 .hero-j-title {
   font-size: clamp(2.25rem, 6vw, 4.5rem);

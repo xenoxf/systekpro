@@ -92,17 +92,6 @@ export default function ServicesJ() {
             className={styles['scc-media']}
             style={{ backgroundImage: `url(${service.image})` }}
           >
-            <div
-              className={styles['scc-media-grad']}
-              style={{ background: service.gradient }}
-            ></div>
-            <div
-              className={styles['scc-icon']}
-              style={{ background: service.gradient }}
-              aria-hidden="true"
-            >
-              <Icon />
-            </div>
           </div>
 
           <div className={styles['scc-body']}>

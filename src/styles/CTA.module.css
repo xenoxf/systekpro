@@ -1,6 +1,6 @@
 .cta-section {
   position: relative;
-  padding: clamp(2rem, 5vw, 3rem) 0;
+  padding: clamp(3rem, 6vw, 5rem) 0;
 }
 
 .cta-bg {
@@ -10,12 +10,7 @@
 }
 
 .cta-grid-bg {
-  position: absolute;
-  inset: 0;
-  opacity: 0.2;
-  background-image: linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
-  background-size: 60px 60px;
+  display: none;
 }
 
 .cta-card {
@@ -27,13 +22,10 @@
 @media (min-width: 640px) { .cta-card { padding: 0 1.5rem; } }
 
 .cta-card-inner {
-  padding: clamp(1rem, 2.5vw, 2.5rem);
-  border-radius: var(--radius-2xl);
-  background: hsl(var(--card) / 0.8);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid hsl(var(--primary) / 0.25);
-  box-shadow: 0 8px 32px -4px hsl(var(--primary) / 0.1), 0 0 60px hsl(var(--primary) / 0.04);
+  padding: clamp(2rem, 4vw, 4rem);
+  border-radius: 0;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
   text-align: center;
 }
 
@@ -46,7 +38,7 @@
 }
 
 .cta-desc {
-  font-size: clamp(0.875rem, 1vw + 0.75rem, 1.0625rem);
+  font-size: clamp(0.9375rem, 1.2vw + 0.75rem, 1.125rem);
   color: hsl(var(--muted-foreground));
   max-width: 36rem;
   margin: 0 auto 1.5rem;

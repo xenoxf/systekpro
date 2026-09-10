@@ -50,8 +50,8 @@
 
 .logo-light { display: block; }
 .logo-dark { display: none; }
-.dark .logo-light { display: none; }
-.dark .logo-dark { display: block; }
+:global(.dark) .logo-light { display: none; }
+:global(.dark) .logo-dark { display: block; }
 
 .logo  {
   max-width: 160px;
