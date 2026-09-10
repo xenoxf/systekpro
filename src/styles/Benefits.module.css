@@ -6,43 +6,39 @@
 .beneficios-inner {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .beneficios-header {
-  margin-bottom: clamp(2rem, 4vw, 3rem);
-}
-
-.header-left {
-  min-width: 0;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: hsl(var(--muted-foreground));
-  margin-bottom: 0.75rem;
-}
-
-.eyebrow-line {
-  width: 20px;
-  height: 1.5px;
-  background: hsl(var(--primary));
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
 
 .beneficios-title {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.375rem, 4vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: hsl(var(--foreground));
   text-wrap: balance;
   margin-bottom: 0.75rem;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 380px) {
+  .beneficios-inner {
+    padding: 0 1rem;
+  }
+  .beneficios-title {
+    font-size: clamp(1.25rem, 5vw, 1.625rem);
+  }
+}
+
+@media (max-width: 320px) {
+  .beneficios-inner {
+    padding: 0 0.875rem;
+  }
 }
 
 .beneficios-title span {
@@ -50,11 +46,12 @@
 }
 
 .beneficios-desc {
-  font-size: clamp(0.9rem, 1vw + 0.5rem, 1rem);
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
   line-height: 1.6;
   color: hsl(var(--muted-foreground));
   max-width: 32rem;
   text-wrap: pretty;
+  overflow-wrap: break-word;
 }
 
 /* ── Lista de beneficios — sin tarjetas ── */
@@ -149,6 +146,38 @@
   margin-bottom: 0.5rem;
 }
 
+@media (max-width: 480px) {
+  .b-card-img-wrap--sm {
+    height: 140px;
+  }
+}
+
+@media (max-width: 380px) {
+  .b-card {
+    padding: 1rem 0;
+  }
+  .b-featured {
+    padding: 1.125rem 0;
+  }
+  .b-card-img-wrap {
+    max-width: 100%;
+  }
+  .b-title {
+    font-size: 0.875rem;
+  }
+  .b-title--lg {
+    font-size: 1.0625rem;
+  }
+  .b-wide-left {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .b-wide-left .b-card-img-wrap--sm {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 .b-card-img-wrap--sm .b-card-img {
   width: 100%;
   height: 100%;
@@ -164,18 +193,10 @@
   }
 }
 
-.b-featured-accent {
-  display: none;
-}
-
 .b-card-top {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-}
-
-.b-tag {
-  display: none;
 }
 
 .b-icon {
@@ -252,10 +273,6 @@
   color: hsl(var(--border));
 }
 
-.b-meta {
-  display: none;
-}
-
 .b-wide {
   grid-column: 1 / -1;
   display: flex;
@@ -287,8 +304,4 @@
   min-width: 120px;
   aspect-ratio: 16/10;
   margin-bottom: 0;
-}
-
-.b-wide-tag {
-  display: none;
 }
