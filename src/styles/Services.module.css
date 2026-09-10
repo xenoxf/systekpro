@@ -1,6 +1,16 @@
 #servicios {
   position: relative;
   padding: clamp(2rem, 5vw, 3rem) 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+}
+
+.container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
