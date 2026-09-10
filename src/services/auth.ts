@@ -1,6 +1,6 @@
 import { api } from "./api"
 
-export type AuthRole = "admin" | "gerente" | "mantenimiento"
+export type AuthRole = "admin" | "gerente" | "mantenimiento" | "marketing"
 
 export interface AuthUser {
   id: string

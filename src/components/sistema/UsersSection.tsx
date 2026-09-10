@@ -120,6 +120,11 @@ export default function UsersSection() {
       }
     }
 
+    if (form.role === "admin" && editing?.role !== "admin") {
+      setFormError("No se permite crear usuarios con rol admin. Solo puede existir un admin.")
+      return
+    }
+
     const departamentoId = form.departamentoId || null
 
     setSubmitting(true)
@@ -154,8 +159,11 @@ export default function UsersSection() {
       if (isApiError(err)) {
         if (err.statusCode === 409) setFormError("Ya existe un usuario con ese nombre.")
         else if (err.statusCode === 400) setFormError(err.messages.join("\n"))
-        else if (err.statusCode === 403) setFormError("No tienes permisos para esta acción (solo admin).")
-        else toast.error(err.message)
+        else if (err.statusCode === 403) {
+          const msg = err.messages.join(" ")
+          if (msg.toLowerCase().includes("admin")) setFormError(msg)
+          else setFormError("No tienes permisos para esta acción (solo admin).")
+        } else toast.error(err.message)
       }
     } finally {
       setSubmitting(false)
@@ -347,8 +355,14 @@ export default function UsersSection() {
             >
               <option value="mantenimiento">Mantenimiento</option>
               <option value="gerente">Gerente</option>
-              <option value="admin">Admin</option>
+              <option value="marketing">Marketing</option>
+              {editing?.role === "admin" && <option value="admin">Admin (solo lectura)</option>}
             </select>
+            {editing?.role === "admin" && (
+              <small style={{ fontSize: "0.75rem", opacity: 0.7 }}>
+                El usuario admin no puede cambiar de rol. Solo debe existir un admin.
+              </small>
+            )}
           </label>
           <label className={styles['sys-field']}>
             <span>Departamento {form.role === "admin" ? "(opcional)" : ""}</span>

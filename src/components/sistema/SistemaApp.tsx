@@ -10,9 +10,10 @@ import {
   IconBuilding,
   IconUsersGroup,
   IconBriefcase,
+  IconInbox,
 } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
-import { canAccessSection, type PanelSection } from "@/services/permissions"
+import { canAccessSection, getDefaultSection, type PanelSection } from "@/services/permissions"
 
 // Lazy-load pesado: evita que /sistema cargue todas las secciones a la vez.
 // Cada sección se code-split en chunk separado y solo se descarga al navegar.
@@ -22,6 +23,7 @@ const UsersSection = lazy(() => import("./UsersSection"))
 const DepartamentosSection = lazy(() => import("./DepartamentosSection"))
 const ClientesSection = lazy(() => import("./ClientesSection"))
 const EmpleadosSection = lazy(() => import("./EmpleadosSection"))
+const LeadsSection = lazy(() => import("./LeadsSection"))
 
 function SectionFallback() {
   return (
@@ -69,6 +71,7 @@ const ORDENES_HASH = "#ordenes"
 const DEPARTAMENTOS_HASH = "#departamentos"
 const CLIENTES_HASH = "#clientes"
 const EMPLEADOS_HASH = "#empleados"
+const LEADS_HASH = "#leads"
 
 function viewFromHash(): PanelSection {
   if (typeof window === "undefined") return "fichas"
@@ -78,6 +81,7 @@ function viewFromHash(): PanelSection {
   if (hash === DEPARTAMENTOS_HASH) return "departamentos"
   if (hash === CLIENTES_HASH) return "clientes"
   if (hash === EMPLEADOS_HASH) return "empleados"
+  if (hash === LEADS_HASH) return "leads"
   return "fichas"
 }
 
@@ -88,6 +92,7 @@ const SECTION_HASH: Record<PanelSection, string | null> = {
   departamentos: DEPARTAMENTOS_HASH,
   clientes: CLIENTES_HASH,
   empleados: EMPLEADOS_HASH,
+  leads: LEADS_HASH,
 }
 
 const SECTION_TAB_ID: Record<PanelSection, string> = {
@@ -97,6 +102,7 @@ const SECTION_TAB_ID: Record<PanelSection, string> = {
   departamentos: "tab-departamentos",
   clientes: "tab-clientes",
   empleados: "tab-empleados",
+  leads: "tab-leads",
 }
 
 export default function SistemaApp() {
@@ -120,8 +126,9 @@ export default function SistemaApp() {
     function syncFromHash() {
       const next = viewFromHash()
       if (!canAccessSection(user, next)) {
-        history.replaceState(null, "", window.location.pathname)
-        setView("fichas")
+        const fallback = getDefaultSection(user)
+        if (next !== fallback) history.replaceState(null, "", window.location.pathname)
+        setView(fallback)
         return
       }
       setView(next)
@@ -136,7 +143,7 @@ export default function SistemaApp() {
       setNavOpen(false)
       if (!canAccessSection(user, next)) {
         history.replaceState(null, "", window.location.pathname)
-        setView("fichas")
+        setView(getDefaultSection(user))
         return
       }
       const hash = SECTION_HASH[next]
@@ -180,7 +187,9 @@ export default function SistemaApp() {
             ? "Clientes"
             : view === "empleados"
               ? "Empleados"
-              : "Usuarios"
+              : view === "leads"
+                ? "Formularios"
+                : "Usuarios"
 
   return (
     <div className={styles['sys-shell']}>
@@ -202,42 +211,63 @@ export default function SistemaApp() {
 
         <nav className={styles['sys-nav']} role="tablist" aria-label="Secciones del panel">
           <p className={styles['sys-nav-label']} aria-hidden="true">Gestión</p>
-          <button
-            type="button"
-            id="tab-fichas"
-            role="tab"
-            aria-selected={view === "fichas"}
-            aria-controls="panel-seccion"
-            className={`${styles['sys-nav-item']} ${view === "fichas" ? styles['sys-nav-item--active'] : ""}`}
-            onClick={() => selectView("fichas")}
-          >
-            <IconFileText size={18} aria-hidden="true" />
-            <span>Fichas técnicas</span>
-          </button>
-          <button
-            type="button"
-            id="tab-ordenes"
-            role="tab"
-            aria-selected={view === "ordenes"}
-            aria-controls="panel-seccion"
-            className={`${styles['sys-nav-item']} ${view === "ordenes" ? styles['sys-nav-item--active'] : ""}`}
-            onClick={() => selectView("ordenes")}
-          >
-            <IconTool size={18} aria-hidden="true" />
-            <span>Órdenes</span>
-          </button>
-          <button
-            type="button"
-            id="tab-clientes"
-            role="tab"
-            aria-selected={view === "clientes"}
-            aria-controls="panel-seccion"
-            className={`${styles['sys-nav-item']} ${view === "clientes" ? styles['sys-nav-item--active'] : ""}`}
-            onClick={() => selectView("clientes")}
-          >
-            <IconUsersGroup size={18} aria-hidden="true" />
-            <span>Clientes</span>
-          </button>
+          {canAccessSection(user, "fichas") && (
+            <button
+              type="button"
+              id="tab-fichas"
+              role="tab"
+              aria-selected={view === "fichas"}
+              aria-controls="panel-seccion"
+              className={`${styles['sys-nav-item']} ${view === "fichas" ? styles['sys-nav-item--active'] : ""}`}
+              onClick={() => selectView("fichas")}
+            >
+              <IconFileText size={18} aria-hidden="true" />
+              <span>Fichas técnicas</span>
+            </button>
+          )}
+          {canAccessSection(user, "ordenes") && (
+            <button
+              type="button"
+              id="tab-ordenes"
+              role="tab"
+              aria-selected={view === "ordenes"}
+              aria-controls="panel-seccion"
+              className={`${styles['sys-nav-item']} ${view === "ordenes" ? styles['sys-nav-item--active'] : ""}`}
+              onClick={() => selectView("ordenes")}
+            >
+              <IconTool size={18} aria-hidden="true" />
+              <span>Órdenes</span>
+            </button>
+          )}
+          {canAccessSection(user, "clientes") && (
+            <button
+              type="button"
+              id="tab-clientes"
+              role="tab"
+              aria-selected={view === "clientes"}
+              aria-controls="panel-seccion"
+              className={`${styles['sys-nav-item']} ${view === "clientes" ? styles['sys-nav-item--active'] : ""}`}
+              onClick={() => selectView("clientes")}
+            >
+              <IconUsersGroup size={18} aria-hidden="true" />
+              <span>Clientes</span>
+            </button>
+          )}
+
+          {canAccessSection(user, "leads") && (
+            <button
+              type="button"
+              id="tab-leads"
+              role="tab"
+              aria-selected={view === "leads"}
+              aria-controls="panel-seccion"
+              className={`${styles['sys-nav-item']} ${view === "leads" ? styles['sys-nav-item--active'] : ""}`}
+              onClick={() => selectView("leads")}
+            >
+              <IconInbox size={18} aria-hidden="true" />
+              <span>Formularios</span>
+            </button>
+          )}
 
           <p className={styles['sys-nav-label']} aria-hidden="true" style={{ marginTop: "0.875rem" }}>Organización</p>
           {canAccessSection(user, "departamentos") && (
@@ -353,6 +383,8 @@ export default function SistemaApp() {
                   <EmpleadosSection />
                 ) : view === "usuarios" ? (
                   <UsersSection />
+                ) : view === "leads" ? (
+                  <LeadsSection />
                 ) : (
                   <FichasSection />
                 )}
