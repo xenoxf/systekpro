@@ -49,13 +49,15 @@
 }
 
 .footer-logo img {
-  max-height: 2.5rem;
+  max-height: 5.8rem;
   width: auto;
-  max-width: 120px;
+  max-width: 220px;
   object-fit: contain;
   flex-shrink: 0;
 }
-
+.logo {
+  width: 5rem;
+}
 .logo-light { display: block; }
 .logo-dark { display: none; }
 :global(.dark) .logo-light { display: none; }
