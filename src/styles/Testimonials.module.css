@@ -11,7 +11,7 @@
 .testimonial-card {
   margin: 0;
   padding: 1.5rem;
-  border-radius: var(--radius-2xl);
+  border-radius: 0;
   border: 1px solid hsl(var(--border) / 0.5);
   background: hsl(var(--card) / 0.5);
   display: flex;

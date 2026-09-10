@@ -18,8 +18,7 @@
     left: calc(16.667% + 1.5rem);
     right: calc(16.667% + 1.5rem);
     height: 0.125rem;
-    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)));
-    opacity: 0.4;
+    background: hsl(var(--border));
   }
 }
 
@@ -38,13 +37,11 @@
   width: clamp(2.5rem, 3.5vw + 1rem, 4rem);
   height: clamp(2.5rem, 3.5vw + 1rem, 4rem);
   margin: 0 auto 0.75rem;
-  border-radius: var(--radius-2xl);
+  border-radius: 0;
   border: 1px solid;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s;
-  box-shadow: 0 4px 16px hsl(var(--primary) / 0.06);
 }
 
 .process-step-icon.primary {
@@ -55,20 +52,6 @@
 .process-step-icon.accent {
   background: hsl(var(--accent) / 0.12);
   border-color: hsl(var(--accent) / 0.25);
-}
-
-.process-step:hover .process-step-icon.primary {
-  background: hsl(var(--primary) / 0.2);
-  border-color: hsl(var(--primary) / 0.4);
-  transform: translateY(-0.25rem);
-  box-shadow: 0 8px 24px hsl(var(--primary) / 0.15);
-}
-
-.process-step:hover .process-step-icon.accent {
-  background: hsl(var(--accent) / 0.2);
-  border-color: hsl(var(--accent) / 0.4);
-  transform: translateY(-0.25rem);
-  box-shadow: 0 8px 24px hsl(var(--accent) / 0.15);
 }
 
 .process-step-icon svg {
@@ -86,7 +69,7 @@
   transform: translateX(-50%);
   width: clamp(1.25rem, 2vw + 0.75rem, 2rem);
   height: clamp(1.25rem, 2vw + 0.75rem, 2rem);
-  border-radius: 50%;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;

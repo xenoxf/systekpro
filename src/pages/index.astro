@@ -16,14 +16,13 @@ import ServicesJ from "@/components/ServicesCarousel/services";
 ---
 
 <Layout>
-    <Navbar client:visible />
+    <Navbar client:load />
     <main id="main" tabindex="-1">
       <Heroj />
       <ServicesJ client:load />
       <Process />
       <Benefits />
       <FAQ client:visible />
-      <CTA />
       <Contact client:visible />
     </main>
     <Footer />
