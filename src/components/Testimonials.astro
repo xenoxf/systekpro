@@ -1,22 +1,18 @@
 ---
-import { IconStar } from '@tabler/icons-react';
 import styles from "@/styles/Testimonials.module.css";
 ---
 
 <section id="testimonios" aria-labelledby="testimonios-title">
   <div class="container">
     <div class="section-header">
-      <h2 id="testimonios-title" class="section-title">Lo que dicen nuestros <span class="gradient-text">clientes</span></h2>
-      <p class="section-desc">Empresas e instituciones en Cali confían en Sistek para sus necesidades tecnológicas.</p>
+      <h2 id="testimonios-title" class="section-title">Lo que dicen nuestros clientes</h2>
+      <p class="section-desc">Empresas e instituciones en Cali que ya trabajan con nosotros.</p>
     </div>
 
     <ul class={styles['testimonials-grid']}>
       <li class={styles['testimonial-card']}>
-        <div class={styles['testimonial-stars']} role="img" aria-label="Valoración: 5 de 5 estrellas">
-          {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" aria-hidden="true" />))}
-        </div>
         <blockquote class={styles['testimonial-text']}>
-          "Sistek instaló toda la red de nuestra oficina en 3 días. El cableado quedó impecable y la configuración de los switches funciona perfectamente. Muy profesionales."
+          "Nos instalaron la red de la oficina en 3 días. Cableado limpio, switches funcionando, sin drama. Lo que más me gustó es que el técnico que vino es el mismo que responde cuando llamo."
         </blockquote>
         <div class={styles['testimonial-author']}>
           <div class={styles['testimonial-avatar']}>CM</div>
@@ -28,11 +24,8 @@ import styles from "@/styles/Testimonials.module.css";
       </li>
 
       <li class={styles['testimonial-card']}>
-        <div class={styles['testimonial-stars']} role="img" aria-label="Valoración: 5 de 5 estrellas">
-          {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" aria-hidden="true" />))}
-        </div>
         <blockquote class={styles['testimonial-text']}>
-          "Teníamos problemas de WiFi en todo el segundo piso. Sistek hizo el estudio de cobertura, instaló access points y ahora tenemos señal perfecta en toda la institución."
+          "Teníamos WiFi en todo el segundo piso menos en las aulas. Hicieron el estudio de cobertura, instalaron los points y ahora funciona en todos lados. Sin contratistas fantasma."
         </blockquote>
         <div class={styles['testimonial-author']}>
           <div class={styles['testimonial-avatar']}>AL</div>
@@ -44,11 +37,8 @@ import styles from "@/styles/Testimonials.module.css";
       </li>
 
       <li class={styles['testimonial-card']}>
-        <div class={styles['testimonial-stars']} role="img" aria-label="Valoración: 5 de 5 estrellas">
-          {[1,2,3,4,5].map(() => (<IconStar size={18} fill="currentColor" aria-hidden="true" />))}
-        </div>
         <blockquote class={styles['testimonial-text']}>
-          "El mantenimiento preventivo que nos hacen cada mes ha reducido las fallas de nuestros equipos en un 80%. Excelente servicio y muy buena atención."
+          "El mantenimiento mensual nos cambió. Antes teníamos una falla por semana, ahora casi ninguna. Y cuando algo pasa, vienen rápido. No nos dejan colgados."
         </blockquote>
         <div class={styles['testimonial-author']}>
           <div class={styles['testimonial-avatar']}>RP</div>

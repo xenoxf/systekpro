@@ -1,51 +1,86 @@
 ---
-import { IconUsers, IconClock, IconCoin, IconTools, IconMapPin, IconShieldCheck } from '@tabler/icons-react';
 import styles from "@/styles/Benefits.module.css";
 ---
 
-<section id="beneficios">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Ventajas de trabajar con <span class="gradient-text">Sistek</span></h2>
-      <p class="section-desc">Nos comprometemos con cada proyecto para ofrecerte un servicio profesional, transparente y de calidad.</p>
+<section id="beneficios" class={styles['beneficios']}>
+  <div class={styles['beneficios-inner']}>
+    <div class={styles['beneficios-header']}>
+      <div class={styles['header-left']}>
+        <div class={styles['eyebrow']}>
+          <span class={styles['eyebrow-line']} aria-hidden="true"></span>
+          Por qué Sistek
+        </div>
+        <h2 class={styles['beneficios-title']}>Lo que nos <span>diferencia</span></h2>
+      </div>
+      <p class={styles['beneficios-desc']}>
+        No somos un call center. Somos el técnico que viene a tu oficina, instala tu red y te da su número directo.
+        Así de simple.
+      </p>
     </div>
 
-    <ul class={styles['beneficios-grid']}>
-      <li class={styles['benefit-card']}>
-        <div class={`${styles['benefit-card-icon']} ${styles.accent}`} aria-hidden="true"><IconUsers /></div>
-        <h3 class={styles['benefit-card-title']}>Atención personalizada</h3>
-        <p class={styles['benefit-card-desc']}>Te atendemos de forma directa y cercana. Cada proyecto recibe el tiempo y la dedicación que merece, sin tratos genéricos.</p>
-      </li>
+    <div class={styles['bento']}>
+      <article class={`${styles['b-card']} ${styles['b-featured']}`}>
+        <div class={styles['b-card-inner']}>
+          <div class={styles['b-card-img-wrap']}>
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80&auto=format&fit=crop" alt="Equipo técnico directo" class={styles['b-card-img']} loading="lazy" />
+          </div>
+          <div class={styles['b-card-content']}>
+            <div class={styles['b-card-top']}>
+              <h3 class={styles['b-title--lg']}>Sin intermediarios</h3>
+            </div>
+            <p class={styles['b-desc']}>El técnico que diseña tu red es el mismo que la instala y el que responde cuando algo falla. Sin transferencias, sin explicar el problema tres veces.</p>
+            <ul class={styles['b-list']}>
+              <li>Hablas directo con quien hizo el trabajo</li>
+              <li>Sin guiones ni scripts — respuesta real</li>
+              <li>Seguimiento hasta que quede resuelto</li>
+            </ul>
+          </div>
+        </div>
+      </article>
 
-      <li class={styles['benefit-card']}>
-        <div class={`${styles['benefit-card-icon']} ${styles.primary}`} aria-hidden="true"><IconClock /></div>
-        <h3 class={styles['benefit-card-title']}>Respuesta ágil</h3>
-        <p class={styles['benefit-card-desc']}>Sabemos que el tiempo es valioso. Coordinamos contigo para brindarte soluciones rápidas sin sacrificar la calidad del servicio.</p>
-      </li>
+      <article class={`${styles['b-card']} ${styles['b-card--stack']}`}>
+        <div class={styles['b-card-img-wrap--sm']}>
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=80&auto=format&fit=crop" alt="Respuesta rápida" class={styles['b-card-img']} loading="lazy" />
+        </div>
+        <h3 class={styles['b-title']}>Respuesta en menos de 24 h</h3>
+        <p class={styles['b-desc']}>Coordinamos visita o soporte remoto rápido. Tu operación no puede esperar y nosotros lo sabemos.</p>
+      </article>
 
-      <li class={styles['benefit-card']}>
-        <div class={`${styles['benefit-card-icon']} ${styles.accent}`} aria-hidden="true"><IconCoin /></div>
-        <h3 class={styles['benefit-card-title']}>Presupuesto sin compromiso</h3>
-        <p class={styles['benefit-card-desc']}>Te presentamos una cotización clara y detallada antes de empezar. Sin costos ocultos ni sorpresas.</p>
-      </li>
+      <article class={styles['b-card']}>
+        <div class={styles['b-card-img-wrap--sm']}>
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80&auto=format&fit=crop" alt="Presupuesto claro" class={styles['b-card-img']} loading="lazy" />
+        </div>
+        <h3 class={styles['b-title']}>Presupuesto claro</h3>
+        <p class={styles['b-desc']}>Te damos el precio antes de empezar. Sin sorpresas al final, sin costos que no acordamos.</p>
+      </article>
 
-      <li class={styles['benefit-card']}>
-        <div class={`${styles['benefit-card-icon']} ${styles.primary}`} aria-hidden="true"><IconTools /></div>
-        <h3 class={styles['benefit-card-title']}>Equipo capacitado</h3>
-        <p class={styles['benefit-card-desc']}>Contamos con personal técnico preparado y en constante actualización para brindarte soluciones efectivas y modernas.</p>
-      </li>
+      <article class={styles['b-card']}>
+        <div class={styles['b-card-img-wrap--sm']}>
+          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&q=80&auto=format&fit=crop" alt="Técnicos certificados" class={styles['b-card-img']} loading="lazy" />
+        </div>
+        <h3 class={styles['b-title']}>Técnicos certificados</h3>
+        <p class={styles['b-desc']}>Equipo con certificaciones reales en las marcas que instalamos — no solo cursitos online.</p>
+      </article>
 
-      <li class={styles['benefit-card']}>
-        <div class={`${styles['benefit-card-icon']} ${styles.accent}`} aria-hidden="true"><IconMapPin /></div>
-        <h3 class={styles['benefit-card-title']}>Cobertura local</h3>
-        <p class={styles['benefit-card-desc']}>Estamos ubicados en Cali y atendemos presencialmente en toda la ciudad y área metropolitana.</p>
-      </li>
+      <article class={styles['b-card']}>
+        <div class={styles['b-card-img-wrap--sm']}>
+          <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&q=80&auto=format&fit=crop" alt="Base en Cali" class={styles['b-card-img']} loading="lazy" />
+        </div>
+        <h3 class={styles['b-title']}>Base en Cali</h3>
+        <p class={styles['b-desc']}>No mandamos a alguien de otra ciudad. Conocemos cada barrio, cada edificio, cada tipo de edificación.</p>
+      </article>
 
-      <li class={styles['benefit-card']}>
-        <div class={`${styles['benefit-card-icon']} ${styles.primary}`} aria-hidden="true"><IconShieldCheck /></div>
-        <h3 class={styles['benefit-card-title']}>Trabajo garantizado</h3>
-        <p class={styles['benefit-card-desc']}>Respadamos cada instalación y reparación que realizamos. Si algo no queda bien, lo arreglamos sin costo adicional.</p>
-      </li>
-    </ul>
+      <article class={`${styles['b-card']} ${styles['b-wide']}`}>
+        <div class={styles['b-wide-left']}>
+          <div class={styles['b-card-img-wrap--sm']}>
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&q=80&auto=format&fit=crop" alt="Garantía por escrito" class={styles['b-card-img']} loading="lazy" />
+          </div>
+          <div>
+            <h3 class={styles['b-title']}>Garantía por escrito</h3>
+            <p class={styles['b-desc']}>Cada instalación y reparación viene con garantía escrita. Si algo falla, volvemos sin costo.</p>
+          </div>
+        </div>
+      </article>
+    </div>
   </div>
 </section>

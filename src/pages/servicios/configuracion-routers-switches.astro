@@ -5,20 +5,20 @@ import styles from '@/styles/ServicePage.module.css';
 const service = {
   name: 'Configuración de Routers y Switches',
   slug: 'configuracion-routers-switches',
-  description: 'Configuración profesional de routers, switches y access points en Cali. VLANs, QoS, seguridad de red y optimización de rendimiento.',
+  description: 'Configuración de routers, switches y access points en Cali. VLANs, QoS, seguridad y rendimiento.',
   keywords: 'configuración routers cali, configuración switches, VLANs, QoS, seguridad de red, MikroTik, Cisco, Ubiquiti',
   h1: 'Configuración de Routers y Switches en Cali',
-  intro: 'Configuración experta de equipos de red para maximizar rendimiento, seguridad y estabilidad. Trabajamos con todas las marcas principales.',
+  intro: 'Tu red está instalada pero no funciona bien? La configuramos para que rinda.',
   benefits: [
-    { title: 'Configuración de routers', desc: 'Setup completo de routers con DHCP, NAT, port forwarding, DNS y reglas de firewall para máxima seguridad.' },
-    { title: 'VLANs y segmentación', desc: 'Creación de redes virtuales para separar tráfico, mejorar seguridad y optimizar el rendimiento de tu red.' },
-    { title: 'QoS y priorización', desc: 'Configuración de calidad de servicio para priorizar tráfico crítico como VoIP, videoconferencias y aplicaciones empresariales.' },
-    { title: 'Seguridad perimetral', desc: 'Implementación de firewalls, filtrado de contenido, bloqueo de amenazas y políticas de acceso a la red.' },
+    { title: 'Routers', desc: 'DHCP, NAT, port forwarding, DNS, firewall. Seguridad desde la configuración.' },
+    { title: 'VLANs', desc: 'Redes virtuales para separar tráfico. Seguridad y rendimiento.' },
+    { title: 'QoS', desc: 'Priorizá VoIP, videoconferencias y apps críticas. Sin buffering en reuniones.' },
+    { title: 'Seguridad', desc: 'Firewalls, filtrado de contenido, bloqueo de amenazas, políticas de acceso.' },
   ],
   faq: [
-    { q: '¿Qué marcas de routers configuran?', a: 'Configuramos MikroTik, Cisco, TP-Link, Ubiquiti, D-Link y otras marcas. También trabajamos con firmware alternativo como OpenWrt.' },
-    { q: '¿Pueden mejorar mi red actual?', a: 'Sí, diagnosticamos tu red actual y proponemos mejoras de configuración para optimizar velocidad, cobertura y seguridad.' },
-    { q: '¿Cuánto tiempo toma una configuración?', a: 'Una configuración básica toma 1-2 horas. Configuraciones avanzadas con VLANs y QoS pueden tomar medio día.' },
+    { q: '¿Con qué marcas trabajan?', a: 'MikroTik, Cisco, TP-Link, Ubiquiti, D-Link y más. También OpenWrt.' },
+    { q: '¿Pueden mejorar mi red actual?', a: 'Sí. Diagnosticamos y proponemos mejoras de configuración concretas.' },
+    { q: '¿Cuánto tarda?', a: 'Básica: 1-2 horas. Avanzada con VLANs y QoS: medio día.' },
   ],
 };
 
@@ -44,14 +44,14 @@ const jsonLd = {
         <h1>{service.h1}</h1>
         <p class={styles['service-hero-desc']}>{service.intro}</p>
         <div class={styles['service-hero-actions']}>
-          <a href="/#contacto" class="btn-primary glow">Solicitar cotización</a>
+          <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
           <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
         </div>
       </div>
     </section>
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye nuestro servicio?</h2>
+        <h2>¿Qué incluye?</h2>
         <div class={styles['service-benefits-grid']}>
           {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
         </div>
@@ -65,9 +65,9 @@ const jsonLd = {
     </section>
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Tu red no funciona como debería?</h2>
-        <p>Diagnóstico y configuración profesional para que tu red funcione al máximo.</p>
-        <a href="/#contacto" class="btn-primary glow">Solicitar servicio</a>
+        <h2>Tu red no anda bien?</h2>
+        <p>La diagnosticamos y la dejamos funcionando.</p>
+        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
       </div>
     </section>
   </main>

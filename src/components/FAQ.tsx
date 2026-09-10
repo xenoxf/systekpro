@@ -3,36 +3,36 @@ import styles from "@/styles/FAQ.module.css";
 
 const faqs = [
   {
-    q: '¿Cuánto tiempo toma una instalación de red empresarial?',
-    a: 'Dependiendo de la complejidad, una instalación de red para una oficina promedio toma de 2 a 5 días hábiles, incluyendo cableado, configuración de equipos y pruebas de funcionamiento.'
+    q: '¿Cuánto tarda una instalación de red?',
+    a: 'Depende del tamaño. Una oficina promedio: 2 a 5 días hábiles. Incluye cableado, configuración y pruebas. Te damos el tiempo exacto en la cotización.'
   },
   {
-    q: '¿Ofrecen servicios de mantenimiento preventivo?',
-    a: 'Sí, ofrecemos planes de mantenimiento preventivo que incluyen limpieza interna, revisión de componentes, actualización de software y diagnóstico general del equipo.'
+    q: '¿Hacen mantenimiento preventivo?',
+    a: 'Sí. Planes mensuales o periódicos: limpieza, revisión, actualización de software y diagnóstico. Evitás las fallas antes de que pasen.'
   },
   {
-    q: '¿Qué tipo de cableado estructurado instalan?',
-    a: 'Instalamos cableado categoría CAT6 y CAT6A para redes empresariales, incluyendo patch panels, rostros y organización en racks. Todo nuestro trabajo se entrega probado y funcionando.'
+    q: '¿Qué cableado instalan?',
+    a: 'CAT6 y CAT6A. Patch panels, rostros, racks — todo certificado con reporte de pruebas. Entregamos documentación completa.'
   },
   {
-    q: '¿Ofrecen soporte remoto o solo presencial?',
-    a: 'Ofrecemos ambos. El soporte remoto es ideal para problemas de software y configuración. Cuando se requiere atención presencial, coordinamos una visita a tu ubicación en Cali.'
+    q: '¿Soporte remoto o solo presencial?',
+    a: 'Ambos. Remoto para software y configuración. Presencial cuando se necesita — coordinamos la visita en Cali.'
   },
   {
-    q: '¿Qué marcas de equipos de red recomiendan?',
-    a: 'Trabajamos con las principales marcas del mercado como Cisco, MikroTik, Ubiquiti, TP-Link y más. Recomendamos la mejor solución según tus necesidades y presupuesto.'
+    q: '¿Con qué marcas trabajan?',
+    a: 'Cisco, MikroTik, Ubiquiti, TP-Link y otras. Recomendamos la que mejor se ajuste a tu presupuesto y necesidades, no la que nos dé más comisión.'
   },
   {
-    q: '¿Ofrecen garantía en sus servicios?',
-    a: 'Sí, todos nuestros servicios cuentan con garantía. Respalamos el trabajo realizado y los equipos que instalamos.'
+    q: '¿Tienen garantía?',
+    a: 'Sí. Garantía escrita en todo lo que instalamos y reparamos. Si algo falla, volvemos sin costo.'
   },
   {
-    q: '¿Cómo puedo solicitar una cotización?',
-    a: 'Puedes llamarnos al +57 123 4513541, escribirnos por WhatsApp o llenar el formulario de contacto. Te responderemos a la mayor brevedad.'
+    q: '¿Cómo pido una cotización?',
+    a: 'Llamá al +57 123 4513541, escribinos por WhatsApp o llená el formulario. Te respondemos rápido.'
   },
   {
-    q: '¿Hacen visitas a domicilio o solo a empresas?',
-    a: 'Atendemos tanto a empresas como a hogares en Cali y sus alrededores. Realizamos visitas presenciales para diagnóstico e instalación.'
+    q: '¿Atienden casas o solo empresas?',
+    a: 'Ambos. Empresas, colegios, casas — lo que necesites en Cali y alrededores.'
   }
 ];
 
@@ -56,9 +56,9 @@ export default function FAQ() {
       <div className={styles['faq-container']}>
         <div className="section-header">
           <h2 id="faq-heading" className="section-title">
-            Preguntas <span className="gradient-text">frecuentes</span>
+            Preguntas frecuentes
           </h2>
-          <p className="section-desc">Resolvemos tus dudas sobre nuestros servicios de infraestructura tecnológica en Cali.</p>
+          <p className="section-desc">Dudas reales de clientes reales. Si no está la tuya, escribinos.</p>
         </div>
 
         <div className={styles['faq-list']}>
