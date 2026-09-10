@@ -8,6 +8,7 @@ import {
 
 import styles from '@/styles/Contact.module.css'
 import { useState, type FormEvent } from "react"
+import { api, isApiError } from "@/services/api"
 
 type FormData = {
   nombre: string
@@ -22,6 +23,7 @@ type Errors = Partial<Record<keyof FormData, string>>
 function Contact() {
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null)
+  const [submitting, setSubmitting] = useState(false)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -71,25 +73,29 @@ function Contact() {
       return
     }
 
+    setSubmitting(true)
     try {
-      const response = { ok: true }
-      if (response.ok) {
+      await api.post("/leads", data, false)
+      setStatus({
+        type: "success",
+        message: "¡Mensaje enviado con éxito! Te contactaremos pronto.",
+      })
+      setErrors({})
+      form.reset()
+    } catch (err) {
+      if (isApiError(err)) {
         setStatus({
-          type: "success",
-          message: "¡Mensaje enviado con éxito! Te contactaremos pronto.",
+          type: "error",
+          message: err.messages.join(" · ") || "No se pudo enviar el mensaje. Intenta de nuevo o contáctanos por WhatsApp.",
         })
-        form.reset()
       } else {
         setStatus({
           type: "error",
-          message: "No se pudo enviar el mensaje. Intenta de nuevo o contáctanos por WhatsApp.",
+          message: "Error de conexión. Intenta de nuevo o contáctanos por WhatsApp.",
         })
       }
-    } catch {
-      setStatus({
-        type: "error",
-        message: "Error de conexión. Intenta de nuevo o contáctanos por WhatsApp.",
-      })
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -98,10 +104,10 @@ function Contact() {
       <div className={styles.container}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            Hablemos de tu<span className={styles.gradientText}> proyecto</span>
+            Hablemos de tu proyecto
           </h2>
           <p className={styles.sectionDesc}>
-            Cuéntanos qué necesitas y te enviaremos una propuesta personalizada.
+            Contanos qué necesitás y te mandamos una propuesta con precio y tiempos.
           </p>
         </div>
 
@@ -118,8 +124,6 @@ function Contact() {
         <div className={styles.contactGrid}>
           <form
             className={styles.contactFormm}
-            action="https://formspree.io/f/xpqngavp"
-            method="POST"
             noValidate
             onSubmit={handleSubmit}
           >
@@ -223,8 +227,8 @@ function Contact() {
               )}
             </div>
 
-            <button type="submit" className={styles.formmBtn}>
-              Enviar mensaje
+            <button type="submit" className={styles.formmBtn} disabled={submitting}>
+              {submitting ? "Enviando..." : "Enviar mensaje"}
               <IconSend aria-hidden="true" />
             </button>
           </form>
@@ -232,7 +236,7 @@ function Contact() {
           <div className={styles.contactInfo}>
             <div className={styles.contactInfoList}>
               <div className={styles.contactInfoItem}>
-                <div className={`${styles.contactInfoIcon} ${styles.primary}`}>
+                <div className={styles.contactInfoIcon}>
                   <IconPhone aria-hidden="true" />
                 </div>
                 <div>
@@ -242,7 +246,7 @@ function Contact() {
               </div>
 
               <div className={styles.contactInfoItem}>
-                <div className={`${styles.contactInfoIcon} ${styles.accent}`}>
+                <div className={styles.contactInfoIcon}>
                   <IconMail aria-hidden="true" />
                 </div>
                 <div>
@@ -252,7 +256,7 @@ function Contact() {
               </div>
 
               <div className={styles.contactInfoItem}>
-                <div className={`${styles.contactInfoIcon} ${styles.primary}`}>
+                <div className={styles.contactInfoIcon}>
                   <IconMapPin aria-hidden="true" />
                 </div>
                 <div>
@@ -262,7 +266,7 @@ function Contact() {
               </div>
 
               <div className={styles.contactInfoItem}>
-                <div className={`${styles.contactInfoIcon} ${styles.accent}`}>
+                <div className={styles.contactInfoIcon}>
                   <IconClock aria-hidden="true" />
                 </div>
                 <div>
