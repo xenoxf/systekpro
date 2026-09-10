@@ -5,20 +5,20 @@ import styles from '@/styles/ServicePage.module.css';
 const service = {
   name: 'Mantenimiento de Computadores',
   slug: 'mantenimiento-computadores',
-  description: 'Servicio profesional de mantenimiento preventivo y correctivo de computadores en Cali. Diagnóstico, reparación, limpieza y optimización de equipos de cómputo para empresas y hogares.',
+  description: 'Mantenimiento preventivo y correctivo de computadores en Cali. Limpieza, diagnóstico, reparación y optimización.',
   keywords: 'mantenimiento computadores cali, reparación pc cali, mantenimiento preventivo computadores, limpieza computadores, optimización equipos cómputo',
   h1: 'Mantenimiento de Computadores en Cali',
-  intro: 'Mantenimiento profesional de computadores para empresas y hogares en Cali, Valle del Cauca. Servicio preventivo y correctivo con garantía.',
+  intro: 'Evitá las fallas antes de que te dejen tirado. Limpieza, diagnóstico y reparación con garantía.',
   benefits: [
-    { title: 'Mantenimiento preventivo', desc: 'Limpieza interna y externa, cambio de pasta térmica, revisión de componentes y actualización de software para evitar fallas futuras.' },
-    { title: 'Mantenimiento correctivo', desc: 'Diagnóstico y reparación de fallas de hardware y software. Reemplazo de componentes dañados con repuestos de calidad.' },
-    { title: 'Optimización de rendimiento', desc: 'Eliminación de virus, malware y software innecesario. Optimización del sistema operativo para máxima velocidad.' },
-    { title: 'Recuperación de datos', desc: 'Rescate de información de discos duros dañados o formateados. Backup y migración de datos a nuevos equipos.' },
+    { title: 'Preventivo', desc: 'Limpieza, cambio de pasta térmica, revisión de componentes. Evitás las fallas futuras.' },
+    { title: 'Correctivo', desc: 'Diagnóstico y reparación de hardware y software. Repuestos de calidad.' },
+    { title: 'Optimización', desc: 'Eliminación de virus, software innecesario. Tu equipo vuelve a funcionar como nuevo.' },
+    { title: 'Recuperación de datos', desc: 'Rescate de información de discos dañados. Backup y migración.' },
   ],
   faq: [
-    { q: '¿Cuánto tiempo toma un mantenimiento preventivo?', a: 'Un mantenimiento preventivo completo toma entre 1 y 3 horas dependiendo del estado del equipo. Incluye limpieza física, revisión de componentes y optimización de software.' },
-    { q: '¿Cuánto cuesta el mantenimiento de un computador?', a: 'El costo varía según el tipo de mantenimiento y la cantidad de equipos. Ofrecemos precios competitivos y descuentos por volumen para empresas.' },
-    { q: '¿Dan servicio a domicilio?', a: 'Sí, realizamos visitas a domicilio en Cali y área metropolitana. También ofrecemos servicio remoto para problemas de software.' },
+    { q: '¿Cuánto tarda un mantenimiento?', a: 'Entre 1 y 3 horas dependiendo del equipo. Incluye limpieza física, revisión y optimización.' },
+    { q: '¿Cuánto cuesta?', a: 'Varía según el tipo y cantidad de equipos. Precios competitivos y descuentos por volumen.' },
+    { q: '¿Van a domicilio?', a: 'Sí. Visitas en Cali y área metropolitana. También soporte remoto para software.' },
   ],
 };
 
@@ -65,7 +65,7 @@ const jsonLd = {
         <h1>{service.h1}</h1>
         <p class={styles['service-hero-desc']}>{service.intro}</p>
         <div class={styles['service-hero-actions']}>
-          <a href="/#contacto" class="btn-primary glow">Solicitar cotización</a>
+          <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
           <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
         </div>
       </div>
@@ -73,7 +73,7 @@ const jsonLd = {
 
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye nuestro servicio?</h2>
+        <h2>¿Qué incluye?</h2>
         <div class={styles['service-benefits-grid']}>
           {service.benefits.map(b => (
             <div class={styles['service-benefit-card']}>
@@ -99,9 +99,9 @@ const jsonLd = {
 
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Necesitas mantenimiento para tus equipos?</h2>
-        <p>Contáctanos hoy y recibe una cotización sin compromiso. Atendemos en Cali y área metropolitana.</p>
-        <a href="/#contacto" class="btn-primary glow">Solicitar servicio</a>
+        <h2>¿Necesitás mantenimiento?</h2>
+        <p>Cotización sin compromiso. Atendemos en Cali y alrededores.</p>
+        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
       </div>
     </section>
   </main>

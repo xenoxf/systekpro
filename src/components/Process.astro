@@ -1,62 +1,80 @@
 ---
-import { IconSearch, IconClipboardList, IconSettings, IconTestPipe, IconHeartHandshake } from '@tabler/icons-react';
 import styles from "@/styles/Process.module.css";
 ---
 
-<section id="proceso">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Cómo <span class="gradient-text">trabajamos</span></h2>
-      <p class="section-desc">Un proceso claro, profesional y eficiente para garantizar resultados en cada proyecto.</p>
+<section id="proceso" class={styles['proceso']}>
+  <div class={styles['proceso-inner']}>
+    <div class={styles['proceso-header']}>
+      <h2 class={styles['proceso-title']}>Proceso</h2>
     </div>
 
-    <div class={styles['process-line']}></div>
-
-    <ol class={styles['process-grid']}>
-      <li class={styles['process-step']}>
-        <div class={`${styles['process-step-icon']} ${styles.primary}`} aria-hidden="true">
-          <IconSearch />
+    <ol class={styles['process-timeline']}>
+      <li class={styles['step']}>
+        <div class={styles['step-img-wrap']}>
+          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=80&auto=format&fit=crop" alt="Visita técnica de evaluación" class={styles['step-img']} loading="lazy" />
         </div>
-        <div class={`${styles['process-step-number']} ${styles.primary}`} aria-hidden="true">1</div>
-        <h3 class={styles['process-step-title']}>Diagnóstico</h3>
-        <p class={styles['process-step-desc']}>Evaluamos tu infraestructura actual e identificamos oportunidades de mejora.</p>
+        <div class={styles['step-body']}>
+          <span class={styles['step-num']}>Paso 01</span>
+          <h3 class={styles['step-title']}>Venimos a ver</h3>
+          <p class={styles['step-desc']}>Visitamos tu espacio, vemos qué tenés, qué necesitás y qué no. Sin vender de más.</p>
+          <span class={styles['step-meta']}>Visita técnica · 24–48 h</span>
+        </div>
       </li>
 
-      <li class={styles['process-step']}>
-        <div class={`${styles['process-step-icon']} ${styles.accent}`} aria-hidden="true">
-          <IconClipboardList />
+      <li class={styles['step']}>
+        <div class={styles['step-img-wrap']}>
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&auto=format&fit=crop" alt="Presupuesto detallado" class={styles['step-img']} loading="lazy" />
         </div>
-        <div class={`${styles['process-step-number']} ${styles.accent}`} aria-hidden="true">2</div>
-        <h3 class={styles['process-step-title']}>Propuesta</h3>
-        <p class={styles['process-step-desc']}>Diseñamos una solución a la medida con alcance, tiempos y presupuesto transparente.</p>
+        <div class={styles['step-body']}>
+          <span class={styles['step-num']}>Paso 02</span>
+          <h3 class={styles['step-title']}>Te damos el presupuesto</h3>
+          <p class={styles['step-desc']}>Cotización detallada: materiales, tiempos, quién hace qué. Todo acordado antes de empezar.</p>
+          <span class={styles['step-meta']}>Sin compromiso</span>
+        </div>
       </li>
 
-      <li class={styles['process-step']}>
-        <div class={`${styles['process-step-icon']} ${styles.primary}`} aria-hidden="true">
-          <IconSettings />
+      <li class={styles['step']}>
+        <div class={styles['step-img-wrap']}>
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80&auto=format&fit=crop" alt="Instalación de redes" class={styles['step-img']} loading="lazy" />
         </div>
-        <div class={`${styles['process-step-number']} ${styles.primary}`} aria-hidden="true">3</div>
-        <h3 class={styles['process-step-title']}>Implementación</h3>
-        <p class={styles['process-step-desc']}>Ejecutamos la solución con personal capacitado y mínima interrupción de operaciones.</p>
+        <div class={styles['step-body']}>
+          <span class={styles['step-num']}>Paso 03</span>
+          <h3 class={styles['step-title']}>Lo instalamos</h3>
+          <p class={styles['step-desc']}>Equipo capacitado que coordina contigo para no detener tu operación. Mínimo desorden, máximo resultado.</p>
+          <span class={styles['step-meta']}>Instalación certificada</span>
+        </div>
       </li>
 
-      <li class={styles['process-step']}>
-        <div class={`${styles['process-step-icon']} ${styles.accent}`} aria-hidden="true">
-          <IconTestPipe />
+      <li class={styles['step']}>
+        <div class={styles['step-img-wrap']}>
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80&auto=format&fit=crop" alt="Pruebas de conectividad" class={styles['step-img']} loading="lazy" />
         </div>
-        <div class={`${styles['process-step-number']} ${styles.accent}`} aria-hidden="true">4</div>
-        <h3 class={styles['process-step-title']}>Pruebas</h3>
-        <p class={styles['process-step-desc']}>Verificamos cada punto de la instalación con pruebas de rendimiento y funcionamiento.</p>
+        <div class={styles['step-body']}>
+          <span class={styles['step-num']}>Paso 04</span>
+          <h3 class={styles['step-title']}>Probamos todo</h3>
+          <p class={styles['step-desc']}>Cada punto, cada conexión, cada equipo. Te mostramos que funciona antes de irnos.</p>
+          <span class={styles['step-meta']}>Entrega con pruebas</span>
+        </div>
       </li>
 
-      <li class={styles['process-step']}>
-        <div class={`${styles['process-step-icon']} ${styles.primary}`} aria-hidden="true">
-          <IconHeartHandshake />
+      <li class={styles['step']}>
+        <div class={styles['step-img-wrap']}>
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80&auto=format&fit=crop" alt="Soporte continuo" class={styles['step-img']} loading="lazy" />
         </div>
-        <div class={`${styles['process-step-number']} ${styles.primary}`} aria-hidden="true">5</div>
-        <h3 class={styles['process-step-title']}>Soporte continuo</h3>
-        <p class={styles['process-step-desc']}>Acompañamiento continuo para garantizar que todo funcione correctamente.</p>
+        <div class={styles['step-body']}>
+          <span class={styles['step-num']}>Paso 05</span>
+          <h3 class={styles['step-title']}>Seguimos ahí</h3>
+          <p class={styles['step-desc']}>Si algo falla después, volvemos. Sin costo, sin excusas. Así de simple.</p>
+          <span class={styles['step-meta']}>Garantía y seguimiento</span>
+        </div>
       </li>
     </ol>
+
+    <div class={styles['proceso-foot']}>
+      <p class={styles['proceso-foot-text']}>
+        <strong>Tiempo típico:</strong> 2 a 5 días según el proyecto. Coordinamos horarios para no parar tu operación.
+      </p>
+      <a href="#contacto" class={styles['proceso-cta']}>Quiero una cotización →</a>
+    </div>
   </div>
 </section>

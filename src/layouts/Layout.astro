@@ -12,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = "Sistek Pro - Infraestructura tecnológica, Redes y Soporte Técnico en Cali",
-  description = "Sistek Pro: empresa de mantenimiento de computadores, instalación de redes empresariales, cableado estructurado y soporte técnico en Cali, Colombia. Cotización gratuita.",
+  title = "Sistek Pro - Redes, cableado y soporte técnico en Cali",
+  description = "Sistek: mantenimiento de computadores, redes empresariales, cableado estructurado y soporte técnico en Cali. Cotización sin compromiso.",
   image = "/og-image.svg",
   canonical = Astro.url.href,
   accessibility = true
@@ -91,7 +91,7 @@ const jsonLdOrganization = {
   "name": "Sistek",
   "url": siteUrl,
   "logo": `${siteUrl}/logo.png`,
-  "description": "Empresa de infraestructura tecnológica, redes empresariales y soporte técnico en Cali, Colombia.",
+  "description": "Redes empresariales, cableado estructurado y soporte técnico en Cali.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Cali",
@@ -116,7 +116,7 @@ const jsonLdWebSite = {
   "@type": "WebSite",
   "name": "Sistek",
   "url": siteUrl,
-  "description": "Servicios de infraestructura tecnológica, redes empresariales y soporte técnico en Cali.",
+  "description": "Redes empresariales, cableado y soporte técnico en Cali.",
   "potentialAction": {
     "@type": "SearchAction",
     "target": `${siteUrl}/?s={search_term_string}`,
@@ -205,8 +205,8 @@ const jsonLdBreadcrumbs = {
     <!-- Fonts: preload + display=swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdLocalBusiness)} />
@@ -311,7 +311,8 @@ const jsonLdBreadcrumbs = {
 <style>
   .body {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 </style>

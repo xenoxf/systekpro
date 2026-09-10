@@ -5,20 +5,20 @@ import styles from '@/styles/ServicePage.module.css';
 const service = {
   name: 'Redes Inalámbricas WiFi Empresarial',
   slug: 'redes-inalambricas-wifi',
-  description: 'Instalación de redes WiFi empresariales en Cali. Access points, WiFi mesh, cobertura total y solución de problemas de conectividad inalámbrica.',
+  description: 'Redes WiFi empresariales en Cali. Access points, cobertura total, roaming sin cortes.',
   keywords: 'wifi empresarial cali, instalación access points, cobertura wifi, red mesh, wifi oficina, wifi hotel, wifi restaurante',
-  h1: 'Redes WiFi Empresariales en Cali',
-  intro: 'Diseño e implementación de redes WiFi de alto rendimiento para oficinas, hoteles, restaurantes y espacios comerciales en Cali.',
+  h1: 'Redes WiFi en Cali',
+  intro: 'Cobertura sin puntos ciegos. Estudio de sitio, roaming sin cortes y soporte continuo.',
   benefits: [
-    { title: 'Diseño de cobertura', desc: 'Análisis del espacio y diseño de ubicación óptima de access points para cobertura total sin zonas muertas.' },
-    { title: 'Access points empresariales', desc: 'Instalación de APs de marcas como Ubiquiti, Cisco, Aruba y TP-Link Omada. Soporte para cientos de dispositivos.' },
-    { title: 'Redes mesh y extensores', desc: 'Soluciones WiFi mesh para espacios grandes o difíciles de cubrir. Extensión de señal sin pérdida de velocidad.' },
-    { title: 'Portal cautivo y guest WiFi', desc: 'Configuración de redes para invitados con portal cautivo, límites de ancho de banda y control de acceso.' },
+    { title: 'Estudio de cobertura', desc: 'Mapeamos tu espacio. Ubicación óptima de APs para señal en todos lados.' },
+    { title: 'APs empresariales', desc: 'Ubiquiti, Cisco, Aruba, TP-Link Omada. Soporte para cientos de dispositivos.' },
+    { title: 'Mesh', desc: 'Para espacios grandes o difíciles. Señal sin pérdida de velocidad.' },
+    { title: 'Portal cautivo', desc: 'Red para invitados con portal, límites y control de acceso.' },
   ],
   faq: [
-    { q: '¿Cuántos access points necesito?', a: 'Depende del tamaño del espacio, cantidad de usuarios y materiales de construcción. Hacemos un estudio de cobertura gratuito para determinar la cantidad exacta.' },
-    { q: '¿Pueden solucionar problemas de WiFi?', a: 'Sí, diagnosticamos problemas de cobertura, interferencia, velocidad y desconexiones. Implementamos soluciones definitivas.' },
-    { q: '¿Instalan WiFi para hoteles y restaurantes?', a: 'Sí, tenemos experiencia en hospitality. Configuramos redes con portal cautivo, VLANs separadas y gestión de ancho de banda.' },
+    { q: '¿Cuántos APs necesito?', a: 'Depende del espacio, usuarios y materiales. Estudio de cobertura gratuito.' },
+    { q: '¿Arreglan problemas de WiFi?', a: 'Sí. Cobertura, interferencia, velocidad, desconexiones. Soluciones definitivas.' },
+    { q: '¿Para hoteles y restaurantes?', a: 'Sí. Portal cautivo, VLANs separadas, gestión de ancho de banda.' },
   ],
 };
 
@@ -44,14 +44,14 @@ const jsonLd = {
         <h1>{service.h1}</h1>
         <p class={styles['service-hero-desc']}>{service.intro}</p>
         <div class={styles['service-hero-actions']}>
-          <a href="/#contacto" class="btn-primary glow">Solicitar cotización</a>
+          <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
           <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
         </div>
       </div>
     </section>
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye nuestro servicio?</h2>
+        <h2>¿Qué incluye?</h2>
         <div class={styles['service-benefits-grid']}>
           {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
         </div>
@@ -65,9 +65,9 @@ const jsonLd = {
     </section>
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Problemas con tu WiFi?</h2>
-        <p>Estudio de cobertura gratuito y solución profesional para tu red inalámbrica.</p>
-        <a href="/#contacto" class="btn-primary glow">Solicitar servicio</a>
+        <h2>Tu WiFi no llega?</h2>
+        <p>Estudio de cobertura gratuito y solución profesional.</p>
+        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
       </div>
     </section>
   </main>
