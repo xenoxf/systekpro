@@ -35,10 +35,11 @@ function unwrapPaginated(value: unknown): PaginatedLeads {
 }
 
 export const leadsService = {
-  async list(params?: { page?: number; limit?: number }): Promise<PaginatedLeads> {
+  async list(params?: { page?: number; limit?: number; search?: string }): Promise<PaginatedLeads> {
     const search = new URLSearchParams()
     if (params?.page) search.set("page", String(params.page))
     if (params?.limit) search.set("limit", String(params.limit))
+    if (params?.search?.trim()) search.set("search", params.search.trim())
     const qs = search.toString()
     const path = qs ? `/leads?${qs}` : "/leads"
     const res = await api.get<PaginatedLeads | Lead[]>(path)

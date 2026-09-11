@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { IconPlus, IconQrcode, IconLink, IconTool } from "@tabler/icons-react"
+import { IconPlus, IconQrcode, IconLink, IconTool, IconSearch, IconX, IconAdjustmentsHorizontal } from "@tabler/icons-react"
 import {
   ordenesService,
   estadoLabel,
+  ORDEN_ESTADOS,
   type OrdenServicio,
   type SeguimientoPublico,
   type OrdenEstado,
@@ -85,10 +86,16 @@ export default function OrdenesSection() {
   const [ticket, setTicket] = useState<SeguimientoPublico | null>(null)
   const [ticketLoading, setTicketLoading] = useState(false)
 
-  async function loadOrdenes() {
+  const [search, setSearch] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
+  const [filtroEstado, setFiltroEstado] = useState<OrdenEstado | "">("")
+
+  async function loadOrdenes(searchTerm?: string, estadoTerm?: string) {
     setLoading(true)
     try {
-      const data = await ordenesService.list()
+      const s = searchTerm !== undefined ? searchTerm : debouncedSearch
+      const e = estadoTerm !== undefined ? estadoTerm : filtroEstado
+      const data = await ordenesService.list({ search: s || undefined, estado: (e as OrdenEstado) || undefined })
       setOrdenes(Array.isArray(data) ? data : [])
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
@@ -99,8 +106,17 @@ export default function OrdenesSection() {
   }
 
   useEffect(() => {
-    loadOrdenes()
+    loadOrdenes("", "")
   }, [])
+
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search.trim()), 300)
+    return () => clearTimeout(t)
+  }, [search])
+
+  useEffect(() => {
+    loadOrdenes(debouncedSearch, filtroEstado)
+  }, [debouncedSearch, filtroEstado])
 
   function cargarFichas() {
     fichasService
@@ -141,7 +157,7 @@ export default function OrdenesSection() {
       })
       toast.success(`Orden ${orden.codigo} creada`)
       setPanel("none")
-      await loadOrdenes()
+      await loadOrdenes(debouncedSearch, filtroEstado)
       verTicket(orden.codigo)
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
@@ -170,7 +186,7 @@ export default function OrdenesSection() {
       toast.success("Fichas asociadas a la orden")
       setAsociarA(null)
       setPanel("none")
-      await loadOrdenes()
+      await loadOrdenes(debouncedSearch, filtroEstado)
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
     } finally {
@@ -338,10 +354,14 @@ export default function OrdenesSection() {
 
   return (
     <div className={styles['sys-section']}>
-      <div className={styles['sys-section-toolbar']}>
-        <div className={styles['sys-search-hint']}>
-          <IconTool size={16} aria-hidden="true" />
-          <span>Las órdenes agrupan varios equipos en un solo código QR de seguimiento.</span>
+      <div className={styles['sys-section-toolbar']} style={{ alignItems: "flex-end" }}>
+        <div className={styles['sys-panel-heading']} style={{ minWidth: 0 }}>
+          <h2 className={styles['sys-panel-title']} style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Órdenes de servicio</h2>
+          {!loading && Array.isArray(ordenes) && (
+            <p className={styles['sys-panel-sub']} style={{ fontSize: "0.8125rem" }}>
+              {ordenes.length === 0 ? (debouncedSearch || filtroEstado ? "Sin resultados" : "Sin órdenes aún") : `${ordenes.length} ${ordenes.length === 1 ? "orden" : "órdenes"}${debouncedSearch ? ` · filtrado por "${debouncedSearch}"` : ""}${filtroEstado ? ` · ${estadoLabel(filtroEstado as OrdenEstado)}` : ""}`}
+            </p>
+          )}
         </div>
         <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={abrirCrear}>
           <IconPlus size={16} />
@@ -349,12 +369,53 @@ export default function OrdenesSection() {
         </button>
       </div>
 
+      <div className={styles['sys-filter-bar']} role="search" aria-label="Buscar órdenes">
+        <div className={styles['sys-search']} style={{ flex: "1 1 14rem", maxWidth: "24rem" }}>
+          <IconSearch size={16} aria-hidden="true" />
+          <input
+            type="search"
+            aria-label="Buscar órdenes por código, falla, ID, serial o cliente"
+            placeholder="Buscar por código, falla, ID, serial, cliente…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {search && (
+            <button type="button" onClick={() => setSearch("")} aria-label="Limpiar búsqueda" className={styles['sys-icon-btn']} style={{ width: "1.75rem", height: "1.75rem" }}>
+              <IconX size={14} aria-hidden="true" />
+            </button>
+          )}
+        </div>
+        <span className={styles['sys-filter-divider']} aria-hidden="true" />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <IconAdjustmentsHorizontal size={16} aria-hidden="true" style={{ color: "hsl(var(--muted-foreground))" }} />
+          <select
+            className={styles['sys-select']}
+            aria-label="Filtrar por estado"
+            value={filtroEstado}
+            onChange={(e) => setFiltroEstado(e.target.value as OrdenEstado | "")}
+            style={{ minWidth: "12rem", height: "40px", borderRadius: "999px", padding: "0 0.75rem" }}
+          >
+            <option value="">Todos los estados</option>
+            {ORDEN_ESTADOS.map((o) => (
+              <option key={o.value} value={o.value}>{o.label}</option>
+            ))}
+          </select>
+        </div>
+        <div style={{ marginLeft: "auto", display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          {(search || debouncedSearch || filtroEstado) && (
+            <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={() => { setSearch(""); setFiltroEstado(""); }}>Limpiar</button>
+          )}
+        </div>
+      </div>
+
       {loading ? (
         <Spinner label="Cargando órdenes..." />
       ) : !Array.isArray(ordenes) || ordenes.length === 0 ? (
         <EmptyState
-          title="Aún no hay órdenes de servicio"
-          description="Crea la primera orden y asocia las fichas técnicas de los equipos recibidos."
+          title={debouncedSearch || filtroEstado ? "Sin resultados" : "Aún no hay órdenes de servicio"}
+          description={debouncedSearch || filtroEstado ? `No encontramos órdenes con ese término${debouncedSearch ? ` "${debouncedSearch}"` : ""}${filtroEstado ? ` y estado ${estadoLabel(filtroEstado as OrdenEstado)}` : ""}.` : "Crea la primera orden y asocia las fichas técnicas de los equipos recibidos."}
           icon={<IconTool size={20} />}
         />
       ) : (

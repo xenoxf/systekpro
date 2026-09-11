@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { IconBriefcase, IconPencil, IconTrash, IconPlus, IconEye } from "@tabler/icons-react"
+import { IconBriefcase, IconPencil, IconTrash, IconPlus, IconEye, IconSearch, IconX } from "@tabler/icons-react"
 import { empleadosService, type Empleado, type CreateEmpleadoDto } from "@/services/empleados"
 import { departamentosService, type Departamento } from "@/services/departamentos"
 import { isApiError } from "@/services/api"
@@ -29,6 +29,8 @@ export default function EmpleadosSection() {
 
   const [departamentos, setDepartamentos] = useState<Departamento[]>([])
   const [filtroDep, setFiltroDep] = useState<string>("")
+  const [search, setSearch] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
 
   const [detail, setDetail] = useState<Empleado | null>(null)
   const [detailLoading, setDetailLoading] = useState(false)
@@ -51,10 +53,11 @@ export default function EmpleadosSection() {
     }
   }
 
-  async function load(nextPage = page, depId = filtroDep) {
+  async function load(nextPage = page, depId = filtroDep, searchOverride?: string) {
     setLoading(true)
     try {
-      const res = await empleadosService.list({ page: nextPage, limit, departamentoId: depId || undefined })
+      const term = searchOverride !== undefined ? searchOverride : debouncedSearch
+      const res = await empleadosService.list({ page: nextPage, limit, departamentoId: depId || undefined, search: term || undefined })
       setItems(res.data)
       setTotal(res.meta.total)
       setTotalPages(res.meta.totalPages || 1)
@@ -69,14 +72,19 @@ export default function EmpleadosSection() {
 
   useEffect(() => {
     loadDepartamentos()
-    load(1, "")
+    load(1, "", "")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    load(1, filtroDep)
+    const t = setTimeout(() => setDebouncedSearch(search.trim()), 300)
+    return () => clearTimeout(t)
+  }, [search])
+
+  useEffect(() => {
+    load(1, filtroDep, debouncedSearch)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtroDep])
+  }, [filtroDep, debouncedSearch])
 
   const depMap = useMemo(() => {
     const m = new Map<string, string>()
@@ -146,7 +154,7 @@ export default function EmpleadosSection() {
         toast.success("Empleado creado")
       }
       setFormOpen(false)
-      await load(page, filtroDep)
+      await load(page, filtroDep, debouncedSearch)
     } catch (err) {
       if (isApiError(err)) {
         if (err.statusCode === 409 || err.statusCode === 400 || err.statusCode === 404) setFormError(err.messages.join("\n"))
@@ -169,7 +177,7 @@ export default function EmpleadosSection() {
       const nextTotal = total - 1
       const nextPages = Math.max(1, Math.ceil(nextTotal / limit))
       const nextPage = page > nextPages ? nextPages : page
-      await load(nextPage, filtroDep)
+      await load(nextPage, filtroDep, debouncedSearch)
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
     } finally {
@@ -188,7 +196,7 @@ export default function EmpleadosSection() {
           <h2 className={styles['sys-panel-title']} style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Empleados</h2>
           {!loading && (
             <p className={styles['sys-panel-sub']} style={{ fontSize: "0.8125rem" }}>
-              {total === 0 ? "Sin empleados aún" : `${total} ${total === 1 ? "empleado" : "empleados"} · página ${page} de ${totalPages}`}
+              {total === 0 ? (debouncedSearch ? `Sin resultados para "${debouncedSearch}"` : "Sin empleados aún") : `${total} ${total === 1 ? "empleado" : "empleados"}${debouncedSearch ? ` · filtrado por "${debouncedSearch}"` : ""} · página ${page} de ${totalPages}`}
               {filtroDep ? ` · filtrado por ${depMap.get(filtroDep) ?? filtroDep}` : ""}
             </p>
           )}
@@ -199,27 +207,47 @@ export default function EmpleadosSection() {
         </button>
       </div>
 
-      <div className={styles['sys-filter-bar']}>
+      <div className={styles['sys-filter-bar']} role="search" aria-label="Buscar empleados">
+        <div className={styles['sys-search']} style={{ flex: "1 1 14rem", maxWidth: "22rem" }}>
+          <IconSearch size={16} aria-hidden="true" />
+          <input
+            type="search"
+            aria-label="Buscar empleados por nombre, correo, cargo o ID"
+            placeholder="Buscar por nombre, correo, cargo, ID…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {search && (
+            <button type="button" onClick={() => setSearch("")} aria-label="Limpiar búsqueda" className={styles['sys-icon-btn']} style={{ width: "1.75rem", height: "1.75rem" }}>
+              <IconX size={14} aria-hidden="true" />
+            </button>
+          )}
+        </div>
+        <span className={styles['sys-filter-divider']} aria-hidden="true" />
         <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8125rem", fontWeight: 600, color: "hsl(var(--muted-foreground))" }}>
           <IconBriefcase size={16} aria-hidden="true" />
-          Departamento:
+          Depto:
         </label>
         <select
           className={styles['sys-select']}
           value={filtroDep}
           onChange={(e) => setFiltroDep(e.target.value)}
-          style={{ minWidth: "14rem", maxWidth: "22rem" }}
+          style={{ minWidth: "12rem", maxWidth: "16rem" }}
         >
-          <option value="">Todos los departamentos</option>
+          <option value="">Todos</option>
           {departamentos.map((d) => (
             <option key={d.id_departamento ?? d.id} value={d.id_departamento ?? d.id}>
               {d.nombre_departamento}
             </option>
           ))}
         </select>
-        {filtroDep && (
-          <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={() => setFiltroDep("")}>Limpiar filtro</button>
-        )}
+        <div style={{ marginLeft: "auto", display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          {(search || debouncedSearch || filtroDep) && (
+            <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={() => { setSearch(""); setFiltroDep(""); }}>Limpiar filtros</button>
+          )}
+        </div>
       </div>
 
       {loading ? (
@@ -285,8 +313,8 @@ export default function EmpleadosSection() {
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem", flexWrap: "wrap", marginTop: "0.5rem" }}>
               <span style={{ fontSize: "0.8125rem", color: "hsl(var(--muted-foreground))" }}>Página {page} de {totalPages} · {total} registros</span>
               <div style={{ display: "flex", gap: "0.5rem" }}>
-                <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} disabled={page <= 1} onClick={() => load(page - 1, filtroDep)}>Anterior</button>
-                <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} disabled={page >= totalPages} onClick={() => load(page + 1, filtroDep)}>Siguiente</button>
+                <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} disabled={page <= 1} onClick={() => load(page - 1, filtroDep, debouncedSearch)}>Anterior</button>
+                <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} disabled={page >= totalPages} onClick={() => load(page + 1, filtroDep, debouncedSearch)}>Siguiente</button>
               </div>
             </div>
           )}

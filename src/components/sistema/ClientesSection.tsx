@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { IconUsersGroup, IconPencil, IconTrash, IconPlus, IconEye, IconMail, IconPhone, IconFileText } from "@tabler/icons-react"
+import { IconUsersGroup, IconPencil, IconTrash, IconPlus, IconEye, IconMail, IconPhone, IconFileText, IconSearch, IconX } from "@tabler/icons-react"
 import { clientesService, type Cliente, type CreateClienteDto } from "@/services/clientes"
 import { isApiError } from "@/services/api"
 import { getSession } from "@/services/auth"
@@ -26,6 +26,8 @@ export default function ClientesSection() {
   const [limit] = useState(10)
   const [totalPages, setTotalPages] = useState(1)
   const [total, setTotal] = useState(0)
+  const [search, setSearch] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
 
   const [detail, setDetail] = useState<Cliente | null>(null)
   const [detailLoading, setDetailLoading] = useState(false)
@@ -39,10 +41,11 @@ export default function ClientesSection() {
   const [deleting, setDeleting] = useState<Cliente | null>(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
-  async function load(nextPage = page) {
+  async function load(nextPage = page, searchOverride?: string) {
     setLoading(true)
     try {
-      const res = await clientesService.list({ page: nextPage, limit })
+      const searchTerm = searchOverride !== undefined ? searchOverride : debouncedSearch
+      const res = await clientesService.list({ page: nextPage, limit, search: searchTerm || undefined })
       setItems(res.data)
       setTotal(res.meta.total)
       setTotalPages(res.meta.totalPages || 1)
@@ -56,6 +59,16 @@ export default function ClientesSection() {
   }
 
   useEffect(() => { load(1); /* eslint-disable-next-line */ }, [])
+
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search.trim()), 300)
+    return () => clearTimeout(t)
+  }, [search])
+
+  useEffect(() => {
+    load(1, debouncedSearch)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearch])
 
   async function openDetail(row: Cliente) {
     const id = row.id_cliente ?? row.id
@@ -139,7 +152,7 @@ export default function ClientesSection() {
         toast.success("Cliente creado")
       }
       setFormOpen(false)
-      await load(page)
+      await load(page, debouncedSearch)
     } catch (err) {
       if (isApiError(err)) {
         if (err.statusCode === 409 || err.statusCode === 400) setFormError(err.messages.join("\n"))
@@ -162,7 +175,7 @@ export default function ClientesSection() {
       const nextTotal = total - 1
       const nextPages = Math.max(1, Math.ceil(nextTotal / limit))
       const nextPage = page > nextPages ? nextPages : page
-      await load(nextPage)
+      await load(nextPage, debouncedSearch)
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
     } finally {
@@ -181,7 +194,7 @@ export default function ClientesSection() {
           <h2 className={styles['sys-panel-title']} style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Clientes</h2>
           {!loading && (
             <p className={styles['sys-panel-sub']} style={{ fontSize: "0.8125rem" }}>
-              {total === 0 ? "Sin clientes aún" : `${total} ${total === 1 ? "cliente" : "clientes"} · página ${page} de ${totalPages}`}
+              {total === 0 ? (debouncedSearch ? `Sin resultados para "${debouncedSearch}"` : "Sin clientes aún") : `${total} ${total === 1 ? "cliente" : "clientes"}${debouncedSearch ? ` · filtrado por "${debouncedSearch}"` : ""} · página ${page} de ${totalPages}`}
             </p>
           )}
         </div>
@@ -189,6 +202,48 @@ export default function ClientesSection() {
           <IconPlus size={16} aria-hidden="true" />
           Nuevo cliente
         </button>
+      </div>
+
+      <div className={styles['sys-filter-bar']} role="search" aria-label="Buscar clientes">
+        <div className={styles['sys-search']} style={{ flex: "1 1 14rem", maxWidth: "26rem" }}>
+          <IconSearch size={16} aria-hidden="true" />
+          <input
+            type="search"
+            aria-label="Buscar clientes por nombre, correo, teléfono o ID"
+            placeholder="Buscar por nombre, correo, teléfono, ID…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {search && (
+            <button
+              type="button"
+              onClick={() => setSearch("")}
+              aria-label="Limpiar búsqueda"
+              className={styles['sys-icon-btn']}
+              style={{ width: "1.75rem", height: "1.75rem" }}
+            >
+              <IconX size={14} aria-hidden="true" />
+            </button>
+          )}
+        </div>
+        {debouncedSearch && (
+          <span style={{ fontSize: "0.75rem", color: "hsl(var(--muted-foreground))", marginLeft: "0.5rem" }}>
+            Filtrado por "{debouncedSearch}"
+          </span>
+        )}
+        <div style={{ marginLeft: "auto", display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          <button
+            type="button"
+            className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`}
+            onClick={() => setSearch("")}
+            disabled={!search && !debouncedSearch}
+            aria-disabled={!search && !debouncedSearch}
+          >
+            Limpiar
+          </button>
+        </div>
       </div>
 
       {loading ? (

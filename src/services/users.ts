@@ -38,10 +38,40 @@ function unwrapArrayUsers<T>(value: unknown): T[] {
   return []
 }
 
+function unwrapPaginatedUsers(value: unknown): { data: Usuario[]; meta: { total: number; page: number; limit: number; totalPages: number } } | null {
+  if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>
+    if (Array.isArray(obj.data) && obj.meta && typeof obj.meta === "object") {
+      return value as { data: Usuario[]; meta: { total: number; page: number; limit: number; totalPages: number } }
+    }
+  }
+  return null
+}
+
 export const usersService = {
-  async list(): Promise<Usuario[]> {
-    const res = await api.get<Usuario[] | { data: Usuario[] } | { items: Usuario[] }>("/users")
+  async list(params?: { search?: string; page?: number; limit?: number }): Promise<Usuario[]> {
+    const qs = new URLSearchParams()
+    if (params?.page) qs.set("page", String(params.page))
+    if (params?.limit) qs.set("limit", String(params.limit))
+    if (params?.search?.trim()) qs.set("search", params.search.trim())
+    const suffix = qs.toString() ? `?${qs.toString()}` : ""
+    const res = await api.get<Usuario[] | { data: Usuario[]; meta: any } | { items: Usuario[] }>(`/users${suffix}`)
+    const pag = unwrapPaginatedUsers(res)
+    if (pag) return pag.data
     return unwrapArrayUsers<Usuario>(res)
+  },
+
+  async listPaginated(params?: { search?: string; page?: number; limit?: number }): Promise<{ data: Usuario[]; meta: { total: number; page: number; limit: number; totalPages: number } }> {
+    const qs = new URLSearchParams()
+    if (params?.page) qs.set("page", String(params.page))
+    if (params?.limit) qs.set("limit", String(params.limit))
+    if (params?.search?.trim()) qs.set("search", params.search.trim())
+    const suffix = qs.toString() ? `?${qs.toString()}` : ""
+    const res = await api.get<{ data: Usuario[]; meta: any } | Usuario[]>(`/users${suffix}`)
+    const pag = unwrapPaginatedUsers(res)
+    if (pag) return pag
+    const data = unwrapArrayUsers<Usuario>(res)
+    return { data, meta: { total: data.length, page: 1, limit: data.length || 20, totalPages: 1 } }
   },
 
   create(data: CreateUsuarioDto): Promise<Usuario> {

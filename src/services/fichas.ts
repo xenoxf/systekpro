@@ -71,6 +71,7 @@ export type CreateFichaDto = Omit<FichaTecnica, "id" | "cliente" | "createdAt" |
 export type UpdateFichaDto = Partial<CreateFichaDto> & { id_cliente?: string | null }
 
 export interface FichasFilter {
+  search?: string
   serial?: string
   tipoEquipo?: TipoEquipo
 }
@@ -90,7 +91,8 @@ function unwrapArray<T>(value: unknown): T[] {
 export const fichasService = {
   async list(filters?: FichasFilter): Promise<FichaTecnica[]> {
     const params = new URLSearchParams()
-    if (filters?.serial) params.set("serial", filters.serial)
+    if (filters?.search?.trim()) params.set("search", filters.search.trim())
+    if (filters?.serial?.trim()) params.set("serial", filters.serial.trim())
     if (filters?.tipoEquipo) params.set("tipoEquipo", filters.tipoEquipo)
     const qs = params.toString()
     const res = await api.get<FichaTecnica[] | { data: FichaTecnica[] } | { items: FichaTecnica[] }>(`/ficha-tecnica${qs ? `?${qs}` : ""}`)
