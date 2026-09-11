@@ -8,6 +8,8 @@ import {
   IconFileText,
   IconX,
   IconAdjustmentsHorizontal,
+  IconLink,
+  IconUserPlus,
 } from "@tabler/icons-react"
 import {
   fichasService,
@@ -17,6 +19,7 @@ import {
   type CreateFichaDto,
   type TipoEquipo,
 } from "@/services/fichas"
+import type { Cliente } from "@/services/clientes"
 import { isApiError } from "@/services/api"
 import { getSession } from "@/services/auth"
 import { canDelete } from "@/services/permissions"
@@ -38,6 +41,22 @@ function initials(name: string): string {
     .slice(0, 2)
     .map((p) => p[0]?.toUpperCase() ?? "")
     .join("")
+}
+
+function fichaClienteNombre(ficha: FichaTecnica): string {
+  const c = (ficha as any).cliente as Cliente | null | undefined
+  if (c) return `${c.nombre_cliente} ${c.apellido_cliente}`.trim()
+  return ficha.nombreCliente
+}
+
+function fichaClienteSub(ficha: FichaTecnica): string {
+  const c = (ficha as any).cliente as Cliente | null | undefined
+  if (c) return c.correo_cliente || c.telefono || c.dir || "—"
+  return ficha.telefonoCliente || ficha.correoCliente || "—"
+}
+
+function fichaIsLinked(ficha: FichaTecnica): boolean {
+  return !!(ficha as any).id_cliente || !!(ficha as any).cliente
 }
 
 function FichasSkeleton() {
@@ -92,6 +111,7 @@ export default function FichasSection() {
   const [garantiaLoading, setGarantiaLoading] = useState(false)
 
   const [editing, setEditing] = useState<FichaTecnica | null>(null)
+  const [prefillCliente, setPrefillCliente] = useState<Cliente | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
   const [deleting, setDeleting] = useState<FichaTecnica | null>(null)
@@ -124,12 +144,43 @@ export default function FichasSection() {
     return () => clearTimeout(timer)
   }, [serial, tipoEquipo])
 
+  // Navegación cruzada: crear ficha para cliente desde ClientesSection
+  useEffect(() => {
+    // 1) al montar, revisar localStorage por si viene de ClientesSection con reload/hash
+    try {
+      const raw = localStorage.getItem("sistek.prefillCliente")
+      if (raw) {
+        const c = JSON.parse(raw) as Cliente
+        if (c?.id_cliente) {
+          setPrefillCliente(c)
+          setEditing(null)
+          setModo("create")
+        }
+        localStorage.removeItem("sistek.prefillCliente")
+      }
+    } catch {}
+    // 2) escuchar evento custom
+    function onCreateFicha(e: Event) {
+      const ce = e as CustomEvent<Cliente>
+      const c = ce.detail
+      if (c?.id_cliente) {
+        setPrefillCliente(c)
+        setEditing(null)
+        setModo("create")
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      }
+    }
+    window.addEventListener("sistek:create-ficha-for-cliente" as any, onCreateFicha)
+    return () => window.removeEventListener("sistek:create-ficha-for-cliente" as any, onCreateFicha)
+  }, [])
+
   async function openDetail(ficha: FichaTecnica) {
     setSelected(ficha)
     setModo("detail")
     setGarantia(null)
     setGarantiaLoading(true)
     try {
+      // Si la ficha ya trae cliente, no hace falta fetch extra, pero garantia sí
       setGarantia(await fichasService.garantia(ficha.id))
     } catch (err) {
       if (isApiError(err) && err.statusCode !== 401) toast.warning("No se pudo consultar la garantía")
@@ -138,13 +189,16 @@ export default function FichasSection() {
     }
   }
 
-  function openCreate() {
+  function openCreate(cliente?: Cliente | null) {
+    if (cliente) setPrefillCliente(cliente)
+    else if (!prefillCliente) setPrefillCliente(null)
     setEditing(null)
     setModo("create")
   }
 
   function openEdit(ficha: FichaTecnica) {
     setEditing(ficha)
+    setPrefillCliente((ficha as any).cliente ?? null)
     setSelected(null)
     setModo("edit")
   }
@@ -153,6 +207,7 @@ export default function FichasSection() {
     setModo("list")
     setSelected(null)
     setEditing(null)
+    setPrefillCliente(null)
   }
 
   async function handleSubmit(dto: CreateFichaDto) {
@@ -167,6 +222,7 @@ export default function FichasSection() {
       }
       setModo("list")
       setEditing(null)
+      setPrefillCliente(null)
       await loadFichas()
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
@@ -197,12 +253,13 @@ export default function FichasSection() {
       <div className={styles['sys-section']}>
         <FormPanel
           title={modo === "edit" ? "Editar ficha técnica" : "Nueva ficha técnica"}
-          subtitle="Solo el nombre del cliente es obligatorio. Los demás campos son opcionales."
+          subtitle={prefillCliente ? `Vinculada a ${prefillCliente.nombre_cliente} ${prefillCliente.apellido_cliente} · Tel/Dirección/Correo bloqueados` : "Selecciona un cliente del buscador o deja huérfana con nombre manual. Tel/Correo/Dirección se bloquean al vincular."}
           onClose={volverALista}
         >
           <FichaForm
-            key={editing?.id ?? "new"}
+            key={`${editing?.id ?? "new"}-${prefillCliente?.id_cliente ?? "no-prefill"}`}
             ficha={editing}
+            preselectedCliente={prefillCliente}
             submitting={submitting}
             onSubmit={handleSubmit}
             onCancel={volverALista}
@@ -212,7 +269,7 @@ export default function FichasSection() {
         <ConfirmDialog
           open={deleting !== null}
           title="Eliminar ficha técnica"
-          message={`¿Seguro que deseas eliminar la ficha de "${deleting?.nombreCliente ?? ""}"? Esta acción no se puede deshacer.`}
+          message={`¿Seguro que deseas eliminar la ficha de "${deleting ? fichaClienteNombre(deleting) : ""}"? Esta acción no se puede deshacer.`}
           loading={deleteLoading}
           onCancel={() => setDeleting(null)}
           onConfirm={handleDelete}
@@ -222,13 +279,15 @@ export default function FichasSection() {
   }
 
   if (modo === "detail" && selected) {
+    const linked = fichaIsLinked(selected)
+    const clienteObj = (selected as any).cliente as Cliente | null | undefined
     return (
       <div className={styles['sys-section']}>
         <section className={styles['sys-panel']} aria-label="Detalle de la ficha técnica">
           <header className={styles['sys-panel-head']}>
             <div className={styles['sys-panel-heading']}>
-              <p className={styles['sys-topbar-eyebrow']}>Ficha técnica</p>
-              <h2 className={styles['sys-panel-title']}>{selected.nombreCliente}</h2>
+              <p className={styles['sys-topbar-eyebrow']}>Ficha técnica {linked && <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", marginLeft: "0.5rem", fontSize: "0.6875rem", padding: "0.15rem 0.5rem", borderRadius: "999px", background: "hsl(var(--primary) / 0.1)", color: "hsl(var(--primary))", border: "1px solid hsl(var(--primary) / 0.18)", fontWeight: 600 }}><IconLink size={12} /> Vinculada</span>}</p>
+              <h2 className={styles['sys-panel-title']}>{fichaClienteNombre(selected)}</h2>
               <p className={styles['sys-panel-sub']} style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
                 <span>{tipoEquipoLabel(selected.tipoEquipo)}</span>
                 {selected.serialEquipo && (
@@ -245,6 +304,12 @@ export default function FichasSection() {
                     </code>
                   </>
                 )}
+                {linked && clienteObj && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span style={{ fontSize: "0.75rem", color: "hsl(var(--primary))" }}>{clienteObj.correo_cliente || clienteObj.telefono || ""}</span>
+                  </>
+                )}
               </p>
             </div>
             <div className={styles['sys-detail-actions']}>
@@ -252,7 +317,7 @@ export default function FichasSection() {
                 type="button"
                 className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`}
                 title="Editar"
-                aria-label={`Editar la ficha de ${selected.nombreCliente}`}
+                aria-label={`Editar la ficha de ${fichaClienteNombre(selected)}`}
                 onClick={() => openEdit(selected)}
               >
                 <IconPencil size={17} aria-hidden="true" />
@@ -262,7 +327,7 @@ export default function FichasSection() {
                   type="button"
                   className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`}
                   title="Eliminar (solo admin)"
-                  aria-label={`Eliminar la ficha de ${selected.nombreCliente}`}
+                  aria-label={`Eliminar la ficha de ${fichaClienteNombre(selected)}`}
                   onClick={() => setDeleting(selected)}
                 >
                   <IconTrash size={17} aria-hidden="true" />
@@ -303,10 +368,14 @@ export default function FichasSection() {
                 <div className={styles['sys-detail-group']}>
                   <h3>Cliente y servicio</h3>
                   <dl className={styles['sys-detail-grid']}>
-                    <div><dt>Cliente</dt><dd>{selected.nombreCliente}</dd></div>
-                    <div><dt>Teléfono</dt><dd>{selected.telefonoCliente || "—"}</dd></div>
-                    <div><dt>Dirección</dt><dd>{selected.direccionCliente || "—"}</dd></div>
-                    <div><dt>Correo</dt><dd>{selected.correoCliente || "—"}</dd></div>
+                    <div><dt>Cliente</dt><dd>{fichaClienteNombre(selected)} {linked ? <span style={{ marginLeft: "0.375rem", fontSize: "0.6875rem", padding: "0.1rem 0.4rem", borderRadius: "999px", background: "hsl(var(--primary) / 0.08)", border: "1px solid hsl(var(--primary) / 0.15)", color: "hsl(var(--primary))" }}>vinculada</span> : <span style={{ marginLeft: "0.375rem", fontSize: "0.6875rem", padding: "0.1rem 0.4rem", borderRadius: "999px", background: "hsl(var(--muted) / 0.5)", border: "1px solid hsl(var(--border))" }}>huérfana</span>}</dd></div>
+                    {linked && clienteObj && <div><dt>Cliente (BD)</dt><dd><code>{clienteObj.id_cliente}</code> {clienteObj.nombre_cliente} {clienteObj.apellido_cliente}</dd></div>}
+                    <div><dt>Teléfono ficha</dt><dd>{selected.telefonoCliente || "—"}</dd></div>
+                    {clienteObj?.telefono && <div><dt>Teléfono cliente</dt><dd>{clienteObj.telefono}</dd></div>}
+                    <div><dt>Dirección ficha</dt><dd>{selected.direccionCliente || "—"}</dd></div>
+                    {clienteObj?.dir && <div><dt>Dirección cliente</dt><dd>{clienteObj.dir}</dd></div>}
+                    <div><dt>Correo ficha</dt><dd>{selected.correoCliente || "—"}</dd></div>
+                    {clienteObj?.correo_cliente && <div><dt>Correo cliente</dt><dd>{clienteObj.correo_cliente}</dd></div>}
                     <div><dt>Servicio</dt><dd>{selected.servicio || "—"}</dd></div>
                     <div><dt>Responsable</dt><dd>{selected.nombreResponsable || "—"}</dd></div>
                   </dl>
@@ -359,7 +428,7 @@ export default function FichasSection() {
         <ConfirmDialog
           open={deleting !== null}
           title="Eliminar ficha técnica"
-          message={`¿Seguro que deseas eliminar la ficha de "${deleting?.nombreCliente ?? ""}"? Esta acción no se puede deshacer.`}
+          message={`¿Seguro que deseas eliminar la ficha de "${deleting ? fichaClienteNombre(deleting) : ""}"? Esta acción no se puede deshacer.`}
           loading={deleteLoading}
           onCancel={() => setDeleting(null)}
           onConfirm={handleDelete}
@@ -382,7 +451,7 @@ export default function FichasSection() {
             </p>
           )}
         </div>
-        <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={openCreate}>
+        <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={() => openCreate()}>
           <IconPlus size={16} aria-hidden="true" />
           Nueva ficha
         </button>
@@ -459,7 +528,7 @@ export default function FichasSection() {
           }
           icon={<IconFileText size={22} aria-hidden="true" />}
           action={
-            <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={openCreate}>
+            <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={() => openCreate()}>
               <IconPlus size={16} aria-hidden="true" />
               {hasFilters ? "Limpiar filtros y crear" : "Nueva ficha"}
             </button>
@@ -493,14 +562,17 @@ export default function FichasSection() {
                           openDetail(ficha)
                         }
                       }}
-                      aria-label={`Ver la ficha de ${ficha.nombreCliente}, ${tipoEquipoLabel(ficha.tipoEquipo)}, serial ${ficha.serialEquipo || "sin serial"}`}
+                      aria-label={`Ver la ficha de ${fichaClienteNombre(ficha)}, ${tipoEquipoLabel(ficha.tipoEquipo)}, serial ${ficha.serialEquipo || "sin serial"}`}
                     >
                       <td data-label="Cliente">
                         <div className={styles['sys-cell-with-avatar']}>
-                          <span className={styles['sys-cell-avatar']} aria-hidden="true">{initials(ficha.nombreCliente)}</span>
+                          <span className={styles['sys-cell-avatar']} aria-hidden="true">{initials(fichaClienteNombre(ficha))}</span>
                           <span className={styles['sys-cell-stack']}>
-                            <span className={styles['sys-cell-main']} title={ficha.nombreCliente}>{ficha.nombreCliente}</span>
-                            <span className={styles['sys-cell-sub']} title={ficha.telefonoCliente || ficha.correoCliente || ""}>{ficha.telefonoCliente || ficha.correoCliente || "—"}</span>
+                            <span className={styles['sys-cell-main']} title={fichaClienteNombre(ficha)} style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                              {fichaClienteNombre(ficha)}
+                              {fichaIsLinked(ficha) ? <IconLink size={12} style={{ color: "hsl(var(--primary))" }} aria-label="Vinculada a cliente" /> : null}
+                            </span>
+                            <span className={styles['sys-cell-sub']} title={fichaClienteSub(ficha)}>{fichaClienteSub(ficha)}</span>
                           </span>
                         </div>
                       </td>
@@ -528,7 +600,7 @@ export default function FichasSection() {
       <ConfirmDialog
         open={deleting !== null}
         title="Eliminar ficha técnica"
-        message={`¿Seguro que deseas eliminar la ficha de "${deleting?.nombreCliente ?? ""}"? Esta acción no se puede deshacer.`}
+        message={`¿Seguro que deseas eliminar la ficha de "${deleting ? fichaClienteNombre(deleting) : ""}"? Esta acción no se puede deshacer.`}
         loading={deleteLoading}
         onCancel={() => setDeleting(null)}
         onConfirm={handleDelete}

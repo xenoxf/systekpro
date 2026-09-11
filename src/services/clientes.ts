@@ -28,6 +28,7 @@ export type UpdateClienteDto = Partial<CreateClienteDto>
 export interface PaginationParams {
   page?: number
   limit?: number
+  search?: string
 }
 
 export interface PaginatedClientes {
@@ -63,6 +64,7 @@ export const clientesService = {
     const qs = new URLSearchParams()
     if (params?.page) qs.set("page", String(params.page))
     if (params?.limit) qs.set("limit", String(params.limit))
+    if (params?.search?.trim()) qs.set("search", params.search.trim())
     const suffix = qs.toString() ? `?${qs.toString()}` : ""
     const res = await api.get<Cliente[] | PaginatedClientes>(`/clientes${suffix}`)
     const pag = unwrapPaginated(res)

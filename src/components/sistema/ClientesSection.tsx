@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { IconUsersGroup, IconPencil, IconTrash, IconPlus, IconEye, IconMail, IconPhone } from "@tabler/icons-react"
+import { IconUsersGroup, IconPencil, IconTrash, IconPlus, IconEye, IconMail, IconPhone, IconFileText } from "@tabler/icons-react"
 import { clientesService, type Cliente, type CreateClienteDto } from "@/services/clientes"
 import { isApiError } from "@/services/api"
 import { getSession } from "@/services/auth"
@@ -68,6 +68,24 @@ export default function ClientesSection() {
       if (isApiError(err)) toast.error(err.message)
     } finally {
       setDetailLoading(false)
+    }
+  }
+
+  function handleCrearFichaParaCliente(cliente: Cliente) {
+    try {
+      localStorage.setItem("sistek.prefillCliente", JSON.stringify(cliente))
+      window.dispatchEvent(new CustomEvent("sistek:create-ficha-for-cliente", { detail: cliente }))
+      // Navegar a fichas (hash vacío es fichas)
+      if (window.location.hash === "#clientes") {
+        history.replaceState(null, "", window.location.pathname)
+        window.dispatchEvent(new HashChangeEvent("hashchange"))
+      } else {
+        window.location.hash = ""
+      }
+      setDetail(null)
+      toast.success(`Abriendo ficha para ${cliente.nombre_cliente} ${cliente.apellido_cliente}`)
+    } catch {
+      toast.error("No se pudo preparar la ficha")
     }
   }
 
@@ -236,6 +254,9 @@ export default function ClientesSection() {
                         <button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`} title="Editar" onClick={() => openEdit(c)} aria-label={`Editar ${c.nombre_cliente}`}>
                           <IconPencil size={16} aria-hidden="true" />
                         </button>
+                        <button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--outlined']}`} title="Crear ficha para este cliente" onClick={() => handleCrearFichaParaCliente(c)} aria-label={`Crear ficha para ${c.nombre_cliente}`}>
+                          <IconFileText size={16} aria-hidden="true" />
+                        </button>
                         {allowDelete && (
                           <button type="button" className={`${styles['sys-icon-btn']} ${styles['sys-icon-btn--danger']}`} title="Eliminar (solo admin)" onClick={() => setDeleting(c)} aria-label={`Eliminar ${c.nombre_cliente}`}>
                             <IconTrash size={16} aria-hidden="true" />
@@ -262,17 +283,43 @@ export default function ClientesSection() {
 
       <Drawer open={detail !== null} title={detail ? `${detail.nombre_cliente} ${detail.apellido_cliente}` : "Detalle"} onClose={() => setDetail(null)}>
         {detailLoading || !detail ? <Spinner label="Cargando cliente..." /> : (
-          <dl className={styles['sys-detail-grid']}>
-            <div><dt>Nombre</dt><dd>{detail.nombre_cliente} {detail.apellido_cliente}</dd></div>
-            <div><dt>Correo</dt><dd>{detail.correo_cliente || "—"}</dd></div>
-            <div><dt>Teléfono</dt><dd>{detail.telefono || "—"}</dd></div>
-            <div><dt>Dirección</dt><dd>{detail.dir || "—"}</dd></div>
-            <div><dt>Tipo</dt><dd>{detail.tipo_cliente || "—"}</dd></div>
-            <div><dt>Fichas asociadas</dt><dd>{Array.isArray(detail.fichasTecnicas) ? detail.fichasTecnicas.length : "—"}</dd></div>
-            <div><dt>Creado</dt><dd>{formatDate(detail.createdAt)}</dd></div>
-            <div><dt>Actualizado</dt><dd>{formatDate(detail.updatedAt)}</dd></div>
-            <div className={styles['sys-detail-full']}><dt>ID</dt><dd><code>{detail.id_cliente ?? detail.id}</code></dd></div>
-          </dl>
+          <>
+            <dl className={styles['sys-detail-grid']}>
+              <div><dt>Nombre</dt><dd>{detail.nombre_cliente} {detail.apellido_cliente}</dd></div>
+              <div><dt>Correo</dt><dd>{detail.correo_cliente || "—"}</dd></div>
+              <div><dt>Teléfono</dt><dd>{detail.telefono || "—"}</dd></div>
+              <div><dt>Dirección</dt><dd>{detail.dir || "—"}</dd></div>
+              <div><dt>Tipo</dt><dd>{detail.tipo_cliente || "—"}</dd></div>
+              <div><dt>Fichas asociadas</dt><dd>{Array.isArray(detail.fichasTecnicas) ? detail.fichasTecnicas.length : "—"}</dd></div>
+              <div><dt>Creado</dt><dd>{formatDate(detail.createdAt)}</dd></div>
+              <div><dt>Actualizado</dt><dd>{formatDate(detail.updatedAt)}</dd></div>
+              <div className={styles['sys-detail-full']}><dt>ID</dt><dd><code>{detail.id_cliente ?? detail.id}</code></dd></div>
+            </dl>
+            <div style={{ marginTop: "1.25rem", display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--primary']}`} onClick={() => handleCrearFichaParaCliente(detail)}>
+                <IconFileText size={16} aria-hidden="true" />
+                Crear ficha para este cliente
+              </button>
+              <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={() => detail && openEdit(detail)}>
+                <IconPencil size={16} aria-hidden="true" />
+                Editar cliente
+              </button>
+            </div>
+            {Array.isArray(detail.fichasTecnicas) && detail.fichasTecnicas.length > 0 && (
+              <div style={{ marginTop: "1rem", padding: "0.75rem", borderRadius: "var(--radius-md)", background: "hsl(var(--surface) / 0.6)", border: "1px solid hsl(var(--border) / 0.5)" }}>
+                <p style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--muted-foreground))", marginBottom: "0.5rem" }}>Fichas vinculadas</p>
+                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.375rem" }}>
+                  {(detail.fichasTecnicas as any[]).slice(0, 5).map((f: any) => (
+                    <li key={f.id} style={{ fontSize: "0.8125rem", display: "flex", justifyContent: "space-between", gap: "0.5rem" }}>
+                      <span>{f.marcaEquipo || f.modeloEquipo || "Equipo"} {f.serialEquipo ? `· ${f.serialEquipo}` : ""}</span>
+                      <span style={{ color: "hsl(var(--muted-foreground))", fontSize: "0.75rem" }}>{f.tipoEquipo || "—"}</span>
+                    </li>
+                  ))}
+                  {(detail.fichasTecnicas as any[]).length > 5 && <li style={{ fontSize: "0.75rem", color: "hsl(var(--muted-foreground))" }}>+ {(detail.fichasTecnicas as any[]).length - 5} más</li>}
+                </ul>
+              </div>
+            )}
+          </>
         )}
       </Drawer>
 

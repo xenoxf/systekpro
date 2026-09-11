@@ -1,4 +1,5 @@
 import { api } from "./api"
+import type { Cliente } from "./clientes"
 
 export type TipoEquipo = "cpu" | "portatil" | "escritorio" | "server" | "todo_en_uno"
 
@@ -12,6 +13,8 @@ export const TIPOS_EQUIPO: { value: TipoEquipo; label: string }[] = [
 
 export interface FichaTecnica {
   id: string
+  id_cliente?: string | null
+  cliente?: Cliente | null
   nombreCliente: string
   telefonoCliente?: string | null
   direccionCliente?: string | null
@@ -64,8 +67,8 @@ export interface GarantiaResponse {
   diasRestantes: number | null
 }
 
-export type CreateFichaDto = Omit<FichaTecnica, "id" | "createdAt" | "updatedAt">
-export type UpdateFichaDto = Partial<CreateFichaDto>
+export type CreateFichaDto = Omit<FichaTecnica, "id" | "cliente" | "createdAt" | "updatedAt"> & { id_cliente?: string | null }
+export type UpdateFichaDto = Partial<CreateFichaDto> & { id_cliente?: string | null }
 
 export interface FichasFilter {
   serial?: string
