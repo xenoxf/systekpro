@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { IconEye, IconPencil, IconPlus, IconTrash, IconUsers } from "@tabler/icons-react"
+import { IconEye, IconPencil, IconPlus, IconTrash, IconUsers, IconSearch, IconX } from "@tabler/icons-react"
 import { usersService, isValidUuid, type Usuario, type UpdateUsuarioDto, type CreateUsuarioDto } from "@/services/users"
 import { departamentosService, type Departamento } from "@/services/departamentos"
 import { isApiError } from "@/services/api"
@@ -41,12 +41,16 @@ export default function UsersSection() {
   const [deleting, setDeleting] = useState<Usuario | null>(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
+  const [search, setSearch] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
+
   const isCreating = editing === null && formOpen
 
-  async function loadUsers() {
+  async function loadUsers(searchTerm?: string) {
     setLoading(true)
     try {
-      const data = await usersService.list()
+      const term = searchTerm !== undefined ? searchTerm : debouncedSearch
+      const data = await usersService.list(term ? { search: term } : undefined)
       setUsers(Array.isArray(data) ? data : [])
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
@@ -65,9 +69,18 @@ export default function UsersSection() {
   }
 
   useEffect(() => {
-    loadUsers()
+    loadUsers("")
     loadDepartamentos()
   }, [])
+
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search.trim()), 300)
+    return () => clearTimeout(t)
+  }, [search])
+
+  useEffect(() => {
+    loadUsers(debouncedSearch)
+  }, [debouncedSearch])
 
   async function openDetail(user: Usuario) {
     if (!isValidUuid(user.id)) {
@@ -154,7 +167,7 @@ export default function UsersSection() {
         toast.success(`Usuario "${name}" creado correctamente`)
       }
       setFormOpen(false)
-      await loadUsers()
+      await loadUsers(debouncedSearch)
     } catch (err) {
       if (isApiError(err)) {
         if (err.statusCode === 409) setFormError("Ya existe un usuario con ese nombre.")
@@ -177,7 +190,7 @@ export default function UsersSection() {
       await usersService.remove(deleting.id)
       toast.success("Usuario eliminado correctamente")
       setDeleting(null)
-      await loadUsers()
+      await loadUsers(debouncedSearch)
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
     } finally {
@@ -202,6 +215,30 @@ export default function UsersSection() {
           <IconPlus size={16} aria-hidden="true" />
           Nuevo usuario
         </button>
+      </div>
+
+      <div className={styles['sys-filter-bar']} role="search" aria-label="Buscar usuarios">
+        <div className={styles['sys-search']} style={{ flex: "1 1 14rem", maxWidth: "26rem" }}>
+          <IconSearch size={16} aria-hidden="true" />
+          <input
+            type="search"
+            aria-label="Buscar usuarios por nombre, rol, departamento o ID"
+            placeholder="Buscar por nombre, rol, departamento, ID…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {search && (
+            <button type="button" onClick={() => setSearch("")} aria-label="Limpiar búsqueda" className={styles['sys-icon-btn']} style={{ width: "1.75rem", height: "1.75rem" }}>
+              <IconX size={14} aria-hidden="true" />
+            </button>
+          )}
+        </div>
+        {debouncedSearch && <span style={{ fontSize: "0.75rem", color: "hsl(var(--muted-foreground))" }}>Filtrado por "{debouncedSearch}"</span>}
+        <div style={{ marginLeft: "auto" }}>
+          <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={() => setSearch("")} disabled={!search && !debouncedSearch}>Limpiar</button>
+        </div>
       </div>
 
       {loading ? (

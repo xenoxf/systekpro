@@ -100,11 +100,47 @@ function unwrapArrayOrdenes<T>(value: unknown): T[] {
   return []
 }
 
+function unwrapPaginatedOrdenes(value: unknown): { data: OrdenServicio[]; meta: { total: number; page: number; limit: number; totalPages: number } } | null {
+  if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>
+    if (Array.isArray(obj.data) && obj.meta && typeof obj.meta === "object") {
+      return value as { data: OrdenServicio[]; meta: { total: number; page: number; limit: number; totalPages: number } }
+    }
+  }
+  return null
+}
+
 export const ordenesService = {
-  async list(estado?: OrdenEstado): Promise<OrdenServicio[]> {
-    const qs = estado ? `?estado=${estado}` : ""
-    const res = await api.get<OrdenServicio[] | { data: OrdenServicio[] } | { items: OrdenServicio[] }>(`/ordenes${qs}`)
+  async list(params?: { estado?: OrdenEstado; search?: string; page?: number; limit?: number }): Promise<OrdenServicio[]> {
+    // Mantiene compatibilidad con llamada antigua list(estado)
+    if (typeof params === 'string') {
+      const res = await api.get<OrdenServicio[] | { data: OrdenServicio[] } | { items: OrdenServicio[] }>(`/ordenes?estado=${params}`)
+      return unwrapArrayOrdenes<OrdenServicio>(res)
+    }
+    const qs = new URLSearchParams()
+    if (params?.estado) qs.set("estado", params.estado)
+    if (params?.search?.trim()) qs.set("search", params.search.trim())
+    if (params?.page) qs.set("page", String(params.page))
+    if (params?.limit) qs.set("limit", String(params.limit))
+    const suffix = qs.toString() ? `?${qs.toString()}` : ""
+    const res = await api.get<OrdenServicio[] | { data: OrdenServicio[] } | { items: OrdenServicio[] } | { data: OrdenServicio[]; meta: any }>(`/ordenes${suffix}`)
+    const pag = unwrapPaginatedOrdenes(res)
+    if (pag) return pag.data
     return unwrapArrayOrdenes<OrdenServicio>(res)
+  },
+
+  async listPaginated(params?: { estado?: OrdenEstado; search?: string; page?: number; limit?: number }): Promise<{ data: OrdenServicio[]; meta: { total: number; page: number; limit: number; totalPages: number } }> {
+    const qs = new URLSearchParams()
+    if (params?.estado) qs.set("estado", params.estado)
+    if (params?.search?.trim()) qs.set("search", params.search.trim())
+    if (params?.page) qs.set("page", String(params.page))
+    if (params?.limit) qs.set("limit", String(params.limit))
+    const suffix = qs.toString() ? `?${qs.toString()}` : ""
+    const res = await api.get<{ data: OrdenServicio[]; meta: any } | OrdenServicio[]>(`/ordenes${suffix}`)
+    const pag = unwrapPaginatedOrdenes(res)
+    if (pag) return pag
+    const data = unwrapArrayOrdenes<OrdenServicio>(res)
+    return { data, meta: { total: data.length, page: 1, limit: data.length || 20, totalPages: 1 } }
   },
 
   get(id: string): Promise<OrdenServicio> {

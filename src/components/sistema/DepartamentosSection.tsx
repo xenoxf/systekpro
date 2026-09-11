@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { IconBuilding, IconPencil, IconTrash, IconPlus, IconEye } from "@tabler/icons-react"
+import { IconBuilding, IconPencil, IconTrash, IconPlus, IconEye, IconSearch, IconX } from "@tabler/icons-react"
 import { departamentosService, type Departamento, type CreateDepartamentoDto } from "@/services/departamentos"
 import { isApiError } from "@/services/api"
 import { getSession } from "@/services/auth"
@@ -22,6 +22,8 @@ export default function DepartamentosSection() {
   const [limit] = useState(10)
   const [totalPages, setTotalPages] = useState(1)
   const [total, setTotal] = useState(0)
+  const [search, setSearch] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
 
   const [detail, setDetail] = useState<Departamento | null>(null)
   const [detailLoading, setDetailLoading] = useState(false)
@@ -35,10 +37,11 @@ export default function DepartamentosSection() {
   const [deleting, setDeleting] = useState<Departamento | null>(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
-  async function load(nextPage = page) {
+  async function load(nextPage = page, searchOverride?: string) {
     setLoading(true)
     try {
-      const res = await departamentosService.list({ page: nextPage, limit })
+      const term = searchOverride !== undefined ? searchOverride : debouncedSearch
+      const res = await departamentosService.list({ page: nextPage, limit, search: term || undefined })
       setItems(res.data)
       setTotal(res.meta.total)
       setTotalPages(res.meta.totalPages || 1)
@@ -55,6 +58,16 @@ export default function DepartamentosSection() {
     load(1)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search.trim()), 300)
+    return () => clearTimeout(t)
+  }, [search])
+
+  useEffect(() => {
+    load(1, debouncedSearch)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearch])
 
   async function openDetail(row: Departamento) {
     const id = row.id_departamento ?? row.id
@@ -111,7 +124,7 @@ export default function DepartamentosSection() {
         toast.success("Departamento creado")
       }
       setFormOpen(false)
-      await load(page)
+      await load(page, debouncedSearch)
     } catch (err) {
       if (isApiError(err)) {
         if (err.statusCode === 409) setFormError(err.messages.join("\n"))
@@ -136,7 +149,7 @@ export default function DepartamentosSection() {
       const nextTotal = total - 1
       const nextPages = Math.max(1, Math.ceil(nextTotal / limit))
       const nextPage = page > nextPages ? nextPages : page
-      await load(nextPage)
+      await load(nextPage, debouncedSearch)
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
     } finally {
@@ -151,7 +164,7 @@ export default function DepartamentosSection() {
           <h2 className={styles['sys-panel-title']} style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Departamentos</h2>
           {!loading && (
             <p className={styles['sys-panel-sub']} style={{ fontSize: "0.8125rem" }}>
-              {total === 0 ? "Sin departamentos aún" : `${total} ${total === 1 ? "departamento" : "departamentos"} · página ${page} de ${totalPages}`}
+              {total === 0 ? (debouncedSearch ? `Sin resultados para "${debouncedSearch}"` : "Sin departamentos aún") : `${total} ${total === 1 ? "departamento" : "departamentos"}${debouncedSearch ? ` · filtrado por "${debouncedSearch}"` : ""} · página ${page} de ${totalPages}`}
             </p>
           )}
         </div>
@@ -159,6 +172,30 @@ export default function DepartamentosSection() {
           <IconPlus size={16} aria-hidden="true" />
           Nuevo departamento
         </button>
+      </div>
+
+      <div className={styles['sys-filter-bar']} role="search" aria-label="Buscar departamentos">
+        <div className={styles['sys-search']} style={{ flex: "1 1 14rem", maxWidth: "26rem" }}>
+          <IconSearch size={16} aria-hidden="true" />
+          <input
+            type="search"
+            aria-label="Buscar departamentos por nombre, descripción o ID"
+            placeholder="Buscar por nombre, descripción, ID…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {search && (
+            <button type="button" onClick={() => setSearch("")} aria-label="Limpiar búsqueda" className={styles['sys-icon-btn']} style={{ width: "1.75rem", height: "1.75rem" }}>
+              <IconX size={14} aria-hidden="true" />
+            </button>
+          )}
+        </div>
+        {debouncedSearch && <span style={{ fontSize: "0.75rem", color: "hsl(var(--muted-foreground))" }}>Filtrado por "{debouncedSearch}"</span>}
+        <div style={{ marginLeft: "auto" }}>
+          <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={() => setSearch("")} disabled={!search && !debouncedSearch}>Limpiar</button>
+        </div>
       </div>
 
       {loading ? (

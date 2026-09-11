@@ -101,7 +101,7 @@ export default function FichasSection() {
   const allowDelete = canDelete(currentUser)
   const [fichas, setFichas] = useState<FichaTecnica[]>([])
   const [loading, setLoading] = useState(true)
-  const [serial, setSerial] = useState("")
+  const [search, setSearch] = useState("")
   const [tipoEquipo, setTipoEquipo] = useState<TipoEquipo | "">("")
   const firstLoad = useRef(true)
 
@@ -117,9 +117,9 @@ export default function FichasSection() {
   const [deleting, setDeleting] = useState<FichaTecnica | null>(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
-  const hasFilters = Boolean(serial.trim() || tipoEquipo)
+  const hasFilters = Boolean(search.trim() || tipoEquipo)
 
-  async function loadFichas(filters?: { serial?: string; tipoEquipo?: TipoEquipo }) {
+  async function loadFichas(filters?: { search?: string; serial?: string; tipoEquipo?: TipoEquipo }) {
     setLoading(true)
     try {
       const data = await fichasService.list(filters)
@@ -139,10 +139,10 @@ export default function FichasSection() {
       return
     }
     const timer = setTimeout(() => {
-      loadFichas({ serial: serial.trim() || undefined, tipoEquipo: tipoEquipo || undefined })
+      loadFichas({ search: search.trim() || undefined, tipoEquipo: tipoEquipo || undefined })
     }, 300)
     return () => clearTimeout(timer)
-  }, [serial, tipoEquipo])
+  }, [search, tipoEquipo])
 
   // Navegación cruzada: crear ficha para cliente desde ClientesSection
   useEffect(() => {
@@ -463,18 +463,18 @@ export default function FichasSection() {
           <IconSearch size={16} aria-hidden="true" />
           <input
             type="search"
-            aria-label="Filtrar fichas por serial del equipo"
-            placeholder="Buscar por serial…"
-            value={serial}
-            onChange={(e) => setSerial(e.target.value)}
+            aria-label="Buscar fichas por cliente, serial, ID o marca"
+            placeholder="Buscar por cliente, serial, ID, marca…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             autoComplete="off"
             spellCheck={false}
           />
-          {serial && (
+          {search && (
             <button
               type="button"
-              onClick={() => setSerial("")}
-              aria-label="Limpiar búsqueda por serial"
+              onClick={() => setSearch("")}
+              aria-label="Limpiar búsqueda"
               className={styles['sys-icon-btn']}
               style={{ width: "1.75rem", height: "1.75rem" }}
             >
@@ -505,7 +505,7 @@ export default function FichasSection() {
             type="button"
             className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`}
             onClick={() => {
-              setSerial("")
+              setSearch("")
               setTipoEquipo("")
             }}
             disabled={!hasFilters}
@@ -523,7 +523,7 @@ export default function FichasSection() {
           title={hasFilters ? "Sin resultados" : "Aún no hay fichas técnicas"}
           description={
             hasFilters
-              ? "No encontramos fichas con ese serial o tipo. Prueba limpiando los filtros o con otro término."
+              ? "No encontramos fichas con ese término o tipo. Prueba con otro nombre, serial, ID o marca."
               : "Crea la primera ficha para comenzar a registrar el equipamiento de tus clientes."
           }
           icon={<IconFileText size={22} aria-hidden="true" />}

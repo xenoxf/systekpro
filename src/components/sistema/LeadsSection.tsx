@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { IconMail, IconPhone, IconTrash, IconEye, IconInbox, IconMessage } from "@tabler/icons-react"
+import { IconMail, IconPhone, IconTrash, IconEye, IconInbox, IconMessage, IconSearch, IconX } from "@tabler/icons-react"
 import { leadsService, type Lead } from "@/services/leads"
 import { isApiError } from "@/services/api"
 import { getSession } from "@/services/auth"
@@ -31,6 +31,8 @@ export default function LeadsSection() {
   const [limit] = useState(10)
   const [totalPages, setTotalPages] = useState(1)
   const [total, setTotal] = useState(0)
+  const [search, setSearch] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
 
   const [detail, setDetail] = useState<Lead | null>(null)
   const [detailLoading, setDetailLoading] = useState(false)
@@ -38,10 +40,11 @@ export default function LeadsSection() {
   const [deleting, setDeleting] = useState<Lead | null>(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
-  async function load(nextPage = page) {
+  async function load(nextPage = page, searchOverride?: string) {
     setLoading(true)
     try {
-      const res = await leadsService.list({ page: nextPage, limit })
+      const term = searchOverride !== undefined ? searchOverride : debouncedSearch
+      const res = await leadsService.list({ page: nextPage, limit, search: term || undefined })
       setItems(res.data)
       setTotal(res.meta.total)
       setTotalPages(res.meta.totalPages || 1)
@@ -55,6 +58,16 @@ export default function LeadsSection() {
   }
 
   useEffect(() => { load(1); /* eslint-disable-next-line */ }, [])
+
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search.trim()), 300)
+    return () => clearTimeout(t)
+  }, [search])
+
+  useEffect(() => {
+    load(1, debouncedSearch)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearch])
 
   async function openDetail(row: Lead) {
     setDetail(row)
@@ -80,7 +93,7 @@ export default function LeadsSection() {
       const nextTotal = total - 1
       const nextPages = Math.max(1, Math.ceil(nextTotal / limit))
       const nextPage = page > nextPages ? nextPages : page
-      await load(nextPage)
+      await load(nextPage, debouncedSearch)
     } catch (err) {
       if (isApiError(err)) toast.error(err.message)
     } finally {
@@ -95,9 +108,33 @@ export default function LeadsSection() {
           <h2 className={styles['sys-panel-title']} style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Formularios recibidos</h2>
           {!loading && (
             <p className={styles['sys-panel-sub']} style={{ fontSize: "0.8125rem" }}>
-              {total === 0 ? "Sin formularios aún" : `${total} ${total === 1 ? "formulario" : "formularios"} · página ${page} de ${totalPages}`}
+              {total === 0 ? (debouncedSearch ? `Sin resultados para "${debouncedSearch}"` : "Sin formularios aún") : `${total} ${total === 1 ? "formulario" : "formularios"}${debouncedSearch ? ` · filtrado por "${debouncedSearch}"` : ""} · página ${page} de ${totalPages}`}
             </p>
           )}
+        </div>
+      </div>
+
+      <div className={styles['sys-filter-bar']} role="search" aria-label="Buscar formularios">
+        <div className={styles['sys-search']} style={{ flex: "1 1 14rem", maxWidth: "28rem" }}>
+          <IconSearch size={16} aria-hidden="true" />
+          <input
+            type="search"
+            aria-label="Buscar formularios por nombre, email, teléfono, servicio o ID"
+            placeholder="Buscar por nombre, email, teléfono, servicio, mensaje, ID…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {search && (
+            <button type="button" onClick={() => setSearch("")} aria-label="Limpiar búsqueda" className={styles['sys-icon-btn']} style={{ width: "1.75rem", height: "1.75rem" }}>
+              <IconX size={14} aria-hidden="true" />
+            </button>
+          )}
+        </div>
+        {debouncedSearch && <span style={{ fontSize: "0.75rem", color: "hsl(var(--muted-foreground))" }}>Filtrado por "{debouncedSearch}"</span>}
+        <div style={{ marginLeft: "auto" }}>
+          <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={() => setSearch("")} disabled={!search && !debouncedSearch}>Limpiar</button>
         </div>
       </div>
 
@@ -166,8 +203,8 @@ export default function LeadsSection() {
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem", flexWrap: "wrap", marginTop: "0.5rem" }}>
               <span style={{ fontSize: "0.8125rem", color: "hsl(var(--muted-foreground))" }}>Página {page} de {totalPages} · {total} registros</span>
               <div style={{ display: "flex", gap: "0.5rem" }}>
-                <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} disabled={page <= 1} onClick={() => load(page - 1)}>Anterior</button>
-                <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} disabled={page >= totalPages} onClick={() => load(page + 1)}>Siguiente</button>
+                <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} disabled={page <= 1} onClick={() => load(page - 1, debouncedSearch)}>Anterior</button>
+                <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} disabled={page >= totalPages} onClick={() => load(page + 1, debouncedSearch)}>Siguiente</button>
               </div>
             </div>
           )}

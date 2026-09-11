@@ -19,6 +19,7 @@ export type UpdateDepartamentoDto = Partial<CreateDepartamentoDto>
 export interface PaginationParams {
   page?: number
   limit?: number
+  search?: string
 }
 
 export interface PaginatedDepartamentos {
@@ -53,6 +54,7 @@ export const departamentosService = {
     const qs = new URLSearchParams()
     if (params?.page) qs.set("page", String(params.page))
     if (params?.limit) qs.set("limit", String(params.limit))
+    if (params?.search?.trim()) qs.set("search", params.search.trim())
     const suffix = qs.toString() ? `?${qs.toString()}` : ""
     const res = await api.get<Departamento[] | PaginatedDepartamentos>(`/departamentos${suffix}`)
     const paginated = unwrapPaginated(res)
