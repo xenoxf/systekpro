@@ -289,12 +289,19 @@ textarea {
   font-weight: 600;
   font-size: 0.875rem;
   border: none;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.2s ease;
   min-height: 44px;
 }
 
 .btn-primary:hover {
   background: hsl(var(--primary) / 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -2px hsl(var(--primary) / 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .btn-secondary {
@@ -309,12 +316,19 @@ textarea {
   color: hsl(var(--foreground));
   font-weight: 600;
   font-size: 0.875rem;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.2s ease;
   min-height: 44px;
 }
 
 .btn-secondary:hover {
   background: hsl(var(--muted) / 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px -2px hsl(var(--foreground) / 0.08);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .hidden {
