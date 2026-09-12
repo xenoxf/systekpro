@@ -12,15 +12,34 @@
   justify-content: center;
   color: white;
   box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
-  transition: all 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: whatsapp-pulse 2s ease-in-out infinite;
 }
 
 .whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+  transform: scale(1.15);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55);
+  animation: none;
 }
 
 .whatsapp-float svg {
   width: 1.75rem;
   height: 1.75rem;
+  transition: transform 0.25s ease;
+}
+
+.whatsapp-float:hover svg {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+@keyframes whatsapp-pulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4); }
+  50% { box-shadow: 0 4px 24px rgba(37, 211, 102, 0.55); }
+}
+
+.whatsapp-float-nav {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 1000;
 }
