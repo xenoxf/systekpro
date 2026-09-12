@@ -26,13 +26,17 @@ export function isAdminOrMarketing(user: AuthUser | null | undefined): boolean {
   return user?.role === ADMIN_ROLE || user?.role === MARKETING_ROLE
 }
 
+export function isAdminOrGerenteOrMarketing(user: AuthUser | null | undefined): boolean {
+  return user?.role === ADMIN_ROLE || user?.role === MARKETING_ROLE || user?.role === GERENTE_ROLE
+}
+
 export function canAccessSection(
   user: AuthUser | null | undefined,
   section: PanelSection,
 ): boolean {
   if (section === "usuarios") return isAdmin(user)
   if (section === "departamentos" || section === "empleados") return isAdminOrGerente(user)
-  if (section === "leads") return isAdminOrMarketing(user)
+  if (section === "leads") return isAdminOrGerenteOrMarketing(user)
   // fichas, ordenes, clientes -> admin, gerente, mantenimiento. Marketing solo ve leads.
   if (section === "fichas" || section === "ordenes" || section === "clientes") {
     return isAdmin(user) || isGerente(user) || user?.role === "mantenimiento"
