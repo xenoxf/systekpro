@@ -357,7 +357,7 @@
   }
 
   .identidadOverlay {
-    align-items: flex-end;
+    align-items: center;
     padding: 0.75rem;
     padding-bottom: max(
       0.75rem,
