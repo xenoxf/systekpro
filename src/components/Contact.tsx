@@ -241,7 +241,7 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Teléfono</h3>
-                  <a href="tel:+571234513541" className={styles.contactInfoValue}>+57 123 4513541</a>
+                  <a href="tel:+571234513541" className={styles.contactInfoValue}>+57 3175000509</a>
                 </div>
               </div>
 
@@ -251,7 +251,7 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Correo electrónico</h3>
-                  <a href="mailto:contacto@sistek.com.co" className={styles.contactInfoValue}>contacto@sistek.com.co</a>
+                  <a href="mailto:sistekpro02@gmail.com" className={styles.contactInfoValue}>contacto@sistek.com.co</a>
                 </div>
               </div>
 
