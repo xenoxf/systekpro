@@ -4,11 +4,12 @@ import ThemeToggle from './ThemeToggle';
 import styles from "@/styles/Navbar.module.css";
 
 const navLinks = [
-  { href: '#servicios', label: 'Servicios' },
-  { href: '#proceso', label: 'Proceso' },
-  { href: '#beneficios', label: 'Beneficios' },
-  { href: '#faq', label: 'FAQ' },
-  { href: '#contacto', label: 'Contacto' },
+  { href: '/#servicios', label: 'Servicios' },
+  { href: '/nosotros', label: 'Nosotros' },
+  { href: '/#proceso', label: 'Proceso' },
+  { href: '/#beneficios', label: 'Beneficios' },
+  { href: '/#faq', label: 'FAQ' },
+  { href: '/#contacto', label: 'Contacto' },
 ];
 
 export default function Navbar() {
@@ -99,7 +100,7 @@ export default function Navbar() {
                 <span>+57 123 4513541</span>
               </span>
             </a>
-            <a href="#contacto" className={styles['nav-cta']}>
+            <a href="/#contacto" className={styles['nav-cta']}>
               Solicitar servicio
             </a>
           </div>
@@ -139,7 +140,7 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a href="#contacto" className={styles['mobile-menu-cta']} onClick={handleLinkClick}>
+          <a href="/#contacto" className={styles['mobile-menu-cta']} onClick={handleLinkClick}>
             Solicitar servicio
           </a>
         </div>

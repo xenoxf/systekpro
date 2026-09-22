@@ -114,11 +114,6 @@
 .footer-contact-item {
   font-size: 0.8125rem;
   color: hsl(var(--muted-foreground));
-  transition: color 0.15s ease;
-}
-
-.footer-contact-item:hover {
-  color: hsl(var(--foreground));
 }
 
 .footer-contact-label {

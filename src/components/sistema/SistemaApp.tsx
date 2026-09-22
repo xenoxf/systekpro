@@ -11,6 +11,7 @@ import {
   IconUsersGroup,
   IconBriefcase,
   IconInbox,
+  IconDatabase,
 } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
 import { canAccessSection, getDefaultSection, type PanelSection } from "@/services/permissions"
@@ -24,6 +25,7 @@ const DepartamentosSection = lazy(() => import("./DepartamentosSection"))
 const ClientesSection = lazy(() => import("./ClientesSection"))
 const EmpleadosSection = lazy(() => import("./EmpleadosSection"))
 const LeadsSection = lazy(() => import("./LeadsSection"))
+const BaseDatosSection = lazy(() => import("./BaseDatosSection"))
 
 function SectionFallback() {
   return (
@@ -72,6 +74,7 @@ const DEPARTAMENTOS_HASH = "#departamentos"
 const CLIENTES_HASH = "#clientes"
 const EMPLEADOS_HASH = "#empleados"
 const LEADS_HASH = "#leads"
+const BASEDADOS_HASH = "#base-de-datos"
 
 function viewFromHash(): PanelSection {
   if (typeof window === "undefined") return "fichas"
@@ -82,6 +85,7 @@ function viewFromHash(): PanelSection {
   if (hash === CLIENTES_HASH) return "clientes"
   if (hash === EMPLEADOS_HASH) return "empleados"
   if (hash === LEADS_HASH) return "leads"
+  if (hash === BASEDADOS_HASH) return "basedatos"
   return "fichas"
 }
 
@@ -93,6 +97,7 @@ const SECTION_HASH: Record<PanelSection, string | null> = {
   clientes: CLIENTES_HASH,
   empleados: EMPLEADOS_HASH,
   leads: LEADS_HASH,
+  basedatos: BASEDADOS_HASH,
 }
 
 const SECTION_TAB_ID: Record<PanelSection, string> = {
@@ -103,6 +108,7 @@ const SECTION_TAB_ID: Record<PanelSection, string> = {
   clientes: "tab-clientes",
   empleados: "tab-empleados",
   leads: "tab-leads",
+  basedatos: "tab-basedatos",
 }
 
 export default function SistemaApp() {
@@ -189,7 +195,9 @@ export default function SistemaApp() {
               ? "Empleados"
               : view === "leads"
                 ? "Formularios"
-                : "Usuarios"
+                : view === "basedatos"
+                  ? "Base de datos"
+                  : "Usuarios"
 
   return (
     <div className={styles['sys-shell']}>
@@ -298,6 +306,18 @@ export default function SistemaApp() {
               <span>Empleados</span>
             </button>
           )}
+          <button
+            type="button"
+            id="tab-basedatos"
+            role="tab"
+            aria-selected={view === "basedatos"}
+            aria-controls="panel-seccion"
+            className={`${styles['sys-nav-item']} ${view === "basedatos" ? styles['sys-nav-item--active'] : ""}`}
+            onClick={() => selectView("basedatos")}
+          >
+            <IconDatabase size={18} aria-hidden="true" />
+            <span>Base de datos</span>
+          </button>
 
           {canAccessSection(user, "usuarios") && (
             <>
@@ -385,6 +405,8 @@ export default function SistemaApp() {
                   <UsersSection />
                 ) : view === "leads" ? (
                   <LeadsSection />
+                ) : view === "basedatos" ? (
+                  <BaseDatosSection />
                 ) : (
                   <FichasSection />
                 )}

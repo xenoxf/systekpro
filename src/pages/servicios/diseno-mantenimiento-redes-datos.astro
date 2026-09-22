@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import styles from '@/styles/ServicePage.module.css';
+
+const service = {
+  name: 'Diseño y mantenimiento de redes de datos',
+  slug: 'diseno-mantenimiento-redes-datos',
+  description: 'Diseño, instalación y mantenimiento de redes de datos en Cali. Planos, direccionamiento, monitoreo y ampliaciones con documentación.',
+  h1: 'Diseño y mantenimiento de redes de datos en Cali',
+  image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&auto=format&fit=crop',
+  imageAlt: 'Tarjeta electrónica de red de datos',
+  intro: 'Diseñamos tu red de datos para que crezca con tu empresa y la mantenemos para que no se caiga: plan, instalación y visitas programadas.',
+  benefits: [
+    { title: 'Diseño lógico y físico', desc: 'Planos de red, direccionamiento IP, VLANs y dimensionamiento de equipos según tu operación real.' },
+    { title: 'Instalación y puesta en marcha', desc: 'Montaje, configuración y pruebas de cada punto. Entrega con red funcionando y documentada.' },
+    { title: 'Mantenimiento programado', desc: 'Visitas periódicas, revisión de racks, limpieza, ajustes y reporte escrito de estado.' },
+    { title: 'Ampliación y monitoreo', desc: 'Agregamos puntos y equipos cuando creces. Detectamos fallas antes de que paren tu operación.' },
+  ],
+  faq: [
+    { q: '¿Entregan documentación de la red?', a: 'Sí. Plano de puntos, credenciales, inventario de equipos y recomendaciones. Sin eso no damos por cerrado el trabajo.' },
+    { q: '¿Cada cuánto es el mantenimiento?', a: 'Depende del tamaño de la red. Lo habitual es trimestral para oficinas y mensual para colegios o bodegas con alta carga.' },
+    { q: '¿Trabajan con redes existentes?', a: 'Sí. Auditamos lo que tienes, corregimos lo que falla y proponemos mejoras por escrito antes de tocar nada.' },
+  ],
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": service.name,
+  "description": service.description,
+  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "areaServed": { "@type": "City", "name": "Cali" },
+  "serviceType": "Diseño y mantenimiento de redes de datos"
+};
+---
+
+<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <main id="main" tabindex="-1">
+    <section class={styles['service-page-hero']}>
+      <div class="container">
+        <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
+          <ol><li><a href="/">Inicio</a></li><li><a href="/#servicios">Servicios</a></li><li aria-current="page">{service.name}</li></ol>
+        </nav>
+        <div class={styles['service-hero-grid']}>
+          <div>
+            <h1>{service.h1}</h1>
+            <p class={styles['service-hero-desc']}>{service.intro}</p>
+            <div class={styles['service-hero-actions']}>
+              <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+            </div>
+          </div>
+          <figure class={styles['service-hero-photo']}>
+            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+    <section class={styles['service-content']}>
+      <div class="container">
+        <h2>¿Qué incluye?</h2>
+        <div class={styles['service-benefits-grid']}>
+          {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
+        </div>
+      </div>
+    </section>
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Preguntas frecuentes</h2>
+        {service.faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </section>
+    <section class={styles['service-cta']}>
+      <div class="container">
+        <h2>¿Tu red necesita orden?</h2>
+        <p>Visitamos, auditamos y te pasamos plan y precio cerrado antes de empezar.</p>
+        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+      </div>
+    </section>
+  </main>
+</Layout>

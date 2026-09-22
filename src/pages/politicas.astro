@@ -1,0 +1,119 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+const politicas = [
+  {
+    n: 'Política 1',
+    t: 'Atención al Cliente y Garantía de Satisfacción',
+    tipo: 'Política Externa / Operativa',
+    cargo: 'Coordinador de Servicio al Cliente y Personal Técnico',
+    alcance: 'Clientes particulares, pymes e instituciones en Cali',
+    norma: 'Todo cliente tiene derecho a recibir una atención respetuosa, transparente y una explicación detallada de los diagnósticos y costos antes de autorizar cualquier servicio. El área de atención al cliente garantiza dar respuesta a consultas e incidencias en un plazo máximo de 24 horas hábiles. Además, todo servicio prestado incluye una garantía de satisfacción sobre la mano de obra realizada.',
+    evidencia: 'Orden de servicio digital recibida por el cliente y registro de tiempos de respuesta.',
+  },
+  {
+    n: 'Política 2',
+    t: 'Protección de la Información y Confidencialidad',
+    tipo: 'Política General de Cumplimiento y Privacidad',
+    cargo: 'Todo el Personal Técnico y Administrativo',
+    alcance: 'Datos personales, archivos corporativos y configuraciones del cliente',
+    norma: 'SISTEK PRO garantiza la estricta reserva y protección de los datos de sus clientes. El personal técnico aplicará protocolos de seguridad en cada intervención y respaldos temporales estrictamente autorizados. Queda prohibido copiar, modificar, extraer o compartir información sin la previa autorización explícita y por escrito del cliente.',
+    evidencia: 'Acuerdo digital de confidencialidad y registro de autorización de respaldo.',
+  },
+  {
+    n: 'Política 3',
+    t: 'Mantenimiento Preventivo, Predictivo y Correctivo',
+    tipo: 'Política Operativa de Servicio',
+    cargo: 'Equipo Técnico de Soporte y Mantenimiento',
+    alcance: 'Equipos de cómputo, servidores y sistemas digitales en mantenimiento',
+    norma: 'Los mantenimientos preventivos se programarán y ejecutarán conforme al plan acordado con el cliente, utilizando insumos, repuestos y herramientas de alta calidad técnica. Ante fallos imprevistos, se prestará asistencia correctiva prioritaria. Al finalizar cada labor, el técnico entregará un informe digital detallando el diagnóstico, procedimientos efectuados y recomendaciones.',
+    evidencia: 'Informe técnico de mantenimiento firmado o validado digitalmente por el cliente.',
+  },
+  {
+    n: 'Política 4',
+    t: 'Manejo, Custodia y Configuración de Equipos',
+    tipo: 'Política Operativa de Taller y Campo',
+    cargo: 'Personal de Soporte Técnico y Custodia de Equipos',
+    alcance: 'Todos los dispositivos, componentes y hardware bajo responsabilidad de SISTEK PRO',
+    norma: 'Los equipos de los clientes serán manipulados bajo rigurosas normas de protección física y electrostática (ESD). Se respetarán íntegramente las configuraciones originales de software y red del usuario, realizando cambios únicamente si han sido previamente autorizados. Toda intervención concluirá con un protocolo obligatorio de prueba de funcionamiento final antes de la entrega formal.',
+    evidencia: 'Lista de chequeo de pruebas de funcionamiento (Checklist de Entrega).',
+  },
+  {
+    n: 'Política 5',
+    t: 'Seguridad Industrial y Prevención de Riesgos',
+    tipo: 'Política Interna de Seguridad en el Trabajo',
+    cargo: 'Técnicos de Campo y Coordinador de Riesgos',
+    alcance: 'Instalaciones del cliente, laboratorio técnico y sitios de despliegue de red',
+    norma: 'Durante cada servicio, el personal aplicará la normativa de protección laboral e ingeniería eléctrica, asegurando la desconexión segura de energía antes de intervenir hardware sensible. Si durante el procedimiento se detectan riesgos en las instalaciones eléctricas o de red del cliente, el técnico informará inmediatamente al usuario para prevenir accidentes y resguardar los equipos.',
+    evidencia: 'Reporte de inspección de seguridad en el sitio de trabajo.',
+  },
+  {
+    n: 'Política 6',
+    t: 'Calidad, Garantía y Mejora Continua',
+    tipo: 'Política Departamental de Calidad',
+    cargo: 'Dirección Técnica y Control de Calidad',
+    alcance: 'Todos los servicios técnicos, desarrollos web e instalaciones de red',
+    norma: 'SISTEK PRO se compromete a prestar servicios bajo estándares técnicos profesionales. En caso de presentarse una falla atribuible a un procedimiento propio, la empresa realizará la corrección de forma totalmente gratuita dentro del periodo de garantía. Promovemos la mejora continua revisando periódicamente nuestros procedimientos e integrando estándares normativos actualizados.',
+    evidencia: 'Certificado de garantía y registro en el sistema de control de calidad.',
+  },
+  {
+    n: 'Política 7',
+    t: 'Gestión del Tiempo y Cumplimiento de Cronogramas',
+    tipo: 'Política Operativa de Planificación',
+    cargo: 'Coordinador de Operaciones y Técnicos Asignados',
+    alcance: 'Servicios presenciales, remotos y entregas de proyectos digitales',
+    norma: 'SISTEK PRO se compromete a cumplir estrictamente los plazos de entrega y horarios pactados. Si acontecen imprevistos técnicos o logísticos, se avisará al cliente con al menos 4 horas de anticipación. Asimismo, las incidencias urgentes que afecten la operación del cliente tendrán prioridad de atención, coordinando horarios que minimicen cualquier impacto en sus actividades.',
+    evidencia: 'Registro digital de la agenda de servicios y trazabilidad de notificaciones al cliente.',
+  },
+];
+---
+
+<LegalLayout title="Políticas Empresariales - Sistek">
+  <div class="legal-container">
+    <h1 class="legal-title">Manual de Políticas Empresariales</h1>
+    <p class="legal-date">SISTEK PRO · Sistema de gestión y calidad</p>
+
+    <div class="legal-section">
+      <p>
+        Marco normativo de servicio, calidad, seguridad y protección de información.
+        Cada política define los derechos del cliente, las normas de actuación
+        y el cargo responsable de garantizar su cumplimiento.
+      </p>
+    </div>
+
+    {politicas.map((p) => (
+      <div class="legal-section">
+        <h2>{p.n}: {p.t}</h2>
+        <ul>
+          <li><strong>Tipo:</strong> {p.tipo}</li>
+          <li><strong>Cargo responsable:</strong> {p.cargo}</li>
+          <li><strong>Alcance:</strong> {p.alcance}</li>
+        </ul>
+        <p>{p.norma}</p>
+        <p><strong>Evidencia y control:</strong> {p.evidencia}</p>
+      </div>
+    ))}
+
+    <div class="legal-section">
+      <h2>Matriz resumen de roles y tiempos de respuesta</h2>
+      <ul>
+        <li><strong>Atención al cliente:</strong> respuesta en máximo 24 horas hábiles · Orden de servicio digital</li>
+        <li><strong>Protección de información:</strong> confidencialidad y respaldos autorizados · Acuerdo de confidencialidad</li>
+        <li><strong>Mantenimiento:</strong> preventivo según plan, correctivo prioritario · Informe técnico digital</li>
+        <li><strong>Manejo de equipos:</strong> norma ESD y pruebas finales · Checklist de entrega</li>
+        <li><strong>Seguridad:</strong> desconexión previa y reporte · Reporte de seguridad</li>
+        <li><strong>Calidad:</strong> corrección gratuita de fallas en garantía · Garantía de servicio</li>
+        <li><strong>Gestión de tiempos:</strong> aviso previo de 4 h ante retrasos · Registro de trazabilidad</li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <h2>Difusión y actualización</h2>
+      <ul>
+        <li>Las políticas están accesibles para todo el personal y los clientes en el portal digital de la empresa.</li>
+        <li>Todo colaborador revisa estas directrices durante su proceso de incorporación.</li>
+        <li>Este documento se actualiza anualmente según avances tecnológicos y requerimientos del cliente.</li>
+      </ul>
+    </div>
+  </div>
+</LegalLayout>

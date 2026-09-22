@@ -2,21 +2,14 @@
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
-  max-height: 600px;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 5rem 0 3rem;
+  padding: 6rem 0 3rem;
   box-sizing: border-box;
-}
-
-@media (min-width: 1400px) {
-  .hero-j {
-    max-height: 560px;
-  }
 }
 
 .hero-j-bg {
@@ -28,24 +21,89 @@
   object-position: center;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-j-bg {
-    animation: none;
-  }
-}
-
 .hero-j-content {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(0.875rem, 2vw, 1.5rem);
+  gap: clamp(0.875rem, 2vw, 1.25rem);
   width: 100%;
   max-width: 1120px;
   margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
   box-sizing: border-box;
   min-width: 0;
+}
+
+/* === Carrusel masonry lento (encima del título) === */
+.hero-marquee {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.hero-row {
+  overflow: hidden;
+  width: 100%;
+}
+
+.hero-track {
+  display: flex;
+  gap: 0.625rem;
+  width: max-content;
+  will-change: transform;
+}
+
+.hero-track--a {
+  animation: hero-scroll-a 80s linear infinite;
+}
+
+.hero-track--b {
+  animation: hero-scroll-b 100s linear infinite;
+}
+
+@keyframes hero-scroll-a {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes hero-scroll-b {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.hero-shot {
+  height: 88px;
+  width: 132px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  border: 1px solid hsl(0 0% 100% / 0.18);
+  opacity: 0.92;
+}
+
+/* Efecto masonry: alturas y anchos alternos */
+.hero-track .hero-shot:nth-child(4n + 2) {
+  height: 108px;
+  width: 120px;
+}
+
+.hero-track .hero-shot:nth-child(4n + 3) {
+  height: 76px;
+  width: 150px;
+  align-self: center;
+}
+
+.hero-track .hero-shot:nth-child(4n) {
+  height: 96px;
+  width: 110px;
 }
 
 .hero-j-title {
@@ -60,11 +118,7 @@
   hyphens: auto;
   max-width: 100%;
   min-width: 0;
-  transition: transform 0.3s ease;
-}
-
-.hero-j:hover .hero-j-title {
-  transform: translateY(-2px);
+  margin: 0;
 }
 
 .hero-j-desc {
@@ -75,6 +129,25 @@
   line-height: 1.6;
   overflow-wrap: break-word;
   min-width: 0;
+  margin: 0;
+}
+
+.hero-j-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  justify-content: flex-start;
+}
+
+.hero-j-btn-secondary {
+  border-color: hsl(0 0% 100% / 0.6);
+  color: hsl(0 0% 100%);
+  background: hsl(0 0% 0% / 0.3);
+}
+
+.hero-j-btn-secondary:hover {
+  background: hsl(0 0% 0% / 0.45);
 }
 
 /* === Responsive granular === */
@@ -82,17 +155,34 @@
   .hero-j {
     min-height: 50vh;
     min-height: 50dvh;
-    max-height: 400px;
-    padding: 4.5rem 0 2rem;
+    padding: 5rem 0 2rem;
+  }
+
+  .hero-shot {
+    height: 72px;
+    width: 108px;
+  }
+
+  .hero-track .hero-shot:nth-child(4n + 2) {
+    height: 88px;
+    width: 100px;
+  }
+
+  .hero-track .hero-shot:nth-child(4n + 3) {
+    height: 64px;
+    width: 124px;
+  }
+
+  .hero-track .hero-shot:nth-child(4n) {
+    height: 80px;
+    width: 92px;
   }
 }
 
 @media (max-width: 480px) {
   .hero-j {
-    min-height: 45vh;
-    min-height: 45dvh;
-    max-height: 340px;
-    padding: 4rem 0 1.5rem;
+    min-height: unset;
+    padding: 5rem 0 1.5rem;
   }
 
   .hero-j-content {
@@ -111,14 +201,31 @@
     line-height: 1.5;
     max-width: 100%;
   }
+
+  .hero-shot {
+    height: 60px;
+    width: 92px;
+  }
+
+  .hero-track .hero-shot:nth-child(4n + 2) {
+    height: 74px;
+    width: 84px;
+  }
+
+  .hero-track .hero-shot:nth-child(4n + 3) {
+    height: 54px;
+    width: 108px;
+  }
+
+  .hero-track .hero-shot:nth-child(4n) {
+    height: 66px;
+    width: 78px;
+  }
 }
 
 @media (max-width: 380px) {
   .hero-j {
-    padding: 3.5rem 0 1.25rem;
-    min-height: 40vh;
-    min-height: 40dvh;
-    max-height: 280px;
+    padding: 4.5rem 0 1.25rem;
   }
 
   .hero-j-content {
@@ -136,10 +243,6 @@
 }
 
 @media (max-width: 320px) {
-  .hero-j {
-    max-height: 240px;
-  }
-
   .hero-j-content {
     padding: 0 0.875rem;
   }
@@ -156,7 +259,7 @@
 
 @media (min-width: 481px) and (max-width: 640px) {
   .hero-j {
-    padding: 4.5rem 0 2rem;
+    padding: 5rem 0 2rem;
   }
 
   .hero-j-title {
@@ -170,48 +273,15 @@
   }
 }
 
-.hero-j-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+/* Movimiento reducido y modo accesible: detener carrusel */
+@media (prefers-reduced-motion: reduce) {
+  .hero-track--a,
+  .hero-track--b {
+    animation: none;
+  }
 }
 
-.hero-j-actions :global(.btn-secondary) {
-  border-color: hsl(0 0% 100% / 0.25);
-}
-
-.hero-j-features {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  margin: 0.5rem 0 0;
-  padding: 0;
-}
-
-.hero-j-features li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: hsl(0 0% 100% / 0.9);
-  font-size: 0.9375rem;
-  font-weight: 500;
-}
-
-.hero-j-features svg {
-  width: 1.15rem;
-  height: 1.15rem;
-  color: hsl(160 84% 55%);
-  flex-shrink: 0;
-}
-
-.hero-j-fade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 5rem;
-  background: linear-gradient(to bottom, transparent, hsl(var(--background)));
-  z-index: 2;
-  pointer-events: none;
+:global(.a11y-stop-anim) .hero-track--a,
+:global(.a11y-stop-anim) .hero-track--b {
+  animation: none;
 }

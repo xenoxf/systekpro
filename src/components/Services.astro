@@ -1,44 +1,32 @@
 ---
 import styles from "@/styles/Services.module.css";
+
+const list = [
+  { href: "/servicios/mantenimiento-computadores", title: "Mantenimiento preventivo y correctivo de equipos de cómputo", desc: "Limpieza, diagnóstico, reparación y optimización." },
+  { href: "/servicios/instalacion-redes-empresariales", title: "Diseño e instalación de redes empresariales cableadas", desc: "Redes cableadas para oficinas, colegios y bodegas." },
+  { href: "/servicios/cableado-estructurado", title: "Cableado estructurado certificado CAT6 y CAT6A", desc: "Patch panels, racks y reporte de pruebas." },
+  { href: "/servicios/configuracion-routers-switches", title: "Configuración de routers, switches y equipos de red", desc: "VLANs, QoS, VPN y red documentada." },
+  { href: "/servicios/soporte-tecnico", title: "Soporte técnico para empresas y hogares", desc: "Diagnóstico y reparación, presencial en Cali y a distancia." },
+  { href: "/servicios/asistencia-remota", title: "Asistencia técnica remota inmediata", desc: "Respuesta en menos de 2 horas por acceso seguro." },
+  { href: "/servicios/diseno-mantenimiento-redes-datos", title: "Diseño y mantenimiento de redes de datos", desc: "Plan, instalación, visitas programadas y ampliación." },
+  { href: "/servicios/desarrollo-web-backend", title: "Desarrollo y mantenimiento web con backend", desc: "Sitios, backend, bases de datos y mantenimiento." },
+];
 ---
 
 <section id="servicios">
   <div class="container2">
     <div class="section-header">
       <h2 class="section-title">Lo que hacemos en Cali</h2>
-      <p class="section-desc">Cada servicio lo ejecuta un técnico certificado que entiende tu negocio, no un intermediario que te pasa el budgets.</p>
+      <p class="section-desc">Cada servicio lo ejecuta personal de Sistek con precio cerrado y garantía escrita.</p>
     </div>
 
     <div class={styles['servicios-grid']}>
-      <a href="#contacto" class={styles['service-card']}>
-        <h3 class={styles['service-card-title']}>Mantenimiento de equipos</h3>
-        <p class={styles['service-card-desc']}>Limpieza, diagnóstico y reparación de computadores. Prevención de fallas antes de que detengan tu operación.</p>
-      </a>
-
-      <a href="#contacto" class={styles['service-card']}>
-        <h3 class={styles['service-card-title']}>Instalación de redes</h3>
-        <p class={styles['service-card-desc']}>Diseño y montaje de redes cableadas e inalámbricas. Desde una oficina pequeña hasta un edificio completo.</p>
-      </a>
-
-      <a href="#contacto" class={styles['service-card']}>
-        <h3 class={styles['service-card-title']}>Cableado estructurado</h3>
-        <p class={styles['service-card-desc']}>Cableado CAT6/CAT6A, patch panels, racks. Todo certificado con reporte de pruebas incluido.</p>
-      </a>
-
-      <a href="#contacto" class={styles['service-card']}>
-        <h3 class={styles['service-card-title']}>Configuración de equipos</h3>
-        <p class={styles['service-card-desc']}>Routers, switches y access points configurados para tu red. VLANs, QoS, VPN — sin vueltas.</p>
-      </a>
-
-      <a href="#contacto" class={styles['service-card']}>
-        <h3 class={styles['service-card-title']}>Redes WiFi</h3>
-        <p class={styles['service-card-desc']}>Cobertura sin puntos ciegos. Estudio de sitio, roaming sin cortes y soporte continuo.</p>
-      </a>
-
-      <a href="#contacto" class={styles['service-card']}>
-        <h3 class={styles['service-card-title']}>Soporte técnico</h3>
-        <p class={styles['service-card-desc']}>Presencial o remoto. Resolvemos lo que otros no pudieron — o lo que nadie quiso tocar.</p>
-      </a>
+      {list.map(s => (
+        <a href={s.href} class={styles['service-card']}>
+          <h3 class={styles['service-card-title']}>{s.title}</h3>
+          <p class={styles['service-card-desc']}>{s.desc}</p>
+        </a>
+      ))}
     </div>
   </div>
 </section>

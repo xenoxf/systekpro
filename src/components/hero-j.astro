@@ -1,15 +1,41 @@
 ---
-import { IconArrowRight, IconCheck, IconHeadset, IconNetwork, IconDeviceLaptop } from '@tabler/icons-react';
 import styles from "@/styles/HeroJ.module.css";
+
+const shots = [
+  { src: "/departamentos/gerencia.jpg" },
+  { src: "/departamentos/redes.jpg" },
+  { src: "/departamentos/mantenimiento_pc.jpg" },
+  { src: "/departamentos/desarrollo_web.jpg" },
+  { src: "/departamentos/administracion.jpg" },
+  { src: "/departamentos/marketing.jpg" },
+  { src: "/departamentos/capacitacion.jpg" },
+  { src: "/departamentos/todos_departamentos.jpg" },
+];
 ---
 
 <section id="inicio" class={styles['hero-j']}>
-    <img class={styles['hero-j-bg']} src="/wallpapers/claudel-rheault-ZVbv1akA-l4-unsplash.jpg" alt="" aria-hidden="true">
+  <img class={styles['hero-j-bg']} src="/wallpapers/claudel-rheault-ZVbv1akA-l4-unsplash.jpg" alt="" aria-hidden="true" />
 
-  <div class={styles['hero-j-content']} >
+  <div class={styles['hero-j-content']}>
+    <div class={styles['hero-marquee']} aria-hidden="true" tabindex="-1">
+      <div class={styles['hero-row']}>
+        <div class={`${styles['hero-track']} ${styles['hero-track--a']}`}>
+          {[...shots, ...shots].map((s) => (
+            <img src={s.src} alt="" loading="eager" decoding="async" class={styles['hero-shot']} />
+          ))}
+        </div>
+      </div>
+      <div class={styles['hero-row']}>
+        <div class={`${styles['hero-track']} ${styles['hero-track--b']}`}>
+          {[...[...shots].reverse(), ...[...shots].reverse()].map((s) => (
+            <img src={s.src} alt="" loading="lazy" decoding="async" class={styles['hero-shot']} />
+          ))}
+        </div>
+      </div>
+    </div>
 
     <h1 class={styles['hero-j-title']}>
-    <span class="gradient-text">Infraestructura tecnológica</span>
+      <span class="gradient-text">Infraestructura tecnológica</span>
     </h1>
 
     <p class={styles['hero-j-desc']}>
@@ -17,8 +43,9 @@ import styles from "@/styles/HeroJ.module.css";
       Soluciones tecnológicas profesionales para tu empresa o institución educativa.
     </p>
 
-
+    <div class={styles['hero-j-actions']}>
+      <a href="/#contacto" class="btn-primary">Contacto</a>
+      <a href="/nosotros" class={`btn-secondary ${styles['hero-j-btn-secondary']}`}>Nosotros</a>
+    </div>
   </div>
-
-  <div class={styles['hero-j-fade']}></div>
 </section>

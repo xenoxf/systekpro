@@ -1,12 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar";
-import Hero from "../components/Hero.astro";
 import Heroj from "../components/hero-j.astro";
-import Services from "../components/Services.astro";
 import Process from "../components/Process.astro";
 import Benefits from "../components/Benefits.astro";
-import Testimonials from "../components/Testimonials.astro";
 import FAQ from "../components/FAQ";
 import CTA from "../components/CTA.astro";
 import Identidad from "../components/Identidad.tsx";
@@ -20,11 +17,11 @@ import ServicesJ from "@/components/ServicesCarousel/services";
     <Navbar client:load />
     <main id="main" tabindex="-1">
       <Heroj />
+      <Identidad client:load />
       <ServicesJ client:load />
       <Process />
       <Benefits />
       <FAQ client:visible />
-      <Identidad client:load />
       <Contact client:visible />
     </main>
     <Footer />

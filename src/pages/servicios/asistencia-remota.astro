@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import styles from '@/styles/ServicePage.module.css';
+
+const service = {
+  name: 'Asistencia técnica remota inmediata',
+  slug: 'asistencia-remota',
+  description: 'Asistencia técnica remota en Cali: nos conectamos a tus equipos en minutos por acceso seguro. Software, impresoras, correo y red sin desplazamiento.',
+  h1: 'Asistencia técnica remota en Cali',
+  image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&q=80&auto=format&fit=crop',
+  imageAlt: 'Asistencia técnica remota por computador',
+  intro: 'Sin visita, sin espera. Nos conectás el caso, nos conectamos a tu equipo y lo resolvemos en minutos por acceso remoto seguro.',
+  benefits: [
+    { title: 'Respuesta en menos de 2 horas', desc: 'Para clientes con contrato de asistencia, primera respuesta en menos de 2 horas en horario laboral.' },
+    { title: 'Acceso remoto seguro', desc: 'Conexión cifrada, con tu autorización y registro de cada sesión. Nada se toca sin que lo veas.' },
+    { title: 'Software, correo e impresoras', desc: 'Errores de Windows, virus, Office, correo corporativo, impresoras en red y accesos.' },
+    { title: 'Escalamiento presencial', desc: 'Si el caso necesita manos en sitio, el mismo técnico que te atendió coordina la visita.' },
+  ],
+  faq: [
+    { q: '¿Cómo se conectan a mi equipo?', a: 'Te enviamos un enlace de sesión remota. Aceptás la conexión y ves todo lo que hacemos en pantalla.' },
+    { q: '¿Es seguro?', a: 'Sí. Sesión cifrada, acceso solo con tu autorización y cierre automático al terminar. Queda registro de la atención.' },
+    { q: '¿Cuánto cuesta?', a: 'Por evento o por plan mensual con horas incluidas y atención prioritaria. Cotización antes de empezar.' },
+  ],
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": service.name,
+  "description": service.description,
+  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "areaServed": { "@type": "City", "name": "Cali" },
+  "serviceType": "Asistencia técnica remota"
+};
+---
+
+<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <main id="main" tabindex="-1">
+    <section class={styles['service-page-hero']}>
+      <div class="container">
+        <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
+          <ol><li><a href="/">Inicio</a></li><li><a href="/#servicios">Servicios</a></li><li aria-current="page">{service.name}</li></ol>
+        </nav>
+        <div class={styles['service-hero-grid']}>
+          <div>
+            <h1>{service.h1}</h1>
+            <p class={styles['service-hero-desc']}>{service.intro}</p>
+            <div class={styles['service-hero-actions']}>
+              <a href="/#contacto" class="btn-primary">Solicitar asistencia</a>
+              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+            </div>
+          </div>
+          <figure class={styles['service-hero-photo']}>
+            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+    <section class={styles['service-content']}>
+      <div class="container">
+        <h2>¿Qué incluye?</h2>
+        <div class={styles['service-benefits-grid']}>
+          {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
+        </div>
+      </div>
+    </section>
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Preguntas frecuentes</h2>
+        {service.faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </section>
+    <section class={styles['service-cta']}>
+      <div class="container">
+        <h2>¿Necesitás ayuda ahora?</h2>
+        <p>Escríbenos por WhatsApp o llama. Si es remoto, empezamos hoy mismo.</p>
+        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -201,7 +201,9 @@ function Contact() {
                 <option value="cableado">Cableado estructurado</option>
                 <option value="configuracion">Configuración de routers/switches</option>
                 <option value="soporte">Soporte técnico</option>
-                <option value="wifi">Redes inalámbricas</option>
+                <option value="remoto">Asistencia técnica remota</option>
+                <option value="redes-datos">Diseño y mantenimiento de redes de datos</option>
+                <option value="web">Desarrollo y mantenimiento web</option>
                 <option value="otro">Otro</option>
               </select>
               {errors.servicio && (

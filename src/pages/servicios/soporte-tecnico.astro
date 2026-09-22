@@ -3,12 +3,14 @@ import Layout from '../../layouts/Layout.astro';
 import styles from '@/styles/ServicePage.module.css';
 
 const service = {
-  name: 'Soporte Técnico Presencial y Remoto',
+  name: 'Soporte técnico para empresas y hogares',
   slug: 'soporte-tecnico',
   description: 'Soporte técnico en Cali. Presencial y remoto para empresas y hogares. Diagnóstico, reparación y mantenimiento de equipos.',
   keywords: 'soporte técnico cali, asistencia técnica computadores, soporte remoto, soporte presencial, técnico computadores, reparación PC domicilio',
   h1: 'Soporte Técnico en Cali',
-  intro: 'Presencial o remoto. Resolvemos lo que otros no pudieron — o lo que nadie quiso tocar.',
+  image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200&q=80&auto=format&fit=crop',
+  imageAlt: 'Equipo brindando soporte técnico',
+  intro: 'Presencial en Cali o remoto. Diagnóstico, reparación y planes mensuales para empresas y hogares.',
   benefits: [
     { title: 'Presencial en Cali', desc: 'Visita técnica a tu ubicación. Diagnóstico in situ de hardware y software.' },
     { title: 'Remoto inmediato', desc: 'Nos conectamos a tu equipo en minutos. Más rápido, sin costo de desplazamiento.' },
@@ -41,11 +43,18 @@ const jsonLd = {
         <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
           <ol><li><a href="/">Inicio</a></li><li><a href="/#servicios">Servicios</a></li><li aria-current="page">{service.name}</li></ol>
         </nav>
-        <h1>{service.h1}</h1>
-        <p class={styles['service-hero-desc']}>{service.intro}</p>
-        <div class={styles['service-hero-actions']}>
-          <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
-          <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+        <div class={styles['service-hero-grid']}>
+          <div>
+            <h1>{service.h1}</h1>
+            <p class={styles['service-hero-desc']}>{service.intro}</p>
+            <div class={styles['service-hero-actions']}>
+              <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+            </div>
+          </div>
+          <figure class={styles['service-hero-photo']}>
+            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+          </figure>
         </div>
       </div>
     </section>

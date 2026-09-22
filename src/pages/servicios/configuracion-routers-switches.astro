@@ -8,7 +8,9 @@ const service = {
   description: 'Configuración de routers, switches y access points en Cali. VLANs, QoS, seguridad y rendimiento.',
   keywords: 'configuración routers cali, configuración switches, VLANs, QoS, seguridad de red, MikroTik, Cisco, Ubiquiti',
   h1: 'Configuración de Routers y Switches en Cali',
-  intro: 'Tu red está instalada pero no funciona bien? La configuramos para que rinda.',
+  image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200&q=80&auto=format&fit=crop',
+  imageAlt: 'Equipos de red y conectividad',
+  intro: 'Configuramos routers, switches y firewalls: VLANs, QoS y seguridad para que la red rinda.',
   benefits: [
     { title: 'Routers', desc: 'DHCP, NAT, port forwarding, DNS, firewall. Seguridad desde la configuración.' },
     { title: 'VLANs', desc: 'Redes virtuales para separar tráfico. Seguridad y rendimiento.' },
@@ -41,11 +43,18 @@ const jsonLd = {
         <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
           <ol><li><a href="/">Inicio</a></li><li><a href="/#servicios">Servicios</a></li><li aria-current="page">{service.name}</li></ol>
         </nav>
-        <h1>{service.h1}</h1>
-        <p class={styles['service-hero-desc']}>{service.intro}</p>
-        <div class={styles['service-hero-actions']}>
-          <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
-          <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+        <div class={styles['service-hero-grid']}>
+          <div>
+            <h1>{service.h1}</h1>
+            <p class={styles['service-hero-desc']}>{service.intro}</p>
+            <div class={styles['service-hero-actions']}>
+              <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+            </div>
+          </div>
+          <figure class={styles['service-hero-photo']}>
+            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+          </figure>
         </div>
       </div>
     </section>

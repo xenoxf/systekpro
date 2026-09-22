@@ -1,26 +1,297 @@
 .about-hero {
-  padding: 8rem 0 4rem;
-  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%);
+  padding: 7rem 0 3rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
 }
+
 .breadcrumb ol {
   display: flex;
   gap: 0.5rem;
   list-style: none;
   padding: 0;
-  margin-bottom: 2rem;
+  margin: 0 0 1.5rem;
   font-size: 0.875rem;
   color: hsl(var(--muted-foreground));
 }
 .breadcrumb li:not(:last-child)::after { content: '/'; margin-left: 0.5rem; }
 .breadcrumb a { color: hsl(var(--primary)); }
+.breadcrumb a:hover { text-decoration: underline; }
+
 .about-hero h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
-  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+  color: hsl(var(--foreground));
 }
+
 .about-hero-desc {
-  font-size: 1.25rem;
+  font-size: clamp(0.9375rem, 2.5vw, 1.125rem);
   color: hsl(var(--muted-foreground));
-  max-width: 600px;
+  max-width: 44rem;
   line-height: 1.6;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* === Secciones === */
+.nosotros-section {
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.5);
+}
+
+.nosotros-section:last-of-type {
+  border-bottom: none;
+}
+
+.section-title {
+  font-size: clamp(1.375rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+  color: hsl(var(--foreground));
+}
+
+.section-desc {
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  color: hsl(var(--muted-foreground));
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+  max-width: 44rem;
+  text-wrap: pretty;
+}
+
+/* === Quiénes somos === */
+.quienes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 860px) {
+  .quienes-grid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.quienes-text p {
+  margin: 0 0 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: hsl(var(--muted-foreground));
+  text-wrap: pretty;
+}
+
+.quienes-text p strong {
+  color: hsl(var(--foreground));
+}
+
+.quienes-facts {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  border-top: 1px solid hsl(var(--border) / 0.6);
+}
+
+.quienes-facts > div {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1rem;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
+  font-size: 0.875rem;
+}
+
+.quienes-facts dt {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.quienes-facts dd {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+}
+
+.quienes-photo {
+  margin: 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: hsl(var(--muted) / 0.3);
+}
+
+.quienes-photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.quienes-photo figcaption {
+  padding: 0.625rem 0.875rem;
+  font-size: 0.8125rem;
+  color: hsl(var(--muted-foreground));
+  border-top: 1px solid hsl(var(--border) / 0.6);
+}
+
+/* === Organigrama === */
+.org-figure {
+  margin: 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: hsl(var(--muted) / 0.3);
+}
+
+.org-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* === Departamentos === */
+.depts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .depts-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.dept-card {
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  background: hsl(var(--card));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dept-photo {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  background: hsl(var(--muted) / 0.4);
+}
+
+.dept-body {
+  padding: 1rem 1.125rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.dept-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: hsl(var(--foreground));
+}
+
+.dept-focus {
+  margin: 0;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.55;
+}
+
+.dept-list {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dept-list li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: hsl(var(--muted-foreground));
+}
+
+.dept-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: hsl(var(--border));
+}
+
+/* === Datos === */
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid hsl(var(--border) / 0.6);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .data-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2.5rem;
+  }
+}
+
+.data-row {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
+  font-size: 0.875rem;
+}
+
+.data-row dt {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.data-row dd {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+}
+
+.data-row dd a {
+  color: hsl(var(--primary));
+}
+
+.data-row dd a:hover {
+  text-decoration: underline;
+}
+
+/* === CTA === */
+.nosotros-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .quienes-facts > div,
+  .data-row {
+    grid-template-columns: 1fr;
+    gap: 0.125rem;
+  }
+
+  .dept-photo {
+    height: 140px;
+  }
 }

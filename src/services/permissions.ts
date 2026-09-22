@@ -1,6 +1,6 @@
 import type { AuthRole, AuthUser } from "./auth"
 
-export type PanelSection = "fichas" | "ordenes" | "usuarios" | "departamentos" | "clientes" | "empleados" | "leads"
+export type PanelSection = "fichas" | "ordenes" | "usuarios" | "departamentos" | "clientes" | "empleados" | "leads" | "basedatos"
 
 export const ADMIN_ROLE: AuthRole = "admin"
 export const GERENTE_ROLE: AuthRole = "gerente"
@@ -35,6 +35,7 @@ export function canAccessSection(
   section: PanelSection,
 ): boolean {
   if (section === "usuarios") return isAdmin(user)
+  if (section === "basedatos") return true
   if (section === "departamentos" || section === "empleados") return isAdminOrGerente(user)
   if (section === "leads") return isAdminOrGerenteOrMarketing(user)
   // fichas, ordenes, clientes -> admin, gerente, mantenimiento. Marketing solo ve leads.

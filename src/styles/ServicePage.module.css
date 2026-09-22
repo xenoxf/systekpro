@@ -37,6 +37,31 @@
   gap: 1rem;
   flex-wrap: wrap;
 }
+.service-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .service-hero-grid {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}
+.service-hero-photo {
+  margin: 0;
+  border: 1px solid hsl(var(--border) / 0.6);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: hsl(var(--muted) / 0.3);
+}
+.service-hero-photo img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
 .service-content {
   padding: 4rem 0;
 }

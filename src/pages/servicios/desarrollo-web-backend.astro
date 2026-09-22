@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import styles from '@/styles/ServicePage.module.css';
+
+const service = {
+  name: 'Desarrollo y mantenimiento de sitios web con backend',
+  slug: 'desarrollo-web-backend',
+  description: 'Desarrollo y mantenimiento de páginas web en Cali: diseño, backend, bases de datos, formularios, panel administrable y despliegue.',
+  h1: 'Desarrollo y mantenimiento web con backend en Cali',
+  image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=1200&q=80&auto=format&fit=crop',
+  imageAlt: 'Desarrollo de página web en computador',
+  intro: 'Páginas que cargan rápido y se pueden mantener: diseño, backend con base de datos, formularios que llegan y panel para editar contenido.',
+  benefits: [
+    { title: 'Sitio a medida', desc: 'Diseño según tu negocio, no plantilla genérica. Textos claros, fotos reales y estructura para que te contacten.' },
+    { title: 'Backend y base de datos', desc: 'Formularios, registros, catálogos y panel administrable. API y base de datos incluidas cuando el proyecto lo necesita.' },
+    { title: 'Despliegue y dominio', desc: 'Publicación, certificado de seguridad, correo corporativo y conexión con WhatsApp y redes.' },
+    { title: 'Mantenimiento mensual', desc: 'Actualizaciones, copias de seguridad, ajustes de contenido y monitoreo. Tu web no se queda abandonada.' },
+  ],
+  faq: [
+    { q: '¿En cuánto tiempo está lista?', a: 'Una página institucional toma de 2 a 4 semanas según contenido. Proyectos con backend se cotizan por alcance y entregas parciales.' },
+    { q: '¿Puedo editar el contenido yo?', a: 'Sí. Entregamos panel administrable y una sesión de capacitación para que edites textos, fotos y productos.' },
+    { q: '¿Qué incluye el mantenimiento?', a: 'Actualizaciones, copias de seguridad, cambios menores de contenido y revisión de formularios y seguridad cada mes.' },
+  ],
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": service.name,
+  "description": service.description,
+  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "areaServed": { "@type": "City", "name": "Cali" },
+  "serviceType": "Desarrollo y mantenimiento web"
+};
+---
+
+<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <main id="main" tabindex="-1">
+    <section class={styles['service-page-hero']}>
+      <div class="container">
+        <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
+          <ol><li><a href="/">Inicio</a></li><li><a href="/#servicios">Servicios</a></li><li aria-current="page">{service.name}</li></ol>
+        </nav>
+        <div class={styles['service-hero-grid']}>
+          <div>
+            <h1>{service.h1}</h1>
+            <p class={styles['service-hero-desc']}>{service.intro}</p>
+            <div class={styles['service-hero-actions']}>
+              <a href="/#contacto" class="btn-primary">Cotizar mi página</a>
+              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+            </div>
+          </div>
+          <figure class={styles['service-hero-photo']}>
+            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+    <section class={styles['service-content']}>
+      <div class="container">
+        <h2>¿Qué incluye?</h2>
+        <div class={styles['service-benefits-grid']}>
+          {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
+        </div>
+      </div>
+    </section>
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Preguntas frecuentes</h2>
+        {service.faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </section>
+    <section class={styles['service-cta']}>
+      <div class="container">
+        <h2>¿Necesitás página web?</h2>
+        <p>Cuéntanos qué vendes o qué informas y te pasamos propuesta con precio cerrado.</p>
+        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,102 +1,179 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar';
-import { IconMapPin, IconUsers, IconHeadset, IconDeviceLaptop, IconAward, IconClock } from '@tabler/icons-react';
 import Footer from '@/components/Footer.astro';
-import styles from '@/styles/Nosotros.module.css';
-import aboutStyles from '@/styles/About.module.css';
 import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
+import styles from '@/styles/Nosotros.module.css';
+
+const departamentos = [
+  {
+    img: '/departamentos/gerencia.jpg',
+    name: 'Gerencia',
+    focus: 'Planea el trabajo, asigna responsables y responde por cada entrega.',
+    tasks: ['Plan de trabajo y prioridades por semana', 'Revisión de entregas antes de entregar al cliente', 'Decisiones de precios y garantías'],
+  },
+  {
+    img: '/departamentos/administracion.jpg',
+    name: 'Administración',
+    focus: 'Agenda, compras, contratos y cuentas claras.',
+    tasks: ['Agendamiento de visitas y soportes', 'Compras de materiales y control de inventario', 'Contratos, facturación y pagos'],
+  },
+  {
+    img: '/departamentos/redes.jpg',
+    name: 'Redes y cableado estructurado',
+    focus: 'Diseño e instalación de redes de datos y cableado CAT6/CAT6A.',
+    tasks: ['Planos, puntos de red y racks', 'Instalación y certificación de cableado', 'Configuración de routers y switches'],
+  },
+  {
+    img: '/departamentos/mantenimiento_pc.jpg',
+    name: 'Mantenimiento de equipos',
+    focus: 'Preventivo y correctivo de computadores e impresoras.',
+    tasks: ['Limpieza, pasta térmica y diagnóstico', 'Reparación de hardware y software', 'Optimización y respaldo de información'],
+  },
+  {
+    img: '/departamentos/desarrollo_web.jpg',
+    name: 'Desarrollo web y backend',
+    focus: 'Páginas web, backend, bases de datos y mantenimiento.',
+    tasks: ['Diseño y desarrollo de sitios', 'Formularios, API y panel administrable', 'Actualizaciones y copias de seguridad'],
+  },
+  {
+    img: '/departamentos/marketing.jpg',
+    name: 'Marketing y comercial',
+    focus: 'Cotizaciones, seguimiento a clientes y divulgación.',
+    tasks: ['Cotizaciones con precio cerrado', 'Seguimiento post-servicio', 'Material y canales de contacto'],
+  },
+  {
+    img: '/departamentos/capacitacion.jpg',
+    name: 'Capacitación',
+    focus: 'Formación interna del equipo y del cliente en cada entrega.',
+    tasks: ['Capacitación en uso de equipos y red', 'Manuales de entrega por proyecto', 'Entrenamiento interno del equipo'],
+  },
+];
 ---
 
 <Layout
-  title="Sobre Nosotros | Sistek Cali"
-  description="Sistek: técnicos de redes en Cali. Mantenimiento, instalación de redes y cableado estructurado."
+  title="Nosotros | Sistek Cali"
+  description="Sistek en Cali: organigrama y departamentos de gerencia, administración, redes, mantenimiento, desarrollo web, marketing y capacitación."
 >
+  <Navbar client:load />
   <main id="main" tabindex="-1">
     <section class={styles['about-hero']}>
       <div class="container">
         <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
           <ol>
             <li><a href="/">Inicio</a></li>
-            <li aria-current="page">Sobre nosotros</li>
+            <li aria-current="page">Nosotros</li>
           </ol>
         </nav>
-        <h1>Sobre Nosotros</h1>
-        <p class={styles['about-hero-desc']}>El equipo que instala tus redes en Cali.</p>
+        <h1>Nosotros</h1>
+        <p class={styles['about-hero-desc']}>
+          Sistek es un equipo de trabajo organizado por departamentos.
+          Instalamos redes, mantenemos equipos y desarrollamos páginas web
+          para empresas, colegios y negocios en Cali y el Valle del Cauca.
+        </p>
       </div>
     </section>
 
-    <section id="about" aria-labelledby="about-heading">
-      <div class={aboutStyles['about-bg']}></div>
+    <section class={styles['nosotros-section']} aria-labelledby="quienes-heading">
       <div class="container">
-        <div class={aboutStyles['about-grid']}>
-          <div class={aboutStyles['about-content']}>
-            <h2 id="about-heading" class={aboutStyles['about-title']}>
-              Técnicos de redes en Cali, Valle del Cauca
-            </h2>
-            <p class={aboutStyles['about-text']}>
-              <strong>Sistek</strong> somos un equipo caleño que instala, configura y mantiene redes empresariales, cableado estructurado y equipos de cómputo. No somos una franquicia ni un call center — somos los técnicos que hacen el trabajo.
+        <h2 id="quienes-heading" class={styles['section-title']}>Quiénes somos</h2>
+        <p class={styles['section-desc']}>
+          Un equipo caleño con roles definidos. Cada tarea tiene un responsable
+          y cada entrega pasa por revisión.
+        </p>
+        <div class={styles['quienes-grid']}>
+          <div class={styles['quienes-text']}>
+            <p>
+              <strong>Sistek</strong> instala, configura y mantiene redes empresariales,
+              cableado estructurado y equipos de cómputo. También desarrolla y mantiene
+              páginas web con servicios backend. Trabajamos en Cali y el área metropolitana.
             </p>
-            <p class={aboutStyles['about-text']}>
-              Trabajamos con empresas, colegios y negocios en Cali y el Valle del Cauca que necesitan infraestructura de red que funcione sin excusas. Cada proyecto es nuestro — no lo subcontratamos.
+            <p>
+              La visita la hace personal de Sistek
+              y el seguimiento de cada servicio queda registrado por departamento.
             </p>
-            <ul class={aboutStyles['about-grid-2x2']}>
-              <li class={aboutStyles['about-feature']}>
-                <IconMapPin className={`${aboutStyles['about-feature-icon']} ${aboutStyles.primary}`} aria-hidden="true" />
-                <div>
-                  <div class={aboutStyles['about-feature-title']}>Cali, Valle del Cauca</div>
-                  <div class={aboutStyles['about-feature-desc']}>Visitamos toda la ciudad y área metropolitana</div>
-                </div>
-              </li>
-              <li class={aboutStyles['about-feature']}>
-                <IconUsers className={`${aboutStyles['about-feature-icon']} ${aboutStyles.accent}`} aria-hidden="true" />
-                <div>
-                  <div class={aboutStyles['about-feature-title']}>Sin intermediarios</div>
-                  <div class={aboutStyles['about-feature-desc']}>Hablas directo con el técnico que hizo el trabajo</div>
-                </div>
-              </li>
-              <li class={aboutStyles['about-feature']}>
-                <IconHeadset className={`${aboutStyles['about-feature-icon']} ${aboutStyles.primary}`} aria-hidden="true" />
-                <div>
-                  <div class={aboutStyles['about-feature-title']}>Después de la instalación</div>
-                  <div class={aboutStyles['about-feature-desc']}>Seguimos disponibles si algo falla o necesitás ajustes</div>
-                </div>
-              </li>
-              <li class={aboutStyles['about-feature']}>
-                <IconDeviceLaptop className={`${aboutStyles['about-feature-icon']} ${aboutStyles.accent}`} aria-hidden="true" />
-                <div>
-                  <div class={aboutStyles['about-feature-title']}>Certificaciones reales</div>
-                  <div class={aboutStyles['about-feature-desc']}>Equipo capacitado en las marcas que instalamos</div>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div class={aboutStyles['about-visual']}>
-            <div class={aboutStyles['about-visual-box']}>
-              <div class={aboutStyles['about-visual-grid']}>
-                {[1,2,3,4,5,6,7,8,9,10,11,12].map(i => (
-                  <div class={aboutStyles['about-visual-cell']}>
-                    <IconDeviceLaptop aria-hidden="true" />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div class={aboutStyles['about-floating-card']}>
-              <div class={aboutStyles['about-floating-icon']}>
-                <IconMapPin aria-hidden="true" />
+            <dl class={styles['quienes-facts']}>
+              <div>
+                <dt>Ciudad</dt>
+                <dd>Cali, Valle del Cauca</dd>
               </div>
               <div>
-                <div class={aboutStyles['about-floating-title']}>Ubicados en Cali</div>
-                <div class={aboutStyles['about-floating-sub']}>Valle del Cauca, Colombia</div>
+                <dt>Cobertura</dt>
+                <dd>Cali y área metropolitana, presencial y remoto</dd>
               </div>
-            </div>
+              <div>
+                <dt>Clientes</dt>
+                <dd>Empresas, colegios y negocios</dd>
+              </div>
+              <div>
+                <dt>Contacto</dt>
+                <dd>WhatsApp 317 500 0509 · Calle 41, Cra 31 #00</dd>
+              </div>
+            </dl>
           </div>
+          <figure class={styles['quienes-photo']}>
+            <img src="/departamentos/todos_departamentos.jpg" alt="Equipo completo de Sistek por departamentos" loading="lazy" decoding="async" />
+            <figcaption>Equipo Sistek: todos los departamentos.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class={styles['nosotros-section']} aria-labelledby="org-heading">
+      <div class="container">
+        <h2 id="org-heading" class={styles['section-title']}>Organigrama</h2>
+        <p class={styles['section-desc']}>
+          Estructura de la empresa. Gerencia dirige; coordinación técnica
+          agrupa las áreas que instalan y desarrollan.
+        </p>
+        <figure class={styles['org-figure']}>
+          <img src="/info/organigrama.jpg" alt="Organigrama de Sistek: gerencia, administración, coordinación técnica, marketing y capacitación" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class={styles['nosotros-section']} aria-labelledby="dept-heading">
+      <div class="container">
+        <h2 id="dept-heading" class={styles['section-title']}>Departamentos</h2>
+        <p class={styles['section-desc']}>
+          Cada departamento tiene una foto, una función principal
+          y tres tareas concretas de las que responde.
+        </p>
+        <ul class={styles['depts-grid']}>
+          {departamentos.map(d => (
+            <li class={styles['dept-card']}>
+              <img src={d.img} alt={`Departamento de ${d.name.toLowerCase()}`} class={styles['dept-photo']} loading="lazy" decoding="async" />
+              <div class={styles['dept-body']}>
+                <h3 class={styles['dept-name']}>{d.name}</h3>
+                <p class={styles['dept-focus']}>{d.focus}</p>
+                <ul class={styles['dept-list']}>
+                  {d.tasks.map(t => (<li>{t}</li>))}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class={styles['nosotros-section']} aria-labelledby="datos-heading">
+      <div class="container">
+        <h2 id="datos-heading" class={styles['section-title']}>Datos de la empresa</h2>
+        <p class={styles['section-desc']}>Información básica para ubicarnos y contactarnos.</p>
+        <dl class={styles['data-grid']}>
+          <div class={styles['data-row']}><dt>Razón social</dt><dd>Sistek Pro</dd></div>
+          <div class={styles['data-row']}><dt>Ciudad</dt><dd>Cali, Valle del Cauca, Colombia</dd></div>
+          <div class={styles['data-row']}><dt>Dirección</dt><dd>Calle 41, Cra 31 #00, Cali</dd></div>
+          <div class={styles['data-row']}><dt>WhatsApp</dt><dd><a href="https://wa.me/573175000509" target="_blank" rel="noopener noreferrer">317 500 0509</a></dd></div>
+          <div class={styles['data-row']}><dt>Servicios</dt><dd><a href="/#servicios">Ver los 9 servicios</a></dd></div>
+        </dl>
+        <div class={styles['nosotros-cta']}>
+          <a href="/#servicios" class="btn-primary">Ver servicios</a>
+          <a href="/#contacto" class="btn-secondary">Solicitar cotización</a>
         </div>
       </div>
     </section>
   </main>
+  <Footer />
   <WhatsAppFloat />
 </Layout>
-
-

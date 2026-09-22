@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: '¿Con qué marcas trabajan?',
-    a: 'Cisco, MikroTik, Ubiquiti, TP-Link y otras. Recomendamos la que mejor se ajuste a tu presupuesto y necesidades, no la que nos dé más comisión.'
+    a: 'Cisco, MikroTik, Ubiquiti, TP-Link y otras. Recomendamos la que mejor se ajuste a tu presupuesto y necesidades.'
   },
   {
     q: '¿Tienen garantía?',
