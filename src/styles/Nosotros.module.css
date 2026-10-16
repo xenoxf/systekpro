@@ -180,8 +180,9 @@
 
 .dept-photo {
   width: 100%;
-  height: 160px;
-  object-fit: cover;
+  height: auto;          /* No limitar la altura */
+  aspect-ratio: auto;
+  object-fit: contain;   /* Mostrar la imagen completa */
   display: block;
   background: hsl(var(--muted) / 0.4);
 }
