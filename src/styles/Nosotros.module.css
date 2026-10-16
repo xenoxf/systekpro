@@ -177,14 +177,19 @@
   display: flex;
   flex-direction: column;
 }
-
 .dept-photo {
   width: 100%;
-  height: auto;          /* No limitar la altura */
-  aspect-ratio: auto;
-  object-fit: contain;   /* Mostrar la imagen completa */
+  height: 160px;
+  object-fit: cover;
+  object-position: top;
   display: block;
   background: hsl(var(--muted) / 0.4);
+}
+
+@media (max-width: 480px) {
+  .dept-photo {
+    height: 140px;
+  }
 }
 
 .dept-body {
