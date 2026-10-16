@@ -1,0 +1,183 @@
+---
+
+import Layout from '../../layouts/Layout.astro';
+import styles from '@/styles/ServicePage.module.css';
+
+const service = {
+name: 'Ensamblaje de Computadores Personalizados',
+slug: 'ensamblaje-computadores',
+description: 'Ensamblaje de computadores personalizados en Cali según tu presupuesto y necesidades. Configuramos equipos para gaming, estudio, trabajo, programación, diseño y uso profesional.',
+keywords: 'ensamblaje computadores cali, computadores personalizados cali, armar pc gamer cali, ensamblaje pc a medida, computadores por presupuesto, componentes pc cali',
+h1: 'Armamos el Computador que Necesitas en Cali',
+image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1200&q=80&auto=format&fit=crop',
+imageAlt: 'Computador de escritorio personalizado con sus componentes y periféricos',
+intro: 'Tú eliges lo que quieres hacer y cuánto quieres invertir. Nosotros te ayudamos a elegir los componentes y armamos un computador a tu medida, buscando el mejor equilibrio entre rendimiento, calidad y presupuesto.',
+benefits: [
+{
+title: 'Configuración a tu presupuesto',
+desc: 'Definimos una configuración acorde con tu presupuesto, priorizando los componentes que realmente necesitas y evitando gastos innecesarios.'
+},
+{
+title: 'Computadores para gaming',
+desc: 'Configuramos equipos para videojuegos según la resolución, los FPS y los títulos que quieras disfrutar. Evaluamos procesador, tarjeta gráfica, memoria RAM y refrigeración.'
+},
+{
+title: 'Equipos para trabajo y estudio',
+desc: 'Armamos computadores para ofimática, clases, programación, multitarea y uso profesional, con un rendimiento adecuado para tus actividades.'
+},
+{
+title: 'Diseño y aplicaciones exigentes',
+desc: 'Seleccionamos componentes para edición de video, diseño gráfico, modelado 3D y otras cargas de trabajo que requieren mayor capacidad de procesamiento.'
+},
+{
+title: 'Selección compatible de componentes',
+desc: 'Verificamos la compatibilidad entre procesador, placa madre, memoria RAM, tarjeta gráfica, almacenamiento, fuente de poder y gabinete.'
+},
+{
+title: 'Ensamblaje y puesta a punto',
+desc: 'Montamos los componentes, organizamos el cableado y revisamos el funcionamiento del equipo. Podemos orientarte sobre el sistema operativo y los programas que necesitas.'
+}
+],
+faq: [
+{
+q: '¿Puedo armar un computador con el presupuesto que tengo?',
+a: 'Sí. Nos indicas cuánto quieres invertir y para qué necesitas el equipo. Te proponemos una configuración acorde con tus prioridades y te explicamos dónde conviene invertir más.'
+},
+{
+q: '¿Puedo elegir los componentes?',
+a: 'Sí. Podemos trabajar a partir de los componentes que prefieras o recomendarte una configuración completa. Antes de ensamblar, revisamos su compatibilidad.'
+},
+{
+q: '¿Arman computadores para gaming?',
+a: 'Sí. Diseñamos configuraciones para videojuegos de acuerdo con los títulos que juegas, la resolución deseada y tu presupuesto.'
+},
+{
+q: '¿También arman computadores para estudiar, trabajar o programar?',
+a: 'Sí. Adaptamos la configuración a actividades como programación, ofimática, edición, diseño y multitarea. No necesitas comprar una tarjeta gráfica dedicada si tus tareas no la requieren.'
+},
+{
+q: '¿El precio incluye los componentes?',
+a: 'La cotización debe especificar por separado o de forma clara el costo de los componentes, el ensamblaje y cualquier servicio adicional. El valor final depende de la configuración elegida.'
+},
+{
+q: '¿Puedo reutilizar componentes de mi computador anterior?',
+a: 'Podemos revisar los componentes que ya tienes para determinar cuáles son compatibles, cuáles vale la pena conservar y cuáles conviene actualizar.'
+},
+{
+q: '¿Ofrecen garantía?',
+a: 'Las condiciones de garantía de los componentes y del ensamblaje deben quedar claras en la cotización. Te informaremos qué cobertura corresponde a cada elemento antes de confirmar el servicio.'
+}
+],
+};
+
+const jsonLd = {
+"@context": "https://schema.org",
+"@type": "Service",
+"name": service.name,
+"description": service.description,
+"provider": {
+"@type": "LocalBusiness",
+"name": "Sistek",
+"address": {
+"@type": "PostalAddress",
+"addressLocality": "Cali",
+"addressRegion": "Valle del Cauca",
+"addressCountry": "CO"
+}
+},
+"areaServed": {
+"@type": "City",
+"name": "Cali"
+},
+"serviceType": "Ensamblaje y configuración de computadores personalizados",
+"category": "Servicios de tecnología"
+};
+
+<Layout
+title={"${service.h1} | Sistek Cali"}
+description={service.description}
+
+«»
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <main id="main" tabindex="-1">
+    <section class={styles['service-page-hero']}>
+      <div class="container">
+        <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
+          <ol>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/#servicios">Servicios</a></li>
+            <li aria-current="page">{service.name}</li>
+          </ol>
+        </nav>
+
+        <div class={styles['service-hero-grid']}>
+          <div>
+            <h1>{service.h1}</h1>
+            <p class={styles['service-hero-desc']}>{service.intro}</p>
+
+            <div class={styles['service-hero-actions']}>
+              <a href="/#contacto" class="btn-primary">Cotizar mi computador</a>
+              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+            </div>
+          </div>
+
+          <figure class={styles['service-hero-photo']}>
+            <img
+              src={service.image}
+              alt={service.imageAlt}
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class={styles['service-content']}>
+      <div class="container">
+        <h2>Un computador diseñado para lo que necesitas</h2>
+        <p>
+          No todos necesitan el mismo computador. La mejor configuración depende
+          de tus programas, juegos, objetivos y presupuesto. Nuestro propósito es
+          ayudarte a invertir en los componentes adecuados para tu caso.
+        </p>
+
+        <div class={styles['service-benefits-grid']}>
+          {service.benefits.map(b => (
+            <article class={styles['service-benefit-card']}>
+              <h3>{b.title}</h3>
+              <p>{b.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Preguntas frecuentes sobre computadores personalizados</h2>
+
+        {service.faq.map(f => (
+          <details class={styles['faq-details']}>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class={styles['service-cta']}>
+      <div class="container">
+        <h2>Cuéntanos qué computador quieres armar</h2>
+        <p>
+          Dinos tu presupuesto, para qué vas a utilizar el equipo y qué rendimiento
+          esperas. Te ayudaremos a encontrar una configuración que se ajuste a ti.
+        </p>
+        <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+      </div>
+    </section>
+  </main>
+</Layout>
