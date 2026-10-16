@@ -75,6 +75,20 @@ export const services: Service[] = [
     ctaText: 'Ver servicio',
     ctaLink: '/servicios/desarrollo-web-backend',
   },
+
+  {
+    id: 10,
+    title: 'Ensamblaje de computadores personalizados',
+    description: 'Armamos el computador que necesitas según tu presupuesto y objetivos. Seleccionamos los componentes adecuados para gaming, trabajo, estudio, diseño, programación y otras tareas, buscando el mejor equilibrio entre rendimiento, calidad y precio. Te asesoramos en la elección de cada componente y realizamos el ensamblaje del equipo.',
+    shortDescription: 'Computadores a medida según tu presupuesto, necesidades y rendimiento esperado.',
+    image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=900&q=80&auto=format&fit=crop',
+    icon: 'IconCpu',
+    gradient: 'linear-gradient(135deg, hsl(262 83% 58% / 0.9) 0%, hsl(217 91% 60% / 0.7) 100%)',
+    glowColor: 'hsl(262 83% 58%)',
+    ctaText: 'Cotizar computador',
+    ctaLink: '/servicios/ensamblaje-computadores',
+  },
+
 ];
 
 export const getServicesForCarousel = (): Service[] => {
