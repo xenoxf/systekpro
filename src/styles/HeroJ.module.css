@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 6rem 0 3rem;
+  padding: 0 0 3rem;
   box-sizing: border-box;
 }
 
@@ -70,13 +70,23 @@
 }
 
 @keyframes hero-scroll-a {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes hero-scroll-b {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .hero-shot {
@@ -275,6 +285,7 @@
 
 /* Movimiento reducido y modo accesible: detener carrusel */
 @media (prefers-reduced-motion: reduce) {
+
   .hero-track--a,
   .hero-track--b {
     animation: none;
