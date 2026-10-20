@@ -5,13 +5,14 @@ import {
   IconUsers,
   IconTool,
   IconLogout,
-  IconShieldCheck,
   IconMenu2,
   IconBuilding,
   IconUsersGroup,
   IconBriefcase,
   IconInbox,
   IconDatabase,
+  IconSun,
+  IconMoon,
 } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
 import { canAccessSection, getDefaultSection, type PanelSection } from "@/services/permissions"
@@ -116,6 +117,24 @@ export default function SistemaApp() {
   const [view, setView] = useState<PanelSection>("fichas")
   const [checking, setChecking] = useState(true)
   const [navOpen, setNavOpen] = useState(false)
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains("dark"))
+  }, [])
+
+  const toggleTheme = useCallback(() => {
+    const next = !isDark
+    setIsDark(next)
+    document.documentElement.classList.toggle("dark", next)
+    try {
+      localStorage.setItem("theme", next ? "dark" : "light")
+    } catch {
+      /* noop */
+    }
+    // el toggle de la landing escucha este evento (detail = isLight)
+    window.dispatchEvent(new CustomEvent("theme-change", { detail: !next }))
+  }, [isDark])
 
   useEffect(() => {
     const session = getSession()
@@ -209,12 +228,10 @@ export default function SistemaApp() {
 
       <aside className={`${styles['sys-sidebar']} ${navOpen ? styles['is-open'] : ""}`} aria-label="Panel de navegación">
         <div className={styles['sys-brand']}>
-          <span className={styles['sys-brand-logo']} aria-hidden="true">
-            <IconShieldCheck size={18} />
-          </span>
-          <div>
-            <span>Sistema de gestión</span>
-          </div>
+          <a href="/" aria-label="Sistek - Inicio" style={{ display: 'inline-flex' }}>
+            <img src="/logo.png" alt="Sistek logo" className={styles['sys-brand-logo-light']} />
+            <img src="/logo_white.png" alt="Sistek logo" className={styles['sys-brand-logo-dark']} />
+          </a>
         </div>
 
         <nav className={styles['sys-nav']} role="tablist" aria-label="Secciones del panel">
@@ -277,7 +294,7 @@ export default function SistemaApp() {
             </button>
           )}
 
-          <p className={styles['sys-nav-label']} aria-hidden="true" style={{ marginTop: "0.875rem" }}>Organización</p>
+          <p className={styles['sys-nav-label']} aria-hidden="true">Organización</p>
           {canAccessSection(user, "departamentos") && (
             <button
               type="button"
@@ -321,7 +338,7 @@ export default function SistemaApp() {
 
           {canAccessSection(user, "usuarios") && (
             <>
-              <p className={styles['sys-nav-label']} aria-hidden="true" style={{ marginTop: "0.875rem" }}>Administración</p>
+              <p className={styles['sys-nav-label']} aria-hidden="true">Administración</p>
               <button
                 type="button"
                 id="tab-usuarios"
@@ -341,27 +358,12 @@ export default function SistemaApp() {
         <div className={styles['sys-sidebar-footer']}>
           <div className={styles['sys-user']}>
             <div className={styles['sys-user-info']} title={user?.name}>
-              <span
-                aria-hidden="true"
-                style={{
-                  width: "1.75rem",
-                  height: "1.75rem",
-                  borderRadius: "999px",
-                  display: "grid",
-                  placeItems: "center",
-                  background: "hsl(var(--primary) / 0.12)",
-                  color: "hsl(var(--primary))",
-                  fontSize: "0.6875rem",
-                  fontWeight: 700,
-                  flexShrink: 0,
-                  border: "1px solid hsl(var(--primary) / 0.15)",
-                }}
-              >
+              <span className={styles['sys-user-avatar']} aria-hidden="true">
                 {user?.name?.slice(0, 2).toUpperCase() ?? "US"}
               </span>
               <strong>{user?.name}</strong>
             </div>
-            <button type="button" className={`${styles['sys-btn']} ${styles['sys-btn--ghost']}`} onClick={handleLogout} style={{ minHeight: "32px", padding: "0 0.625rem", fontSize: "0.75rem", borderRadius: "999px" }}>
+            <button type="button" className={styles['sys-logout-btn']} onClick={handleLogout}>
               <IconLogout size={14} aria-hidden="true" />
               Salir
             </button>
@@ -381,6 +383,17 @@ export default function SistemaApp() {
               aria-controls="sys-sidebar"
             >
               <IconMenu2 size={20} aria-hidden="true" />
+            </button>
+          </div>
+          <div className={styles['sys-topbar-actions']}>
+            <button
+              type="button"
+              className={styles['sys-theme-btn']}
+              onClick={toggleTheme}
+              aria-label={isDark ? "Activar modo claro" : "Activar modo oscuro"}
+              aria-pressed={isDark}
+            >
+              {isDark ? <IconSun size={18} aria-hidden="true" /> : <IconMoon size={18} aria-hidden="true" />}
             </button>
           </div>
         </header>
