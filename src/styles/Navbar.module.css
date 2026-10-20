@@ -1,15 +1,25 @@
-#navbar {
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
+:global(#navbar) {
+  position: fixed;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(100% - 1.5rem), 1140px);
   z-index: 50;
-  background: hsl(var(--background));
-  border-bottom: 1px solid hsl(var(--border) / 0.5);
+  background: hsl(var(--background) / 0.5);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid hsl(var(--border) / 0.4);
+  border-radius: clamp(1rem, 2vw, 1.5rem);
+  box-shadow: 0 8px 32px -8px hsl(var(--foreground) / 0.12);
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-#navbar.scrolled {
-  border-bottom: 1px solid hsl(var(--border));
+:global(#navbar).scrolled {
+  background: hsl(var(--background) / 0.75);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-color: hsl(var(--border) / 0.7);
+  box-shadow: 0 12px 40px -8px hsl(var(--foreground) / 0.2);
 }
 
 .nav-container {
@@ -40,12 +50,23 @@
   flex-shrink: 0;
 }
 
-.logo-light { display: block; }
-.logo-dark { display: none; }
-:global(.dark) .logo-light { display: none; }
-:global(.dark) .logo-dark { display: block; }
+.logo-light {
+  display: block;
+}
 
-.logo  {
+.logo-dark {
+  display: none;
+}
+
+:global(.dark) .logo-light {
+  display: none;
+}
+
+:global(.dark) .logo-dark {
+  display: block;
+}
+
+.logo {
   max-width: 140px;
   width: auto;
   height: auto;
@@ -193,7 +214,7 @@
 .mobile-menu-overlay {
   position: fixed;
   inset: 0;
-  top: 3.5rem;
+  top: calc(0.75rem + clamp(3.5rem, 6vw, 4rem) + 1.25rem);
   background: rgba(0, 0, 0, 0.3);
   z-index: 40;
   opacity: 0;
@@ -208,7 +229,7 @@
 
 .mobile-menu {
   position: fixed;
-  top: 3.5rem;
+  top: calc(0.75rem + clamp(3.5rem, 6vw, 4rem) + 1.25rem);
   left: 0;
   right: 0;
   bottom: 0;
@@ -220,6 +241,7 @@
   transform: translateY(-100%);
   opacity: 0;
   border: none;
+  border-radius: 0 0 clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem);
   visibility: hidden;
   z-index: 45;
   transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
