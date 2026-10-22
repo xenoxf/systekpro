@@ -1,26 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import styles from '@/styles/ServicePage.module.css';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 
 const service = {
   name: 'Diseño y mantenimiento de redes de datos',
-  slug: 'diseno-mantenimiento-redes-datos',
-  description: 'Diseño, instalación y mantenimiento de redes de datos en Cali. Planos, direccionamiento, monitoreo y ampliaciones con documentación.',
   h1: 'Diseño y mantenimiento de redes de datos en Cali',
+  description: 'Diseño, instalación y mantenimiento de redes de datos en Cali. Planos, direccionamiento, monitoreo y ampliaciones con documentación.',
+  keywords: 'diseño redes de datos cali, mantenimiento redes, direccionamiento ip, planos de red, mantenimiento preventivo red',
   image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&auto=format&fit=crop',
-  imageAlt: 'Tarjeta electrónica de red de datos',
-  intro: 'Diseñamos tu red de datos para que crezca con tu empresa y la mantenemos para que no se caiga: plan, instalación y visitas programadas.',
-  benefits: [
-    { title: 'Diseño lógico y físico', desc: 'Planos de red, direccionamiento IP, VLANs y dimensionamiento de equipos según tu operación real.' },
-    { title: 'Instalación y puesta en marcha', desc: 'Montaje, configuración y pruebas de cada punto. Entrega con red funcionando y documentada.' },
-    { title: 'Mantenimiento programado', desc: 'Visitas periódicas, revisión de racks, limpieza, ajustes y reporte escrito de estado.' },
-    { title: 'Ampliación y monitoreo', desc: 'Agregamos puntos y equipos cuando creces. Detectamos fallas antes de que paren tu operación.' },
-  ],
-  faq: [
-    { q: '¿Entregan documentación de la red?', a: 'Sí. Plano de puntos, credenciales, inventario de equipos y recomendaciones. Sin eso no damos por cerrado el trabajo.' },
-    { q: '¿Cada cuánto es el mantenimiento?', a: 'Depende del tamaño de la red. Lo habitual es trimestral para oficinas y mensual para colegios o bodegas con alta carga.' },
-    { q: '¿Trabajan con redes existentes?', a: 'Sí. Auditamos lo que tienes, corregimos lo que falla y proponemos mejoras por escrito antes de tocar nada.' },
-  ],
+  imageAlt: 'Tarjeta de red y componentes de datos',
+  intro: 'Una red se diseña para el tamaño que va a tener y se mantiene para que ese diseño no se pierda en el camino. Podemos retomar tu red donde esté —ordenada o no—, dejarla documentada y volver cada cierto tiempo para que siga siendo igual de sana.',
+  waMsg: 'Hola Sistek, vengo de la página de Diseño y Mantenimiento de Redes de Datos. Quiero una auditoría de mi red.',
 };
 
 const jsonLd = {
@@ -32,6 +23,35 @@ const jsonLd = {
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Diseño y mantenimiento de redes de datos"
 };
+
+const pasos = [
+  { sub: 'Auditoría', text: 'Revisamos tu red tal como está hoy y te entregamos el plano real, no el del catálogo ideal. Puntos activos, equipos y riesgos por escrito.' },
+  { sub: 'Plan por fases', text: 'Se decide con qué se corrige, qué se migra y qué se amplía. Cada fase corre sin parar tu operación.' },
+  { sub: 'Ejecución', text: 'Montajes y ajustes con pruebas por punto y respaldo de configuración en cada equipo tocado.' },
+  { sub: 'Mantenimiento continuo', text: 'Visitas programadas: limpieza de racks, revisión de equipos y reporte de estado escrito. Se atiende la falla antes de que la notes.' },
+];
+
+const incluye = [
+  'Plano real de tu red: puntos, direccionamiento y equipos, en papel que se entiende',
+  'Direccionamiento IP y VLANs organizadas: encontrar una falla toma minutos',
+  'Mantenimiento programado con reporte escrito después de cada visita',
+  'Rutas y margen listos para crecer un piso o un área sin rehacer todo',
+];
+
+const evidencia = [
+  {
+    img: '/evidencias/redes_trabajando.jpg',
+    alt: 'Técnicas de Sistek revisando terminaciones de cable y canaleta en mantenimiento de red',
+    caption: 'Día de mantenimiento: terminaciones de cable revisadas y canaleta ordenada antes de pasar al rack.',
+  },
+];
+
+const faq = [
+  { q: '¿Reciben redes que dejó a medias otra empresa?', a: 'Es la mayoría de nuestros casos. Auditamos, estabilizamos lo crítico primero y ordenamos el resto por fases. No tocamos todo de golpe.' },
+  { q: '¿Cada cuánto conviene el mantenimiento?', a: 'Oficinas normales: cada tres meses. Colegios o bodegas con uso pesado de red: mensual. Te recomendamos según el uso real de tu operación.' },
+  { q: '¿Qué pasa entre visitas?', a: 'Atendemos incidentes por WhatsApp igual que hicimos siempre. Para alertas automáticas y monitoreo continuo se cotiza aparte, porque es otro alcance.' },
+  { q: '¿La documentación es para mí o para ustedes?', a: 'Para ti. Plano de puntos, credenciales e inventario quedan a tu nombre. Si mañana dejas de trabajar con nosotros, tú sigues siendo dueño de tu red.' },
+];
 ---
 
 <Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
@@ -47,9 +67,17 @@ const jsonLd = {
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+                <IconBrandWhatsapp aria-hidden="true" />
+                Pedir auditoría
+              </a>
               <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
             </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Primera auditoría con entrega escrita del estado de tu red</li>
+              <li>Ejecución en fases, sin frenar la operación</li>
+              <li>Documentación que queda en tus manos</li>
+            </ul>
           </div>
           <figure class={styles['service-hero-photo']}>
             <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
@@ -57,25 +85,67 @@ const jsonLd = {
         </div>
       </div>
     </section>
+
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>De la auditoría al mantenimiento de cada mes</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye?</h2>
+        <h2>¿Qué entra en el servicio?</h2>
         <div class={styles['service-benefits-grid']}>
-          {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
+          <ul class={styles['service-cases']}>
+            {incluye.map(item => <li>{item}</li>)}
+          </ul>
         </div>
       </div>
     </section>
-    <section class={styles['service-faq']}>
+
+    <section class={styles['service-proof']}>
       <div class="container">
-        <h2>Preguntas frecuentes</h2>
-        {service.faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        <h2>Trabajo de verdad, no fotos de banco de imágenes</h2>
+        <p class={styles['service-proof-desc']}>El mantenimiento no es un cliente que pagamos para olvidar: es volver, revisar terminaciones, limpiar el rack y dejar un reporte.</p>
+        <div class={styles['service-proof-grid']}>
+          {evidencia.map(e => (
+            <figure>
+              <img src={e.img} alt={e.alt} loading="lazy" decoding="async" />
+              <figcaption>{e.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </section>
+
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Lo más preguntado</h2>
+        {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </section>
+
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Tu red necesita orden?</h2>
-        <p>Visitamos, auditamos y te pasamos plan y precio cerrado antes de empezar.</p>
-        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+        <h2>¿Y si le echáramos un vistazo a tu red?</h2>
+        <p>Una auditoría te deja plano, hallazgos e ideas del orden a seguir. Sin cuota de entrada ni tecnicismos para justificar el cobro.</p>
+        <div class={styles['service-cta-actions']}>
+          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+            <IconBrandWhatsapp aria-hidden="true" />
+            Escribir por WhatsApp
+          </a>
+          <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
+        </div>
+        <p class={styles['service-cta-note']}>Atendemos Cali y el área metropolitana.</p>
       </div>
     </section>
   </main>

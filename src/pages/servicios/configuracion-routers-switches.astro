@@ -1,27 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import styles from '@/styles/ServicePage.module.css';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 
 const service = {
   name: 'Configuración de Routers y Switches',
-  slug: 'configuracion-routers-switches',
+  h1: 'Configuración de Routers y Switches en Cali',
   description: 'Configuración de routers, switches y access points en Cali. VLANs, QoS, seguridad y rendimiento.',
   keywords: 'configuración routers cali, configuración switches, VLANs, QoS, seguridad de red, MikroTik, Cisco, Ubiquiti',
-  h1: 'Configuración de Routers y Switches en Cali',
   image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Equipos de red y conectividad',
-  intro: 'Configuramos routers, switches y firewalls: VLANs, QoS y seguridad para que la red rinda.',
-  benefits: [
-    { title: 'Routers', desc: 'DHCP, NAT, port forwarding, DNS, firewall. Seguridad desde la configuración.' },
-    { title: 'VLANs', desc: 'Redes virtuales para separar tráfico. Seguridad y rendimiento.' },
-    { title: 'QoS', desc: 'Priorizá VoIP, videoconferencias y apps críticas. Sin buffering en reuniones.' },
-    { title: 'Seguridad', desc: 'Firewalls, filtrado de contenido, bloqueo de amenazas, políticas de acceso.' },
-  ],
-  faq: [
-    { q: '¿Con qué marcas trabajan?', a: 'MikroTik, Cisco, TP-Link, Ubiquiti, D-Link y más. También OpenWrt.' },
-    { q: '¿Pueden mejorar mi red actual?', a: 'Sí. Diagnosticamos y proponemos mejoras de configuración concretas.' },
-    { q: '¿Cuánto tarda?', a: 'Básica: 1-2 horas. Avanzada con VLANs y QoS: medio día.' },
-  ],
+  intro: 'Comprar un router bueno y usarlo de fábrica es como tener un carro de guerra para llevarlo al parque. Configuramos tu equipo para tu uso real: separar invitados y cámaras, priorizar tus reuniones, y que las direcciones IP dejen de pelearse entre sí.',
+  waMsg: 'Hola Sistek, vengo de la página de Configuración de Routers y Switches. Mi red anda lenta y quiero una revisión.',
 };
 
 const jsonLd = {
@@ -33,6 +23,35 @@ const jsonLd = {
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Configuración de routers y switches"
 };
+
+const casos = [
+  'El wifi llega débil en la segunda planta justo cuando estás en videollamada',
+  'Las cámaras de seguridad viven en la misma red que el computador de contabilidad',
+  'La red se cae y ya nadie recuerda qué cable se desconectó anoche',
+  'Nadie sabe la contraseña del router porque "se la sabía el técnico anterior"',
+  'La red de invitados que en realidad puede ver todo lo demás',
+];
+
+const pasos = [
+  { sub: 'Diagnóstico honesto', text: 'Revisamos tu router, switch y access points: zonas muertas, direcciones IP en conflicto, velocidad real y la seguridad que dejaste al azar.' },
+  { sub: 'Plan de ajustes', text: 'Te decimos qué se arregla con configuración y qué necesita hardware nuevo. Si con lo que tienes basta, se dice de frente.' },
+  { sub: 'Ajustes con respaldo', text: 'Antes de tocar nada se guarda una copia de la configuración. Si algo sale mejor con la versión previa, se restaura en minutos.' },
+  { sub: 'Pruebas y entrega', text: 'Medimos velocidad por zona, probamos las redes separadas y te entregamos credenciales propias con un documento claro.' },
+];
+
+const incluye = [
+  'Redes separadas: operativa, invitados y cámaras, cada cosa en su sitio',
+  'Prioridad para lo importante: reuniones, llamadas y tu sistema de facturación antes que las descargas',
+  'Copia de seguridad de la configuración, para restaurar rápido si algo se desconfigura',
+  'Documento con credenciales y explicación del rendimiento esperado',
+];
+
+const faq = [
+  { q: '¿Trabajan con mi marca?', a: 'MikroTik, Ubiquiti, Cisco, TP-Link, D-Link y más. Si tu equipo lo permite, se configura; si es el cuello de botella, te lo decimos con opciones.' },
+  { q: '¿Es en sitio o remoto?', a: 'En sitio: para diagnosticar bien hay que ver la red completa. Los ajustes finos se hacen ahí mismo y el seguimiento sigue por WhatsApp.' },
+  { q: '¿Puedes mejorar mi red sin cambiar equipos?', a: 'En una buena parte de los casos sí: separar redes, priorizar tráfico y organizar el direccionamiento rinde más que comprar un router nuevo y repetir los mismos errores.' },
+  { q: '¿Cuánto dura el proceso?', a: 'Un ajuste básico puede tomarse unas horas. Un trabajo con VLANs y QoS completo suele quedar en medio día. Tras la revisión te confirmamos.' },
+];
 ---
 
 <Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
@@ -48,9 +67,17 @@ const jsonLd = {
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+                <IconBrandWhatsapp aria-hidden="true" />
+                Revisar mi red
+              </a>
               <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
             </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Diagnóstico antes de cobrar nada</li>
+              <li>Copia de respaldo de tu configuración previa</li>
+              <li>Credenciales y documento final a tu nombre</li>
+            </ul>
           </div>
           <figure class={styles['service-hero-photo']}>
             <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
@@ -58,28 +85,63 @@ const jsonLd = {
         </div>
       </div>
     </section>
+
+    <section class={styles['service-cases-section']}>
+      <div class="container">
+        <h2>¿Te suena alguna de estas?</h2>
+        <p class={styles['service-cases-desc']}>Síntomas típicos de una red bien comprada y mal configurada. Si vives uno de estos, el problema casi nunca es el plan del operador:</p>
+        <ul class={styles['service-cases']}>
+          {casos.map(c => <li>{c}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>Cómo lo resolvemos</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye?</h2>
+        <h2>¿Qué entra en el servicio?</h2>
         <div class={styles['service-benefits-grid']}>
-          {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
+          <ul class={styles['service-cases']}>
+            {incluye.map(item => <li>{item}</li>)}
+          </ul>
         </div>
       </div>
     </section>
+
     <section class={styles['service-faq']}>
       <div class="container">
-        <h2>Preguntas frecuentes</h2>
-        {service.faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        <h2>Lo más preguntado</h2>
+        {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
       </div>
     </section>
+
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>Tu red no anda bien?</h2>
-        <p>La diagnosticamos y la dejamos funcionando.</p>
-        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+        <h2>Tu red merece más que la config de fábrica</h2>
+        <p>Cuéntanos cuántos equipos tienes y qué se siente lento. Hacemos la revisión y te decimos si el problema es configuración o hardware, sin rodeos.</p>
+        <div class={styles['service-cta-actions']}>
+          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+            <IconBrandWhatsapp aria-hidden="true" />
+            Escribir por WhatsApp
+          </a>
+          <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
+        </div>
+        <p class={styles['service-cta-note']}>Atendemos Cali y el área metropolitana.</p>
       </div>
     </section>
   </main>
 </Layout>
-
-

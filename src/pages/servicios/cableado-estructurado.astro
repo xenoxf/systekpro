@@ -1,27 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import styles from '@/styles/ServicePage.module.css';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 
 const service = {
   name: 'Cableado Estructurado',
-  slug: 'cableado-estructurado',
+  h1: 'Cableado Estructurado en Cali',
   description: 'Instalación de cableado estructurado CAT6 y CAT6A en Cali. Racks, patch panels, rostros y certificación.',
   keywords: 'cableado estructurado cali, instalación CAT6, cableado red empresarial, patch panels, racks de red, certificación cableado',
-  h1: 'Cableado Estructurado en Cali',
   image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Técnico instalando cableado estructurado',
-  intro: 'Cableado que funciona. CAT6/CAT6A, racks, patch panels — todo certificado con reporte.',
-  benefits: [
-    { title: 'CAT6 / CAT6A', desc: 'Cableado de alta categoría. Velocidades de hasta 10 Gbps para redes que no se queden cortas.' },
-    { title: 'Racks y patch panels', desc: 'Organización profesional. Centro de datos ordenado y mantenible.' },
-    { title: 'Rostros y outlets', desc: 'Puntos de red en cada área de trabajo. Acabados limpios.' },
-    { title: 'Certificación', desc: 'Pruebas con equipo profesional. Te entregamos el reporte de cada punto.' },
-  ],
-  faq: [
-    { q: '¿CAT6 o CAT6A?', a: 'CAT6: hasta 1 Gbps a 100m, 10 Gbps a 55m. CAT6A: 10 Gbps a 100m completos. Para nuevas instalaciones, recomendamos CAT6A.' },
-    { q: '¿Cuántos puntos puedo instalar?', a: 'No hay límite. Desde un punto hasta cientos en un edificio completo.' },
-    { q: '¿Entregan certificación?', a: 'Sí. Cada punto se prueba con equipo certificado y te damos el reporte.' },
-  ],
+  intro: 'El cable mal terminado de hoy es la avería misteriosa del año entrante. Instalamos CAT6/CAT6A como debe ser: canaleta profesional, rostros alineados, rack ordenado y cada punto medido con certificado. Cable que se instala una vez y no se vuelve a tocar.',
+  waMsg: 'Hola Sistek, vengo de la página de Cableado Estructurado. Quiero cotizar puntos de red.',
 };
 
 const jsonLd = {
@@ -33,6 +23,36 @@ const jsonLd = {
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Cableado estructurado"
 };
+
+const pasos = [
+  { sub: 'Censo de puntos', text: 'Contamos cada punto que vas a necesitar y revisamos las rutas: canaleta nueva o aprovechando lo que ya existe.' },
+  { sub: 'Precio por punto', text: 'Cotizamos punto por punto (cable, rostro, etiqueta, prueba) y materiales aparte si hacen falta. Total cerrado antes de comprar nada.' },
+  { sub: 'Montaje limpio', text: 'Canaleta con esquinas profesionales, rostros alineados y cables guiados hacia el rack. Acabado con el que no te da vergüenza el muro.' },
+  { sub: 'Certificación', text: 'Cada punto se mide y se certifica. Reporte por punto a tu nombre: si uno no pasa, se corrige antes de cobrar.' },
+];
+
+const incluye = [
+  'Cable CAT6/CAT6A profesional, nada de material de origen dudoso',
+  'Racks, patch panels y pigtails con gestión de cables real',
+  'Rostros y jack en cada puesto de trabajo, con etiquetado claro',
+  'Prueba y certificación de cada punto con reporte entregado',
+  'Rutas documentadas para sumar puntos después sin rehacer todo',
+];
+
+const evidencia = [
+  {
+    img: '/evidencias/redes_trabajando.jpg',
+    alt: 'Equipo de Sistek crimpando y ordenando cable de red en canaleta',
+    caption: 'Pigtails llegando a la canaleta: cada punto se termina, se prueba y se etiqueta antes de darlo por listo.',
+  },
+];
+
+const faq = [
+  { q: '¿CAT6 o CAT6A?', a: 'CAT6 llega a 10 Gbps hasta 55 metros; CAT6A a los 100 metros completos. Para instalaciones nuevas recomendamos CAT6A: la diferencia de precio hoy te evita recablear en cinco años.' },
+  { q: '¿Es posible sin reventar las paredes?', a: 'Sí. Cuando no quieres demoler nada, usamos canaleta exterior en superficie, bien puesta. En obra nueva se canaliza por cielo o pared según convenga.' },
+  { q: '¿Cuánto cuesta por punto?', a: 'Depende de la distancia, la ruta y la altura del sitio. Después del censo te damos el precio cerrado por punto; el total se sabe antes de empezar.' },
+  { q: '¿Sirven también para redes pequeñas?', a: 'Claro: un solo punto o cien. La misma disciplina: terminar bien, probar y etiquetar.' },
+];
 ---
 
 <Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
@@ -48,9 +68,17 @@ const jsonLd = {
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+                <IconBrandWhatsapp aria-hidden="true" />
+                Cotizar cableado
+              </a>
               <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
             </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Precio por punto, cerrado y por escrito en la cotización</li>
+              <li>Certificación de cada punto con reporte</li>
+              <li>Disponibilidad en Cali y área metropolitana</li>
+            </ul>
           </div>
           <figure class={styles['service-hero-photo']}>
             <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
@@ -58,28 +86,68 @@ const jsonLd = {
         </div>
       </div>
     </section>
+
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>Del censo al último jack</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye?</h2>
+        <h2>¿Qué entra en el servicio?</h2>
         <div class={styles['service-benefits-grid']}>
-          {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
+          <ul class={styles['service-cases']}>
+            {incluye.map(item => <li>{item}</li>)}
+          </ul>
         </div>
       </div>
     </section>
-    <section class={styles['service-faq']}>
+
+    <section class={styles['service-proof']}>
       <div class="container">
-        <h2>Preguntas frecuentes</h2>
-        {service.faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        <h2>Trabajo de verdad, no fotos de banco de imágenes</h2>
+        <p class={styles['service-proof-desc']}>El proveedor que entrega certificado por punto es el mismo que puede volver en dos años y entender su propio rack. Así trabajamos.</p>
+        <div class={styles['service-proof-grid']}>
+          {evidencia.map(e => (
+            <figure>
+              <img src={e.img} alt={e.alt} loading="lazy" decoding="async" />
+              <figcaption>{e.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </section>
+
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Lo más preguntado</h2>
+        {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </section>
+
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Necesitás cableado?</h2>
-        <p>Visita técnica sin costo. Te cotizamos detallado.</p>
-        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+        <h2>¿Cuántos puntos necesitas?</h2>
+        <p>Si no lo sabes exacto, tampoco pasa nada: contamos contigo en la visita y salimos con el número. Escríbenos y lo agilizamos.</p>
+        <div class={styles['service-cta-actions']}>
+          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+            <IconBrandWhatsapp aria-hidden="true" />
+            Cotizar por WhatsApp
+          </a>
+          <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
+        </div>
+        <p class={styles['service-cta-note']}>Atendemos Cali y el área metropolitana.</p>
       </div>
     </section>
   </main>
 </Layout>
-
-

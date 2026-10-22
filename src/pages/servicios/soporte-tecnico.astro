@@ -1,27 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import styles from '@/styles/ServicePage.module.css';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 
 const service = {
-  name: 'Soporte técnico para empresas y hogares',
-  slug: 'soporte-tecnico',
+  name: 'Soporte Técnico para empresas y hogares',
+  h1: 'Soporte Técnico en Cali',
   description: 'Soporte técnico en Cali. Presencial y remoto para empresas y hogares. Diagnóstico, reparación y mantenimiento de equipos.',
   keywords: 'soporte técnico cali, asistencia técnica computadores, soporte remoto, soporte presencial, técnico computadores, reparación PC domicilio',
-  h1: 'Soporte Técnico en Cali',
   image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Equipo brindando soporte técnico',
-  intro: 'Presencial en Cali o remoto. Diagnóstico, reparación y planes mensuales para empresas y hogares.',
-  benefits: [
-    { title: 'Presencial en Cali', desc: 'Visita técnica a tu ubicación. Diagnóstico in situ de hardware y software.' },
-    { title: 'Remoto inmediato', desc: 'Nos conectamos a tu equipo en minutos. Más rápido, sin costo de desplazamiento.' },
-    { title: 'Planes para empresas', desc: 'Mensual con atención prioritaria, visitas programadas y monitoreo preventivo.' },
-    { title: 'Urgencias', desc: 'Fallaron las redes a las 3pm y cierran a 6? Venimos. Minimizamos tu tiempo caído.' },
-  ],
-  faq: [
-    { q: '¿Qué tan rápido es el soporte remoto?', a: 'Nos contactás, nos conectamos y en minutos estamos diagnosticando. Sin desplazamiento.' },
-    { q: '¿Qué arreglan?', a: 'Software, virus, errores del sistema, impresoras, correos, configuración de redes — todo lo que un equipo de oficina necesita.' },
-    { q: '¿Tienen planes para empresas?', a: 'Sí. Planes mensuales con soporte ilimitado, visitas programadas y atención prioritaria.' },
-  ],
+  intro: 'El equipo se dañó en la mitad del día y hay trabajo por entregar: eso es nuestro territorio. Vamos a tu lugar o resolvemos por remoto, con precio claro antes de abrir nada y garantía por escrito del trabajo.',
+  waMsg: 'Hola Sistek, vengo de la página de Soporte Técnico. Necesito ayuda con un equipo.',
 };
 
 const jsonLd = {
@@ -33,6 +23,36 @@ const jsonLd = {
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Soporte técnico"
 };
+
+const casos = [
+  'El computador no arranca y ahí están las facturas del mes',
+  'La laptop se calienta hasta que se apaga sola a mediodía',
+  'Se perdieron archivos después de una actualización que "solo era para eso"',
+  'El equipo de recepción tarda minutos eternos en abrir el sistema',
+  'Alguien descargó "un programa" y ahora todo salta con ventanas',
+  'Se compró un equipo nuevo y falta pasarle los programas y la información del viejo',
+];
+
+const pasos = [
+  { sub: 'Cuéntanos el caso', text: 'Con lo mínimo: qué equipo, qué pasa y cuándo empezó. De ahí decidimos si vamos en sitio o se intenta por remoto primero.' },
+  { sub: 'Diagnóstico con precio', text: 'Antes de abrir nada sabemos qué pasa y se cotiza. Si hay repuesto, se cota aparte y solo se instala si tú apruebas.' },
+  { sub: 'Trabajo', text: 'Reparamos en el sitio si se puede. Si el equipo necesita taller, te decimos qué se lleva, en cuándo lo entregamos y por qué.' },
+  { sub: 'Prueba completa', text: 'Terminamos con el equipo encendido: tu sistema, tu correo y tus impresoras funcionando. Garantía del trabajo por escrito.' },
+];
+
+const incluye = [
+  'Diagnóstico y reparación de hardware: disco, RAM, fuente, ventiladores y placas',
+  'Sistemas operativos limpios, drivers, virus fuera y correo corporativo funcionando',
+  'Impresoras de red, escáneres y periféricos conectados y configurados',
+  'Respaldo de tu información antes de tocar nada',
+];
+
+const faq = [
+  { q: '¿Los visitan en mi oficina o hay que llevar el equipo?', a: 'En Cali y área metropolitana vamos hasta allá. Si el arreglo necesita taller, lo coordinamos contigo con fecha de entrega clara.' },
+  { q: '¿Puedo saber el precio antes?', a: 'Sí. El diagnóstico se cotiza primero; si hay repuestos, se cotizan aparte y se instala solo cuando tú apruebas el total.' },
+  { q: '¿Y si el arreglo no vale la pena?', a: 'Te lo decimos sin rodeos. Preferimos perder un trabajo a venderte una reparación desperdiciada; si conviene un equipo nuevo, te orientamos con el presupuesto que tengas.' },
+  { q: '¿Qué pasa con mis datos?', a: 'Se respaldan antes de intervenir. Si el disco está fallando, te lo decimos con anticipación antes de intentar el rescate de la información.' },
+];
 ---
 
 <Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
@@ -48,9 +68,17 @@ const jsonLd = {
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+                <IconBrandWhatsapp aria-hidden="true" />
+                Pedir soporte
+              </a>
               <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
             </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Precio confirmado antes de abrir nada</li>
+              <li>Respaldo de tus datos antes de la intervención</li>
+              <li>Garantía del trabajo por escrito</li>
+            </ul>
           </div>
           <figure class={styles['service-hero-photo']}>
             <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
@@ -58,28 +86,63 @@ const jsonLd = {
         </div>
       </div>
     </section>
+
+    <section class={styles['service-cases-section']}>
+      <div class="container">
+        <h2>¿Te está pasando uno de estos?</h2>
+        <p class={styles['service-cases-desc']}>Los mismos problemas de siempre para quienes dependen del equipo todos los días:</p>
+        <ul class={styles['service-cases']}>
+          {casos.map(c => <li>{c}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>Cómo se resuelve un caso</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye?</h2>
+        <h2>¿Qué cubre el soporte?</h2>
         <div class={styles['service-benefits-grid']}>
-          {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
+          <ul class={styles['service-cases']}>
+            {incluye.map(item => <li>{item}</li>)}
+          </ul>
         </div>
       </div>
     </section>
+
     <section class={styles['service-faq']}>
       <div class="container">
-        <h2>Preguntas frecuentes</h2>
-        {service.faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        <h2>Lo más preguntado</h2>
+        {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
       </div>
     </section>
+
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Necesitás soporte ahora?</h2>
-        <p>Llamá o escribinos por WhatsApp. Si es urgente, venimos.</p>
-        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+        <h2>¿El equipo anda muriéndose justo ahora?</h2>
+        <p>De tanteos a WhatsApp: cuéntanos qué pasa y decidimos ya si se arregla en sitio o por remoto. Las urgencias primero, para eso está el botón.</p>
+        <div class={styles['service-cta-actions']}>
+          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+            <IconBrandWhatsapp aria-hidden="true" />
+            Escribir por WhatsApp
+          </a>
+          <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
+        </div>
+        <p class={styles['service-cta-note']}>Atendemos Cali y el área metropolitana, presencial y a distancia en todo Colombia.</p>
       </div>
     </section>
   </main>
 </Layout>
-
-

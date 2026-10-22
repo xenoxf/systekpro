@@ -1,75 +1,16 @@
-
 ---
 import Layout from '../../layouts/Layout.astro';
 import styles from '@/styles/ServicePage.module.css';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 
 const service = {
   name: 'Ensamblaje de Computadores Personalizados',
-  description:
-    'Ensamblaje de computadores personalizados en Cali según tu presupuesto y necesidades. Configuramos equipos para gaming, estudio, trabajo, programación, diseño y uso profesional.',
   h1: 'Armamos el Computador que Necesitas en Cali',
-  image:
-    'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1200&q=80&auto=format&fit=crop',
-  imageAlt:
-    'Computador de escritorio personalizado con sus componentes',
-  intro:
-    'Tú eliges lo que quieres hacer y cuánto quieres invertir. Nosotros te ayudamos a elegir los componentes y armamos un computador a tu medida, buscando el mejor equilibrio entre rendimiento, calidad y presupuesto.',
-  benefits: [
-    {
-      title: 'Configuración a tu presupuesto',
-      desc: 'Definimos una configuración acorde con tu presupuesto, priorizando los componentes que realmente necesitas y evitando gastos innecesarios.',
-    },
-    {
-      title: 'Computadores para gaming',
-      desc: 'Configuramos equipos para videojuegos según la resolución, los FPS y los títulos que quieras disfrutar. Evaluamos procesador, tarjeta gráfica, memoria RAM y refrigeración.',
-    },
-    {
-      title: 'Equipos para trabajo y estudio',
-      desc: 'Armamos computadores para ofimática, clases, programación, multitarea y uso profesional, con un rendimiento adecuado para tus actividades.',
-    },
-    {
-      title: 'Diseño y aplicaciones exigentes',
-      desc: 'Seleccionamos componentes para edición de video, diseño gráfico, modelado 3D y otras tareas que requieren mayor capacidad de procesamiento.',
-    },
-    {
-      title: 'Compatibilidad de componentes',
-      desc: 'Verificamos la compatibilidad entre procesador, placa madre, memoria RAM, tarjeta gráfica, almacenamiento, fuente de poder y gabinete.',
-    },
-    {
-      title: 'Ensamblaje y puesta a punto',
-      desc: 'Montamos los componentes, organizamos el cableado y revisamos el funcionamiento del equipo. También podemos orientarte sobre el sistema operativo y los programas que necesitas.',
-    },
-  ],
-  faq: [
-    {
-      q: '¿Puedo armar un computador con mi presupuesto?',
-      a: 'Sí. Nos indicas cuánto quieres invertir y para qué necesitas el equipo. Te proponemos una configuración acorde con tus prioridades y te explicamos dónde conviene invertir más.',
-    },
-    {
-      q: '¿Puedo elegir los componentes?',
-      a: 'Sí. Podemos trabajar a partir de los componentes que prefieras o recomendarte una configuración completa. Antes del ensamblaje, revisamos su compatibilidad.',
-    },
-    {
-      q: '¿Arman computadores para gaming?',
-      a: 'Sí. Diseñamos configuraciones para videojuegos de acuerdo con los títulos que juegas, la resolución deseada y tu presupuesto.',
-    },
-    {
-      q: '¿También arman computadores para estudiar o programar?',
-      a: 'Sí. Adaptamos la configuración a programación, ofimática, edición, diseño y multitarea. No necesitas una tarjeta gráfica dedicada si tus actividades no la requieren.',
-    },
-    {
-      q: '¿El precio incluye los componentes?',
-      a: 'La cotización especificará el costo de los componentes, el ensamblaje y los servicios adicionales que correspondan. El precio final depende de la configuración elegida.',
-    },
-    {
-      q: '¿Puedo reutilizar componentes de mi computador anterior?',
-      a: 'Sí, podemos revisar los componentes que ya tienes para determinar cuáles son compatibles, cuáles vale la pena conservar y cuáles conviene actualizar.',
-    },
-    {
-      q: '¿Qué garantía tiene el computador?',
-      a: 'Las condiciones de garantía de los componentes y del ensamblaje se deben especificar en la cotización antes de confirmar el servicio.',
-    },
-  ],
+  description: 'Ensamblaje de computadores personalizados en Cali según tu presupuesto y necesidades. Configuramos equipos para gaming, estudio, trabajo, programación, diseño y uso profesional.',
+  image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1200&q=80&auto=format&fit=crop',
+  imageAlt: 'Computador de escritorio personalizado con sus componentes',
+  intro: 'Nos dices para qué lo quieres usar y cuánto puedes invertir. Con eso proponemos una configuración donde cada peso va al componente que de verdad vas a usar, y lo armamos con cableado limpio, pruebas de temperatura y sistema listo.',
+  waMsg: 'Hola Sistek, vengo de la página de Ensamblaje de Computadores. Quiero cotizar un equipo a mi medida.',
 };
 
 const jsonLd = {
@@ -94,6 +35,55 @@ const jsonLd = {
   serviceType: 'Ensamblaje de computadores personalizados',
   category: 'Servicios de tecnología',
 };
+
+const pasos = [
+  { sub: 'Uso y presupuesto', text: '¿Para jugar, estudiar, editar video, trabajar? Cuéntanos qué esperas ver y cuánto puedes invertir: eso define por dónde empieza el equipo.' },
+  { sub: 'Propuesta de componentes', text: 'Te entregamos la configuración con alternativas: qué componente marca la diferencia y en cuál conviene ahorrar. Tú decides, sin presiones.' },
+  { sub: 'Ensamblaje', text: 'Compramos por ti (o traes los componentes) y lo montamos: cableado limpio, pruebas de temperatura, RAM y discos verificados.' },
+  { sub: 'Entrega lista', text: 'Se entrega funcionando: sistema, drivers y tus programas instalados si lo acuerdas. Con factura y condiciones de garantía explicadas.' },
+];
+
+const perfiles = [
+  { title: 'Para jugar', desc: 'Configuramos según los títulos y la resolución que quieres probar: FPS reales, tarjeta gráfica, memoria y refrigeración acorde. Sin inflar el presupuesto con partes que no usas.' },
+  { title: 'Para estudiar y trabajar', desc: 'Ofimática, clases, programación y multitarea. No todo equipo necesita tarjeta dedicada si el uso no la justifica, y eso se elige bien.' },
+  { title: 'Para diseño y edición', desc: 'Edición de video, gráficos, modelado 3D y otras tareas exigentes: cada componente se elige por carga de trabajo, no por marketing.' },
+  { title: 'Reutilizar lo que sirve', desc: 'Si tienes componentes de tu computador anterior, los revisamos: cuáles sirven, cuáles conviene actualizar y cuáles quedarse.' },
+];
+
+const incluye = [
+  'Verificación de compatibilidad entre procesador, placa, memoria, gráfica, fuente y gabinete',
+  'Montaje con cableado ordenado, algo que se agradece el día que hay que abrir el equipo',
+  'Pruebas de temperatura, memoria y discos antes de la entrega',
+  'Sistema operativo y drivers instalados, con tus programas si lo acuerdas',
+  'Factura por componente y condiciones de garantía definidas en la cotización',
+];
+
+const faq = [
+  {
+    q: '¿Puedo armar un computador con mi presupuesto?',
+    a: 'Sí. Sin importar si es un presupuesto corto o holgado, te proponemos la configuración que rinde más por tu rango. Se aclara dónde conviene invertir más y dónde no.',
+  },
+  {
+    q: '¿Puedo elegir los componentes?',
+    a: 'Sí. Nos dices qué prefieres o pedimos una propuesta completa; antes de ensamblar revisamos que todo sea compatible entre sí.',
+  },
+  {
+    q: '¿Solo para gaming?',
+    a: 'No, ese es solo el perfil más público. Armamos para estudio, programación, ofimática, diseño, edición y servidores ligeros. Cada uso tiene su configuración distinta.',
+  },
+  {
+    q: '¿El precio incluye los componentes?',
+    a: 'La cotización divide el valor de los componentes, el ensamblaje y lo adicional. Sin irnos a vender el computador más caro del menú, sino el que te sirve.',
+  },
+  {
+    q: '¿Puedo reutilizar componentes de mi equipo anterior?',
+    a: 'Sí, es común. Los evaluamos: cuáles siguen sirviendo, cuáles conviene actualizar y cuáles conviene retirar.',
+  },
+  {
+    q: '¿Qué garantía tiene el computador?',
+    a: 'Las condiciones se especifican en la cotización antes de confirmar el servicio: garantía del ensamblaje y de cada componente según su proveedor.',
+  },
+];
 ---
 
 <Layout
@@ -124,21 +114,26 @@ const jsonLd = {
             </p>
 
             <div class={styles['service-hero-actions']}>
-              <a href="/#contacto" class="btn-primary">
+              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+                <IconBrandWhatsapp aria-hidden="true" />
                 Cotizar mi computador
               </a>
-              <a href="/#contacto" class="btn-secondary">
-                Contactar ahora
+              <a href="tel:+571234513541" class="btn-secondary">
+                Llamar ahora
               </a>
             </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Cotización separada: componentes, ensamblaje y extras</li>
+              <li>Se puede reutilizar parte del equipo que ya tienes</li>
+              <li>Factura y garantía definidas antes de comprar nada</li>
+            </ul>
           </div>
 
           <figure class={styles['service-hero-photo']}>
             <img
               src={service.image}
               alt={service.imageAlt}
-              loading="eager"
-              fetchpriority="high"
+              loading="lazy"
               decoding="async"
             />
           </figure>
@@ -146,17 +141,32 @@ const jsonLd = {
       </div>
     </section>
 
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>De la idea al equipo encendido</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>Un computador diseñado para lo que necesitas</h2>
+        <h2>Cada perfil usa el componente del que necesita</h2>
         <p>
-          No todos necesitan el mismo computador. La mejor configuración
-          depende de tus programas, juegos, objetivos y presupuesto.
-          Te ayudamos a invertir en los componentes adecuados para tu caso.
+          No todos los computadores son lo mismo y aquí no hay "paquete
+          gamer" de exhibición. La configuración sale del uso concreto
+          que le vas a dar, no del más vendido del catálogo.
         </p>
 
         <div class={styles['service-benefits-grid']}>
-          {service.benefits.map((benefit) => (
+          {perfiles.map((benefit) => (
             <article class={styles['service-benefit-card']}>
               <h3>{benefit.title}</h3>
               <p>{benefit.desc}</p>
@@ -166,13 +176,22 @@ const jsonLd = {
       </div>
     </section>
 
+    <section class={styles['service-cases-section']}>
+      <div class="container">
+        <h2>¿Qué entra en el servicio?</h2>
+        <ul class={styles['service-cases']}>
+          {incluye.map(item => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
     <section class={styles['service-faq']}>
       <div class="container">
         <h2>
           Preguntas frecuentes sobre computadores personalizados
         </h2>
 
-        {service.faq.map((item) => (
+        {faq.map((item) => (
           <details class={styles['faq-details']}>
             <summary>{item.q}</summary>
             <p>{item.a}</p>
@@ -189,9 +208,16 @@ const jsonLd = {
           y qué rendimiento esperas. Te ayudaremos a encontrar
           una configuración que se ajuste a ti.
         </p>
-        <a href="/#contacto" class="btn-primary">
-          Solicitar cotización
-        </a>
+        <div class={styles['service-cta-actions']}>
+          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+            <IconBrandWhatsapp aria-hidden="true" />
+            Escribir por WhatsApp
+          </a>
+          <a href="/#servicios" class="btn-secondary">
+            Ver otros servicios
+          </a>
+        </div>
+        <p class={styles['service-cta-note']}>Atendemos Cali y el área metropolitana.</p>
       </div>
     </section>
   </main>

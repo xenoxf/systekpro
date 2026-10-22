@@ -134,7 +134,240 @@
   font-size: 1.125rem;
 }
 
+/* Acciones finales del CTA (WhatsApp + ver servicios) */
+.service-cta-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.service-cta-note {
+  font-size: 0.8125rem;
+  color: hsl(var(--muted-foreground));
+  margin-top: 0.875rem;
+}
+
+/* Botón de WhatsApp: verde oficial, mismo idioma visual del sitio */
+.wa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  background: #25d366;
+  color: #0b1121;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid #25d366;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.15s ease;
+  min-height: 44px;
+}
+
+.wa-btn:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -2px rgba(37, 211, 102, 0.4);
+}
+
+.wa-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.wa-btn:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.wa-btn svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+/* Frases de confianza bajo los botones del hero (texto plano, sin adornos) */
+.service-hero-points {
+  list-style: none;
+  padding: 0.9375rem 0 0;
+  margin: 0.9375rem 0 0;
+  border-top: 1px solid hsl(var(--border) / 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3125rem;
+}
+
+.service-hero-points li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: hsl(var(--muted-foreground));
+}
+
+.service-hero-points li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: hsl(var(--border));
+}
+
+/* ── Cómo trabajamos ── */
+.service-steps-section {
+  padding: 2.75rem 0;
+  border-top: 1px solid hsl(var(--border) / 0.4);
+}
+
+.service-steps-section > .container > h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.service-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  counter-reset: paso;
+}
+
+.service-step {
+  padding-top: 0.75rem;
+  border-top: 2px solid hsl(var(--border) / 0.7);
+}
+
+.service-step-num {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: hsl(var(--primary));
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.service-step h3 {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.375rem;
+}
+
+.service-step p {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: hsl(var(--muted-foreground));
+  text-wrap: pretty;
+}
+
+/* ── Casos típicos (lista concreta de problemas que resolvemos) ── */
+.service-cases-section {
+  padding: 2.75rem 0;
+  border-top: 1px solid hsl(var(--border) / 0.4);
+}
+
+.service-cases-section > .container > h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.service-cases-desc {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.9375rem;
+  max-width: 40rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.service-cases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.5rem 2.5rem;
+}
+
+.service-cases li {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.125rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: hsl(var(--foreground));
+  border-bottom: 1px solid hsl(var(--border) / 0.4);
+}
+
+.service-cases li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: hsl(var(--primary));
+}
+
+/* ── Evidencia real (fotos del equipo trabajando) ── */
+.service-proof {
+  padding: 2.75rem 0;
+  border-top: 1px solid hsl(var(--border) / 0.4);
+  background: hsl(var(--muted) / 0.18);
+}
+
+.service-proof > .container > h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.service-proof-desc {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.9375rem;
+  max-width: 40rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.service-proof-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.service-proof-grid figure {
+  margin: 0;
+  border: 1px solid hsl(var(--border) / 0.6);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: hsl(var(--muted) / 0.3);
+}
+
+.service-proof-grid img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.service-proof-grid figcaption {
+  padding: 0.625rem 0.875rem;
+  font-size: 0.8125rem;
+  color: hsl(var(--muted-foreground));
+  border-top: 1px solid hsl(var(--border) / 0.6);
+}
+
 /* ── Tablet y móvil ── */
+@media (min-width: 640px) {
+  .service-proof-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .breadcrumb ol {
     flex-wrap: wrap;
@@ -159,19 +392,33 @@
     padding: 2.75rem 0;
   }
 
+  .service-steps-section,
+  .service-cases-section,
+  .service-proof {
+    padding: 2.25rem 0;
+  }
+
   .service-content h2,
   .service-faq h2,
-  .service-cta h2 {
+  .service-cta h2,
+  .service-steps-section > .container > h2,
+  .service-cases-section > .container > h2,
+  .service-proof > .container > h2 {
     font-size: 1.5rem;
     margin-bottom: 1.25rem;
   }
 
-  .faq-details {
-    padding: 0.875rem 1rem;
+  .service-steps {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   .service-cta p {
     font-size: 1rem;
+  }
+
+  .faq-details {
+    padding: 0.875rem 1rem;
   }
 }
 
@@ -182,6 +429,10 @@
   }
 
   .service-hero-actions > a {
+    flex: 1 1 100%;
+  }
+
+  .service-cta-actions > a {
     flex: 1 1 100%;
   }
 

@@ -1,27 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import styles from '@/styles/ServicePage.module.css';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 
 const service = {
   name: 'Instalación de Redes Empresariales',
-  slug: 'instalacion-redes-empresariales',
+  h1: 'Instalación de Redes Empresariales en Cali',
   description: 'Diseño e instalación de redes empresariales en Cali. Redes cableadas, switches, routers y configuración para empresas.',
   keywords: 'instalación redes empresariales cali, diseño redes corporativas, redes cableadas empresas, configuración switches routers, infraestructura de red',
-  h1: 'Instalación de Redes Empresariales en Cali',
   image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Cuarto de datos con servidores y cableado de red',
-  intro: 'Diseñamos e instalamos tu red. Diagnóstico, cableado, configuración y pruebas con acta de entrega.',
-  benefits: [
-    { title: 'Diseño a medida', desc: 'Analizamos tu espacio y necesidades. Diseñamos la red según el uso real de tu oficina o sede.' },
-    { title: 'Cableado certificado', desc: 'Cableado CAT6/CAT6A, patch panels, racks. Todo certificado con reporte de pruebas.' },
-    { title: 'Configuración de equipos', desc: 'Switches managed, routers, firewalls, VLANs. Seguridad y rendimiento desde el día uno.' },
-    { title: 'Documentación completa', desc: 'Te entregamos diagramas, inventario, credenciales y manual de operación.' },
-  ],
-  faq: [
-    { q: '¿Cuánto tarda?', a: 'Una oficina promedio: 2 a 5 días hábiles. Te damos el tiempo exacto después de la visita técnica.' },
-    { q: '¿Con qué marcas trabajan?', a: 'Cisco, MikroTik, Ubiquiti, TP-Link y más. La que mejor se ajuste a tu presupuesto.' },
-    { q: '¿Tiene garantía?', a: 'Sí. Garantía escrita en todo el trabajo. Si algo falla, volvemos.' },
-  ],
+  intro: 'Empresas que pasan de 5 a 30 equipos y de pronto nadie sabe por dónde entra el cable: eso lo resolvemos. Medimos tu sitio, planeamos la red y la instalamos de forma tal que después la puedas operar y ampliar sin drama.',
+  waMsg: 'Hola Sistek, vengo de la página de Instalación de Redes Empresariales. Quiero cotizar una red para mi empresa.',
 };
 
 const jsonLd = {
@@ -33,6 +23,36 @@ const jsonLd = {
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Instalación de redes empresariales"
 };
+
+const pasos = [
+  { sub: 'Visita y medición', text: 'Recorremos el sitio contigo: dónde habrá puntos, por dónde puede pasar el cable y qué equipos hacen falta.' },
+  { sub: 'Propuesta cerrada', text: 'Recibes un documento con puntos, materiales, precio y fecha. Lo apruebas o lo ajustamos. Nadie paga por sorpresa.' },
+  { sub: 'Montaje', text: 'Canaleta, cableado, rostros y rack, por áreas y sin desorden, aunque la empresa siga operando durante la obra.' },
+  { sub: 'Pruebas y entrega', text: 'Cada punto se prueba y queda certificado. Entrega con planos, acta y garantía escrita.' },
+];
+
+const incluye = [
+  'Cableado CAT6/CAT6A con prueba por punto y reporte a tu nombre',
+  'Switches, routers y firewall configurados, documentados y con respaldo',
+  'Racks, patch panels y etiquetado que cualquier persona del área puede entender',
+  'Red separada para invitados y cámaras, lejos de la red operativa',
+  'Planos e inventario final: nunca más "quién sabe por dónde pasa el cable"',
+];
+
+const evidencia = [
+  {
+    img: '/evidencias/redes_trabajando.jpg',
+    alt: 'Personal de Sistek terminando cables de red y ordenando canaleta en una instalación',
+    caption: 'Montaje real: terminando cables y dejando la canaleta lista para el rack.',
+  },
+];
+
+const faq = [
+  { q: '¿Cuánto demora una instalación?', a: 'Depende de la cantidad de puntos y las condiciones del sitio. Una oficina mediana suele tomar de 2 a 5 días hábiles; después de la visita te confirmamos fecha y duración exactas.' },
+  { q: '¿Pueden instalar mientras la empresa funciona?', a: 'Sí. Trabajamos por áreas y en horarios acordados para no parar tu operación. Cada área queda limpia y funcionando al final del día.' },
+  { q: '¿Y si mi red actual está desordenada?', a: 'Es el caso más común. Auditamos lo que existe, te decimos qué se puede reaprovechar y qué conviene rehacer. Nada se toca sin tu visto bueno.' },
+  { q: '¿Puedo agregar puntos más adelante?', a: 'Sí, y sale mucho más barato si se deja planeado desde el diseño: dejamos rutas listas para los puntos futuros.' },
+];
 ---
 
 <Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
@@ -48,9 +68,17 @@ const jsonLd = {
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+                <IconBrandWhatsapp aria-hidden="true" />
+                Cotizar mi red
+              </a>
               <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
             </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Precio cerrado por escrito después de la visita técnica</li>
+              <li>Garantía sobre el trabajo, no solo sobre los materiales</li>
+              <li>Entrega con planos, etiquetas y credenciales a tu nombre</li>
+            </ul>
           </div>
           <figure class={styles['service-hero-photo']}>
             <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
@@ -58,28 +86,68 @@ const jsonLd = {
         </div>
       </div>
     </section>
+
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>Cómo se hace una red en Sistek</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye?</h2>
+        <h2>¿Qué entra en el servicio?</h2>
         <div class={styles['service-benefits-grid']}>
-          {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
+          <ul class={styles['service-cases']}>
+            {incluye.map(item => <li>{item}</li>)}
+          </ul>
         </div>
       </div>
     </section>
-    <section class={styles['service-faq']}>
+
+    <section class={styles['service-proof']}>
       <div class="container">
-        <h2>Preguntas frecuentes</h2>
-        {service.faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        <h2>Trabajo de verdad, no fotos de banco de imágenes</h2>
+        <p class={styles['service-proof-desc']}>Así se ve el equipo en un montaje normal. La diferencia de una buena red se ve en la canaleta y se siente a los dos años.</p>
+        <div class={styles['service-proof-grid']}>
+          {evidencia.map(e => (
+            <figure>
+              <img src={e.img} alt={e.alt} loading="lazy" decoding="async" />
+              <figcaption>{e.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </section>
+
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Lo más preguntado</h2>
+        {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </section>
+
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Listo para instalar tu red?</h2>
-        <p>Te asesoramos gratis. Sin compromiso.</p>
-        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+        <h2>¿Cuánto costaría tu red?</h2>
+        <p>La respuesta corta: depende de puntos y condiciones. La respuesta buena: escríbenos, hacemos la visita y sabes el número exacto antes de gastar un peso.</p>
+        <div class={styles['service-cta-actions']}>
+          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+            <IconBrandWhatsapp aria-hidden="true" />
+            Cotizar por WhatsApp
+          </a>
+          <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
+        </div>
+        <p class={styles['service-cta-note']}>Atendemos Cali y el área metropolitana.</p>
       </div>
     </section>
   </main>
 </Layout>
-
-

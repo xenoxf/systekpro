@@ -1,26 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import styles from '@/styles/ServicePage.module.css';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 
 const service = {
   name: 'Desarrollo y mantenimiento de sitios web con backend',
-  slug: 'desarrollo-web-backend',
+  h1: 'Desarrollo y Mantenimiento Web con Backend en Cali',
   description: 'Desarrollo y mantenimiento de páginas web en Cali: diseño, backend, bases de datos, formularios, panel administrable y despliegue.',
-  h1: 'Desarrollo y mantenimiento web con backend en Cali',
+  keywords: 'desarrollo web cali, páginas web cali, backend, panel administrable, formularios web, mantenimiento web',
   image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Desarrollo de página web en computador',
-  intro: 'Páginas que cargan rápido y se pueden mantener: diseño, backend con base de datos, formularios que llegan y panel para editar contenido.',
-  benefits: [
-    { title: 'Sitio a medida', desc: 'Diseño según tu negocio, no plantilla genérica. Textos claros, fotos reales y estructura para que te contacten.' },
-    { title: 'Backend y base de datos', desc: 'Formularios, registros, catálogos y panel administrable. API y base de datos incluidas cuando el proyecto lo necesita.' },
-    { title: 'Despliegue y dominio', desc: 'Publicación, certificado de seguridad, correo corporativo y conexión con WhatsApp y redes.' },
-    { title: 'Mantenimiento mensual', desc: 'Actualizaciones, copias de seguridad, ajustes de contenido y monitoreo. Tu web no se queda abandonada.' },
-  ],
-  faq: [
-    { q: '¿En cuánto tiempo está lista?', a: 'Una página institucional toma de 2 a 4 semanas según contenido. Proyectos con backend se cotizan por alcance y entregas parciales.' },
-    { q: '¿Puedo editar el contenido yo?', a: 'Sí. Entregamos panel administrable y una sesión de capacitación para que edites textos, fotos y productos.' },
-    { q: '¿Qué incluye el mantenimiento?', a: 'Actualizaciones, copias de seguridad, cambios menores de contenido y revisión de formularios y seguridad cada mes.' },
-  ],
+  intro: 'Una página web la gana lo que pasa detrás: que el formulario llegue, que cargue rápido en un teléfono, que puedas cambiar el precio sin escribirle al programador por cada coma. Diseñamos, construimos y te dejamos el control del contenido.',
+  waMsg: 'Hola Sistek, vengo de la página de Desarrollo Web y Backend. Quiero cotizar un sitio para mi negocio.',
 };
 
 const jsonLd = {
@@ -32,6 +23,42 @@ const jsonLd = {
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Desarrollo y mantenimiento web"
 };
+
+const pasos = [
+  { sub: 'Conversación corta', text: 'Nos cuentas qué se necesita: qué debe mostrar el sitio, qué formularios deben llegar y a quién. Es media hora de conversación, no semanas de documento de requerimientos.' },
+  { sub: 'Propuesta con entregas', text: 'Precio cerrado, fecha definida y entregas parciales. Cada avance se ve en línea desde el navegador, no al final en un PDF bonito.' },
+  { sub: 'Construcción', text: 'Sitio, backend y panel. Corriges sobre lo que ya existe, no sobre una descripción. Los formularios se prueban hasta que llegan de verdad.' },
+  { sub: 'Entrega y capacitación', text: 'Publicamos con dominio y seguridad, y te enseñamos en una sesión a editar el contenido por tu cuenta. Después te seguimos si quieres mantener.' },
+];
+
+const incluye = [
+  'Sitio propio, construido para tu negocio y no una plantilla reciclada con otro logo',
+  'Formularios que llegan al correo y a WhatsApp, con validación y registro en base de datos',
+  'Panel administrable para actualizar textos, fotos y precios sin programar nada',
+  'Carga rápida: optimizamos el peso real de imágenes y páginas para que rinda en el teléfono',
+  'Manual de entrega escrito: cómo pedir ayuda y qué conviene actualizar tú mismo',
+];
+
+const evidencia = [
+  {
+    img: '/evidencias/codeando_sitio_web.jpg',
+    alt: 'Persona del equipo revisando el sitio de un cliente en el navegador',
+    caption: 'Un sitio de cliente en revisión final: diseño, velocidad y detalles del contenido antes de publicar.',
+  },
+  {
+    img: '/evidencias/alguien_codeando.jpg',
+    alt: 'Manos de un desarrollador de Sistek revisando código en su portátil',
+    caption: 'El trabajo invisible: revisión de código antes de publicar cambios en un sitio en producción.',
+  },
+];
+
+const faq = [
+  { q: '¿Cuánto cuesta una página web?', a: 'Es una pregunta justa sin respuesta única: la institucional y un sistema con panel y catálogo se cotizan distinto. Tras la conversación te enviamos propuesta con precio cerrado y entregas definidas.' },
+  { q: '¿Cuánto demora?', a: 'Institucional: 2 a 4 semanas. Proyectos con backend: varios entregables y depende del alcance. Proponemos plazo y cronograma en la propuesta.' },
+  { q: '¿Tengo que contratar hosting aparte?', a: 'No. Te recomendamos dominio y hosting según lo que tu caso necesita, y las credenciales quedan a tu nombre. Nada amarrado a que tu web dependa de nosotros para siempre.' },
+  { q: '¿Y el mantenimiento después?', a: 'Plan mensual con actualizaciones, respaldos, ajustes menores de contenido y revisión de formularios. Sin plan también respondemos, pero por evento.' },
+  { q: '¿Y si luego quiero agregar funciones?', a: 'Perfecto: la construcción se hace para que se puedan ampliar. Se cotiza cada mejora aparte, con su propia fecha.' },
+];
 ---
 
 <Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
@@ -47,9 +74,17 @@ const jsonLd = {
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href="/#contacto" class="btn-primary">Cotizar mi página</a>
+              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+                <IconBrandWhatsapp aria-hidden="true" />
+                Cotizar mi página
+              </a>
               <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
             </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Precio cerrado con entregas parciales visibles en línea</li>
+              <li>El panel y las credenciales quedan en tu nombre</li>
+              <li>Capacitación para editar tú mismo el contenido</li>
+            </ul>
           </div>
           <figure class={styles['service-hero-photo']}>
             <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
@@ -57,25 +92,67 @@ const jsonLd = {
         </div>
       </div>
     </section>
+
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>De la idea al sitio publicado</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye?</h2>
+        <h2>¿Qué entra en el servicio?</h2>
         <div class={styles['service-benefits-grid']}>
-          {service.benefits.map(b => (<div class={styles['service-benefit-card']}><h3>{b.title}</h3><p>{b.desc}</p></div>))}
+          <ul class={styles['service-cases']}>
+            {incluye.map(item => <li>{item}</li>)}
+          </ul>
         </div>
       </div>
     </section>
-    <section class={styles['service-faq']}>
+
+    <section class={styles['service-proof']}>
       <div class="container">
-        <h2>Preguntas frecuentes</h2>
-        {service.faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        <h2>Así se ve un día de trabajo del equipo</h2>
+        <p class={styles['service-proof-desc']}>Mismo cuidado en la primera pantalla que en la última: estas son fotos de una jornada normal del departamento de desarrollo.</p>
+        <div class={styles['service-proof-grid']}>
+          {evidencia.map(e => (
+            <figure>
+              <img src={e.img} alt={e.alt} loading="lazy" decoding="async" />
+              <figcaption>{e.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </section>
+
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Lo más preguntado</h2>
+        {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </section>
+
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Necesitás página web?</h2>
-        <p>Cuéntanos qué vendes o qué informas y te pasamos propuesta con precio cerrado.</p>
-        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+        <h2>Cuéntanos qué vendes o qué quieres informar</h2>
+        <p>Una conversación de media hora y una propuesta con precio cerrado. Sin letra pequeña ni sorpresas de "eso se cobra aparte".</p>
+        <div class={styles['service-cta-actions']}>
+          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+            <IconBrandWhatsapp aria-hidden="true" />
+            Escribir por WhatsApp
+          </a>
+          <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
+        </div>
+        <p class={styles['service-cta-note']}>Trabajamos con clientes en Cali y el resto de Colombia.</p>
       </div>
     </section>
   </main>

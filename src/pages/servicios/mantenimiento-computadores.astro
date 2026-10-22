@@ -1,27 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import styles from '@/styles/ServicePage.module.css';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 
 const service = {
   name: 'Mantenimiento de Computadores',
-  slug: 'mantenimiento-computadores',
+  h1: 'Mantenimiento de Computadores en Cali',
   description: 'Mantenimiento preventivo y correctivo de computadores en Cali. Limpieza, diagnóstico, reparación y optimización.',
   keywords: 'mantenimiento computadores cali, reparación pc cali, mantenimiento preventivo computadores, limpieza computadores, optimización equipos cómputo',
-  h1: 'Mantenimiento de Computadores en Cali',
   image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Técnico realizando mantenimiento a un computador',
-  intro: 'Evitá las fallas antes de que te dejen tirado. Limpieza, diagnóstico y reparación con garantía.',
-  benefits: [
-    { title: 'Preventivo', desc: 'Limpieza, cambio de pasta térmica, revisión de componentes. Evitás las fallas futuras.' },
-    { title: 'Correctivo', desc: 'Diagnóstico y reparación de hardware y software. Repuestos de calidad.' },
-    { title: 'Optimización', desc: 'Eliminación de virus, software innecesario. Tu equipo vuelve a funcionar como nuevo.' },
-    { title: 'Recuperación de datos', desc: 'Rescate de información de discos dañados. Backup y migración.' },
-  ],
-  faq: [
-    { q: '¿Cuánto tarda un mantenimiento?', a: 'Entre 1 y 3 horas dependiendo del equipo. Incluye limpieza física, revisión y optimización.' },
-    { q: '¿Cuánto cuesta?', a: 'Varía según el tipo y cantidad de equipos. Precios competitivos y descuentos por volumen.' },
-    { q: '¿Van a domicilio?', a: 'Sí. Visitas en Cali y área metropolitana. También soporte remoto para software.' },
-  ],
+  intro: 'Un torreón con polvo dentro y pasta térmica de 4 años no falla de la noche a la mañana: se va poniendo lento y caliente, hasta que un día no enciende. El mantenimiento lo resuelve antes, y ahí está el precio de llamarlo preventivo.',
+  waMsg: 'Hola Sistek, vengo de la página de Mantenimiento de Computadores. Quiero agendar una visita para mis equipos.',
 };
 
 const jsonLd = {
@@ -46,6 +36,38 @@ const jsonLd = {
   "serviceType": "Mantenimiento de computadores",
   "category": "Servicios de tecnología"
 };
+
+const casos = [
+  'El pc de la caja abre el sistema al mediodía en vez de desde las 8',
+  'Los ventiladores suenan a avión despegando y el equipo se calienta de más',
+  'Pasta térmica de hace años, seca y deshecha en migas',
+  'Cada equipo decide por su cuenta cuándo actualizar Windows',
+  'No queda claro qué máquina tiene el antivirus al día y cuál no',
+  'La oficina movió muebles y la mitad de los cables quedó forzada',
+];
+
+const pasos = [
+  { sub: 'Recorrido de inventario', text: 'Pasamos por cada equipo y anotamos qué necesita: hardware, sistema, software. Nada se atiende a ciegas.' },
+  { sub: 'Mantenimiento uno a uno', text: 'Limpieza interna, pasta térmica nueva, revisión de ventiladores, sistema actualizado y virus fuera. Se trabaja equipo por equipo y el resto de la oficina sigue operando.' },
+  { sub: 'Repuestos solo con tu visto bueno', text: 'Si algo hay que reponer, cotizamos con opciones claras de precio y duración. No se compra nada sin tu permiso.' },
+  { sub: 'Reporte y plan', text: 'Informe por equipo con lo revisado y los hallazgos. Si quieres, agendamos regreso mensual o trimestral según la carga de trabajo.' },
+];
+
+const incluye = [
+  'Limpieza interna y externa: el polvo sale, no se revuelve',
+  'Pasta térmica nueva y revisión de ventiladores y fuente',
+  'Sistema al día: Windows actualizado, antivirus revisado y arranques inútiles fuera',
+  'Respaldo previo de la información crítica del equipo',
+  'Informe escrito por equipo: qué se revisó y qué alertas quedaron',
+];
+
+const faq = [
+  { q: '¿En mi oficina o los equipos se llevan al taller?', a: 'La preferencia es atender en sitio, para que el equipo vuelva al mismo puesto en el día. Si algo necesita taller, se coordina contigo la salida y la entrega.' },
+  { q: '¿La pasta térmica está incluida?', a: 'Sí, hace parte del mantenimiento preventivo: no se cobra aparte como lo hacen otros.' },
+  { q: '¿Cuánto demora por equipo?', a: 'Entre 45 minutos y hora y media promedio, según el estado del equipo y la cantidad de programas que hay que arreglar.' },
+  { q: '¿Qué riesgo hay de perder información?', a: 'En el mantenimiento de rutina no se toca la información. Si algo exige intervenir (cambio de disco, formateo), primero se respalda lo crítico y tú lo apruebas.' },
+  { q: '¿Y si el equipo ya no da para más?', a: 'Te lo decimos claro: si la reparación no tiene sentido contra un equipo nuevo, te lo decimos con orientación de qué comprar, sin mantener aparatos muertos solo por facturar.' },
+];
 ---
 
 <Layout
@@ -69,9 +91,17 @@ const jsonLd = {
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+                <IconBrandWhatsapp aria-hidden="true" />
+                Agendar mantenimiento
+              </a>
               <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
             </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Cotización por número de equipos, sin cobros sorpresa</li>
+              <li>Respaldo previo de la información de cada equipo</li>
+              <li>Descuentos por volumen si la oficina es grande</li>
+            </ul>
           </div>
           <figure class={styles['service-hero-photo']}>
             <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
@@ -80,24 +110,46 @@ const jsonLd = {
       </div>
     </section>
 
+    <section class={styles['service-cases-section']}>
+      <div class="container">
+        <h2>Síntomas de un equipo que pide mantenimiento</h2>
+        <p class={styles['service-cases-desc']}>Si aparece alguna de estas señales en la oficina, es el momento de programar la visita:</p>
+        <ul class={styles['service-cases']}>
+          {casos.map(c => <li>{c}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>Cómo se hace una jornada de mantenimiento</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué incluye?</h2>
+        <h2>¿Qué entra en el mantenimiento?</h2>
         <div class={styles['service-benefits-grid']}>
-          {service.benefits.map(b => (
-            <div class={styles['service-benefit-card']}>
-              <h3>{b.title}</h3>
-              <p>{b.desc}</p>
-            </div>
-          ))}
+          <ul class={styles['service-cases']}>
+            {incluye.map(item => <li>{item}</li>)}
+          </ul>
         </div>
       </div>
     </section>
 
     <section class={styles['service-faq']}>
       <div class="container">
-        <h2>Preguntas frecuentes sobre {service.name.toLowerCase()}</h2>
-        {service.faq.map(f => (
+        <h2>Lo más preguntado</h2>
+        {faq.map(f => (
           <details class={styles['faq-details']}>
             <summary>{f.q}</summary>
             <p>{f.a}</p>
@@ -108,12 +160,17 @@ const jsonLd = {
 
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Necesitás mantenimiento?</h2>
-        <p>Cotización sin compromiso. Atendemos en Cali y alrededores.</p>
-        <a href="/#contacto" class="btn-primary">Solicitar servicio</a>
+        <h2>¿Cuántos equipos llevan meses sin una revisión?</h2>
+        <p>Escríbenos la cantidad, el uso que les dan y la disponibilidad. Armamos la visita y te pasamos valor cerrado antes de venir.</p>
+        <div class={styles['service-cta-actions']}>
+          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
+            <IconBrandWhatsapp aria-hidden="true" />
+            Escribir por WhatsApp
+          </a>
+          <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
+        </div>
+        <p class={styles['service-cta-note']}>Atendemos Cali y el área metropolitana, con planes de visita programados.</p>
       </div>
     </section>
   </main>
 </Layout>
-
-
