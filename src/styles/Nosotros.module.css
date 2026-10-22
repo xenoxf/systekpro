@@ -303,3 +303,34 @@
     height: 140px;
   }
 }
+
+/* ── Tablet y móvil ── */
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 5.5rem 0 2.25rem;
+  }
+
+  .breadcrumb ol {
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+  }
+
+  .nosotros-cta {
+    margin-top: 1.25rem;
+  }
+}
+
+/* CTA a ancho completo en móvil */
+@media (max-width: 480px) {
+  .nosotros-cta {
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .nosotros-cta > a {
+    flex: 1 1 100%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+  }
+}

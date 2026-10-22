@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type TouchEvent } from "react";
 import type { ComponentType } from "react";
 import { services } from "@/data/services";
 import styles from "@/styles/ServicesCarousel.module.css";
@@ -37,6 +37,32 @@ export default function ServicesJ() {
   const goTo = (i: number) => setIndex(((i % total) + total) % total);
   const next = () => goTo(index + 1);
   const prev = () => goTo(index - 1);
+
+  // Gestos táctiles: permitir deslizar el carrusel en móvil
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+
+  const onTouchStart = (e: TouchEvent<HTMLElement>) => {
+    const t = e.touches[0];
+    if (!t) return;
+    touchStart.current = { x: t.clientX, y: t.clientY };
+    setPaused(true);
+  };
+
+  const onTouchEnd = (e: TouchEvent<HTMLElement>) => {
+    const start = touchStart.current;
+    touchStart.current = null;
+    setPaused(false);
+    if (!start) return;
+    const t = e.changedTouches[0];
+    if (!t) return;
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    // Solo se considera deslizamiento horizontal deliberado
+    if (Math.abs(dx) >= 48 && Math.abs(dx) >= Math.abs(dy) * 1.5) {
+      if (dx < 0) next();
+      else prev();
+    }
+  };
 
   useEffect(() => {
     const read = () => {
@@ -85,6 +111,8 @@ export default function ServicesJ() {
           className={styles['scc-card']}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
           aria-roledescription="slide"
           aria-label={`${index + 1} de ${total}: ${service.title}`}
         >

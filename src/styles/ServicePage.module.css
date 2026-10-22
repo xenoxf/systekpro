@@ -133,3 +133,64 @@
   margin-bottom: 2rem;
   font-size: 1.125rem;
 }
+
+/* ── Tablet y móvil ── */
+@media (max-width: 768px) {
+  .breadcrumb ol {
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+  }
+
+  .service-page-hero {
+    padding: 5.5rem 0 2.5rem;
+  }
+
+  .service-hero-desc {
+    font-size: 1rem;
+  }
+
+  .service-hero-grid {
+    gap: 1.5rem;
+  }
+
+  .service-content,
+  .service-faq,
+  .service-cta {
+    padding: 2.75rem 0;
+  }
+
+  .service-content h2,
+  .service-faq h2,
+  .service-cta h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .faq-details {
+    padding: 0.875rem 1rem;
+  }
+
+  .service-cta p {
+    font-size: 1rem;
+  }
+}
+
+/* Botones a ancho completo en móvil: mejor objetivo táctil */
+@media (max-width: 480px) {
+  .service-hero-actions {
+    gap: 0.625rem;
+  }
+
+  .service-hero-actions > a {
+    flex: 1 1 100%;
+  }
+
+  .service-page-hero {
+    padding: 5.25rem 0 2rem;
+  }
+
+  .service-benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

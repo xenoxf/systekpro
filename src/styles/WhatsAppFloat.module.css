@@ -1,6 +1,6 @@
 .whatsapp-float {
   position: fixed;
-  bottom: 1.5rem;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
   left: 1.5rem;
   z-index: 1000;
   width: 3.5rem;
@@ -12,7 +12,7 @@
   justify-content: center;
   color: white;
   box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: whatsapp-pulse 2s ease-in-out infinite;
 }
 
@@ -37,9 +37,34 @@
   50% { box-shadow: 0 4px 24px rgba(37, 211, 102, 0.55); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float,
+  .whatsapp-float:hover {
+    animation: none;
+  }
+}
+
 .whatsapp-float-nav {
   position: fixed;
-  bottom: 1.5rem;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
   left: 1.5rem;
   z-index: 1000;
+}
+
+/* Móvil: un poco más compacto y pegado al borde, respetando la safe area */
+@media (max-width: 480px) {
+  .whatsapp-float-nav {
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    left: 1rem;
+  }
+
+  .whatsapp-float {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .whatsapp-float svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }

@@ -213,6 +213,17 @@
   }
 }
 
+@media (max-width: 768px) {
+  /* Prevents iOS Safari auto-zoom when focusing inputs < 16px */
+  .input-name {
+    font-size: 1rem;
+  }
+
+  .container-auth {
+    padding: 1.25rem 1rem;
+  }
+}
+
 /* ---------- Split layout ---------- */
 .auth-split {
   min-height: 100vh;

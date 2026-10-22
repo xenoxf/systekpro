@@ -293,6 +293,15 @@
   }
 }
 
+/* Evita el zoom automático de iOS al enfocar (inputs < 16px activan zoom) */
+@media (max-width: 768px) {
+  .formmInput,
+  .formmSelect,
+  .formmTextarea {
+    font-size: 1rem;
+  }
+}
+
 .contactMapInner {
   width: 100%;
   height: 100%;
