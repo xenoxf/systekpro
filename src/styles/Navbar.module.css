@@ -32,12 +32,12 @@
   left: 0;
   right: 0;
   transform: none;
+  color: hsl(var(--foreground));
 
   width: calc(100% - 1.5rem);
   max-width: 1140px;
   margin-inline: auto;
-
-  background: hsl(var(--background) / 0.75);
+  background-color: transparent;
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   backdrop-filter: blur(9px);
 
@@ -123,7 +123,6 @@
 .nav-links a {
   font-size: clamp(0.8125rem, 0.9vw + 0.7rem, 0.875rem);
   font-weight: 500;
-  color: hsl(var(--muted-foreground));
   transition: color 0.15s;
   white-space: nowrap;
   position: relative;
