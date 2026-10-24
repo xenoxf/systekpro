@@ -1976,14 +1976,108 @@
 
 
 @media print {
-  :global(body) * { visibility: hidden !important; }
-  :global(.ticket-sheet), :global(.ticket-sheet) * { visibility: visible !important; }
-  :global(.ticket-sheet) {
-    position: absolute;
-    inset: 0;
-    margin: 0;
-    width: 100%;
+  /* 1) Oculta toda la interfaz (regla global) */
+  :global(body) * {
+    visibility: hidden !important;
+  }
+
+  /* 2) El Drawer que contiene el ticket se neutraliza para que no recorte
+        la hoja ni la fije dentro de un contenedor con scroll */
+  :global(.sys-print-scope) {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    transform: none !important;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
   }
-  :global(.ticket-no-print) { display: none !important; }
+
+  /* 3) Reaparece únicamente la hoja del ticket.
+        IMPORTANTE: aquí se usan las clases del CSS Module tal cual
+        (se compilan con hash, ej. _ticket-sheet_1idw9_1742) para que los
+        selectores coincidan de verdad con el DOM. Usar :global(.ticket-sheet)
+        era el bug: ese nombre no existe y TODA la página quedaba oculta. */
+  .ticket-sheet,
+  .ticket-sheet * {
+    visibility: visible !important;
+  }
+
+  /* 4) Paleta segura para papel: tinta oscura sobre blanco, independiente
+        del tema claro/oscuro y de los "gráficos de fondo" del navegador */
+  .ticket-sheet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 100%;
+    color: #111 !important;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .ticket-brand-sub,
+  .ticket-label,
+  .ticket-qr-help,
+  .ticket-url {
+    color: #555 !important;
+  }
+
+  .ticket-estado--info,
+  .ticket-estado--warn,
+  .ticket-estado--ok,
+  .ticket-estado--off {
+    color: #111 !important;
+    background: transparent !important;
+    border: 1px solid #999;
+  }
+
+  .ticket-head {
+    border-bottom-color: #999 !important;
+  }
+
+  .ticket-qr {
+    border-top-color: #999 !important;
+  }
+
+  .ticket-equipos th {
+    color: #333 !important;
+    border-bottom-color: #333 !important;
+  }
+
+  .ticket-equipos td {
+    border-bottom-color: #bbb !important;
+  }
+
+  /* 5) En papel siempre el logo oscuro (visible sobre fondo blanco) */
+  .ticket-sheet :global(.logo-light) {
+    display: block !important;
+  }
+
+  .ticket-sheet :global(.logo-dark) {
+    display: none !important;
+  }
+
+  /* 6) El botón Imprimir y controles nunca se imprimen */
+  .ticket-no-print {
+    display: none !important;
+  }
+
+  /* 7) El Drawer pone overflow oculto en <body> de forma inline al abrirse;
+        en impresión debe permitirse el flujo de páginas normales */
+  :global(html),
+  :global(body) {
+    height: auto !important;
+    overflow: visible !important;
+  }
 }

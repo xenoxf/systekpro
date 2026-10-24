@@ -102,7 +102,10 @@ export function Drawer({ open, title, onClose, children, footer, size = "md" }: 
         aria-hidden="true"
       />
       <aside
-        className={`${styles['sys-drawer']} ${open ? styles['is-open'] : ""} ${styles['sys-drawer']}--${size}`}
+        /* Clase global estable: usada solo por los estilos @media print del
+           ticket para neutralizar el drawer (fixed + overflow) al imprimir.
+           No afecta la apariencia en pantalla. */
+        className={`sys-print-scope ${styles['sys-drawer']} ${open ? styles['is-open'] : ""} ${styles['sys-drawer']}--${size}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
