@@ -1,11 +1,12 @@
 ---
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import styles from "@/styles/WhatsAppFloat.module.css";
+import { datosEmpresa } from '@/data/info';
 ---
 
 <nav aria-label="Contacto rápido" class={styles['whatsapp-float-nav']}>
   <a
-    href="https://wa.me/573175000509?text=Hola%20Sistek%2C%20necesito%20información%20sobre%20sus%20servicios"
+      href=`https://wa.me/57${datosEmpresa.telefono}?text=Hola%20Sistek%2C%20necesito%20información%20sobre%20sus%20servicios`
     class={styles['whatsapp-float']}
     target="_blank"
     rel="noopener noreferrer"

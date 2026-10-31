@@ -9,6 +9,7 @@ import {
 import styles from '@/styles/Contact.module.css'
 import { useState, type FormEvent } from "react"
 import { api, isApiError } from "@/services/api"
+import { datosEmpresa } from "@/data/info"
 
 type FormData = {
   nombre: string
@@ -243,17 +244,7 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Teléfono</h3>
-                  <a href="tel:+571234513541" className={styles.contactInfoValue}>+57 3175000509</a>
-                </div>
-              </div>
-
-              <div className={styles.contactInfoItem}>
-                <div className={styles.contactInfoIcon}>
-                  <IconMail aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className={styles.contactInfoLabel}>Correo electrónico</h3>
-                  <a href="mailto:sistekpro02@gmail.com" className={styles.contactInfoValue}>contacto@sistek.com.co</a>
+                  <a href={"tel:+57" + datosEmpresa.telefono} className={styles.contactInfoValue}>+57 {datosEmpresa.telefono}</a>
                 </div>
               </div>
 
@@ -263,7 +254,7 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Ubicación</h3>
-                  <p className={styles.contactInfoValue}>Calle 41, Cra 31 #00, Cali, Valle del Cauca</p>
+                  <p className={styles.contactInfoValue}>{datosEmpresa.direccionCompleta}</p>
                 </div>
               </div>
 
@@ -280,7 +271,7 @@ function Contact() {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   )
 }
 
