@@ -1,0 +1,149 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import styles from '@/styles/ServicePage.module.css';
+import Footer from '@/components/Footer.astro';
+import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
+
+const service = {
+  name: 'Marketing digital para empresas y negocios',
+  h1: 'Marketing Digital en Cali',
+  description: 'Marketing digital en Cali: presencia en redes, contenido y campañas para que tu negocio aparezca y lleguen clientes nuevos. Estrategia con resultados medibles.',
+  keywords: 'marketing digital cali, agencia marketing cali, redes sociales empresa, campañas publicitarias cali',
+  image: '/evidencias/marketing_work-look-system.jpg',
+  imageAlt: 'Equipo de marketing de Sistek Pro planificando una campaña digital',
+  intro: 'Tener página web o redes sin estrategia es publicar a ver qué pasa. Definimos cómo tu negocio se muestra en línea, qué mensaje transmite y por dónde llegar a los clientes que realmente te interesan, con un plan que puedes seguir mes a mes.',
+  waMsg: 'Hola Sistek, vengo de la página de Marketing Digital. Quiero potenciar mi negocio y quiero una cotización.',
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": service.name,
+  "description": service.description,
+  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "areaServed": { "@type": "City", "name": "Cali" },
+  "serviceType": "Marketing digital"
+};
+
+const casos = [
+  'Publicas en redes y casi nadie comenta o comparte',
+  'Tu negocio no aparece cuando lo buscan en Google',
+  'Tienes página web pero no te llegan consultas por ella',
+  'No sabes qué publicar ni con qué frecuencia',
+  'Ya gastaste en anuncios y no supiste si valió la pena',
+  'Tus competidores se ven más y no sabes por qué',
+];
+
+const pasos = [
+  { sub: 'Entendemos tu negocio', text: 'Hablamos de tus servicios, tus clientes y tus objetivos. Miramos cómo te ves hoy en línea y qué está dejando de funcionar.' },
+  { sub: 'Definimos la estrategia', text: 'Elegimos canales, mensaje y ritmo de publicación según tu público y tu presupuesto. Nada de hacer de todo a medias.' },
+  { sub: 'Producimos y publicamos', text: 'Contenido, diseño y publicaciones con tu marca. Coordinamos contigo el calendario y ajustamos según la respuesta del público.' },
+  { sub: 'Medimos y ajustamos', text: 'Revisamos los números: alcance, consultas y clientes que llegan. Lo que funciona se refuerza y lo que no, se cambia.' },
+];
+
+const incluye = [
+  'Manejo de redes sociales con calendario de publicaciones',
+  'Contenido gráfico y de texto con la identidad de tu marca',
+  'Campañas publicitarias con presupuesto controlado',
+  'Integración con tu página web y formularios de contacto',
+];
+
+const faq = [
+  { q: '¿Para qué negocios sirve?', a: 'Para empresas, comercios y profesionales de Cali y el Valle que quieren más presencia en línea y más consultas. Funciona igual si estás empezando o si ya tienes clientes y quieres crecer.' },
+  { q: '¿En cuánto tiempo se ven resultados?', a: 'Las redes son una inversión constante: lo relevante empieza a verse en semanas, no en días. Te decimos con honestidad qué esperar según el canal y el esfuerzo.' },
+  { q: '¿Ustedes toman las redes o me enseñan?', a: 'Ambas opciones existen: podemos manejar tus redes completamente, o capacitar a tu equipo para que las maneje bien. Lo definimos contigo.' },
+  { q: '¿Cómo se cobra?', a: 'Por servicio o por plan mensual según los canales y el volumen de contenido. Siempre con precio cerrado antes de empezar y reporte de lo hecho.' },
+];
+---
+
+<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <main id="main" tabindex="-1">
+    <section class={styles['service-page-hero']}>
+      <div class="container">
+        <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
+          <ol><li><a href="/">Inicio</a></li><li><a href="/#servicios">Servicios</a></li><li aria-current="page">{service.name}</li></ol>
+        </nav>
+        <div class={styles['service-hero-grid']}>
+          <div>
+            <h1>{service.h1}</h1>
+            <p class={styles['service-hero-desc']}>{service.intro}</p>
+            <div class={styles['service-hero-actions']}>
+              <a href="/#contacto" class="btn-primary">
+                Solicitar cotización
+              </a>
+              <a href="tel:+573144267349" class="btn-secondary">Llamar ahora</a>
+            </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Estrategia definida antes de publicar nada</li>
+              <li>Contenido con la identidad de tu marca</li>
+              <li>Reporte de resultados sin tecnicismos</li>
+            </ul>
+          </div>
+          <figure class={styles['service-hero-photo']}>
+            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class={styles['service-cases-section']}>
+      <div class="container">
+        <h2>Si esto te suena, estás dejando clientes por fuera</h2>
+        <p class={styles['service-cases-desc']}>Son las situaciones que vemos una y otra vez en negocios de Cali que tienen algo que ofrecer pero no lo muestran bien:</p>
+        <ul class={styles['service-cases']}>
+          {casos.map(c => <li>{c}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>Cómo trabajamos tu marketing</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class={styles['service-content']}>
+      <div class="container">
+        <h2>Qué hace el marketing por tu negocio</h2>
+        <div class={styles['service-benefits-grid']}>
+          <ul class={styles['service-cases']}>
+            {incluye.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Lo que preguntan antes de invertir</h2>
+        {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </section>
+
+    <section class={styles['service-cta']}>
+      <div class="container">
+        <h2>¿Quieres que tu negocio se note más?</h2>
+        <p>Escríbenos por WhatsApp y te proponemos un plan según tu negocio y tu presupuesto. Primero entendemos qué necesitas, después cotizamos.</p>
+        <div class={styles['service-cta-actions']}>
+          <a href="/#contacto" class="btn-primary">
+                Ir al formulario de contacto
+              </a>
+          <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
+        </div>
+        <p class={styles['service-cta-note']}>Marketing digital para Cali y todo Colombia, trabajamos en remoto.</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</Layout>

@@ -1,0 +1,149 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import styles from '@/styles/ServicePage.module.css';
+import Footer from '@/components/Footer.astro';
+import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
+
+const service = {
+  name: 'Capacitación tecnológica para empresas y colegios',
+  h1: 'Capacitación Tecnológica en Cali',
+  description: 'Capacitación tecnológica en Cali: entrenamos a tu equipo en el uso de computadores, software, correo y red. Talleres prácticos en tu sede o en remoto.',
+  keywords: 'capacitación tecnológica cali, capacitación computadores empresas, entrenamiento equipos oficina, talleres tecnología cali',
+  image: 'https://images.pexels.com/photos/9159087/pexels-photo-9159087.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  imageAlt: 'Instructor guiando a una persona en el uso de su computador',
+  intro: 'Un equipo que entiende sus herramientas trabaja más rápido y comete menos errores. Diseñamos y dictamos capacitaciones prácticas sobre los equipos, el software y la red que tu empresa ya usa, sin teoría que no sirve.',
+  waMsg: 'Hola Sistek, vengo de la página de Capacitación Tecnológica. Necesito capacitar a mi equipo y quiero una cotización.',
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": service.name,
+  "description": service.description,
+  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "areaServed": { "@type": "City", "name": "Cali" },
+  "serviceType": "Capacitación tecnológica"
+};
+
+const casos = [
+  'El personal sigue sin saber usar bien el correo y la agenda',
+  'Entran y salen empleados, y cada uno reinventa cómo usar los equipos',
+  'Hay un software nuevo y nadie lo domina',
+  'Los errores tipeo y los archivos mal guardados se vuelven problema diario',
+  'El colegio necesita talleres de informática para los estudiantes',
+  'La red y los recursos compartidos se usan mal y eso genera trabas',
+];
+
+const pasos = [
+  { sub: 'Identificamos el nivel real', text: 'Hablamos con los jefes y observamos cómo trabaja el personal. Con eso definimos qué temas sí necesita y cuáles son pérdida de tiempo.' },
+  { sub: 'Diseñamos el taller', text: 'Contenido práctico con los programas y equipos de tu empresa: ejemplos reales de tu operación, no casos genéricos de libros.' },
+  { sub: 'Capacitamos en tu sede o en remoto', text: 'Dictamos en grupos pequeños, en tu horario, con material de apoyo. También podemos hacerlo por videollamada si tu equipo está repartido.' },
+  { sub: 'Medimos y reforzamos', text: 'Al final medimos qué quedó claro, resolvemos dudas pendientes y dejamos un resumen escrito que el personal pueda consultar después.' },
+];
+
+const incluye = [
+  'Uso correcto de Windows, correo, Office y herramientas de trabajo diario',
+  'Buenas prácticas de seguridad: contraseñas, phishing y respaldos',
+  'Talleres para colegios: informática básica e intermedia por niveles',
+  'Material de apoyo y resumen escrito de cada sesión',
+];
+
+const faq = [
+  { q: '¿En dónde se dicta la capacitación?', a: 'En tus instalaciones en Cali y el área metropolitana, o en remoto por videollamada si tu equipo está distribuido. También podemos coordinar un espacio si tu empresa no tiene sala.' },
+  { q: '¿Para qué tipo de personal sirve?', a: 'Para todo el que use computador en su trabajo: asistentes, contabilidad, cajeros, docentes y administrativos. El contenido se ajusta al nivel del grupo, desde lo básico hasta temas específicos de tu software.' },
+  { q: '¿Cuánto dura y cuánta gente puede?', a: 'Sesiones de 2 a 4 horas por tema, en grupos pequeños para que todos practiquen. Un plan típico son 3 a 5 sesiones, pero lo armamos según lo que necesites.' },
+  { q: '¿Cómo se cobra?', a: 'Por taller o por plan de capacitación con varias sesiones. Te damos precio cerrado antes de empezar, sin sorpresas.' },
+];
+---
+
+<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <main id="main" tabindex="-1">
+    <section class={styles['service-page-hero']}>
+      <div class="container">
+        <nav aria-label="Breadcrumb" class={styles.breadcrumb}>
+          <ol><li><a href="/">Inicio</a></li><li><a href="/#servicios">Servicios</a></li><li aria-current="page">{service.name}</li></ol>
+        </nav>
+        <div class={styles['service-hero-grid']}>
+          <div>
+            <h1>{service.h1}</h1>
+            <p class={styles['service-hero-desc']}>{service.intro}</p>
+            <div class={styles['service-hero-actions']}>
+              <a href="/#contacto" class="btn-primary">
+                Solicitar cotización
+              </a>
+              <a href="tel:+573144267349" class="btn-secondary">Llamar ahora</a>
+            </div>
+            <ul class={styles['service-hero-points']}>
+              <li>Contenido práctico con tus programas y equipos</li>
+              <li>Grupos pequeños, en tu sede o en remoto</li>
+              <li>Resumen escrito al terminar cada sesión</li>
+            </ul>
+          </div>
+          <figure class={styles['service-hero-photo']}>
+            <img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class={styles['service-cases-section']}>
+      <div class="container">
+        <h2>Estos son los síntomas de un equipo sin capacitación</h2>
+        <p class={styles['service-cases-desc']}>Si reconoces alguno de estos, el problema casi nunca es la herramienta, es el uso que se le da:</p>
+        <ul class={styles['service-cases']}>
+          {casos.map(c => <li>{c}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class={styles['service-steps-section']}>
+      <div class="container">
+        <h2>Cómo organizamos la capacitación</h2>
+        <ol class={styles['service-steps']}>
+          {pasos.map((p, i) => (
+            <li class={styles['service-step']}>
+              <span class={styles['service-step-num']}>{i + 1}</span>
+              <h3>{p.sub}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class={styles['service-content']}>
+      <div class="container">
+        <h2>¿Qué incluye la capacitación?</h2>
+        <div class={styles['service-benefits-grid']}>
+          <ul class={styles['service-cases']}>
+            {incluye.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class={styles['service-faq']}>
+      <div class="container">
+        <h2>Lo que preguntan antes de capacitar</h2>
+        {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+      </div>
+    </section>
+
+    <section class={styles['service-cta']}>
+      <div class="container">
+        <h2>¿Tu equipo necesita ponerse al día?</h2>
+        <p>Escríbenos por WhatsApp y en una conversación corta te decimos qué talleres tienen sentido para tu empresa y cuánto costaría. Sin compromiso.</p>
+        <div class={styles['service-cta-actions']}>
+          <a href="/#contacto" class="btn-primary">
+                Ir al formulario de contacto
+              </a>
+          <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
+        </div>
+        <p class={styles['service-cta-note']}>Capacitación en sitio en Cali y el área metropolitana; en remoto, para todo Colombia.</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</Layout>
