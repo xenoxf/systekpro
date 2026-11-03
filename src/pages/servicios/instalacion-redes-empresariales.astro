@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
 import styles from '@/styles/ServicePage.module.css';
-import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { datosEmpresa } from '@/data/info';
+import Footer from '@/components/Footer.astro';
+import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 
 const service = {
   name: 'Instalación de Redes Empresariales',
@@ -10,8 +13,8 @@ const service = {
   keywords: 'instalación redes empresariales cali, diseño redes corporativas, redes cableadas empresas, configuración switches routers, infraestructura de red',
   image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Cuarto de datos con servidores y cableado de red',
-  intro: 'Empresas que pasan de 5 a 30 equipos y de pronto nadie sabe por dónde entra el cable: eso lo resolvemos. Medimos tu sitio, planeamos la red y la instalamos de forma tal que después la puedas operar y ampliar sin drama.',
-  waMsg: 'Hola Sistek, vengo de la página de Instalación de Redes Empresariales. Quiero cotizar una red para mi empresa.',
+  intro: 'Cuando una empresa pasa de 5 a 30 equipos, nadie sabe por dónde pasa el cable. Medimos tu sitio, diseñamos la red y la instalamos para que después puedas operarla y ampliarla.',
+  waMsg: 'Hola Sistek Pro, vengo de la página de Instalación de Redes Empresariales. Quiero cotizar una red para mi empresa.',
 };
 
 const jsonLd = {
@@ -19,14 +22,14 @@ const jsonLd = {
   "@type": "Service",
   "name": service.name,
   "description": service.description,
-  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "provider": { "@type": "LocalBusiness", "name": "Sistek Pro" },
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Instalación de redes empresariales"
 };
 
 const pasos = [
   { sub: 'Visita y medición', text: 'Recorremos el sitio contigo: dónde habrá puntos, por dónde puede pasar el cable y qué equipos hacen falta.' },
-  { sub: 'Propuesta cerrada', text: 'Recibes un documento con puntos, materiales, precio y fecha. Lo apruebas o lo ajustamos. Nadie paga por sorpresa.' },
+  { sub: 'Propuesta cerrada', text: 'Recibes un documento con puntos, materiales, precio y fecha. Lo apruebas o lo ajustamos.' },
   { sub: 'Montaje', text: 'Canaleta, cableado, rostros y rack, por áreas y sin desorden, aunque la empresa siga operando durante la obra.' },
   { sub: 'Pruebas y entrega', text: 'Cada punto se prueba y queda certificado. Entrega con planos, acta y garantía escrita.' },
 ];
@@ -36,13 +39,13 @@ const incluye = [
   'Switches, routers y firewall configurados, documentados y con respaldo',
   'Racks, patch panels y etiquetado que cualquier persona del área puede entender',
   'Red separada para invitados y cámaras, lejos de la red operativa',
-  'Planos e inventario final: nunca más "quién sabe por dónde pasa el cable"',
+  'Planos e inventario final para que cualquiera del área entienda la red',
 ];
 
 const evidencia = [
   {
     img: '/evidencias/redes_trabajando.jpg',
-    alt: 'Personal de Sistek terminando cables de red y ordenando canaleta en una instalación',
+    alt: 'Personal de Sistek Pro terminando cables de red y ordenando canaleta en una instalación',
     caption: 'Montaje real: terminando cables y dejando la canaleta lista para el rack.',
   },
 ];
@@ -55,8 +58,9 @@ const faq = [
 ];
 ---
 
-<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+<Layout title={`${service.h1} | Sistek Pro`} description={service.description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Navbar client:load />
   <main id="main" tabindex="-1">
     <section class={styles['service-page-hero']}>
       <div class="container">
@@ -68,11 +72,10 @@ const faq = [
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
-                <IconBrandWhatsapp aria-hidden="true" />
-                Cotizar mi red
+              <a href="/#contacto" class="btn-primary">
+                Solicitar cotización
               </a>
-              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+              <a href={`tel:${datosEmpresa.telefonoIntl}`} class="btn-secondary">Llamar ahora</a>
             </div>
             <ul class={styles['service-hero-points']}>
               <li>Precio cerrado por escrito después de la visita técnica</li>
@@ -89,7 +92,7 @@ const faq = [
 
     <section class={styles['service-steps-section']}>
       <div class="container">
-        <h2>Cómo se hace una red en Sistek</h2>
+        <h2>Cómo se hace una red en Sistek Pro</h2>
         <ol class={styles['service-steps']}>
           {pasos.map((p, i) => (
             <li class={styles['service-step']}>
@@ -104,7 +107,7 @@ const faq = [
 
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué entra en el servicio?</h2>
+        <h2>Qué incluye la instalación</h2>
         <div class={styles['service-benefits-grid']}>
           <ul class={styles['service-cases']}>
             {incluye.map(item => <li>{item}</li>)}
@@ -115,8 +118,8 @@ const faq = [
 
     <section class={styles['service-proof']}>
       <div class="container">
-        <h2>Trabajo de verdad, no fotos de banco de imágenes</h2>
-        <p class={styles['service-proof-desc']}>Así se ve el equipo en un montaje normal. La diferencia de una buena red se ve en la canaleta y se siente a los dos años.</p>
+        <h2>Evidencia de montaje en sitio</h2>
+        <p class={styles['service-proof-desc']}>Foto de un montaje real en sitio.</p>
         <div class={styles['service-proof-grid']}>
           {evidencia.map(e => (
             <figure>
@@ -130,7 +133,7 @@ const faq = [
 
     <section class={styles['service-faq']}>
       <div class="container">
-        <h2>Lo más preguntado</h2>
+        <h2>Lo que preguntan antes de la instalación</h2>
         {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
       </div>
     </section>
@@ -138,16 +141,17 @@ const faq = [
     <section class={styles['service-cta']}>
       <div class="container">
         <h2>¿Cuánto costaría tu red?</h2>
-        <p>La respuesta corta: depende de puntos y condiciones. La respuesta buena: escríbenos, hacemos la visita y sabes el número exacto antes de gastar un peso.</p>
+        <p>Depende de los puntos y las condiciones del sitio. Escríbenos, hacemos la visita y te damos el precio antes de empezar.</p>
         <div class={styles['service-cta-actions']}>
-          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
-            <IconBrandWhatsapp aria-hidden="true" />
-            Cotizar por WhatsApp
-          </a>
+          <a href="/#contacto" class="btn-primary">
+                Ir al formulario de contacto
+              </a>
           <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
         </div>
         <p class={styles['service-cta-note']}>Atendemos Cali y el área metropolitana.</p>
       </div>
     </section>
   </main>
+  <Footer />
+  <WhatsAppFloat />
 </Layout>

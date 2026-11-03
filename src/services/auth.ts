@@ -1,6 +1,11 @@
 import { api } from "./api"
 
-export type AuthRole = "admin" | "gerente" | "mantenimiento" | "marketing"
+/**
+ * Clave del rol: 'admin', 'gerente' o la clave de un departamento
+ * ('informatica', 'marketing', ...). El backend arma esa lista a partir de
+ * los departamentos creados.
+ */
+export type AuthRole = string
 
 export interface AuthUser {
   id: string

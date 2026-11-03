@@ -6,7 +6,7 @@ import { datosEmpresa } from '@/data/info';
 
 <nav aria-label="Contacto rápido" class={styles['whatsapp-float-nav']}>
   <a
-      href=`https://wa.me/57${datosEmpresa.telefono}?text=Hola%20Sistek%2C%20necesito%20información%20sobre%20sus%20servicios`
+    href={`https://wa.me/${datosEmpresa.waNumber}?text=Hola%20Sistek Pro%2C%20necesito%20información%20sobre%20sus%20servicios`}
     class={styles['whatsapp-float']}
     target="_blank"
     rel="noopener noreferrer"

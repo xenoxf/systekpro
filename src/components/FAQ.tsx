@@ -1,4 +1,5 @@
 import { IconChevronDown } from '@tabler/icons-react';
+import { datosEmpresa } from '@/data/info';
 import styles from "@/styles/FAQ.module.css";
 
 const faqs = [
@@ -8,7 +9,7 @@ const faqs = [
   },
   {
     q: '¿Hacen mantenimiento preventivo?',
-    a: 'Sí. Planes mensuales o periódicos: limpieza, revisión, actualización de software y diagnóstico. Evitás las fallas antes de que pasen.'
+    a: 'Sí. Planes mensuales o periódicos: limpieza, revisión, actualización de software y diagnóstico. Evitamos las fallas antes de que pasen.'
   },
   {
     q: '¿Qué cableado instalan?',
@@ -17,6 +18,18 @@ const faqs = [
   {
     q: '¿Soporte remoto o solo presencial?',
     a: 'Ambos. Remoto para software y configuración. Presencial cuando se necesita — coordinamos la visita en Cali.'
+  },
+  {
+    q: '¿Dan capacitaciones?',
+    a: 'Sí. Capacitamos a tu equipo en herramientas informáticas, seguridad digital y uso responsable de la información. Vamos a tu sede o lo damos en remoto, con contenidos armados para tu operación.'
+  },
+  {
+    q: '¿Desarrollan software o bases de datos a la medida?',
+    a: 'Sí: páginas web, software a la medida y bases de datos, con panel administrable, formularios que llegan al responsable correcto y copias de seguridad. Te entregamos el código y queda documentado.'
+  },
+  {
+    q: '¿Pueden encargarse de la marca y las redes de mi negocio?',
+    a: 'Sí. Nuestro departamento de marketing trabaja identidad corporativa, contenido para redes y campañas digitales, y define con ustedes el tono antes de publicar.'
   },
   {
     q: '¿Con qué marcas trabajan?',
@@ -28,7 +41,7 @@ const faqs = [
   },
   {
     q: '¿Cómo pido una cotización?',
-    a: 'Llamá al +57 123 4513541, escribinos por WhatsApp o llená el formulario. Te respondemos rápido.'
+    a: `Escríbenos al ${datosEmpresa.telefonoDisplay} por WhatsApp o llena el formulario de contacto. Te respondemos con precio y tiempos.`
   },
   {
     q: '¿Atienden casas o solo empresas?',
@@ -58,7 +71,7 @@ export default function FAQ() {
           <h2 id="faq-heading" className="section-title">
             Preguntas frecuentes
           </h2>
-          <p className="section-desc">Dudas reales de clientes reales. Si no está la tuya, escribinos.</p>
+          <p className="section-desc">Dudas reales de clientes reales. Si no está la tuya, escríbenos.</p>
         </div>
 
         <div className={styles['faq-list']}>

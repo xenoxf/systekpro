@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Presentación (solo para agentes, no se publica)
+public/info/presentacion_sustentacion.pdf

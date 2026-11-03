@@ -2,16 +2,23 @@ const siteUrl = 'https://sistek.com.co';
 
 const pages = [
   { path: '/', priority: '1.0', changefreq: 'weekly' },
+  { path: '/nosotros', priority: '0.7', changefreq: 'monthly' },
   { path: '/servicios/mantenimiento-computadores', priority: '0.9', changefreq: 'monthly' },
   { path: '/servicios/instalacion-redes-empresariales', priority: '0.9', changefreq: 'monthly' },
   { path: '/servicios/cableado-estructurado', priority: '0.9', changefreq: 'monthly' },
   { path: '/servicios/configuracion-routers-switches', priority: '0.8', changefreq: 'monthly' },
-  { path: '/servicios/redes-inalambricas-wifi', priority: '0.8', changefreq: 'monthly' },
   { path: '/servicios/soporte-tecnico', priority: '0.8', changefreq: 'monthly' },
+  { path: '/servicios/asistencia-remota', priority: '0.8', changefreq: 'monthly' },
+  { path: '/servicios/diseno-mantenimiento-redes-datos', priority: '0.8', changefreq: 'monthly' },
+  { path: '/servicios/desarrollo-web-backend', priority: '0.8', changefreq: 'monthly' },
+  { path: '/servicios/ensamblaje-computadores', priority: '0.8', changefreq: 'monthly' },
+  { path: '/servicios/capacitacion-tecnologica', priority: '0.8', changefreq: 'monthly' },
+  { path: '/servicios/marketing-digital', priority: '0.8', changefreq: 'monthly' },
   { path: '/blog', priority: '0.7', changefreq: 'weekly' },
   { path: '/blog/instalacion-red-empresarial-cali', priority: '0.6', changefreq: 'monthly' },
   { path: '/privacidad', priority: '0.3', changefreq: 'yearly' },
   { path: '/terminos', priority: '0.3', changefreq: 'yearly' },
+  { path: '/politicas', priority: '0.3', changefreq: 'yearly' },
 ];
 
 const lastMod = new Date().toISOString();

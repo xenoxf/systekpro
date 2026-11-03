@@ -1,16 +1,16 @@
-**SISTEK PRO — MANUAL DE POLÍTICAS EMPRESARIALES** 
+**Sistek Pro — MANUAL DE POLÍTICAS EMPRESARIALES** 
 
 **SISTEMA DE GESTIÓN Y CALIDAD** 
 
-### **SISTEK PRO** 
+### **Sistek Pro** 
 
 # **Manual de Políticas Empresariales Aplicativas** 
 
 Marco Normativo de Servicio, Calidad, Seguridad y Protección de Información 
 
-El presente manual establece las directrices organizacionales y operativas de **SISTEK PRO** , diseñadas bajo metodologías y mejores prácticas de gestión empresarial. Cada política ha sido estructurada priorizando una **redacción en lenguaje positivo** , donde se definen claramente los derechos del cliente, las normas explícitas de actuación y los cargos o roles responsables de garantizar su cumplimiento. 
+El presente manual establece las directrices organizacionales y operativas de **Sistek Pro** , diseñadas bajo metodologías y mejores prácticas de gestión empresarial. Cada política ha sido estructurada priorizando una **redacción en lenguaje positivo** , donde se definen claramente los derechos del cliente, las normas explícitas de actuación y los cargos o roles responsables de garantizar su cumplimiento. 
 
-#### **Pilares Estratégicos de las Políticas en SISTEK PRO:** 
+#### **Pilares Estratégicos de las Políticas en Sistek Pro:** 
 
 - **Lenguaje Positivo y Transparente:** Orientado al beneficio del cliente y a la claridad de soluciones. 
 
@@ -46,7 +46,7 @@ Todo cliente tiene derecho a recibir una atención respetuosa, transparente y un
 
 #### **Norma de Actuación (Lenguaje Positivo):** 
 
-SISTEK PRO garantiza la estricta reserva y protección de los datos de sus clientes. El personal técnico aplicará protocolos de seguridad en cada intervención y respaldos temporales estrictamente autorizados. Queda rotundamente prohibido copiar, modificar, extraer o compartir información sin la previa autorización explícita y por escrito del cliente. 
+Sistek Pro garantiza la estricta reserva y protección de los datos de sus clientes. El personal técnico aplicará protocolos de seguridad en cada intervención y respaldos temporales estrictamente autorizados. Queda rotundamente prohibido copiar, modificar, extraer o compartir información sin la previa autorización explícita y por escrito del cliente. 
 
 **Mecanismo de Evidencia y Control:** Acuerdo digital de confidencialidad y registro de autorización de respaldo. 
 
@@ -54,7 +54,7 @@ Documento Normativo de Uso Interno y Cobertura de Servicio
 
 Página 1 
 
-**SISTEK PRO — MANUAL DE POLÍTICAS EMPRESARIALES** 
+**Sistek Pro — MANUAL DE POLÍTICAS EMPRESARIALES** 
 
 **SISTEMA DE GESTIÓN Y CALIDAD** 
 
@@ -78,7 +78,7 @@ Los mantenimientos preventivos se programarán y ejecutarán conforme al plan ac
 |**Tipo de Política:**|Política Operativa de Taller y Campo|
 |---|---|
 |**Cargo Responsable:**|Personal de Soporte Técnico y Custodia de Equipos|
-|**Alcance:**|Todos los dispositivos, componentes y hardware bajo responsabilidad de SISTEK PRO|
+|**Alcance:**|Todos los dispositivos, componentes y hardware bajo responsabilidad de Sistek Pro|
 
 
 
@@ -107,7 +107,7 @@ Documento Normativo de Uso Interno y Cobertura de Servicio
 
 Página 2 
 
-**SISTEK PRO — MANUAL DE POLÍTICAS EMPRESARIALES** 
+**Sistek Pro — MANUAL DE POLÍTICAS EMPRESARIALES** 
 
 **SISTEMA DE GESTIÓN Y CALIDAD** 
 
@@ -122,7 +122,7 @@ Página 2
 
 #### **Norma de Actuación (Lenguaje Positivo):** 
 
-SISTEK PRO se compromete a prestar servicios bajo estándares técnicos profesionales. En caso de presentarse una falla atribuible a un procedimiento propio, la empresa realizará la corrección de forma totalmente gratuita dentro del periodo de garantía. Promovemos la mejora continua revisando periódicamente nuestros procedimientos e integrando estándares normativos actualizados. 
+Sistek Pro se compromete a prestar servicios bajo estándares técnicos profesionales. En caso de presentarse una falla atribuible a un procedimiento propio, la empresa realizará la corrección de forma totalmente gratuita dentro del periodo de garantía. Promovemos la mejora continua revisando periódicamente nuestros procedimientos e integrando estándares normativos actualizados. 
 
 **Mecanismo de Evidencia y Control:** Certificado de garantía y registro en el sistema de control de calidad. 
 
@@ -137,7 +137,7 @@ SISTEK PRO se compromete a prestar servicios bajo estándares técnicos profesio
 
 #### **Norma de Actuación (Lenguaje Positivo):** 
 
-SISTEK PRO se compromete a cumplir estrictamente los plazos de entrega y horarios pactados. Si acontecen imprevistos técnicos o logísticos, se avisará al cliente con al menos **4 horas de anticipación** . Asimismo, las incidencias urgentes que afecten la operación del cliente tendrán prioridad de atención, coordinando horarios que minimicen cualquier impacto en sus actividades. 
+Sistek Pro se compromete a cumplir estrictamente los plazos de entrega y horarios pactados. Si acontecen imprevistos técnicos o logísticos, se avisará al cliente con al menos **4 horas de anticipación** . Asimismo, las incidencias urgentes que afecten la operación del cliente tendrán prioridad de atención, coordinando horarios que minimicen cualquier impacto en sus actividades. 
 
 **Mecanismo de Evidencia y Control:** Registro digital de la agenda de servicios y trazabilidad de notificaciones al cliente. 
 
@@ -159,7 +159,7 @@ Documento Normativo de Uso Interno y Cobertura de Servicio
 
 Página 3 
 
-**SISTEK PRO — MANUAL DE POLÍTICAS EMPRESARIALES** 
+**Sistek Pro — MANUAL DE POLÍTICAS EMPRESARIALES** 
 
 **SISTEMA DE GESTIÓN Y CALIDAD** 
 

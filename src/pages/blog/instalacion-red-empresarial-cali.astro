@@ -1,12 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Footer from '@/components/Footer.astro';
+import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 import styles from '@/styles/Blog.module.css';
 
 const post = {
   title: 'Guía Completa: Cómo Instalar una Red Empresarial en Cali',
   description: 'Todo lo que necesitas saber sobre el diseño e instalación de redes empresariales. Desde el cableado estructurado hasta la configuración de switches y routers.',
   date: '2026-05-15',
-  author: 'Equipo Sistek',
+  author: 'Equipo Sistek Pro',
   readTime: '8 min',
   category: 'Redes',
 };
@@ -20,13 +22,13 @@ const jsonLd = {
   "author": { "@type": "Organization", "name": post.author },
   "publisher": {
     "@type": "Organization",
-    "name": "Sistek",
+    "name": "Sistek Pro",
     "logo": { "@type": "ImageObject", "url": "https://sistek.com.co/logo.png" }
   }
 };
 ---
 
-<Layout title={`${post.title} | Blog Sistek`} description={post.description}>
+<Layout title={`${post.title} | Blog Sistek Pro`} description={post.description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <main id="main" tabindex="-1">
     <article class={styles['blog-article']}>
@@ -75,13 +77,15 @@ const jsonLd = {
 
           <div class={styles['blog-cta-box']}>
             <h3>¿Necesitas ayuda con tu red empresarial?</h3>
-            <p>En Sistek diseñamos, instalamos y configuramos redes empresariales en Cali. Contáctanos para una asesoría gratuita.</p>
+            <p>En Sistek Pro diseñamos, instalamos y configuramos redes empresariales en Cali. Contáctanos para una asesoría gratuita.</p>
             <a href="/#contacto" class="btn-primary">Solicitar cotización</a>
           </div>
         </div>
       </div>
     </article>
   </main>
+  <Footer />
+  <WhatsAppFloat />
 </Layout>
 
 

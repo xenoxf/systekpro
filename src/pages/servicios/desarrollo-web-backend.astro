@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
 import styles from '@/styles/ServicePage.module.css';
-import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { datosEmpresa } from '@/data/info';
+import Footer from '@/components/Footer.astro';
+import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 
 const service = {
   name: 'Desarrollo y mantenimiento de sitios web con backend',
@@ -10,8 +13,8 @@ const service = {
   keywords: 'desarrollo web cali, páginas web cali, backend, panel administrable, formularios web, mantenimiento web',
   image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Desarrollo de página web en computador',
-  intro: 'Una página web la gana lo que pasa detrás: que el formulario llegue, que cargue rápido en un teléfono, que puedas cambiar el precio sin escribirle al programador por cada coma. Diseñamos, construimos y te dejamos el control del contenido.',
-  waMsg: 'Hola Sistek, vengo de la página de Desarrollo Web y Backend. Quiero cotizar un sitio para mi negocio.',
+  intro: 'Lo importante de una página web está detrás: que el formulario llegue, que cargue en el teléfono y que puedas cambiar el precio sin escribirle a nadie. Diseñamos, construimos y te dejamos el control del contenido.',
+  waMsg: 'Hola Sistek Pro, vengo de la página de Desarrollo Web y Backend. Quiero cotizar un sitio para mi negocio.',
 };
 
 const jsonLd = {
@@ -19,15 +22,15 @@ const jsonLd = {
   "@type": "Service",
   "name": service.name,
   "description": service.description,
-  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "provider": { "@type": "LocalBusiness", "name": "Sistek Pro" },
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Desarrollo y mantenimiento web"
 };
 
 const pasos = [
-  { sub: 'Conversación corta', text: 'Nos cuentas qué se necesita: qué debe mostrar el sitio, qué formularios deben llegar y a quién. Es media hora de conversación, no semanas de documento de requerimientos.' },
-  { sub: 'Propuesta con entregas', text: 'Precio cerrado, fecha definida y entregas parciales. Cada avance se ve en línea desde el navegador, no al final en un PDF bonito.' },
-  { sub: 'Construcción', text: 'Sitio, backend y panel. Corriges sobre lo que ya existe, no sobre una descripción. Los formularios se prueban hasta que llegan de verdad.' },
+  { sub: 'Conversación corta', text: 'Nos cuentas qué se necesita: qué debe mostrar el sitio, qué formularios deben llegar y a quién. Una media hora de conversación, nada de semanas de especificaciones.' },
+  { sub: 'Propuesta con entregas', text: 'Precio cerrado, fecha definida y entregas parciales. Cada avance se ve en línea desde el navegador, no de última hora en un PDF.' },
+  { sub: 'Construcción', text: 'Sitio, backend y panel. Corriges sobre lo que ya existe, no sobre una descripción. Los formularios se prueban hasta que funcionan.' },
   { sub: 'Entrega y capacitación', text: 'Publicamos con dominio y seguridad, y te enseñamos en una sesión a editar el contenido por tu cuenta. Después te seguimos si quieres mantener.' },
 ];
 
@@ -47,7 +50,7 @@ const evidencia = [
   },
   {
     img: '/evidencias/alguien_codeando.jpg',
-    alt: 'Manos de un desarrollador de Sistek revisando código en su portátil',
+    alt: 'Manos de un desarrollador de Sistek Pro revisando código en su portátil',
     caption: 'El trabajo invisible: revisión de código antes de publicar cambios en un sitio en producción.',
   },
 ];
@@ -61,8 +64,9 @@ const faq = [
 ];
 ---
 
-<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+<Layout title={`${service.h1} | Sistek Pro`} description={service.description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Navbar client:load />
   <main id="main" tabindex="-1">
     <section class={styles['service-page-hero']}>
       <div class="container">
@@ -74,11 +78,10 @@ const faq = [
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
-                <IconBrandWhatsapp aria-hidden="true" />
-                Cotizar mi página
+              <a href="/#contacto" class="btn-primary">
+                Solicitar cotización
               </a>
-              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+              <a href={`tel:${datosEmpresa.telefonoIntl}`} class="btn-secondary">Llamar ahora</a>
             </div>
             <ul class={styles['service-hero-points']}>
               <li>Precio cerrado con entregas parciales visibles en línea</li>
@@ -110,7 +113,7 @@ const faq = [
 
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué entra en el servicio?</h2>
+        <h2>Qué incluye el desarrollo</h2>
         <div class={styles['service-benefits-grid']}>
           <ul class={styles['service-cases']}>
             {incluye.map(item => <li>{item}</li>)}
@@ -122,7 +125,7 @@ const faq = [
     <section class={styles['service-proof']}>
       <div class="container">
         <h2>Así se ve un día de trabajo del equipo</h2>
-        <p class={styles['service-proof-desc']}>Mismo cuidado en la primera pantalla que en la última: estas son fotos de una jornada normal del departamento de desarrollo.</p>
+        <p class={styles['service-proof-desc']}>Estas son fotos de una jornada normal del equipo de desarrollo.</p>
         <div class={styles['service-proof-grid']}>
           {evidencia.map(e => (
             <figure>
@@ -136,7 +139,7 @@ const faq = [
 
     <section class={styles['service-faq']}>
       <div class="container">
-        <h2>Lo más preguntado</h2>
+        <h2>Lo que preguntan antes de encargar un sitio</h2>
         {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
       </div>
     </section>
@@ -144,16 +147,17 @@ const faq = [
     <section class={styles['service-cta']}>
       <div class="container">
         <h2>Cuéntanos qué vendes o qué quieres informar</h2>
-        <p>Una conversación de media hora y una propuesta con precio cerrado. Sin letra pequeña ni sorpresas de "eso se cobra aparte".</p>
+        <p>Una conversación de media hora y una propuesta con precio cerrado. Sin letra pequeña.</p>
         <div class={styles['service-cta-actions']}>
-          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
-            <IconBrandWhatsapp aria-hidden="true" />
-            Escribir por WhatsApp
-          </a>
+          <a href="/#contacto" class="btn-primary">
+                Ir al formulario de contacto
+              </a>
           <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
         </div>
         <p class={styles['service-cta-note']}>Trabajamos con clientes en Cali y el resto de Colombia.</p>
       </div>
     </section>
   </main>
+  <Footer />
+  <WhatsAppFloat />
 </Layout>

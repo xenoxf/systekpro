@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Footer from '@/components/Footer.astro';
+import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 import styles from '@/styles/Blog.module.css';
 
 const posts = [
@@ -15,7 +17,7 @@ const posts = [
 ---
 
 <Layout
-  title="Blog de Tecnología y Redes | Sistek Cali"
+  title="Blog de Tecnología y Redes | Sistek Pro"
   description="Guías y consejos sobre redes, cableado y mantenimiento de equipos en Cali."
 >
   <main id="main" tabindex="-1">
@@ -51,6 +53,8 @@ const posts = [
       </div>
     </section>
   </main>
+  <Footer />
+  <WhatsAppFloat />
 </Layout>
 
 

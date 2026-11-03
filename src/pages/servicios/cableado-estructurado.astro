@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
 import styles from '@/styles/ServicePage.module.css';
-import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { datosEmpresa } from '@/data/info';
+import Footer from '@/components/Footer.astro';
+import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 
 const service = {
   name: 'Cableado Estructurado',
@@ -10,8 +13,8 @@ const service = {
   keywords: 'cableado estructurado cali, instalación CAT6, cableado red empresarial, patch panels, racks de red, certificación cableado',
   image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Técnico instalando cableado estructurado',
-  intro: 'El cable mal terminado de hoy es la avería misteriosa del año entrante. Instalamos CAT6/CAT6A como debe ser: canaleta profesional, rostros alineados, rack ordenado y cada punto medido con certificado. Cable que se instala una vez y no se vuelve a tocar.',
-  waMsg: 'Hola Sistek, vengo de la página de Cableado Estructurado. Quiero cotizar puntos de red.',
+  intro: 'Un cable mal terminado funciona hasta que deja de hacerlo. Instalamos CAT6/CAT6A con canaleta profesional, rostros alineados, rack ordenado y cada punto medido y certificado.',
+  waMsg: 'Hola Sistek Pro, vengo de la página de Cableado Estructurado. Quiero cotizar puntos de red.',
 };
 
 const jsonLd = {
@@ -19,7 +22,7 @@ const jsonLd = {
   "@type": "Service",
   "name": service.name,
   "description": service.description,
-  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "provider": { "@type": "LocalBusiness", "name": "Sistek Pro" },
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Cableado estructurado"
 };
@@ -27,12 +30,12 @@ const jsonLd = {
 const pasos = [
   { sub: 'Censo de puntos', text: 'Contamos cada punto que vas a necesitar y revisamos las rutas: canaleta nueva o aprovechando lo que ya existe.' },
   { sub: 'Precio por punto', text: 'Cotizamos punto por punto (cable, rostro, etiqueta, prueba) y materiales aparte si hacen falta. Total cerrado antes de comprar nada.' },
-  { sub: 'Montaje limpio', text: 'Canaleta con esquinas profesionales, rostros alineados y cables guiados hacia el rack. Acabado con el que no te da vergüenza el muro.' },
+  { sub: 'Montaje limpio', text: 'Canaleta con esquinas rectas, rostros alineados y cables guiados al rack.' },
   { sub: 'Certificación', text: 'Cada punto se mide y se certifica. Reporte por punto a tu nombre: si uno no pasa, se corrige antes de cobrar.' },
 ];
 
 const incluye = [
-  'Cable CAT6/CAT6A profesional, nada de material de origen dudoso',
+  'Cable CAT6/CAT6A certificado por punto',
   'Racks, patch panels y pigtails con gestión de cables real',
   'Rostros y jack en cada puesto de trabajo, con etiquetado claro',
   'Prueba y certificación de cada punto con reporte entregado',
@@ -42,7 +45,7 @@ const incluye = [
 const evidencia = [
   {
     img: '/evidencias/redes_trabajando.jpg',
-    alt: 'Equipo de Sistek crimpando y ordenando cable de red en canaleta',
+    alt: 'Equipo de Sistek Pro crimpando y ordenando cable de red en canaleta',
     caption: 'Pigtails llegando a la canaleta: cada punto se termina, se prueba y se etiqueta antes de darlo por listo.',
   },
 ];
@@ -55,8 +58,9 @@ const faq = [
 ];
 ---
 
-<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+<Layout title={`${service.h1} | Sistek Pro`} description={service.description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Navbar client:load />
   <main id="main" tabindex="-1">
     <section class={styles['service-page-hero']}>
       <div class="container">
@@ -68,11 +72,10 @@ const faq = [
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
-                <IconBrandWhatsapp aria-hidden="true" />
-                Cotizar cableado
+              <a href="/#contacto" class="btn-primary">
+                Solicitar cotización
               </a>
-              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+              <a href={`tel:${datosEmpresa.telefonoIntl}`} class="btn-secondary">Llamar ahora</a>
             </div>
             <ul class={styles['service-hero-points']}>
               <li>Precio por punto, cerrado y por escrito en la cotización</li>
@@ -104,7 +107,7 @@ const faq = [
 
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué entra en el servicio?</h2>
+        <h2>Qué incluye el trabajo de cableado</h2>
         <div class={styles['service-benefits-grid']}>
           <ul class={styles['service-cases']}>
             {incluye.map(item => <li>{item}</li>)}
@@ -115,8 +118,8 @@ const faq = [
 
     <section class={styles['service-proof']}>
       <div class="container">
-        <h2>Trabajo de verdad, no fotos de banco de imágenes</h2>
-        <p class={styles['service-proof-desc']}>El proveedor que entrega certificado por punto es el mismo que puede volver en dos años y entender su propio rack. Así trabajamos.</p>
+        <h2>Evidencia de instalación en sitio</h2>
+        <p class={styles['service-proof-desc']}>Cada punto se entrega con certificado y el rack queda ordenado para que cualquiera lo entienda después.</p>
         <div class={styles['service-proof-grid']}>
           {evidencia.map(e => (
             <figure>
@@ -130,7 +133,7 @@ const faq = [
 
     <section class={styles['service-faq']}>
       <div class="container">
-        <h2>Lo más preguntado</h2>
+        <h2>Dudas de cableado, resueltas</h2>
         {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
       </div>
     </section>
@@ -138,16 +141,17 @@ const faq = [
     <section class={styles['service-cta']}>
       <div class="container">
         <h2>¿Cuántos puntos necesitas?</h2>
-        <p>Si no lo sabes exacto, tampoco pasa nada: contamos contigo en la visita y salimos con el número. Escríbenos y lo agilizamos.</p>
+        <p>Si no lo tienes claro, lo definimos en la visita. Escríbenos y te decimos cómo seguir.</p>
         <div class={styles['service-cta-actions']}>
-          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
-            <IconBrandWhatsapp aria-hidden="true" />
-            Cotizar por WhatsApp
-          </a>
+          <a href="/#contacto" class="btn-primary">
+                Ir al formulario de contacto
+              </a>
           <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
         </div>
         <p class={styles['service-cta-note']}>Atendemos Cali y el área metropolitana.</p>
       </div>
     </section>
   </main>
+  <Footer />
+  <WhatsAppFloat />
 </Layout>

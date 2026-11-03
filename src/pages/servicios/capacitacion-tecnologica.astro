@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
 import styles from '@/styles/ServicePage.module.css';
+import { datosEmpresa } from '@/data/info';
 import Footer from '@/components/Footer.astro';
 import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 
@@ -11,8 +13,8 @@ const service = {
   keywords: 'capacitación tecnológica cali, capacitación computadores empresas, entrenamiento equipos oficina, talleres tecnología cali',
   image: 'https://images.pexels.com/photos/9159087/pexels-photo-9159087.jpeg?auto=compress&cs=tinysrgb&w=1200',
   imageAlt: 'Instructor guiando a una persona en el uso de su computador',
-  intro: 'Un equipo que entiende sus herramientas trabaja más rápido y comete menos errores. Diseñamos y dictamos capacitaciones prácticas sobre los equipos, el software y la red que tu empresa ya usa, sin teoría que no sirve.',
-  waMsg: 'Hola Sistek, vengo de la página de Capacitación Tecnológica. Necesito capacitar a mi equipo y quiero una cotización.',
+  intro: 'Un equipo que entiende sus herramientas trabaja más rápido y comete menos errores. Diseñamos y dictamos capacitaciones prácticas sobre los equipos, el software y la red que usa tu empresa, con ejercicios reales.',
+  waMsg: 'Hola Sistek Pro, vengo de la página de Capacitación Tecnológica. Necesito capacitar a mi equipo y quiero una cotización.',
 };
 
 const jsonLd = {
@@ -20,7 +22,7 @@ const jsonLd = {
   "@type": "Service",
   "name": service.name,
   "description": service.description,
-  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "provider": { "@type": "LocalBusiness", "name": "Sistek Pro" },
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Capacitación tecnológica"
 };
@@ -56,8 +58,9 @@ const faq = [
 ];
 ---
 
-<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+<Layout title={`${service.h1} | Sistek Pro`} description={service.description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Navbar client:load />
   <main id="main" tabindex="-1">
     <section class={styles['service-page-hero']}>
       <div class="container">
@@ -72,7 +75,7 @@ const faq = [
               <a href="/#contacto" class="btn-primary">
                 Solicitar cotización
               </a>
-              <a href="tel:+573144267349" class="btn-secondary">Llamar ahora</a>
+              <a href={`tel:${datosEmpresa.telefonoIntl}`} class="btn-secondary">Llamar ahora</a>
             </div>
             <ul class={styles['service-hero-points']}>
               <li>Contenido práctico con tus programas y equipos</li>
@@ -89,8 +92,8 @@ const faq = [
 
     <section class={styles['service-cases-section']}>
       <div class="container">
-        <h2>Estos son los síntomas de un equipo sin capacitación</h2>
-        <p class={styles['service-cases-desc']}>Si reconoces alguno de estos, el problema casi nunca es la herramienta, es el uso que se le da:</p>
+        <h2>Síntomas de un equipo sin capacitación</h2>
+        <p class={styles['service-cases-desc']}>Si pasa algo de esto, el problema suele ser el uso, no la herramienta:</p>
         <ul class={styles['service-cases']}>
           {casos.map(c => <li>{c}</li>)}
         </ul>

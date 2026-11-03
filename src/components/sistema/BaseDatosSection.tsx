@@ -15,7 +15,7 @@ export default function BaseDatosSection() {
       <div className={styles['sys-panel']}>
         <img
           src="/info/diagrama_db.png"
-          alt="Diagrama de la base de datos del sistema Sistek"
+          alt="Diagrama de la base de datos del sistema Sistek Pro"
           loading="lazy"
           decoding="async"
           style={{ width: "100%", height: "auto", display: "block", borderRadius: "0.375rem" }}

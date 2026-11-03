@@ -11,6 +11,8 @@ import {
   IconWifi,
   IconHeadset,
   IconCpu,
+  IconSchool,
+  IconSpeakerphone,
 } from "@tabler/icons-react";
 
 const AUTOPLAY_DELAY = 6000;
@@ -22,6 +24,8 @@ const icons: Record<string, ComponentType<{ className?: string }>> = {
   IconWifi,
   IconHeadset,
   IconCpu,
+  IconSchool,
+  IconSpeakerphone,
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");

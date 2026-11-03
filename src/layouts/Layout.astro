@@ -2,6 +2,7 @@
 import "@/styles/starwind.css";
 import "@/styles/base.css";
 import Toaster from '../components/starwind/toast/Toaster.astro'
+import { datosEmpresa } from '@/data/info';
 
 interface Props {
   title?: string;
@@ -13,7 +14,7 @@ interface Props {
 
 const {
   title = "Sistek Pro - Redes, cableado y soporte técnico en Cali",
-  description = "Sistek: mantenimiento de computadores, redes empresariales, cableado estructurado y soporte técnico en Cali. Cotización sin compromiso.",
+  description = "Sistek Pro: mantenimiento de computadores, redes empresariales, cableado estructurado y soporte técnico en Cali. Cotización sin compromiso.",
   image = "/og-image.svg",
   canonical = Astro.url.href,
   accessibility = true
@@ -32,14 +33,13 @@ const breadcrumbs = [
 const jsonLdLocalBusiness = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Sistek",
+  "name": "Sistek Pro",
   "alternateName": "Sistek Pro",
   "image": `${siteUrl}/logo.png`,
   "logo": `${siteUrl}/logo.png`,
   "description": description,
   "url": siteUrl,
-  "telephone": "+57-123-4513541",
-  "email": "contacto@sistek.com.co",
+  "telephone": datosEmpresa.telefonoIntl,
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Calle 41, Cra 31 #00",
@@ -82,7 +82,10 @@ const jsonLdLocalBusiness = {
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Soporte Técnico" } },
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Asistencia Técnica Remota" } },
       { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Diseño y Mantenimiento de Redes de Datos" } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo y Mantenimiento Web" } }
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo y Mantenimiento Web" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ensamblaje de Computadores" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Capacitación Tecnológica" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Marketing Digital" } }
     ]
   }
 };
@@ -90,7 +93,7 @@ const jsonLdLocalBusiness = {
 const jsonLdOrganization = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Sistek",
+  "name": "Sistek Pro",
   "url": siteUrl,
   "logo": `${siteUrl}/logo.png`,
   "description": "Redes empresariales, cableado estructurado y soporte técnico en Cali.",
@@ -102,7 +105,7 @@ const jsonLdOrganization = {
   },
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+57-123-4513541",
+    "telephone": datosEmpresa.telefonoIntl,
     "contactType": "customer service",
     "areaServed": "CO",
     "availableLanguage": "Spanish"
@@ -116,7 +119,7 @@ const jsonLdOrganization = {
 const jsonLdWebSite = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Sistek",
+  "name": "Sistek Pro",
   "url": siteUrl,
   "description": "Redes empresariales, cableado y soporte técnico en Cali.",
   "potentialAction": {
@@ -164,7 +167,7 @@ const jsonLdBreadcrumbs = {
     <!-- SEO Core -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Sistek" />
+    <meta name="author" content="Sistek Pro" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow" />
     <link rel="canonical" href={fullCanonical} />
@@ -188,8 +191,8 @@ const jsonLdBreadcrumbs = {
     <meta property="og:image" content={fullImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`Sistek - ${title}`} />
-    <meta property="og:site_name" content="Sistek" />
+    <meta property="og:image:alt" content={`Sistek Pro - ${title}`} />
+    <meta property="og:site_name" content="Sistek Pro" />
     <meta property="og:locale" content="es_CO" />
 
     <!-- Twitter -->
@@ -197,12 +200,12 @@ const jsonLdBreadcrumbs = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={fullImage} />
-    <meta name="twitter:image:alt" content={`Sistek - ${title}`} />
+    <meta name="twitter:image:alt" content={`Sistek Pro - ${title}`} />
 
     <!-- Mobile / PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Sistek" />
+    <meta name="apple-mobile-web-app-title" content="Sistek Pro" />
 
     <!-- Fonts: preload + display=swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

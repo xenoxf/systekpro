@@ -1,7 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
 import styles from '@/styles/ServicePage.module.css';
-import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { datosEmpresa } from '@/data/info';
+import Footer from '@/components/Footer.astro';
+import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 
 const service = {
   name: 'Asistencia técnica remota inmediata',
@@ -11,7 +14,7 @@ const service = {
   image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&q=80&auto=format&fit=crop',
   imageAlt: 'Asistencia técnica remota por computador',
   intro: 'Cuando el problema es de software o configuración, no hace falta que nadie cruce la ciudad. Nos conectamos a tu equipo con tu permiso, lo resolvemos mientras miras en pantalla, y queda registro escrito de lo que se tocó.',
-  waMsg: 'Hola Sistek, vengo de la página de Asistencia Remota. Tengo un problema y quiero resolverlo hoy mismo.',
+  waMsg: 'Hola Sistek Pro, vengo de la página de Asistencia Remota. Tengo un problema y quiero resolverlo hoy mismo.',
 };
 
 const jsonLd = {
@@ -19,7 +22,7 @@ const jsonLd = {
   "@type": "Service",
   "name": service.name,
   "description": service.description,
-  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "provider": { "@type": "LocalBusiness", "name": "Sistek Pro" },
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Asistencia técnica remota"
 };
@@ -55,8 +58,9 @@ const faq = [
 ];
 ---
 
-<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+<Layout title={`${service.h1} | Sistek Pro`} description={service.description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Navbar client:load />
   <main id="main" tabindex="-1">
     <section class={styles['service-page-hero']}>
       <div class="container">
@@ -68,11 +72,10 @@ const faq = [
             <h1>{service.h1}</h1>
             <p class={styles['service-hero-desc']}>{service.intro}</p>
             <div class={styles['service-hero-actions']}>
-              <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
-                <IconBrandWhatsapp aria-hidden="true" />
-                Pedir asistencia ya
+              <a href="/#contacto" class="btn-primary">
+                Solicitar cotización
               </a>
-              <a href="tel:+571234513541" class="btn-secondary">Llamar ahora</a>
+              <a href={`tel:${datosEmpresa.telefonoIntl}`} class="btn-secondary">Llamar ahora</a>
             </div>
             <ul class={styles['service-hero-points']}>
               <li>Sesión visible en tu pantalla: nada se toca a ciegas</li>
@@ -89,8 +92,8 @@ const faq = [
 
     <section class={styles['service-cases-section']}>
       <div class="container">
-        <h2>Son los casos que llegan todos los días</h2>
-        <p class={styles['service-cases-desc']}>Si estás viviendo alguno de estos, probablemente este servicio lo resuelve hoy mismo:</p>
+        <h2>¿Cuál de estos es tu caso?</h2>
+        <p class={styles['service-cases-desc']}>Si algo de esto te suena, este servicio lo resuelve:</p>
         <ul class={styles['service-cases']}>
           {casos.map(c => <li>{c}</li>)}
         </ul>
@@ -114,7 +117,7 @@ const faq = [
 
     <section class={styles['service-content']}>
       <div class="container">
-        <h2>¿Qué entra en el servicio?</h2>
+        <h2>Qué resolvemos en una sesión remota</h2>
         <div class={styles['service-benefits-grid']}>
           <ul class={styles['service-cases']}>
             {incluye.map(item => <li>{item}</li>)}
@@ -125,24 +128,25 @@ const faq = [
 
     <section class={styles['service-faq']}>
       <div class="container">
-        <h2>Lo más preguntado</h2>
+        <h2>Lo que preguntan del soporte remoto</h2>
         {faq.map(f => (<details class={styles['faq-details']}><summary>{f.q}</summary><p>{f.a}</p></details>))}
       </div>
     </section>
 
     <section class={styles['service-cta']}>
       <div class="container">
-        <h2>¿Te está pasando ahora mismo?</h2>
-        <p>Tu mejor opción es WhatsApp: recibimos el caso al momento y, si toca remoto, empezamos hoy mismo. No llenes formularios si el equipo está trancado justo ahora.</p>
+        <h2>¿Qué necesitas resolver?</h2>
+        <p>Escríbenos por WhatsApp o por el formulario. Si es un caso remoto, agendamos la sesión y la resolvemos contigo mirando.</p>
         <div class={styles['service-cta-actions']}>
-          <a href={`https://wa.me/573175000509?text=${encodeURIComponent(service.waMsg)}`} class={styles['wa-btn']} target="_blank" rel="noopener noreferrer">
-            <IconBrandWhatsapp aria-hidden="true" />
-            Escribir por WhatsApp
-          </a>
+          <a href="/#contacto" class="btn-primary">
+                Ir al formulario de contacto
+              </a>
           <a href="/#servicios" class="btn-secondary">Ver otros servicios</a>
         </div>
         <p class={styles['service-cta-note']}>Atención para todo Colombia por remoto; en sitio, Cali y el área metropolitana.</p>
       </div>
     </section>
   </main>
+  <Footer />
+  <WhatsAppFloat />
 </Layout>

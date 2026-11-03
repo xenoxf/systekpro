@@ -1,5 +1,4 @@
 import {
-  IconMail,
   IconPhone,
   IconMapPin,
   IconClock,
@@ -9,6 +8,7 @@ import {
 import styles from '@/styles/Contact.module.css'
 import { useState, type FormEvent } from "react"
 import { api, isApiError } from "@/services/api"
+import { opcionesServicio } from "@/data/servicios"
 import { datosEmpresa } from "@/data/info"
 
 type FormData = {
@@ -108,7 +108,7 @@ function Contact() {
             Hablemos de tu proyecto
           </h2>
           <p className={styles.sectionDesc}>
-            Contanos qué necesitás y te mandamos una propuesta con precio y tiempos.
+            Cuéntanos qué necesitas y te enviamos una propuesta con precios y tiempos.
           </p>
         </div>
 
@@ -155,8 +155,7 @@ function Contact() {
                   id="email"
                   name="email"
                   className={`${styles.formmInput} ${errors.email ? styles.formmInputError : ""}`}
-                  placeholder="tu@correo.com"
-                  autoComplete="email"
+                    autoComplete="email"
                   required
                   aria-invalid={errors.email ? true : undefined}
                   aria-describedby={errors.email ? "email-error" : undefined}
@@ -174,7 +173,7 @@ function Contact() {
                 id="numero"
                 name="numero"
                 className={`${styles.formmInput} ${errors.numero ? styles.formmInputError : ""}`}
-                placeholder="+57 300 123 4567"
+                placeholder={datosEmpresa.telefonoDisplay}
                 autoComplete="tel"
                 required
                 minLength={7}
@@ -197,15 +196,9 @@ function Contact() {
                 aria-describedby={errors.servicio ? "servicio-error" : undefined}
               >
                 <option value="">Selecciona un servicio</option>
-                <option value="mantenimiento">Mantenimiento de equipos</option>
-                <option value="redes">Instalación de redes</option>
-                <option value="cableado">Cableado estructurado</option>
-                <option value="configuracion">Configuración de routers/switches</option>
-                <option value="soporte">Soporte técnico</option>
-                <option value="remoto">Asistencia técnica remota</option>
-                <option value="redes-datos">Diseño y mantenimiento de redes de datos</option>
-                <option value="web">Desarrollo y mantenimiento web</option>
-                <option value="otro">Otro</option>
+                {opcionesServicio.map((op) => (
+                  <option key={op.value} value={op.value}>{op.label}</option>
+                ))}
               </select>
               {errors.servicio && (
                 <p id="servicio-error" className={styles.formmErrorMsg} role="alert">{errors.servicio}</p>
@@ -244,7 +237,7 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Teléfono</h3>
-                  <a href={"tel:+57" + datosEmpresa.telefono} className={styles.contactInfoValue}>+57 {datosEmpresa.telefono}</a>
+                  <a href={`tel:${datosEmpresa.telefonoIntl}`} className={styles.contactInfoValue}>{datosEmpresa.telefonoDisplay}</a>
                 </div>
               </div>
 
@@ -254,7 +247,7 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className={styles.contactInfoLabel}>Ubicación</h3>
-                  <p className={styles.contactInfoValue}>{datosEmpresa.direccionCompleta}</p>
+                  <p className={styles.contactInfoValue}>Calle 41, Cra 31 #00, Cali, Valle del Cauca</p>
                 </div>
               </div>
 
@@ -271,7 +264,7 @@ function Contact() {
           </div>
         </div>
       </div>
-    </section >
+    </section>
   )
 }
 

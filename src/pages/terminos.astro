@@ -1,22 +1,24 @@
 ---
 import LegalLayout from '../layouts/LegalLayout.astro';
+import { datosEmpresa } from '@/data/info';
+
 ---
 
-<LegalLayout title="Términos y Condiciones - Sistek">
+<LegalLayout title="Términos y Condiciones - Sistek Pro">
   <div class="legal-container">
     <h1 class="legal-title">Términos y Condiciones</h1>
     <p class="legal-date">Última actualización: 15 de mayo de 2026</p>
 
     <div class="legal-section">
       <p>
-        Al acceder y utilizar el sitio web de <strong>Sistek</strong>, aceptas cumplir con los siguientes términos y condiciones. Si no estás de acuerdo con alguno de estos términos, te recomendamos no utilizar nuestros servicios.
+        Al acceder y utilizar el sitio web de <strong>Sistek Pro</strong>, aceptas cumplir con los siguientes términos y condiciones. Si no estás de acuerdo con alguno de estos términos, te recomendamos no utilizar nuestros servicios.
       </p>
     </div>
 
     <div class="legal-section">
       <h2>1. Información general</h2>
       <p>
-        <strong>Sistek</strong> es una empresa dedicada al mantenimiento de equipos de cómputo, instalación de redes empresariales, cableado estructurado y soporte técnico, con domicilio en Calle 41, Cra 31 #00, Cali, Valle del Cauca, Colombia.
+        <strong>Sistek Pro</strong> es una empresa dedicada al mantenimiento de equipos de cómputo, instalación de redes empresariales, cableado estructurado y soporte técnico, con domicilio en Calle 41, Cra 31 #00, Cali, Valle del Cauca, Colombia.
       </p>
     </div>
 
@@ -49,14 +51,14 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     <div class="legal-section">
       <h2>5. Responsabilidad</h2>
       <p>
-        Sistek se compromete a realizar los servicios con la debida diligencia y profesionalismo. No nos hacemos responsables por daños indirectos o pérdidas derivadas del uso de los equipos después de la prestación del servicio. Es responsabilidad del cliente mantener copias de seguridad de su información antes de cualquier intervención.
+        Sistek Pro se compromete a realizar los servicios con la debida diligencia y profesionalismo. No nos hacemos responsables por daños indirectos o pérdidas derivadas del uso de los equipos después de la prestación del servicio. Es responsabilidad del cliente mantener copias de seguridad de su información antes de cualquier intervención.
       </p>
     </div>
 
     <div class="legal-section">
       <h2>6. Propiedad intelectual</h2>
       <p>
-        Todo el contenido del sitio web, incluyendo textos, imágenes, logotipos y diseño, es propiedad de Sistek y está protegido por las leyes de propiedad intelectual. No está permitida su reproducción sin autorización previa.
+        Todo el contenido del sitio web, incluyendo textos, imágenes, logotipos y diseño, es propiedad de Sistek Pro y está protegido por las leyes de propiedad intelectual. No está permitida su reproducción sin autorización previa.
       </p>
     </div>
 
@@ -73,8 +75,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
         Para cualquier consulta sobre estos términos y condiciones, contáctanos en:
       </p>
       <p>
-        <strong>Correo:</strong> contacto@sistek.com.co<br />
-        <strong>Teléfono:</strong> +57 123 4513541<br />
+        <strong>Teléfono:</strong> {datosEmpresa.telefonoDisplay}<br />
         <strong>Dirección:</strong> Calle 41, Cra 31 #00, Cali, Valle del Cauca, Colombia
       </p>
     </div>

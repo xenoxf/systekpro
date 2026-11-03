@@ -1,6 +1,8 @@
 ---
 import "@/styles/base.css";
 import "@/styles/legal.css";
+import Footer from "@/components/Footer.astro";
+import WhatsAppFloat from "@/components/WhatsAppFloat.astro";
 
 interface Props {
   title?: string;
@@ -8,8 +10,8 @@ interface Props {
 }
 
 const {
-  title = "Sistek",
-  description = "Información legal de Sistek - Infraestructura tecnológica y redes empresariales en Cali, Colombia."
+  title = "Sistek Pro",
+  description = "Información legal de Sistek Pro - Infraestructura tecnológica y redes empresariales en Cali, Colombia."
 } = Astro.props;
 
 const siteUrl = "https://sistek.com.co";
@@ -27,7 +29,8 @@ const siteUrl = "https://sistek.com.co";
     <link rel="canonical" href={`${siteUrl}${Astro.url.pathname}`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <title>{title}</title>
     <script>
       (function() {
@@ -46,5 +49,6 @@ const siteUrl = "https://sistek.com.co";
     <main id="main" tabindex="-1">
       <slot />
     </main>
-  </body>
+    <Footer />
+    <WhatsAppFloat />
 </html>

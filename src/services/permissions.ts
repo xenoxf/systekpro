@@ -4,7 +4,6 @@ export type PanelSection = "fichas" | "ordenes" | "usuarios" | "departamentos" |
 
 export const ADMIN_ROLE: AuthRole = "admin"
 export const GERENTE_ROLE: AuthRole = "gerente"
-export const MARKETING_ROLE: AuthRole = "marketing"
 
 export function isAdmin(user: AuthUser | null | undefined): boolean {
   return user?.role === ADMIN_ROLE
@@ -14,20 +13,8 @@ export function isGerente(user: AuthUser | null | undefined): boolean {
   return user?.role === GERENTE_ROLE
 }
 
-export function isMarketing(user: AuthUser | null | undefined): boolean {
-  return user?.role === MARKETING_ROLE
-}
-
 export function isAdminOrGerente(user: AuthUser | null | undefined): boolean {
   return user?.role === ADMIN_ROLE || user?.role === GERENTE_ROLE
-}
-
-export function isAdminOrMarketing(user: AuthUser | null | undefined): boolean {
-  return user?.role === ADMIN_ROLE || user?.role === MARKETING_ROLE
-}
-
-export function isAdminOrGerenteOrMarketing(user: AuthUser | null | undefined): boolean {
-  return user?.role === ADMIN_ROLE || user?.role === MARKETING_ROLE || user?.role === GERENTE_ROLE
 }
 
 export function canAccessSection(
@@ -37,8 +24,11 @@ export function canAccessSection(
   if (section === "usuarios") return isAdmin(user)
   if (section === "basedatos") return true
   if (section === "departamentos" || section === "empleados") return isAdminOrGerente(user)
-  if (section === "leads") return isAdminOrGerenteOrMarketing(user)
-  // fichas, ordenes, clientes -> admin, gerente, mantenimiento. Marketing solo ve leads.
+  // Formularios: todos los autenticados. El backend recorta la lista a los
+  // servicios del departamento del usuario; admin y gerencia ven todos.
+  if (section === "leads") return true
+  // fichas, ordenes, clientes -> admin, gerente, mantenimiento. El resto de
+  // departamentos (marketing, redes, informática...) trabaja con formularios.
   if (section === "fichas" || section === "ordenes" || section === "clientes") {
     return isAdmin(user) || isGerente(user) || user?.role === "mantenimiento"
   }
@@ -46,8 +36,9 @@ export function canAccessSection(
 }
 
 export function getDefaultSection(user: AuthUser | null | undefined): PanelSection {
-  if (isMarketing(user) && !isAdmin(user)) return "leads"
-  return "fichas"
+  // Quien no opera fichas ni órdenes arranca en sus formularios.
+  if (isAdminOrGerente(user) || user?.role === "mantenimiento") return "fichas"
+  return "leads"
 }
 
 // Solo admin puede eliminar (backend: DELETE @Roles(admin)) y gestionar usuarios.

@@ -17,7 +17,7 @@ export const services: Service[] = [
     title: 'Mantenimiento preventivo y correctivo de equipos de cómputo',
     description: 'Limpieza interna, cambio de pasta térmica, diagnóstico de hardware y optimización de software. Evitamos fallas antes de que detengan tu operación en Cali.',
     shortDescription: 'Limpieza, diagnóstico, reparación y optimización de computadores.',
-    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=900&q=80&auto=format&fit=crop',
+    image: '/evidencias/mantenimiento_pc.jpg',
     icon: 'IconDeviceLaptop',
     gradient: 'linear-gradient(135deg, hsl(217 91% 60% / 0.9) 0%, hsl(187 90% 46% / 0.7) 100%)',
     glowColor: 'hsl(217 91% 60%)',
@@ -87,6 +87,32 @@ export const services: Service[] = [
     glowColor: 'hsl(262 83% 58%)',
     ctaText: 'Cotizar computador',
     ctaLink: '/servicios/ensamblaje-computadores',
+  },
+
+  {
+    id: 11,
+    title: 'Capacitación tecnológica para empresas y colegios',
+    description: 'Entrenamos a tu equipo en el uso de computadores, software, correo y red. Talleres prácticos en tus instalaciones en Cali o en remoto, con contenido ajustado a tu operación.',
+    shortDescription: 'Talleres prácticos de informática para tu equipo, en tu sede o en remoto.',
+    image: 'https://images.pexels.com/photos/9159087/pexels-photo-9159087.jpeg?auto=compress&cs=tinysrgb&w=900',
+    icon: 'IconSchool',
+    gradient: 'linear-gradient(135deg, hsl(187 90% 46% / 0.9) 0%, hsl(262 83% 58% / 0.7) 100%)',
+    glowColor: 'hsl(187 90% 46%)',
+    ctaText: 'Ver servicio',
+    ctaLink: '/servicios/capacitacion-tecnologica',
+  },
+
+  {
+    id: 12,
+    title: 'Marketing digital para tu negocio',
+    description: 'Estrategia, contenido y campañas para que tu negocio aparezca en redes y Google y lleguen clientes nuevos. Manejo de redes, diseño y reporte de resultados, con precio cerrado.',
+    shortDescription: 'Redes sociales, contenido y campañas para atraer clientes.',
+    image: 'https://images.pexels.com/photos/6476260/pexels-photo-6476260.jpeg?auto=compress&cs=tinysrgb&w=900',
+    icon: 'IconSpeakerphone',
+    gradient: 'linear-gradient(135deg, hsl(38 92% 52% / 0.9) 0%, hsl(262 83% 58% / 0.7) 100%)',
+    glowColor: 'hsl(38 92% 52%)',
+    ctaText: 'Ver servicio',
+    ctaLink: '/servicios/marketing-digital',
   },
 
 ];

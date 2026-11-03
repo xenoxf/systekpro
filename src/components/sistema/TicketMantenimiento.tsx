@@ -29,9 +29,9 @@ export default function TicketMantenimiento({
       <div className={styles['ticket-sheet']}>
         <header className={styles['ticket-head']}>
           <div>
-            <a href="/" aria-label="Sistek - Inicio">
-              <img src="/logo.png" alt="Sistek logo" className="logo-light"  style={{maxHeight:'3.5rem', width:'auto', objectFit:'contain'}} />
-              <img src="/logo_white.png" alt="Sistek logo" className="logo-dark"  style={{maxHeight:'3.5rem', width:'auto', objectFit:'contain'}} />
+            <a href="/" aria-label="Sistek Pro - Inicio">
+              <img src="/logo.png" alt="Sistek Pro logo" className="logo-light"  style={{maxHeight:'3.5rem', width:'auto', objectFit:'contain'}} />
+              <img src="/logo_white.png" alt="Sistek Pro logo" className="logo-dark"  style={{maxHeight:'3.5rem', width:'auto', objectFit:'contain'}} />
             </a>
             <span className={styles['ticket-brand-sub']}>Seguimiento de mantenimiento</span>
           </div>

@@ -7,6 +7,7 @@ import { canDelete } from "@/services/permissions"
 import { toast } from "@/components/starwind/toast"
 import { Drawer, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
 import styles from "@/styles/SistemaUI.module.css"
+import { datosEmpresa } from "@/data/info"
 
 interface FormState {
   nombre_cliente: string
@@ -405,7 +406,7 @@ export default function ClientesSection() {
             </label>
             <label className={styles['sys-field']}>
               <span>Teléfono</span>
-              <input className={styles['sys-input']} value={form.telefono} maxLength={30} onChange={(e) => setForm((f) => ({ ...f, telefono: e.target.value }))} placeholder="3001234567" />
+              <input className={styles['sys-input']} value={form.telefono} maxLength={30} onChange={(e) => setForm((f) => ({ ...f, telefono: e.target.value }))} placeholder={datosEmpresa.telefono} />
             </label>
             <label className={`${styles['sys-field']} ${styles['sys-field--full']}`}>
               <span>Dirección</span>

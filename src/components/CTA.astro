@@ -1,5 +1,6 @@
 ---
 import { IconArrowRight, IconHeadset } from '@tabler/icons-react';
+import { datosEmpresa } from '@/data/info';
 import styles from "@/styles/CTA.module.css";
 ---
 
@@ -17,7 +18,7 @@ import styles from "@/styles/CTA.module.css";
           Solicitar cotización
           <IconArrowRight aria-hidden="true" />
         </a>
-        <a href="tel:+571234513541" class="btn-secondary">
+        <a href={`tel:${datosEmpresa.telefonoIntl}`} class="btn-secondary">
           <IconHeadset aria-hidden="true" />
           Llamar ahora
         </a>

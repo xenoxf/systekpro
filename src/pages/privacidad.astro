@@ -1,15 +1,17 @@
 ---
 import LegalLayout from '../layouts/LegalLayout.astro';
+import { datosEmpresa } from '@/data/info';
+
 ---
 
-<LegalLayout title="Aviso de Privacidad - Sistek">
+<LegalLayout title="Aviso de Privacidad - Sistek Pro">
   <div class="legal-container">
     <h1 class="legal-title">Aviso de Privacidad</h1>
     <p class="legal-date">Última actualización: 15 de mayo de 2026</p>
 
     <div class="legal-section">
       <p>
-        En <strong>Sistek</strong>, con domicilio en Calle 41, Cra 31 #00, Cali, Valle del Cauca, Colombia, nos comprometemos a proteger tu privacidad. Este aviso explica cómo recopilamos, usamos y protegemos tu información personal.
+        En <strong>Sistek Pro</strong>, con domicilio en Calle 41, Cra 31 #00, Cali, Valle del Cauca, Colombia, nos comprometemos a proteger tu privacidad. Este aviso explica cómo recopilamos, usamos y protegemos tu información personal.
       </p>
     </div>
 
@@ -60,7 +62,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
         <li><strong>Solicitar</strong> la cancelación de tus datos</li>
         <li><strong>Oponerte</strong> al tratamiento de tus datos</li>
       </ul>
-      <p>Para ejercer estos derechos, contáctanos a través de <strong>contacto@sistek.com.co</strong> o llamando al <strong>+57 123 4513541</strong>.</p>
+      <p>Para ejercer estos derechos, contáctanos por teléfono al <strong>{datosEmpresa.telefonoDisplay}</strong>.</p>
     </div>
 
     <div class="legal-section">
@@ -76,8 +78,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
         Si tienes preguntas o inquietudes sobre este aviso de privacidad, puedes contactarnos en:
       </p>
       <p>
-        <strong>Correo:</strong> contacto@sistek.com.co<br />
-        <strong>Teléfono:</strong> +57 123 4513541<br />
+        <strong>Teléfono:</strong> {datosEmpresa.telefonoDisplay}<br />
         <strong>Dirección:</strong> Calle 41, Cra 31 #00, Cali, Valle del Cauca, Colombia
       </p>
     </div>

@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar';
 import styles from '@/styles/ServicePage.module.css';
+import { datosEmpresa } from '@/data/info';
 import Footer from '@/components/Footer.astro';
 import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 
@@ -11,8 +13,8 @@ const service = {
   keywords: 'marketing digital cali, agencia marketing cali, redes sociales empresa, campañas publicitarias cali',
   image: '/evidencias/marketing_work-look-system.jpg',
   imageAlt: 'Equipo de marketing de Sistek Pro planificando una campaña digital',
-  intro: 'Tener página web o redes sin estrategia es publicar a ver qué pasa. Definimos cómo tu negocio se muestra en línea, qué mensaje transmite y por dónde llegar a los clientes que realmente te interesan, con un plan que puedes seguir mes a mes.',
-  waMsg: 'Hola Sistek, vengo de la página de Marketing Digital. Quiero potenciar mi negocio y quiero una cotización.',
+  intro: 'Publicar sin estrategia es publicar sin destino. Definimos cómo se muestra tu negocio, qué mensaje transmite y por qué canal llegan los clientes que te interesan.',
+  waMsg: 'Hola Sistek Pro, vengo de la página de Marketing Digital. Quiero potenciar mi negocio y quiero una cotización.',
 };
 
 const jsonLd = {
@@ -20,7 +22,7 @@ const jsonLd = {
   "@type": "Service",
   "name": service.name,
   "description": service.description,
-  "provider": { "@type": "LocalBusiness", "name": "Sistek" },
+  "provider": { "@type": "LocalBusiness", "name": "Sistek Pro" },
   "areaServed": { "@type": "City", "name": "Cali" },
   "serviceType": "Marketing digital"
 };
@@ -36,9 +38,9 @@ const casos = [
 
 const pasos = [
   { sub: 'Entendemos tu negocio', text: 'Hablamos de tus servicios, tus clientes y tus objetivos. Miramos cómo te ves hoy en línea y qué está dejando de funcionar.' },
-  { sub: 'Definimos la estrategia', text: 'Elegimos canales, mensaje y ritmo de publicación según tu público y tu presupuesto. Nada de hacer de todo a medias.' },
+  { sub: 'Definimos la estrategia', text: 'Elegimos canales, mensaje y ritmo de publicación según tu público y tu presupuesto.' },
   { sub: 'Producimos y publicamos', text: 'Contenido, diseño y publicaciones con tu marca. Coordinamos contigo el calendario y ajustamos según la respuesta del público.' },
-  { sub: 'Medimos y ajustamos', text: 'Revisamos los números: alcance, consultas y clientes que llegan. Lo que funciona se refuerza y lo que no, se cambia.' },
+  { sub: 'Medimos y ajustamos', text: 'Revisamos alcance, consultas y clientes que llegan. Reforzamos lo que funciona y ajustamos lo demás.' },
 ];
 
 const incluye = [
@@ -50,14 +52,15 @@ const incluye = [
 
 const faq = [
   { q: '¿Para qué negocios sirve?', a: 'Para empresas, comercios y profesionales de Cali y el Valle que quieren más presencia en línea y más consultas. Funciona igual si estás empezando o si ya tienes clientes y quieres crecer.' },
-  { q: '¿En cuánto tiempo se ven resultados?', a: 'Las redes son una inversión constante: lo relevante empieza a verse en semanas, no en días. Te decimos con honestidad qué esperar según el canal y el esfuerzo.' },
+  { q: '¿En cuánto tiempo se ven resultados?', a: 'Las redes son una inversión constante: lo relevante empieza a verse en semanas, no en días. Te decimos qué esperar según el canal y el esfuerzo.' },
   { q: '¿Ustedes toman las redes o me enseñan?', a: 'Ambas opciones existen: podemos manejar tus redes completamente, o capacitar a tu equipo para que las maneje bien. Lo definimos contigo.' },
   { q: '¿Cómo se cobra?', a: 'Por servicio o por plan mensual según los canales y el volumen de contenido. Siempre con precio cerrado antes de empezar y reporte de lo hecho.' },
 ];
 ---
 
-<Layout title={`${service.h1} | Sistek Cali`} description={service.description}>
+<Layout title={`${service.h1} | Sistek Pro`} description={service.description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Navbar client:load />
   <main id="main" tabindex="-1">
     <section class={styles['service-page-hero']}>
       <div class="container">
@@ -72,7 +75,7 @@ const faq = [
               <a href="/#contacto" class="btn-primary">
                 Solicitar cotización
               </a>
-              <a href="tel:+573144267349" class="btn-secondary">Llamar ahora</a>
+              <a href={`tel:${datosEmpresa.telefonoIntl}`} class="btn-secondary">Llamar ahora</a>
             </div>
             <ul class={styles['service-hero-points']}>
               <li>Estrategia definida antes de publicar nada</li>
@@ -89,8 +92,8 @@ const faq = [
 
     <section class={styles['service-cases-section']}>
       <div class="container">
-        <h2>Si esto te suena, estás dejando clientes por fuera</h2>
-        <p class={styles['service-cases-desc']}>Son las situaciones que vemos una y otra vez en negocios de Cali que tienen algo que ofrecer pero no lo muestran bien:</p>
+        <h2>¿Tu negocio pasa desapercibido en línea?</h2>
+        <p class={styles['service-cases-desc']}>Lo vemos seguido en negocios con algo que ofrecer pero sin una estrategia para mostrarlo:</p>
         <ul class={styles['service-cases']}>
           {casos.map(c => <li>{c}</li>)}
         </ul>

@@ -48,7 +48,7 @@ export default function SeguimientoView() {
   return (
     <div className={styles['seg-container']}>
       <header className={styles['seg-head']}>
-        <span className={styles['seg-brand']}>SISTEK</span>
+        <span className={styles['seg-brand']}>Sistek Pro</span>
         <h1>Seguimiento de mantenimiento</h1>
         <p className={styles['seg-sub']}>
           Consulta el estado de tus equipos en tiempo real con el código de tu orden.

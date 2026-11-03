@@ -1,60 +1,111 @@
+/*
+ *  Páginas de servicio — sistema compartido (11 páginas).
+ *
+ *  Mundo: document técnico serio de una empresa de Cali. Fondo blanco,
+ *  reglas finas como lenguaje estructural, azul de marca en datos y acciones,
+ *  y cierre en banda azul marino. El ritmo de scroll se marca con cambios de
+ *  fondo y separación generosa, no con cajas grises apiladas.
+ */
+
+/* ── Hero ── */
+
 .service-page-hero {
-  padding: 8rem 0 4rem;
-  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%);
+  position: relative;
+  padding: 8rem 0 4.5rem;
+  background: hsl(var(--background));
 }
+
+/* Regla firma: hairline degradado que cierra el hero */
+.service-page-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    hsl(var(--accent)) 0%,
+    hsl(var(--primary) / 0.35) 35%,
+    hsl(var(--border) / 0.4) 100%
+  );
+}
+
 .breadcrumb ol {
   display: flex;
   gap: 0.5rem;
   list-style: none;
   padding: 0;
-  margin-bottom: 2rem;
-  font-size: 0.875rem;
+  margin-bottom: 2.25rem;
+  font-size: 0.8125rem;
   color: hsl(var(--muted-foreground));
 }
+
 .breadcrumb li:not(:last-child)::after {
-  content: '/';
+  content: "/";
   margin-left: 0.5rem;
+  color: hsl(var(--border));
 }
+
 .breadcrumb a {
-  color: hsl(var(--primary));
-}
-.service-page-hero h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  margin-bottom: 1.5rem;
-}
-.service-hero-desc {
-  font-size: 1.25rem;
   color: hsl(var(--muted-foreground));
-  max-width: 600px;
-  margin-bottom: 2rem;
-  line-height: 1.6;
+  text-decoration: underline;
+  text-decoration-color: hsl(var(--border));
+  text-underline-offset: 3px;
 }
-.service-hero-actions {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+
+.breadcrumb a:hover {
+  color: hsl(var(--foreground));
+  text-decoration-color: hsl(var(--foreground));
 }
+
+.service-page-hero h1 {
+  font-size: clamp(2.125rem, 4.6vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  margin-bottom: 1.5rem;
+  color: hsl(var(--foreground));
+}
+
 .service-hero-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 2.5rem;
   align-items: center;
 }
+
 @media (min-width: 860px) {
   .service-hero-grid {
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
   }
 }
+
+.service-hero-desc {
+  font-size: 1.125rem;
+  color: hsl(var(--muted-foreground));
+  max-width: 62ch;
+  margin-bottom: 2rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.service-hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 .service-hero-photo {
   margin: 0;
-  border: 1px solid hsl(var(--border) / 0.6);
   border-radius: var(--radius);
   overflow: hidden;
-  background: hsl(var(--muted) / 0.3);
+  background: hsl(var(--muted) / 0.4);
+  box-shadow: 0 24px 48px -24px hsl(208 58% 16% / 0.35);
 }
+
 .service-hero-photo img {
   width: 100%;
   height: 100%;
@@ -62,168 +113,117 @@
   object-fit: cover;
   display: block;
 }
-.service-content {
-  padding: 4rem 0;
-}
-.service-content h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-.service-benefits-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-.service-benefit-card {
-  padding: 1.5rem;
-  border-radius: var(--radius-2xl);
-  border: 1px solid hsl(var(--border) / 0.5);
-  background: hsl(var(--card) / 0.5);
-}
-.service-benefit-card h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-.service-benefit-card p {
-  color: hsl(var(--muted-foreground));
-  line-height: 1.6;
-}
-.service-faq {
-  padding: 4rem 0;
-}
-.service-faq h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-.faq-details {
-  border: 1px solid hsl(var(--border) / 0.5);
-  border-radius: var(--radius-lg);
-  margin-bottom: 0.75rem;
-  padding: 1rem 1.5rem;
-  background: hsl(var(--card) / 0.3);
-}
-.faq-details summary {
-  font-weight: 600;
-  cursor: pointer;
-  list-style: none;
-}
-.faq-details summary::-webkit-details-marker { display: none; }
-.faq-details p {
-  margin-top: 0.75rem;
-  color: hsl(var(--muted-foreground));
-  line-height: 1.6;
-}
-.service-cta {
-  padding: 4rem 0;
-  text-align: center;
-  background: hsl(var(--card) / 0.3);
-}
-.service-cta h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-.service-cta p {
-  color: hsl(var(--muted-foreground));
-  margin-bottom: 2rem;
-  font-size: 1.125rem;
-}
 
-/* Acciones finales del CTA (WhatsApp + ver servicios) */
-.service-cta-actions {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.service-cta-note {
-  font-size: 0.8125rem;
-  color: hsl(var(--muted-foreground));
-  margin-top: 0.875rem;
-}
-
-/* Botón de WhatsApp: verde oficial, mismo idioma visual del sitio */
-.wa-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius);
-  background: #25d366;
-  color: #0b1121;
-  font-weight: 600;
-  font-size: 0.875rem;
-  border: 1px solid #25d366;
-  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.15s ease;
-  min-height: 44px;
-}
-
-.wa-btn:hover {
-  filter: brightness(1.06);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px -2px rgba(37, 211, 102, 0.4);
-}
-
-.wa-btn:active {
-  transform: translateY(0);
-  box-shadow: none;
-}
-
-.wa-btn:focus-visible {
-  outline: 2px solid hsl(var(--ring));
-  outline-offset: 2px;
-}
-
-.wa-btn svg {
-  width: 1.125rem;
-  height: 1.125rem;
-  flex-shrink: 0;
-}
-
-/* Frases de confianza bajo los botones del hero (texto plano, sin adornos) */
+/* Confianza bajo las acciones: lista de datos, sin viñetas ruidosas */
 .service-hero-points {
   list-style: none;
-  padding: 0.9375rem 0 0;
-  margin: 0.9375rem 0 0;
+  padding: 1.125rem 0 0;
+  margin: 1.5rem 0 0;
   border-top: 1px solid hsl(var(--border) / 0.6);
   display: flex;
   flex-direction: column;
-  gap: 0.3125rem;
+  gap: 0.4375rem;
+  max-width: 46ch;
 }
 
 .service-hero-points li {
   position: relative;
-  padding-left: 1rem;
-  font-size: 0.8125rem;
+  padding-left: 1.125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: hsl(var(--muted-foreground));
+  text-wrap: pretty;
 }
 
 .service-hero-points li::before {
-  content: "—";
+  content: "";
   position: absolute;
   left: 0;
-  color: hsl(var(--border));
+  top: 0.45em;
+  width: 6px;
+  height: 6px;
+  background: hsl(var(--primary));
 }
 
-/* ── Cómo trabajamos ── */
+/* ── Secciones: regla fina + fondo alterno ── */
+
+.service-cases-section,
+.service-steps-section,
+.service-content,
+.service-proof,
+.service-faq {
+  border-top: 1px solid hsl(var(--border) / 0.5);
+}
+
+.service-cases-section h2,
+.service-steps-section h2,
+.service-content h2,
+.service-proof h2,
+.service-faq h2 {
+  font-size: clamp(1.625rem, 2.8vw, 2.125rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  text-wrap: balance;
+  margin-bottom: 0.75rem;
+  color: hsl(var(--foreground));
+}
+
+/* ── Casos / incluye: listas de una lectura ── */
+
+.service-cases-section {
+  padding: clamp(3rem, 5.5vw, 4.5rem) 0;
+  background: hsl(var(--surface));
+}
+
+.service-cases-desc {
+  color: hsl(var(--muted-foreground));
+  font-size: 1rem;
+  max-width: 62ch;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-wrap: pretty;
+}
+
+.service-cases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 2.5rem;
+}
+
+@media (min-width: 720px) {
+  .service-cases {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.service-cases li {
+  position: relative;
+  padding: 0.6875rem 0 0.6875rem 1.375rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: hsl(var(--foreground));
+  border-bottom: 1px solid hsl(var(--border) / 0.55);
+  text-wrap: pretty;
+}
+
+.service-cases li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.0625rem;
+  width: 7px;
+  height: 7px;
+  background: hsl(var(--primary));
+}
+
+/* ── Pasos: secuencia con números ── */
+
 .service-steps-section {
-  padding: 2.75rem 0;
-  border-top: 1px solid hsl(var(--border) / 0.4);
-}
-
-.service-steps-section > .container > h2 {
-  font-size: 1.375rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
+  padding: clamp(3rem, 5.5vw, 4.5rem) 0;
 }
 
 .service-steps {
@@ -232,105 +232,91 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(1rem, 3vw, 2rem);
-  counter-reset: paso;
+  gap: clamp(1.25rem, 3vw, 2.25rem);
 }
 
 .service-step {
-  padding-top: 0.75rem;
-  border-top: 2px solid hsl(var(--border) / 0.7);
+  padding-top: 1rem;
+  border-top: 2px solid transparent;
+  border-image: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--border) / 0.3)) 1;
 }
 
 .service-step-num {
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.375rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.03em;
   color: hsl(var(--primary));
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .service-step h3 {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-bottom: 0.375rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.5rem;
+  color: hsl(var(--foreground));
 }
 
 .service-step p {
-  font-size: 0.8125rem;
-  line-height: 1.55;
+  font-size: 0.875rem;
+  line-height: 1.6;
   color: hsl(var(--muted-foreground));
   text-wrap: pretty;
 }
 
-/* ── Casos típicos (lista concreta de problemas que resolvemos) ── */
-.service-cases-section {
-  padding: 2.75rem 0;
-  border-top: 1px solid hsl(var(--border) / 0.4);
+/* ── Incluye / contenido ── */
+
+.service-content {
+  padding: clamp(3rem, 5.5vw, 4.5rem) 0;
 }
 
-.service-cases-section > .container > h2 {
-  font-size: 1.375rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
-}
-
-.service-cases-desc {
-  color: hsl(var(--muted-foreground));
-  font-size: 0.9375rem;
-  max-width: 40rem;
-  line-height: 1.6;
+.service-content h2 {
   margin-bottom: 1.5rem;
 }
 
-.service-cases {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.service-benefits-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 0.5rem 2.5rem;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-.service-cases li {
-  position: relative;
-  padding: 0.5rem 0 0.5rem 1.125rem;
+.service-benefit-card {
+  padding: 1.5rem;
+  border: 1px solid hsl(var(--border) / 0.6);
+  border-radius: var(--radius);
+  background: hsl(var(--background));
+}
+
+.service-benefit-card h3 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.5rem;
+}
+
+.service-benefit-card p {
+  color: hsl(var(--muted-foreground));
+  line-height: 1.6;
   font-size: 0.9375rem;
-  line-height: 1.5;
-  color: hsl(var(--foreground));
-  border-bottom: 1px solid hsl(var(--border) / 0.4);
-}
-
-.service-cases li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  color: hsl(var(--primary));
+  text-wrap: pretty;
 }
 
 /* ── Evidencia real (fotos del equipo trabajando) ── */
-.service-proof {
-  padding: 2.75rem 0;
-  border-top: 1px solid hsl(var(--border) / 0.4);
-  background: hsl(var(--muted) / 0.18);
-}
 
-.service-proof > .container > h2 {
-  font-size: 1.375rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
+.service-proof {
+  padding: clamp(3rem, 5.5vw, 4.5rem) 0;
+  background: hsl(var(--surface));
 }
 
 .service-proof-desc {
   color: hsl(var(--muted-foreground));
-  font-size: 0.9375rem;
-  max-width: 40rem;
+  font-size: 1rem;
+  max-width: 62ch;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  text-wrap: pretty;
 }
 
 .service-proof-grid {
@@ -341,10 +327,9 @@
 
 .service-proof-grid figure {
   margin: 0;
-  border: 1px solid hsl(var(--border) / 0.6);
   border-radius: var(--radius);
   overflow: hidden;
-  background: hsl(var(--muted) / 0.3);
+  background: hsl(var(--muted) / 0.4);
 }
 
 .service-proof-grid img {
@@ -355,16 +340,139 @@
 }
 
 .service-proof-grid figcaption {
-  padding: 0.625rem 0.875rem;
+  padding: 0.75rem 1rem;
   font-size: 0.8125rem;
   color: hsl(var(--muted-foreground));
-  border-top: 1px solid hsl(var(--border) / 0.6);
+  background: hsl(var(--background));
+  border-top: 1px solid hsl(var(--border) / 0.5);
 }
 
-/* ── Tablet y móvil ── */
 @media (min-width: 640px) {
   .service-proof-grid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* ── FAQ: acordeón editorial, sin cajas ── */
+
+.service-faq {
+  padding: clamp(3rem, 5.5vw, 4.5rem) 0;
+}
+
+.service-faq h2 {
+  margin-bottom: 1.75rem;
+}
+
+.faq-details {
+  border-top: 1px solid hsl(var(--border) / 0.6);
+}
+
+.faq-details:last-of-type {
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
+}
+
+.faq-details summary {
+  position: relative;
+  padding: 1.125rem 3rem 1.125rem 0;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.015em;
+  cursor: pointer;
+  list-style: none;
+  color: hsl(var(--foreground));
+  transition: color 0.15s ease;
+}
+
+.faq-details summary:hover {
+  color: hsl(var(--primary));
+}
+
+.faq-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-details summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1;
+  color: hsl(var(--muted-foreground));
+}
+
+.faq-details[open] summary::after {
+  content: "−";
+}
+
+.faq-details p {
+  padding: 0 3rem 1.375rem 0;
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.65;
+  max-width: 72ch;
+  text-wrap: pretty;
+}
+
+/* ── Cierre: banda azul marino ── */
+
+.service-cta {
+  padding: clamp(3.5rem, 6vw, 5rem) 0;
+  background: hsl(208 58% 16%);
+  color: hsl(0 0% 100%);
+}
+
+.service-cta h2 {
+  font-size: clamp(1.75rem, 3vw, 2.375rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  text-wrap: balance;
+  margin-bottom: 1rem;
+  color: hsl(0 0% 100%);
+}
+
+.service-cta p {
+  color: hsl(0 0% 100% / 0.82);
+  margin-bottom: 2rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  max-width: 58ch;
+  text-wrap: pretty;
+}
+
+.service-cta-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Sobre la banda oscura, el botón secundario invierte sus colores.
+   :global() porque .btn-secondary vive en base.css, no en este módulo
+   (sin :global el selector quedaría hasheado y no aplicaría nada). */
+.service-cta :global(.btn-secondary) {
+  border-color: hsl(0 0% 100% / 0.35);
+  color: hsl(0 0% 100%);
+}
+
+.service-cta :global(.btn-secondary:hover) {
+  background: hsl(0 0% 100% / 0.1);
+  border-color: hsl(0 0% 100% / 0.6);
+}
+
+.service-cta-note {
+  font-size: 0.8125rem;
+  color: hsl(0 0% 100% / 0.7);
+  margin: 1rem 0 0;
+}
+
+/* ── Móvil ── */
+
+@media (max-width: 900px) {
+  .service-steps {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -375,50 +483,26 @@
   }
 
   .service-page-hero {
-    padding: 5.5rem 0 2.5rem;
+    padding: 6rem 0 3rem;
   }
 
   .service-hero-desc {
-    font-size: 1rem;
+    font-size: 1.0625rem;
   }
 
   .service-hero-grid {
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
-  .service-content,
-  .service-faq,
-  .service-cta {
-    padding: 2.75rem 0;
+  .faq-details p {
+    padding-right: 0;
   }
+}
 
-  .service-steps-section,
-  .service-cases-section,
-  .service-proof {
-    padding: 2.25rem 0;
-  }
-
-  .service-content h2,
-  .service-faq h2,
-  .service-cta h2,
-  .service-steps-section > .container > h2,
-  .service-cases-section > .container > h2,
-  .service-proof > .container > h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.25rem;
-  }
-
+@media (max-width: 560px) {
   .service-steps {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .service-cta p {
-    font-size: 1rem;
-  }
-
-  .faq-details {
-    padding: 0.875rem 1rem;
+    gap: 1.5rem;
   }
 }
 
@@ -437,11 +521,12 @@
   }
 
   .service-page-hero {
-    padding: 5.25rem 0 2rem;
+    padding: 5.5rem 0 2.5rem;
   }
+}
 
-  .service-benefits-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+@media (prefers-reduced-motion: reduce) {
+  .faq-details summary {
+    transition: none;
   }
 }

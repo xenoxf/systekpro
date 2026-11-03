@@ -2,77 +2,100 @@
 import styles from "@/styles/Benefits.module.css";
 ---
 
-<section id="beneficios" class={styles['beneficios']}>
+<section id="beneficios" class={styles['beneficios']} aria-labelledby="beneficios-heading">
   <div class={styles['beneficios-inner']}>
-    <div class={styles['beneficios-header']}>
-      <h2 class={styles['beneficios-title']}>Cómo <span>trabajamos</span></h2>
+    <header class={styles['beneficios-header']}>
+      <h2 id="beneficios-heading" class={styles['beneficios-title']}>Cómo trabajamos</h2>
       <p class={styles['beneficios-desc']}>
-        Instalamos, configuramos y dejamos funcionando.
-        Cada servicio incluye garantía escrita y seguimiento.
+        Instalamos, configuramos y dejamos funcionando. Cada servicio tiene un
+        responsable claro y seguimiento.
       </p>
-    </div>
+    </header>
 
     <div class={styles['bento']}>
-      <article class={`${styles['b-card']} ${styles['b-featured']}`}>
-        <div class={styles['b-card-inner']}>
-          <div class={styles['b-card-img-wrap']}>
-            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80&auto=format&fit=crop" alt="Trabajo directo con el cliente" class={styles['b-card-img']} loading="lazy" />
-          </div>
-          <div class={styles['b-card-content']}>
-            <div class={styles['b-card-top']}>
-              <h3 class={styles['b-title--lg']}>Trato directo</h3>
-            </div>
-            <p class={styles['b-desc']}>El mismo equipo diseña tu red, la instala y atiende tus llamadas después. Conoces por nombre a quien hace el trabajo.</p>
-            <ul class={styles['b-list']}>
-              <li>Contacto directo con el responsable del trabajo</li>
-              <li>Respuesta en menos de 24 horas</li>
-              <li>Garantía escrita en cada instalación</li>
-            </ul>
-          </div>
+      <article class={styles['b-card']}>
+        <div class={styles['b-card-media']}>
+          <img
+            src="/evidencias/todos_trabajando.jpg"
+            alt="Equipo de Sistek Pro trabajando junto a un cliente"
+            class={styles['b-card-img']}
+            width="1200"
+            height="800"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
-      </article>
-
-      <article class={`${styles['b-card']} ${styles['b-card--stack']}`}>
-        <div class={styles['b-card-img-wrap--sm']}>
-          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=80&auto=format&fit=crop" alt="Tiempo de respuesta rápido" class={styles['b-card-img']} loading="lazy" />
+        <div class={styles['b-card-content']}>
+          <h3 class={styles['b-title']}>Trato directo</h3>
+          <p class={styles['b-desc']}>
+            El mismo equipo diseña tu red, la instala y atiende tus llamadas
+            después. Sabes quién responde.
+          </p>
         </div>
-        <h3 class={styles['b-title']}>Atención en 24 horas</h3>
-        <p class={styles['b-desc']}>Coordinamos visita o soporte remoto en menos de 24 horas, con fecha y hora acordadas.</p>
       </article>
 
       <article class={styles['b-card']}>
-        <div class={styles['b-card-img-wrap--sm']}>
-          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80&auto=format&fit=crop" alt="Presupuesto sin sorpresas" class={styles['b-card-img']} loading="lazy" />
+        <div class={styles['b-card-media']}>
+          <img
+            src="/evidencias/alguien_codeando.jpg"
+            alt="Desarrollador de Sistek Pro programando una solución a medida"
+            class={styles['b-card-img']}
+            width="1200"
+            height="800"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
-        <h3 class={styles['b-title']}>Precio cerrado</h3>
-        <p class={styles['b-desc']}>Cotización con precio y alcance antes de empezar. Lo cotizado es lo que pagas.</p>
+        <div class={styles['b-card-content']}>
+          <h3 class={styles['b-title']}>Soluciones a medida</h3>
+          <p class={styles['b-desc']}>
+            Revisamos tu infraestructura y proponemos lo que tu operación
+            necesita. Cotizamos con precio y alcance antes de empezar; lo
+            cotizado es lo que pagas.
+          </p>
+        </div>
       </article>
 
       <article class={styles['b-card']}>
-        <div class={styles['b-card-img-wrap--sm']}>
-          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&q=80&auto=format&fit=crop" alt="Certificaciones reales" class={styles['b-card-img']} loading="lazy" />
+        <div class={styles['b-card-media']}>
+          <img
+            src="/evidencias/redes_trabajando_2.jpg"
+            alt="Técnico trabajando en el cableado y los equipos de red"
+            class={styles['b-card-img']}
+            width="1200"
+            height="800"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
-        <h3 class={styles['b-title']}>Técnicos capacitados</h3>
-        <p class={styles['b-desc']}>Personal capacitado en Cisco, MikroTik, Ubiquiti y TP-Link, con instalaciones realizadas en Cali.</p>
+        <div class={styles['b-card-content']}>
+          <h3 class={styles['b-title']}>Trabajo técnico</h3>
+          <p class={styles['b-desc']}>
+            Personal capacitado en Cisco, MikroTik, Ubiquiti y TP-Link para
+            instalar y configurar tu red.
+          </p>
+        </div>
       </article>
 
       <article class={styles['b-card']}>
-        <div class={styles['b-card-img-wrap--sm']}>
-          <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&q=80&auto=format&fit=crop" alt="Presencia local en Cali" class={styles['b-card-img']} loading="lazy" />
+        <div class={styles['b-card-media']}>
+          <img
+            src="/evidencias/personal_trabajando-puedesercualquierdepartamento.jpg"
+            alt="Acompañamiento del equipo de Sistek Pro durante la entrega de un proyecto"
+            class={styles['b-card-img']}
+            width="1200"
+            height="800"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
-        <h3 class={styles['b-title']}>Equipo local en Cali</h3>
-        <p class={styles['b-desc']}>Estamos en Cali y atendemos toda la ciudad y el área metropolitana, en sitio o remoto.</p>
-      </article>
-
-      <article class={`${styles['b-card']} ${styles['b-wide']}`}>
-        <div class={styles['b-wide-left']}>
-          <div class={styles['b-card-img-wrap--sm']}>
-            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&q=80&auto=format&fit=crop" alt="Garantía por escrito" class={styles['b-card-img']} loading="lazy" />
-          </div>
-          <div>
-            <h3 class={styles['b-title']}>Garantía por escrito</h3>
-            <p class={styles['b-desc']}>Cada instalación se entrega con garantía firmada y acta de entrega.</p>
-          </div>
+        <div class={styles['b-card-content']}>
+          <h3 class={styles['b-title']}>Acompañamiento</h3>
+          <p class={styles['b-desc']}>
+            Coordinamos la visita o el soporte remoto con fecha y hora
+            acordadas, en Cali y el área metropolitana. Cada instalación se
+            entrega con garantía escrita.
+          </p>
         </div>
       </article>
     </div>

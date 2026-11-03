@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '@/components/Footer.astro';
 import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 import styles from '@/styles/Nosotros.module.css';
+import { datosEmpresa } from '@/data/info';
 
 const departamentos = [
   {
@@ -49,11 +50,23 @@ const departamentos = [
     tasks: ['Capacitación en uso de equipos y red', 'Manuales de entrega por proyecto', 'Entrenamiento interno del equipo'],
   },
 ];
+
+const evidencias = [
+  { img: '/evidencias/todos_trabajando.jpg', alt: 'El equipo de Sistek Pro trabajando en conjunto' },
+  { img: '/evidencias/redes_trabajando.jpg', alt: 'Instalación de red en sitio por el equipo de Sistek Pro' },
+  { img: '/evidencias/redes_trabajando_2.jpg', alt: 'Técnico configurando equipos de red' },
+  { img: '/evidencias/mantenimiento_pc.jpg', alt: 'Mantenimiento preventivo a un computador' },
+  { img: '/evidencias/alguien_codeando.jpg', alt: 'Desarrollo de un sitio web a medida' },
+  { img: '/evidencias/codeando_sitio_web.jpg', alt: 'Programación de la página web de un cliente' },
+  { img: '/evidencias/marketing_work.jpg', alt: 'Reunión de trabajo del equipo de marketing' },
+  { img: '/evidencias/marketing_work-look-system.jpg', alt: 'Planeación de campaña de marketing digital' },
+  { img: '/evidencias/personal_trabajando-puedesercualquierdepartamento.jpg', alt: 'Personal de Sistek Pro en actividad de capacitación' },
+];
 ---
 
 <Layout
-  title="Nosotros | Sistek Cali"
-  description="Sistek en Cali: organigrama y departamentos de gerencia, administración, redes, mantenimiento, desarrollo web, marketing y capacitación."
+  title="Nosotros | Sistek Pro"
+  description="Sistek Pro en Cali: organigrama y departamentos de gerencia, administración, redes, mantenimiento, desarrollo web, marketing y capacitación."
 >
   <Navbar client:load />
   <main id="main" tabindex="-1">
@@ -67,7 +80,7 @@ const departamentos = [
         </nav>
         <h1>Nosotros</h1>
         <p class={styles['about-hero-desc']}>
-          Sistek es un equipo de trabajo organizado por departamentos.
+          Sistek Pro es un equipo de trabajo organizado por departamentos.
           Instalamos redes, mantenemos equipos y desarrollamos páginas web
           para empresas, colegios y negocios en Cali y el Valle del Cauca.
         </p>
@@ -84,12 +97,12 @@ const departamentos = [
         <div class={styles['quienes-grid']}>
           <div class={styles['quienes-text']}>
             <p>
-              <strong>Sistek</strong> instala, configura y mantiene redes empresariales,
+              <strong>Sistek Pro</strong> instala, configura y mantiene redes empresariales,
               cableado estructurado y equipos de cómputo. También desarrolla y mantiene
               páginas web con servicios backend. Trabajamos en Cali y el área metropolitana.
             </p>
             <p>
-              La visita la hace personal de Sistek
+              La visita la hace personal de Sistek Pro
               y el seguimiento de cada servicio queda registrado por departamento.
             </p>
             <dl class={styles['quienes-facts']}>
@@ -107,13 +120,13 @@ const departamentos = [
               </div>
               <div>
                 <dt>Contacto</dt>
-                <dd>WhatsApp 317 500 0509 · Calle 41, Cra 31 #00</dd>
+                <dd>WhatsApp {datosEmpresa.telefonoDisplay} · {datosEmpresa.direccion}</dd>
               </div>
             </dl>
           </div>
           <figure class={styles['quienes-photo']}>
-            <img src="/departamentos/todos_departamentos.jpg" alt="Equipo completo de Sistek por departamentos" loading="lazy" decoding="async" />
-            <figcaption>Equipo Sistek: todos los departamentos.</figcaption>
+            <img src="/departamentos/todos_departamentos.jpg" alt="Equipo completo de Sistek Pro por departamentos" loading="lazy" decoding="async" />
+            <figcaption>Equipo Sistek Pro: todos los departamentos.</figcaption>
           </figure>
         </div>
       </div>
@@ -127,7 +140,7 @@ const departamentos = [
           agrupa las áreas que instalan y desarrollan.
         </p>
         <figure class={styles['org-figure']}>
-          <img src="/info/organigrama.jpg" alt="Organigrama de Sistek: gerencia, administración, coordinación técnica, marketing y capacitación" loading="lazy" decoding="async" />
+          <img src="/info/organigrama.jpg" alt="Organigrama de Sistek Pro: gerencia, administración, coordinación técnica, marketing y capacitación" loading="lazy" decoding="async" />
         </figure>
       </div>
     </section>
@@ -156,6 +169,23 @@ const departamentos = [
       </div>
     </section>
 
+    <section class={styles['nosotros-section']} aria-labelledby="evid-heading">
+      <div class="container">
+        <h2 id="evid-heading" class={styles['section-title']}>Así se ve nuestro trabajo</h2>
+        <p class={styles['section-desc']}>
+          Fotos reales de instalaciones, diagnósticos y entregas hechas por
+          nuestro equipo en Cali y el área metropolitana.
+        </p>
+        <ul class={styles['evid-grid']}>
+          {evidencias.map(e => (
+            <li class={styles['evid-item']}>
+              <img src={e.img} alt={e.alt} class={styles['evid-photo']} loading="lazy" decoding="async" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
     <section class={styles['nosotros-section']} aria-labelledby="datos-heading">
       <div class="container">
         <h2 id="datos-heading" class={styles['section-title']}>Datos de la empresa</h2>
@@ -164,8 +194,8 @@ const departamentos = [
           <div class={styles['data-row']}><dt>Razón social</dt><dd>Sistek Pro</dd></div>
           <div class={styles['data-row']}><dt>Ciudad</dt><dd>Cali, Valle del Cauca, Colombia</dd></div>
           <div class={styles['data-row']}><dt>Dirección</dt><dd>Calle 41, Cra 31 #00, Cali</dd></div>
-          <div class={styles['data-row']}><dt>WhatsApp</dt><dd><a href="https://wa.me/573175000509" target="_blank" rel="noopener noreferrer">317 500 0509</a></dd></div>
-          <div class={styles['data-row']}><dt>Servicios</dt><dd><a href="/#servicios">Ver los 9 servicios</a></dd></div>
+          <div class={styles['data-row']}><dt>WhatsApp</dt><dd><a href={`https://wa.me/${datosEmpresa.waNumber}`} target="_blank" rel="noopener noreferrer">{datosEmpresa.telefonoDisplay}</a></dd></div>
+          <div class={styles['data-row']}><dt>Servicios</dt><dd><a href="/#servicios">Ver los 11 servicios</a></dd></div>
         </dl>
         <div class={styles['nosotros-cta']}>
           <a href="/#servicios" class="btn-primary">Ver servicios</a>

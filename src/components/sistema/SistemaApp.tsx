@@ -16,6 +16,7 @@ import {
 } from "@tabler/icons-react"
 import { clearSession, getSession, type AuthUser } from "@/services/auth"
 import { canAccessSection, getDefaultSection, type PanelSection } from "@/services/permissions"
+import { claveDeNombre, departamentoLabel } from "@/data/servicios"
 
 // Lazy-load pesado: evita que /sistema cargue todas las secciones a la vez.
 // Cada sección se code-split en chunk separado y solo se descarga al navegar.
@@ -228,9 +229,9 @@ export default function SistemaApp() {
 
       <aside className={`${styles['sys-sidebar']} ${navOpen ? styles['is-open'] : ""}`} aria-label="Panel de navegación">
         <div className={styles['sys-brand']}>
-          <a href="/" aria-label="Sistek - Inicio" style={{ display: 'inline-flex' }}>
-            <img src="/logo.png" alt="Sistek logo" className={styles['sys-brand-logo-light']} />
-            <img src="/logo_white.png" alt="Sistek logo" className={styles['sys-brand-logo-dark']} />
+          <a href="/" aria-label="Sistek Pro - Inicio" style={{ display: 'inline-flex' }}>
+            <img src="/logo.png" alt="Sistek Pro logo" className={styles['sys-brand-logo-light']} />
+            <img src="/logo_white.png" alt="Sistek Pro logo" className={styles['sys-brand-logo-dark']} />
           </a>
         </div>
 
@@ -361,7 +362,20 @@ export default function SistemaApp() {
               <span className={styles['sys-user-avatar']} aria-hidden="true">
                 {user?.name?.slice(0, 2).toUpperCase() ?? "US"}
               </span>
-              <strong>{user?.name}</strong>
+              <span style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
+                <strong>{user?.name}</strong>
+                <span
+                  style={{
+                    fontSize: "0.6875rem",
+                    color: "hsl(var(--muted-foreground))",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {departamentoLabel(claveDeNombre(user?.departamentoNombre) || user?.role)}
+                </span>
+              </span>
             </div>
             <button type="button" className={styles['sys-logout-btn']} onClick={handleLogout}>
               <IconLogout size={14} aria-hidden="true" />

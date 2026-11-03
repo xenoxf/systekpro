@@ -4,26 +4,31 @@ import { leadsService, type Lead } from "@/services/leads"
 import { isApiError } from "@/services/api"
 import { getSession } from "@/services/auth"
 import { canDelete } from "@/services/permissions"
+import { departamentoDelServicio, departamentoLabel, servicioLabel } from "@/data/servicios"
 import { toast } from "@/components/starwind/toast"
 import { Drawer, ConfirmDialog, EmptyState, Spinner, formatDate } from "./ui"
 import styles from "@/styles/SistemaUI.module.css"
 
-function servicioLabel(s: string): string {
-  const map: Record<string, string> = {
-    mantenimiento: "Mantenimiento",
-    redes: "Instalación de redes",
-    cableado: "Cableado estructurado",
-    configuracion: "Config. routers/switches",
-    soporte: "Soporte técnico",
-    wifi: "Redes inalámbricas",
-    otro: "Otro",
-  }
-  return map[s] ?? s
+/** Departamento que atiende el servicio pedido en el formulario. */
+function departamentoDel(lead: Lead): string {
+  return departamentoDelServicio(lead.servicio) ?? ""
+}
+
+function departamentoTexto(lead: Lead): string {
+  const dep = departamentoDel(lead)
+  return dep ? departamentoLabel(dep) : "Sin departamento"
 }
 
 export default function LeadsSection() {
   const [currentUser] = useState(() => getSession()?.user ?? null)
   const allowDelete = canDelete(currentUser)
+
+  // El backend devuelve solo los formularios del departamento del usuario;
+  // admin y gerencia reciben los de todos.
+  const esGlobal = currentUser?.role === "admin" || currentUser?.role === "gerente"
+  const ambito = esGlobal
+    ? "Todos los departamentos"
+    : `Departamento de ${departamentoLabel(currentUser?.departamentoNombre || currentUser?.role)}`
 
   const [items, setItems] = useState<Lead[]>([])
   const [loading, setLoading] = useState(true)
@@ -108,7 +113,11 @@ export default function LeadsSection() {
           <h2 className={styles['sys-panel-title']} style={{ marginTop: "0.2rem", fontSize: "1.25rem" }}>Formularios recibidos</h2>
           {!loading && (
             <p className={styles['sys-panel-sub']} style={{ fontSize: "0.8125rem" }}>
-              {total === 0 ? (debouncedSearch ? `Sin resultados para "${debouncedSearch}"` : "Sin formularios aún") : `${total} ${total === 1 ? "formulario" : "formularios"}${debouncedSearch ? ` · filtrado por "${debouncedSearch}"` : ""} · página ${page} de ${totalPages}`}
+              {ambito}
+              {" · "}
+              {total === 0
+                ? (debouncedSearch ? `sin resultados para "${debouncedSearch}"` : "sin formularios aún")
+                : `${total} ${total === 1 ? "formulario" : "formularios"}${debouncedSearch ? ` filtrado por "${debouncedSearch}"` : ""} · página ${page} de ${totalPages}`}
             </p>
           )}
         </div>
@@ -143,7 +152,11 @@ export default function LeadsSection() {
       ) : items.length === 0 ? (
         <EmptyState
           title="No hay formularios recibidos"
-          description="Los mensajes enviados desde el formulario público de contacto aparecerán aquí."
+          description={
+            esGlobal
+              ? "Los mensajes enviados desde el formulario público de contacto aparecerán aquí."
+              : "Todavía no hay formularios de los servicios de tu departamento. Los que lleguen desde el sitio web se listan aquí."
+          }
           icon={<IconInbox size={22} aria-hidden="true" />}
         />
       ) : (
@@ -154,6 +167,7 @@ export default function LeadsSection() {
                 <tr>
                   <th scope="col">Contacto</th>
                   <th scope="col">Servicio</th>
+                  <th scope="col">Departamento</th>
                   <th scope="col">Mensaje</th>
                   <th scope="col">Fecha</th>
                   <th scope="col" style={{ width: "8rem" }}>Acciones</th>
@@ -176,6 +190,7 @@ export default function LeadsSection() {
                       </span>
                     </td>
                     <td data-label="Servicio"><span className={styles['sys-badge']}>{servicioLabel(lead.servicio)}</span></td>
+                    <td data-label="Departamento"><span className={styles['sys-badge']}>{departamentoTexto(lead)}</span></td>
                     <td data-label="Mensaje" style={{ maxWidth: "22rem" }}>
                       <span style={{ display: "block", fontSize: "0.8125rem", color: "hsl(var(--muted-foreground))", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} title={lead.message}>
                         {lead.message}
@@ -218,6 +233,7 @@ export default function LeadsSection() {
             <div><dt>Email</dt><dd><a href={`mailto:${detail.email}`} style={{ color: "hsl(var(--primary))" }}>{detail.email}</a></dd></div>
             <div><dt>Teléfono</dt><dd><a href={`tel:${detail.numero}`} style={{ color: "hsl(var(--primary))" }}>{detail.numero}</a></dd></div>
             <div><dt>Servicio</dt><dd><span className={styles['sys-badge']}>{servicioLabel(detail.servicio)}</span></dd></div>
+            <div><dt>Departamento</dt><dd><span className={styles['sys-badge']}>{departamentoTexto(detail)}</span></dd></div>
             <div className={styles['sys-detail-full']}><dt>Mensaje</dt><dd style={{ whiteSpace: "pre-wrap", lineHeight: "1.5" }}>{detail.message}</dd></div>
             <div><dt>Recibido</dt><dd>{formatDate(detail.createdAt)}</dd></div>
             <div><dt>Actualizado</dt><dd>{formatDate(detail.updatedAt)}</dd></div>

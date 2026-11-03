@@ -7,21 +7,22 @@ import {
     IconArrowUp,
 } from "@tabler/icons-react";
 import styles from "@/styles/Footer.module.css";
+import { datosEmpresa } from '@/data/info';
 ---
 
 <footer class={styles.footer}>
     <div class={styles['footer-inner']}>
         <div class={styles['footer-grid']}>
             <div class={styles['footer-brand']}>
-                <a href="/" class={styles['footer-logo']} aria-label="Sistek - Inicio">
+                <a href="/" class={styles['footer-logo']} aria-label="Sistek Pro - Inicio">
                     <img
                         src="/logo.png"
-                        alt="Sistek logo"
+                        alt="Sistek Pro logo"
                         class={`${styles['logo-light']} ${styles['logo']}`}
                     />
                     <img
                         src="/logo_white.png"
-                        alt="Sistek logo"
+                        alt="Sistek Pro logo"
                         class={`${styles['logo-dark']} ${styles['logo']}`}
                     />
                 </a>
@@ -35,7 +36,7 @@ import styles from "@/styles/Footer.module.css";
                 <h3 class={styles['footer-heading']}>Empresa</h3>
                 <ul class={styles['footer-links']}>
                     <li><a href="/nosotros">Nosotros</a></li>
-                    <li><a href="/#beneficios">Beneficios</a></li>
+                    <li><a href="/#beneficios">Cómo trabajamos</a></li>
                     <li><a href="/#faq">Preguntas frecuentes</a></li>
                     <li><a href="/#contacto">Contacto</a></li>
                 </ul>
@@ -47,9 +48,9 @@ import styles from "@/styles/Footer.module.css";
                     <li class={styles['footer-contact-item']}>
                         <span class={styles['footer-contact-label']}>WhatsApp</span>
                         <a
-                            href="https://wa.me/+57 123 4513541"
+                            href={`https://wa.me/${datosEmpresa.waNumber}`}
                             target="_blank"
-                            rel="noopener noreferrer">3175000509</a
+                            rel="noopener noreferrer">{datosEmpresa.telefonoDisplay}</a
                         >
                     </li>
                     <li class={styles['footer-contact-item']}>
@@ -62,14 +63,13 @@ import styles from "@/styles/Footer.module.css";
 
         <div class={styles['footer-bottom']}>
             <p class={styles['footer-copy']}>
-                &copy; {new Date().getFullYear()} Sistek. Todos los derechos reservados.
+                &copy; {new Date().getFullYear()} Sistek Pro. Todos los derechos reservados.
             </p>
-            <div class={styles['footer-legal']}>
+            <nav aria-label="Enlaces legales" class={styles['footer-legal']}>
                 <a href="/privacidad">Aviso de privacidad</a>
                 <a href="/terminos">Términos y condiciones</a>
                 <a href="/politicas">Políticas empresariales</a>
                 <a href="/auth">sistema</a>
-            </div>
+            </nav>
         </div>
-    </div>
 </footer>

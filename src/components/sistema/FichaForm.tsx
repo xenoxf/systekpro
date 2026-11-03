@@ -6,6 +6,7 @@ import { isApiError } from "@/services/api"
 import { toast } from "@/components/starwind/toast"
 import { Modal } from "./ui"
 import styles from "@/styles/FichaForm.module.css"
+import { datosEmpresa } from "@/data/info"
 
 interface Props {
   ficha?: FichaTecnica | null
@@ -656,7 +657,7 @@ export default function FichaForm({ ficha, preselectedCliente, submitting, onSub
             </label>
             <label className={styles['sys-field']}>
               <span>Teléfono</span>
-              <input className={styles['sys-input']} value={nuevoForm.telefono ?? ""} maxLength={30} onChange={(e) => setNuevoForm((f) => ({ ...f, telefono: e.target.value }))} placeholder="3001234567" />
+              <input className={styles['sys-input']} value={nuevoForm.telefono ?? ""} maxLength={30} onChange={(e) => setNuevoForm((f) => ({ ...f, telefono: e.target.value }))} placeholder={datosEmpresa.telefono} />
             </label>
             <label className={`${styles['sys-field']} ${styles['sys-field--full']}`}>
               <span>Dirección</span>
